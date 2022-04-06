@@ -25,7 +25,7 @@
                 class="sidebar-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : '' ?> ">
                 <a href="../layout/dashboard.php" class='sidebar-link '>
                     <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
+                    <span>Dashboard coba</span>
                 </a>
             </li>
 
