@@ -64,36 +64,118 @@
 
     <!-- Basic Tables start -->
     <section class="section">
-        <div class="card">
+        <div class="card" >
             <div class="card-header">
                 Jquery Datatable
             </div>
             <div class="card-body">
-                <table class="table" id="table1">
-                    <thead>
+            <div class="table-responsive">
+                <table class="table" id="table1" width="100%" cellspacing="0">
+                    <thead> 
                         <tr>
-                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>NPWP</th>
+                            <th>No.Telp</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>City</th>
-                            <th>Status</th>
+                            <th>Alamat NPWP</th>
+                            <th>Alamat Rumah</th>
+                            <th>Instansi</th>
+                            <th>Jabatan</th>
+                            <th>File NPWP</th>
+                            <th>Alumni UNAIR</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Graiden</td>
-                            <td>vehicula.aliquet@semconsequat.co.uk</td>
+                            <td>CUS001</td>
+                            <td>Annisa Aristawati</td>
                             <td>076 4820 8838</td>
-                            <td>Offenburg</td>
+                            <td>085706568677</td>
+                            <td> <a>annisa.aristawati@gmail.com</a></td>
+                            <td>Jl. Karang Menjangan III No.28, Surabayra</td>
+                            <td>Jl. Kalimantan Indah No.44, Sidoarjo</td>
+                            <td>Universitas Airlangga</td>
+                            <td>General Manager</td>
                             <td>
-                                <span class="badge bg-success">Active</span>
+                                <span class="badge bg-success">download</span>
                             </td>
-                        </tr>
-                       
+                            <td>Ya</td>                   
+                        </tr>                      
                     </tbody>
+                    </div>
+
                 </table>
             </div>
         </div>
+
+
+
+
+
+
+        <!-- <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>NPWP</th>
+                            <th>No.Telp</th>
+                            <th>Email</th>
+                            <th>Alamat NPWP</th>
+                            <th>Alamat Rumah</th>
+                            <th>Instansi</th>
+                            <th>Jabatan</th>
+                            <th>File NPWP</th>
+                            <th>Alumni UNAIR</th>
+                            <th>Alumni UNAIR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CUS001</td>
+                            <td>Annisa Aristawati</td>
+                            <td>076 4820 8838</td>
+                            <td>085706568677</td>
+                            <td> <a>annisa.aristawati@gmail.com</a></td>
+                            <td>Jl. Karang Menjangan III No.28, Surabayra</td>
+                            <td>Jl. Kalimantan Indah No.44, Sidoarjo</td>
+                            <td>Universitas Airlangga</td>
+                            <td>General Manager</td>
+                            <td>
+                                <span class="badge bg-success">download</span>
+                            </td>
+                            <td>Ya</td>
+                            <td>Ya</td>
+                    
+                        </tr> -->
+                                    
+                                         
+                                        
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </section>
     <!-- Basic Tables end -->
