@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || Administrator</title>
+    <title>Table Datatable Jquery - Mazer Admin Dashboard</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
     
 <!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
-<link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
+<link rel="stylesheet" href="../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="../assets/vendors/fontawesome/all.min.css">
 <style>
     table.dataTable td{
         padding: 15px 8px;
@@ -22,10 +22,10 @@
     }
 </style>
 
-    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/css/app.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -64,41 +64,33 @@
 
     <!-- Basic Tables start -->
     <section class="section">
-        <div class="card" >
+        <div class="card">
             <div class="card-header">
                 Jquery Datatable
             </div>
             <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
+                <table class="table" id="table1">
+                    <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
+                            <th>Name</th>
                             <th>Email</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>                         
-                            <th>Action</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CUS001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>annisa.aristawati@gmail.com</td>
-                            <td>07648208838</td>
-                            <td>085706568677</td>              
+                            <td>Graiden</td>
+                            <td>vehicula.aliquet@semconsequat.co.uk</td>
+                            <td>076 4820 8838</td>
+                            <td>Offenburg</td>
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
-                          
-                            <a href="#" class="btn btn-warning">Edit</a>
-                         
-                            <a href="#" class="btn btn-danger">Delete</a>
-                            </td>              
-                        </tr>                      
+                                <span class="badge bg-success">Active</span>
+                            </td>
+                        </tr>
+                       
                     </tbody>
-                    </div>
-
                 </table>
             </div>
         </div>
@@ -120,19 +112,19 @@
             </footer>
         </div>
     </div>
-    <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
     
-<script src="../../assets/vendors/jquery/jquery.min.js"></script>
-<script src="../../assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
-<script src="../../assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
-<script src="../../assets/vendors/fontawesome/all.min.js"></script>
+<script src="../assets/vendors/jquery/jquery.min.js"></script>
+<script src="../assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
+<script src="../assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
+<script src="../assets/vendors/fontawesome/all.min.js"></script>
 <script>
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
 
-    <script src="../../assets/js/mazer.js"></script>
+    <script src="../assets/js/mazer.js"></script>
 </body>
 
 </html>

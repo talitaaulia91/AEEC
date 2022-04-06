@@ -66,7 +66,7 @@
     <section class="section">
         <div class="card" >
             <div class="card-header">
-                Jquery Datatable
+            <a href="#" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -74,22 +74,24 @@
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>                         
+                            <th>Nama Program</th>
+                            <th>Harga</th> 
+                            <th>Harga PPN</th> 
+                            <th>Voucher 5%</th>  
+                            <th>Cashback 10%</th>                       
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CUS001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>annisa.aristawati@gmail.com</td>
-                            <td>07648208838</td>
-                            <td>085706568677</td>              
+                            <td>CRS001</td>
+                            <td>Digital Leadership</td>
+                            <td>Rp. 2.000.000</td>     
+                            <td>Rp. 2.220.000</td>     
+                            <td>Rp. 2.109.000</td>    
+                            <td>Rp. 200.000</td>   
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
+                            <a href="#" class="btn btn-primary">Detail</a>
                           
                             <a href="#" class="btn btn-warning">Edit</a>
                          

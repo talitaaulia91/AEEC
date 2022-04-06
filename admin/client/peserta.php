@@ -66,7 +66,6 @@
     <section class="section">
         <div class="card" >
             <div class="card-header">
-                Jquery Datatable
             </div>
             <div class="card-body">
             <div class="table-responsive">

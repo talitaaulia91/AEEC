@@ -66,7 +66,7 @@
     <section class="section">
         <div class="card" >
             <div class="card-header">
-                Jquery Datatable
+            <a href="#" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -74,25 +74,25 @@
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>                         
-                            <th>Action</th>
+                            <th>Diskon</th>
+                            <th>Presentase</th>
+                            <th>Bentuk</th>
+                            <th>Keterangan</th>
+                            <th>Edit</th>   
+                            <th>Delete</th>                         
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CUS001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>annisa.aristawati@gmail.com</td>
-                            <td>07648208838</td>
-                            <td>085706568677</td>              
+                            <td>DS1</td>
+                            <td>Follow sosmed AEEC</td>
+                            <td>10%</td>  
+                            <td>Cashback</td>   
+                            <td>Diskon untuk peserta yang mengikuti sosial media AEEC sesuai ketentuan</td>    
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
-                          
                             <a href="#" class="btn btn-warning">Edit</a>
-                         
+                            </td>
+                        <td>
                             <a href="#" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      

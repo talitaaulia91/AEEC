@@ -66,7 +66,6 @@
     <section class="section">
         <div class="card" >
             <div class="card-header">
-                Jquery Datatable
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -74,23 +73,25 @@
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>                         
+                            <th>Nama Peserta</th>
+                            <th>Program</th>
+                            <th>Diskon</th>
+                            <th>Tanggal</th>                         
+                            <th>Virtual Acc</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CUS001</td>
+                            <td>REG001</td>
                             <td>Annisa Aristawati</td>
-                            <td>annisa.aristawati@gmail.com</td>
-                            <td>07648208838</td>
-                            <td>085706568677</td>              
+                            <td>Digital Leadership</td>
+                            <td>Voucher 5%</td>
+                            <td>12-04-2022</td>     
+                            <td>8777123</td>
+                            <td> <font color="success"><i> success </i></font> </td>              
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
-                          
                             <a href="#" class="btn btn-warning">Edit</a>
                          
                             <a href="#" class="btn btn-danger">Delete</a>
