@@ -1,0 +1,9 @@
+alur membuka project :
+dari sisi Admin
+localhost/aeec/admin
+
+
+
+
+dari sisi users
+localhost/aeec/user
