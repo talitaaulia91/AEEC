@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Table Datatable Jquery - Mazer Admin Dashboard</title>
+    <title>AEEC || Administrator</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     
 <!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
-<link rel="stylesheet" href="../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="../assets/vendors/fontawesome/all.min.css">
+<link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
 <style>
     table.dataTable td{
         padding: 15px 8px;
@@ -22,10 +22,10 @@
     }
 </style>
 
-    <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../assets/css/app.css">
+    <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -70,37 +70,31 @@
             </div>
             <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="table1" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
                             <th>ID</th>
                             <th>Nama</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>
                             <th>Email</th>
-                            <th>Alamat NPWP</th>
-                            <th>Alamat Rumah</th>
-                            <th>Instansi</th>
-                            <th>Jabatan</th>
-                            <th>File NPWP</th>
-                            <th>Alumni UNAIR</th>
+                            <th>NPWP</th>
+                            <th>No.Telp</th>                         
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>CUS001</td>
                             <td>Annisa Aristawati</td>
-                            <td>076 4820 8838</td>
-                            <td>085706568677</td>
-                            <td> <a>annisa.aristawati@gmail.com</a></td>
-                            <td>Jl. Karang Menjangan III No.28, Surabayra</td>
-                            <td>Jl. Kalimantan Indah No.44, Sidoarjo</td>
-                            <td>Universitas Airlangga</td>
-                            <td>General Manager</td>
+                            <td>annisa.aristawati@gmail.com</td>
+                            <td>07648208838</td>
+                            <td>085706568677</td>              
                             <td>
-                                <span class="badge bg-success">download</span>
-                            </td>
-                            <td>Ya</td>                   
+                            <a href="#" class="btn btn-primary">Show</a>
+                          
+                            <a href="#" class="btn btn-warning">Edit</a>
+                         
+                            <a href="#" class="btn btn-danger">Delete</a>
+                            </td>              
                         </tr>                      
                     </tbody>
                     </div>
@@ -108,74 +102,6 @@
                 </table>
             </div>
         </div>
-
-
-
-
-
-
-        <!-- <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                    <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>
-                            <th>Email</th>
-                            <th>Alamat NPWP</th>
-                            <th>Alamat Rumah</th>
-                            <th>Instansi</th>
-                            <th>Jabatan</th>
-                            <th>File NPWP</th>
-                            <th>Alumni UNAIR</th>
-                            <th>Alumni UNAIR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CUS001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>076 4820 8838</td>
-                            <td>085706568677</td>
-                            <td> <a>annisa.aristawati@gmail.com</a></td>
-                            <td>Jl. Karang Menjangan III No.28, Surabayra</td>
-                            <td>Jl. Kalimantan Indah No.44, Sidoarjo</td>
-                            <td>Universitas Airlangga</td>
-                            <td>General Manager</td>
-                            <td>
-                                <span class="badge bg-success">download</span>
-                            </td>
-                            <td>Ya</td>
-                            <td>Ya</td>
-                    
-                        </tr> -->
-                                    
-                                         
-                                        
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </section>
     <!-- Basic Tables end -->
@@ -194,19 +120,19 @@
             </footer>
         </div>
     </div>
-    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     
-<script src="../assets/vendors/jquery/jquery.min.js"></script>
-<script src="../assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
-<script src="../assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
-<script src="../assets/vendors/fontawesome/all.min.js"></script>
+<script src="../../assets/vendors/jquery/jquery.min.js"></script>
+<script src="../../assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
+<script src="../../assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
+<script src="../../assets/vendors/fontawesome/all.min.js"></script>
 <script>
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
 
-    <script src="../assets/js/mazer.js"></script>
+    <script src="../../assets/js/mazer.js"></script>
 </body>
 
 </html>

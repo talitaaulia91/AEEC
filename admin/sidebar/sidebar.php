@@ -1,4 +1,3 @@
-
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar Menu -->
@@ -10,7 +9,7 @@
     <div class="sidebar-header">
         <div class="d-flex justify-content-between">
             <div class="logo">
-                <a href="#"><img src="../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                <a href="#"><img src="../../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
             </div>
             <div class="toggler">
                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -25,7 +24,7 @@
                 class="sidebar-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : '' ?> ">
                 <a href="../layout/dashboard.php" class='sidebar-link '>
                     <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard coba</span>
+                    <span>Dashboard</span>
                 </a>
             </li>
 
