@@ -41,18 +41,20 @@
                 class="sidebar-item  has-sub ">
                 <a href="#" class='sidebar-link '>
                     <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Course</span>
+                    <span>Program</span>
                 </a>
                 <ul class="submenu ">
                     <li class="submenu-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'reguler') ? 'active' : '' ?>">
-                        <a href="../course/reguler.php">Reguler Class</a>
+                        <a href="../course/reguler.php">Regular Class</a>
                     </li>
                     <li class="submenu-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'in-house') ? 'active' : '' ?>">
                         <a href="../course/in-house.php">In-House Training</a>
                     </li>
-                    <li class="submenu-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'c-suite') ? 'active' : '' ?>">
-                        <a href="../course/c-suite.php">C-Suite connection</a>
+           
+                    <li class="submenu-item <?= !!strpos($_SERVER['REQUEST_URI'], 'non-reg') ? 'active' : '' ?>">
+                        <a href="../course/non-reg.php">Non-Regular Class</a>
                     </li>
+                    
                 </ul>
             </li>
 
