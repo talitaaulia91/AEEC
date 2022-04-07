@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vertical Navbar - Mazer Admin Dashboard</title>
+    <title>AEEC || CLIENT</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -35,10 +35,26 @@
             <li class="sidebar-title">Menu</li>
             
             <li
-                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : '' ?> ">
-                <a href="index.html" class='sidebar-link'>
-                    <i class="bi bi-grid-fill"></i>
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'index') ? 'active' : '' ?> ">
+                <a href="index.php" class='sidebar-link'>
+                    <i class="bi bi-person-badge-fill"></i>
                     <span>Profile</span>
+                </a>
+            </li>
+
+            <li
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'pilih') ? 'active' : '' ?> ">
+                <a href="program.php" class='sidebar-link'>
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Pilih Program</span>
+                </a>
+            </li>
+
+            <li
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'program') ? 'active' : '' ?> ">
+                <a href="program.php" class='sidebar-link'>
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Program</span>
                 </a>
             </li>
             
