@@ -88,7 +88,7 @@
                             <td>07648208838</td>
                             <td>085706568677</td>              
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
+                            <a href="#" class="btn btn-primary">Detail</a>
                           
                             <a href="#" class="btn btn-warning">Edit</a>
                          

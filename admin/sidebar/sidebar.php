@@ -85,7 +85,7 @@
 
             
                    
-            <li class="sidebar-title">Forms &amp; Tables</li>
+            <!-- <li class="sidebar-title">Forms &amp; Tables</li>
             
             <li
                 class="sidebar-item  has-sub">
@@ -121,7 +121,7 @@
                     <i class="bi bi-file-earmark-medical-fill"></i>
                     <span>Form Layout</span>
                 </a>
-            </li>
+            </li> -->
 
 
 

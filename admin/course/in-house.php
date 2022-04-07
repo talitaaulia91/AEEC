@@ -66,10 +66,10 @@
     <section class="section">
         <div class="card" >
             <div class="card-header">
-                Jquery Datatable
+               Coming Soon
             </div>
             <div class="card-body">
-            <div class="table-responsive">
+            <!-- <div class="table-responsive">
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
@@ -99,7 +99,7 @@
                     </tbody>
                     </div>
 
-                </table>
+                </table> -->
             </div>
         </div>
 
