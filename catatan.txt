@@ -7,3 +7,12 @@ localhost/aeec/admin
 
 dari sisi users
 localhost/aeec/user
+
+
+
+//buat tabel Admin
+CREATE TABLE `aeec`.`admin` (
+  `idadmin` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(255) NULL,
+  `password` VARCHAR(255) NULL,
+  PRIMARY KEY (`idadmin`));
