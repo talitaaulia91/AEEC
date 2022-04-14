@@ -1,5 +1,5 @@
 <?php
 
-header("Location: layout/dashboard.php");
+header("Location: login/login.php");
 
 ?>
