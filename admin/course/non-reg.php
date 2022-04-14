@@ -1,3 +1,7 @@
+<?php
+include_once('../../config/database.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,14 +52,13 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Non-Regular Class</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
+                        <li class="breadcrumb-item active" aria-current="page">Non-Regular Class</li>
                     </ol>
                 </nav>
             </div>
@@ -66,30 +69,28 @@
     <section class="section">
         <div class="card" >
             <div class="card-header">
-             Coming Soon
+            <a href="insert_non_reguler.php" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
-            <!-- <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>                         
+                            <th>Nama Program</th>
+                            <th>Harga Paket</th> 
+                            <th>Harga PPN</th>                    
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>CUS001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>annisa.aristawati@gmail.com</td>
-                            <td>07648208838</td>
-                            <td>085706568677</td>              
+                            <td>CRS001</td>
+                            <td>Digital Leadership</td>
+                            <td>Rp. 2.000.000</td>     
+                            <td>Rp. 2.220.000</td>       
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
+                            <a href="#" class="btn btn-primary">Detail</a>
                           
                             <a href="#" class="btn btn-warning">Edit</a>
                          
@@ -99,7 +100,7 @@
                     </tbody>
                     </div>
 
-                </table> -->
+                </table>
             </div>
         </div>
 
