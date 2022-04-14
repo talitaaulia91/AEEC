@@ -1,3 +1,11 @@
+<?php
+include_once('../../config/database.php');
+?>
+
+<?php
+include_once('../../config/database.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
