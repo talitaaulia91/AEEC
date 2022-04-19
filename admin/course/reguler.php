@@ -78,30 +78,40 @@ include_once('../../config/database.php');
                         <tr>
                             <th>ID</th>
                             <th>Nama Program</th>
-                            <th>Harga</th> 
-                            <th>Harga PPN</th> 
-                            <th>Voucher 5%</th>  
-                            <th>Cashback 10%</th>                       
-                            <th>Action</th>
+                            <th>INDIVIDU (PPN)</th> 
+                            <th>KOLEKTIF (PPN)</th> 
+                            <th>KORPORAT (PPN)</th>                     
+                            <th>Detail</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        $query_program = "SELECT * FROM program ";
+                        $tabel_program= mysqli_query($mysqli, $query_program);
+                        foreach ($tabel_program as $data_program) : 
+                        ?>
                         <tr>
-                            <td>CRS001</td>
-                            <td>Digital Leadership</td>
-                            <td>Rp. 2.000.000</td>     
-                            <td>Rp. 2.220.000</td>     
-                            <td>Rp. 2.109.000</td>    
-                            <td>Rp. 200.000</td>   
+                            <td><?php echo $data_program['ID_PROGRAM']; ?></td>
+                            <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
+                            <td><?php echo number_format($data_program['INDIVIDU']); ?></td>     
+                            <td><?php echo number_format($data_program['KOLEKTIF']); ?></td>     
+                            <td><?php echo number_format($data_program['KORPORAT']); ?></td>    
                             <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                          
-                            <a href="#" class="btn btn-warning">Edit</a>
-                         
+                            <a href="detail_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-primary">Detail</a>
+                            </td>
+                            <td>
+                            <a href="edit_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
                             <a href="#" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
                     </tbody>
+                    <?php
+                       endforeach
+                    ?>
                     </div>
 
                 </table>

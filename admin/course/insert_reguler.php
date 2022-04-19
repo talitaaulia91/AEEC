@@ -76,9 +76,16 @@ include_once('../../config/database.php');
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-vertical">
+                            <form class="form form-vertical"   method="post" action="">
                                 <div class="form-body">
                                     <div class="row">
+                                    <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Kode Program</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="id_program" placeholder="Kode Program" required>
+                                            </div>
+                                        </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Program</label>
@@ -88,9 +95,23 @@ include_once('../../config/database.php');
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Harga</label>
+                                                <label for="first-name-vertical">Harga Individu</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="harga" placeholder="Harga" required>
+                                                    name="individu" placeholder="Harga Individu (sebelum PPN)" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Harga Kolektif</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kolektif" placeholder="Harga Kolektif (sebelum PPN)" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Harga Korporat</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="korporat" placeholder="Harga Korporat (sebelum PPN)" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -117,8 +138,7 @@ include_once('../../config/database.php');
                                         <div class="col-12">
                                            Deskripsi
                                             <div class="form-floating">
-                                                        <textarea class="form-control" name="deskripsi" placeholder="Leave a comment here" id="floatingTextarea" required></textarea>
-                                                        <label for="floatingTextarea">Deskripsi</label>
+                                                        <textarea class="form-control" type="text" name="deskripsi" id="floatingTextarea" required></textarea>
                                                         </div>
                                         </div>
                                       
@@ -126,7 +146,7 @@ include_once('../../config/database.php');
                                        <br></br>
                                 
                                         <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Tambah</button>
+                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Tambah</button>
                                             <button type="reset"
                                                 class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
@@ -138,6 +158,43 @@ include_once('../../config/database.php');
                 </div>
             </div>
     </section>
+    <?php
+                if(isset($_POST['tambah'])){
+                $id_program      = $_POST['id_program'];
+                $nama_program    = $_POST['nama_program'];
+                $individu        = $_POST['individu'];
+                $kolektif        = $_POST['kolektif'];
+                $korporat        = $_POST['korporat'];
+                $batch           = $_POST['batch'];
+                $tgl_mulai       = $_POST['tgl_mulai'];
+                $tgl_berakhir    = $_POST['tgl_berakhir'];
+                $deskripsi       = $_POST['deskripsi'];
+
+
+                $individu_ppn = $individu + ($individu * 11/100);
+                $kolektif_ppn = $kolektif + ($kolektif  * 11/100);
+                $korporat_ppn = $korporat + ($korporat * 11/100);
+ 
+                
+    
+  
+                //insert program
+                $program       = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, TGL_MULAI, TGL_BERAKHIR, DESKRIPSI, BATCH)
+                                                     VALUES ('$id_program', 'SR', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$tgl_mulai', '$tgl_berakhir', '$deskripsi', '$batch')");
+
+
+                
+                echo "<script>location='reguler.php';</script>";
+              }
+              ?>
+
+
+
+
+
+
+
+
     <!-- Basic Tables end -->
 </div>
 

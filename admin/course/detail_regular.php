@@ -52,70 +52,108 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Regular Class</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
-                    </ol>
                 </nav>
             </div>
         </div>
     </div>
 
     <!-- Basic Tables start -->
+    <?php
+     $regular    = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_PROGRAM ='".$_GET['id']."' " );
+     $ambil_data = $regular->fetch_assoc();
+     $start      = strtotime($ambil_data['TGL_MULAI']);
+     $end        = strtotime($ambil_data['TGL_BERAKHIR']);
+    ?>
     <section class="section">
-        <div class="card" >
-            <div class="card-header">
-            <a href="#" class="btn btn-success">Add +</a>
-            </div>
-            <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
-                        <tr>
-                            <th>ID</th>
-                            <th>Diskon</th>
-                            <th>Presentase</th>
-                            <th>Detail</th>
-                            <th>Edit</th>   
-                            <th>Delete</th>                         
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query_diskon = "SELECT * FROM diskon ";
-                        $tabel_diskon = mysqli_query($mysqli, $query_diskon);
-                        foreach ($tabel_diskon as $data_diskon) : 
-                        ?>
-                        <tr>
-                            <td><?php echo $data_diskon['ID_DISKON']; ?></td>
-                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td>
-                            <td><?php echo $data_diskon['PRESENTASE']; ?></td>   
-                            <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                            </td> 
-                            <td> 
-                            <a href="#" class="btn btn-warning">Edit</a>
-                            </td>
-                            <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                            </td>  
-                                        
-                        </tr>                      
-                    </tbody>
-                    <?php
-                       endforeach
-                    ?>
-                    </div>
+    <div class="card" >
+    <div class="card-header">
+    <table class="table table-bordered"  width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Kode program</th>    
+            <th><?=$ambil_data['ID_PROGRAM'] ?></th>
+        </tr>
+        <tr>
+            <th>Nama Program</th>    
+            <th><?= $ambil_data['NAMA_PROGRAM'] ?></th>
+        </tr>
+        <tr>
+            <th>Kategori Program</th>    
+            <th>
+            <?php
+            $kategori = mysqli_query($mysqli, "SELECT k.NAMA_KATEGORI FROM kategori_program k, program p 
+                                                WHERE k.ID_KATEGORI = p.ID_KATEGORI 
+                                                AND p.ID_PROGRAM = '".$_GET['id']."'");
+            $data     = mysqli_fetch_assoc($kategori);
+            $kat      = $data['NAMA_KATEGORI'];
+            echo $kat;                                    
+            ?>
 
-                </table>
-            </div>
-        </div>
-
+            </th>
+        </tr>
+        <tr>
+            <th>Batch</th>    
+            <th><?= $ambil_data['BATCH'] ?></th>
+        </tr>
+        <tr>
+            <th>Individu (PPN)</th>    
+            <th><?= 'Rp. '. number_format($ambil_data['INDIVIDU']) ?></th>
+        </tr>
+        <tr>
+            <th>Kolektif (PPN)</th>    
+            <th><?= 'Rp. '. number_format($ambil_data['KOLEKTIF']) ?></th>
+        </tr>
+        <tr>
+            <th>Korporat (PPN)</th>    
+            <th><?= 'Rp. '. number_format($ambil_data['KORPORAT']) ?></th>
+        </tr>
+        <tr>
+            <th>Voucher 5%</th>    
+            <th><?= 'coming soon' ?></th>
+        </tr>
+        <tr>
+            <th>Cashback 10%</th>    
+            <th><?= 'coming soon' ?></th>
+        </tr>
+        <tr>
+            <th>Tanggal Mulai</th>    
+            <th><?= date("d-m-Y", $start) ?></th>
+        </tr>
+        <tr>
+            <th>Tanggal Berakhir</th>  
+            <th>
+            <?php            
+            if($ambil_data['TGL_BERAKHIR']== null){
+               echo "-";
+            }else{
+                echo date("d-m-Y", $end);
+            }
+            ?>
+            </th>
+        </tr>
+        <tr>
+            <th width="200px">Deskripsi</th>    
+            <th><?= $ambil_data['DESKRIPSI'] ?></th>
+        </tr>
+        <tr>
+            <th>Status</th>    
+            <th>
+            <?php 
+            if($ambil_data['ACTIVE']=='1'){?> 
+            <a href="change_status.php?id=<?php echo $ambil_data['ID_PROGRAM']; ?>" class="btn btn-success">ACTIVE</a>
+            <?php } else{ ?> 
+            <a href="change_status.php?id=<?php echo $ambil_data['ID_PROGRAM']; ?>" class="btn btn-secondary">NON-ACTIVE</a>
+            <?php } ?>
+            </th>
+        </tr>
+    </thead>
+    </table>
+</div>
+</div>
     </section>
     <!-- Basic Tables end -->
 </div>
