@@ -9,8 +9,25 @@ include_once 'header.php';
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Vertical Layout with Navbar</h3>
-                <p class="text-subtitle text-muted">Navbar will appear in top of the page.</p>
+                <!-- <h3>Vertical Layout with Navbar</h3> -->
+                <?php 
+
+                    $a = date ("H");
+                    if (($a>=6) && ($a<=11)) {
+                        echo " <br><h3>Selamat Pagi !! </h3>";
+                    }else if(($a>=11) && ($a<=15)){
+                        echo " <br> Selamat  Siang !! ";
+                    }elseif(($a>15) && ($a<=18)){
+                        echo " <br><h3>Selamat Sore !!";
+                    }else{
+                        echo " <br><h3> Selamat Malam </h3>";
+                    }
+                    $tanggal = mktime(date('m'), date("d"), date('Y'));
+                    echo "Tanggal : <b> " . date("d-m-Y", $tanggal ) . "</b>";
+                    date_default_timezone_set("Asia/Jakarta");
+                    $jam = date ("H:i:s");
+                    echo " | Pukul : <b> " . $jam . " " ." </b> ";
+                ?>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -25,7 +42,7 @@ include_once 'header.php';
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Example Content</h4>
+                <h4 class="card-title">Nama Client</h4>
             </div>
             <div class="card-body">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur quas omnis laudantium tempore
@@ -36,25 +53,4 @@ include_once 'header.php';
     </section>
 </div>
 
-                <footer>
-                    <div class="footer clearfix mb-0 text-muted">
-                        <div class="float-start">
-                            <p>2021 &copy; Mazer</p>
-                        </div>
-                        <div class="float-end">
-                            <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                                by <a href="https://ahmadsaugi.com">Saugi</a></p>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-            <!-- END HALAMAN UTAMA -->
-        </div>
-    </div>
-    <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="../../assets/js/mazer.js"></script>
-</body>
-
-</html>
+<?php include 'footer.php'; ?>
