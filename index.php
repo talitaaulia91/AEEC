@@ -1,5 +1,5 @@
 <?php
 
-header("Location: user/auth/login.php");
+header("Location: user/index.php");
 
 ?>

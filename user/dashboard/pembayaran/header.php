@@ -1,4 +1,4 @@
-<?php require_once("auth.php"); ?>
+<?php require_once("../auth.php"); ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +10,12 @@
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../assets/css/bootstrap.css">
     
-    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="../../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../../assets/css/app.css">
+    <link rel="shortcut icon" href="../../../assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
     <div class="sidebar-header">
         <div class="d-flex justify-content-between">
             <div class="logo">
-                <a href="index.html"><img src="../../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                <a href="index.html"><img src="../../../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
             </div>
             <div class="toggler">
                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -38,7 +38,7 @@
             
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'index') ? 'active' : '' ?> ">
-                <a href="index.php" class='sidebar-link'>
+                <a href="../index.php" class='sidebar-link'>
                     <i class="bi bi-person-badge-fill"></i>
                     <span>Profile</span>
                 </a>
@@ -46,7 +46,7 @@
 
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'pilih') ? 'active' : '' ?> ">
-                <a href="program.php" class='sidebar-link'>
+                <a href="../program.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Daftar Program</span>
                 </a>
@@ -54,7 +54,7 @@
 
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'aktif') ? 'active' : '' ?> ">
-                <a href="aktif.php" class='sidebar-link'>
+                <a href="../aktif.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Program Aktif</span>
                 </a>
@@ -62,7 +62,7 @@
 
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'history') ? 'active' : '' ?> ">
-                <a href="history.php" class='sidebar-link'>
+                <a href="../history.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>History Program</span>
                 </a>
@@ -123,7 +123,7 @@
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
-                                                <img src="../../assets/images/faces/1.jpg">
+                                                <img src="../../../assets/images/faces/1.jpg">
                                             </div>
                                         </div>
                                     </div>

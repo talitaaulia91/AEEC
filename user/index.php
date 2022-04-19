@@ -1,10 +1,3 @@
-<?php
-
-require '../method.php';
-$program = query("SELECT * FROM aeec.program");
-
-?>
-
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -17,37 +10,37 @@ $program = query("SELECT * FROM aeec.program");
 	<!-- Title Tag  -->
     <title>AEEC || Programs</title>
 	<!-- Favicon -->
-	<link rel="icon" type="image/png" href="../assets/program/images/favicon.png">
+	<link rel="icon" type="image/png" href="assets/program/images/favicon.png">
 	<!-- Web Font -->
 	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
 	
 	<!-- StyleSheet -->
 	
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="../assets/program/css/bootstrap.css">
+	<link rel="stylesheet" href="assets/program/css/bootstrap.css">
 	<!-- Magnific Popup -->
-    <link rel="stylesheet" href="../assets/program/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/program/css/magnific-popup.min.css">
 	<!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/program/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/program/css/font-awesome.css">
 	<!-- Fancybox -->
-	<link rel="stylesheet" href="../assets/program/css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="assets/program/css/jquery.fancybox.min.css">
 	<!-- Themify Icons -->
-    <link rel="stylesheet" href="../assets/program/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/program/css/themify-icons.css">
 	<!-- Nice Select CSS -->
-    <link rel="stylesheet" href="../assets/program/css/niceselect.css">
+    <link rel="stylesheet" href="assets/program/css/niceselect.css">
 	<!-- Animate CSS -->
-    <link rel="stylesheet" href="../assets/program/css/animate.css">
+    <link rel="stylesheet" href="assets/program/css/animate.css">
 	<!-- Flex Slider CSS -->
-    <link rel="stylesheet" href="../assets/program/css/flex-slider.min.css">
+    <link rel="stylesheet" href="assets/program/css/flex-slider.min.css">
 	<!-- Owl Carousel -->
-    <link rel="stylesheet" href="../assets/program/css/owl-carousel.css">
+    <link rel="stylesheet" href="assets/program/css/owl-carousel.css">
 	<!-- Slicknav -->
-    <link rel="stylesheet" href="../assets/program/css/slicknav.min.css">
+    <link rel="stylesheet" href="assets/program/css/slicknav.min.css">
 	
 	<!-- Eshop StyleSheet -->
-	<link rel="stylesheet" href="../assets/program/css/reset.css">
-	<link rel="stylesheet" href="../assets/program/style.css">
-    <link rel="stylesheet" href="../assets/program/css/responsive.css">
+	<link rel="stylesheet" href="assets/program/css/reset.css">
+	<link rel="stylesheet" href="assets/program/style.css">
+    <link rel="stylesheet" href="assets/program/css/responsive.css">
 
 	
 	
@@ -78,7 +71,7 @@ $program = query("SELECT * FROM aeec.program");
 							<ul class="list-main">
                                 <li>
                                 <div >
-                                    <a href="index.html"><img src="../assets/logo.png" alt="logo" width="200px"></a>
+                                    <a href="index.html"><img src="assets/logo.png" alt="logo" width="200px"></a>
                                 </div>
                                 </li>
 								<!-- <li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
@@ -111,22 +104,79 @@ $program = query("SELECT * FROM aeec.program");
 							<div class="all-category ">
 								<!-- <h3 class="cat-heading"><i class="fa fa-bars" aria-hidden="true"></i>CATEGORIES</h3> -->
 								<ul class="main-category " >
-									
+									<!-- <li><a href="#">New Arrivals <i class="fa fa-angle-right" aria-hidden="true"></i></a> -->
+										<!-- <ul class="sub-category">
+											<li><a href="#">accessories</a></li>
+											<li><a href="#">best selling</a></li>
+											<li><a href="#">top 100 offer</a></li>
+											<li><a href="#">sunglass</a></li>
+											<li><a href="#">watch</a></li>
+											<li><a href="#">man’s product</a></li>
+											<li><a href="#">ladies</a></li>
+											<li><a href="#">westrn dress</a></li>
+											<li><a href="#">denim </a></li>
+										</ul>
+									</li>
+									<li class="main-mega"><a href="#">best selling <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+										<ul class="mega-menu">
+											<li class="single-menu">
+												<a href="#" class="title-link">Shop Kid's</a>
+												<div class="image">
+													<img src="https://via.placeholder.com/225x155" alt="#">
+												</div>
+												<div class="inner-link">
+													<a href="#">Kids Toys</a>
+													<a href="#">Kids Travel Car</a>
+													<a href="#">Kids Color Shape</a>
+													<a href="#">Kids Tent</a>
+												</div>
+											</li>
+											<li class="single-menu">
+												<a href="#" class="title-link">Shop Men's</a>
+												<div class="image">
+													<img src="https://via.placeholder.com/225x155" alt="#">
+												</div>
+												<div class="inner-link">
+													<a href="#">Watch</a>
+													<a href="#">T-shirt</a>
+													<a href="#">Hoodies</a>
+													<a href="#">Formal Pant</a>
+												</div>
+											</li>
+											<li class="single-menu">
+												<a href="#" class="title-link">Shop Women's</a>
+												<div class="image">
+													<img src="https://via.placeholder.com/225x155" alt="#">
+												</div>
+												<div class="inner-link">
+													<a href="#">Ladies Shirt</a>
+													<a href="#">Ladies Frog</a>
+													<a href="#">Ladies Sun Glass</a>
+													<a href="#">Ladies Watch</a>
+												</div>
+											</li>
+										</ul>
+									</li>
+									<li><a href="#">accessories</a></li>
+									<li><a href="#">top 100 offer</a></li>
+									<li><a href="#">sunglass</a></li>
+									<li><a href="#">watch</a></li>
+									<li><a href="#">man’s product</a></li>
+									<li><a href="#">ladies</a></li>
+									<li><a href="#">westrn dress</a></li>
+									<li><a href="#">denim </a></li>
+								</ul> -->
 							</div>
 						</div>
-						<div class="col-lg-9 col-12" >
-							<div class="menu-area" style="text-align:center" >
+						<div class="col-lg-9 col-12" style="margin:5px auto">
+							<div class="menu-area " >
 								<!-- Main Menu -->
 								<nav class="navbar navbar-expand-lg" >
 									<div class="navbar-collapse">	
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
-													<li style="color:blue">Buat</li>
-                                                    <li style="color:blue">Spasi</li>
-                                                    <li style="color:blue">Spasi</li>
-                                                    <li></li>
-													<li><a href="index.php">Profile</a></li>												
-													<li class="active"><a href="#">Our Programs<i class="ti-angle-down"></i><span class="new">New</span></a>
+													<li class="active"><a href="#">Home</a></li>												
+													<li><a href="#">Our Programs<i class="ti-angle-down"></i><span class="new">New</span></a>
 														<ul class="dropdown">
 															<li><a href="cart.html">Regular Class</a></li>
 															<li><a href="checkout.html">In-House Training</a></li>
@@ -171,7 +221,7 @@ $program = query("SELECT * FROM aeec.program");
 									<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#Regular" role="tab">Regular</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#In-House" role="tab">In-House Training</a></li>
 									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kids" role="tab">Non regular Class</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">Professional Certification</a></li>
+									<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#accessories" role="tab">Professional Ser</a></li>
 								</ul>
 								<!--/ End Tab Nav -->
 							</div>
@@ -180,38 +230,38 @@ $program = query("SELECT * FROM aeec.program");
 								<div class="tab-pane fade show active" id="Regular" role="tabpanel">
 									<div class="tab-single">
 										<div class="row">
-                                            <?php foreach($program as $hasil) : ?>
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../assets/program/<?= $hasil['image'] ?>" height="750px" alt="#">
-															<img class="hover-img" src="../assets/program/aeec1.jpg" alt="#">
+															<img class="default-img" src="assets/program/aeec1.jpg" height="750px" alt="#">
+															<img class="hover-img" src="assets/program/aeec1.jpg" alt="#">
 														</a>
 														<div class="button-head">
 															<div class="product-action">
-																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-shopping-cart-full"></i><span>Daftar</span></a>
+																<a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+																<a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+																<a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add to Compare</span></a>
 															</div>
 															<div class="product-action-2">
-																<a title="Add to cart" href="#">Add to cart</a>
+																<a title="Add to cart" href="auth/login.php">Daftar</a>
 															</div>
 														</div>
 													</div>
 													<div class="product-content">
-														<h3><a href="product-details.html"><?= $hasil['NAMA_PROGRAM'] ?></a></h3>
+														<h3><a href="product-details.html">Sistem Manajemen Kompensasi Berbasis Kinerja - Online</a></h3>
 														<div class="product-price">
 															<span>$29.00</span>
 														</div>
 													</div>
 												</div>
 											</div>
-                                            <?php endforeach; ?>
 											<div class="col-xl-3 col-lg-4 col-md-4 col-12">
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../assets/program/aeec2.jpg" alt="#">
-															<img class="hover-img" src="../assets/program/aeec2.jpg" alt="#">
+															<img class="default-img" src="assets/program/aeec2.jpg" alt="#">
+															<img class="hover-img" src="assets/program/aeec2.jpg" alt="#">
 														</a>
 														<div class="button-head">
 															<div class="product-action">
@@ -236,8 +286,8 @@ $program = query("SELECT * FROM aeec.program");
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../assets/program/aeec3.jpg" alt="#">
-															<img class="hover-img" src="../assets/program/aeec3.jpg" alt="#">
+															<img class="default-img" src="assets/program/aeec3.jpg" alt="#">
+															<img class="hover-img" src="assets/program/aeec3.jpg" alt="#">
 														</a>
 														<div class="button-head">
 															<div class="product-action">
@@ -262,8 +312,8 @@ $program = query("SELECT * FROM aeec.program");
 												<div class="single-product">
 													<div class="product-img">
 														<a href="product-details.html">
-															<img class="default-img" src="../assets/program/aeec4.jpg" alt="#">
-															<img class="hover-img" src="../assets/program/aeec4.jpg" alt="#">
+															<img class="default-img" src="assets/program/aeec4.jpg" alt="#">
+															<img class="hover-img" src="assets/program/aeec4.jpg" alt="#">
 															<span class="new">New</span>
 														</a>
 														<div class="button-head">
@@ -685,7 +735,7 @@ $program = query("SELECT * FROM aeec.program");
 						<!-- Single Widget -->
 						<div class="single-footer about">
 							<div class="logo">
-								<a href="index.html"><img src="../assets/logo.png" alt="#"></a>
+								<a href="index.html"><img src="assets/logo.png" alt="#"></a>
 							</div>
 							<p class="text">
 								Airlangga Entrepreneurship and Education Center (ASEEC) Tower Lantai 12, Universitas Airlangga – Kampus B 
@@ -759,7 +809,7 @@ $program = query("SELECT * FROM aeec.program");
 						</div>
 						<div class="col-lg-6 col-12">
 							<div class="right">
-								<img src="../assets/program/images/payments.png" alt="#">
+								<img src="assets/program/images/payments.png" alt="#">
 							</div>
 						</div>
 					</div>
@@ -770,36 +820,36 @@ $program = query("SELECT * FROM aeec.program");
 	<!-- /End Footer Area -->
  
 	<!-- Jquery -->
-    <script src="../assets/program/js/jquery.min.js"></script>
-    <script src="../assets/program/js/jquery-migrate-3.0.0.js"></script>
-	<script src="../assets/program/js/jquery-ui.min.js"></script>
+    <script src="assets/program/js/jquery.min.js"></script>
+    <script src="assets/program/js/jquery-migrate-3.0.0.js"></script>
+	<script src="assets/program/js/jquery-ui.min.js"></script>
 	<!-- Popper JS -->
-	<script src="../assets/program/js/popper.min.js"></script>
+	<script src="assets/program/js/popper.min.js"></script>
 	<!-- Bootstrap JS -->
-	<script src="../assets/program/js/bootstrap.min.js"></script>
+	<script src="assets/program/js/bootstrap.min.js"></script>
 	<!-- Color JS -->
-	<script src="../assets/program/js/colors.js"></script>
+	<script src="assets/program/js/colors.js"></script>
 	<!-- Slicknav JS -->
-	<script src="../assets/program/js/slicknav.min.js"></script>
+	<script src="assets/program/js/slicknav.min.js"></script>
 	<!-- Owl Carousel JS -->
-	<script src="../assets/program/js/owl-carousel.js"></script>
+	<script src="assets/program/js/owl-carousel.js"></script>
 	<!-- Magnific Popup JS -->
-	<script src="../assets/program/js/magnific-popup.js"></script>
+	<script src="assets/program/js/magnific-popup.js"></script>
 	<!-- Waypoints JS -->
-	<script src="../assets/program/js/waypoints.min.js"></script>
+	<script src="assets/program/js/waypoints.min.js"></script>
 	<!-- Countdown JS -->
-	<script src="../assets/program/js/finalcountdown.min.js"></script>
+	<script src="assets/program/js/finalcountdown.min.js"></script>
 	<!-- Nice Select JS -->
-	<script src="../assets/program/js/nicesellect.js"></script>
+	<script src="assets/program/js/nicesellect.js"></script>
 	<!-- Flex Slider JS -->
-	<script src="../assets/program/js/flex-slider.js"></script>
+	<script src="assets/program/js/flex-slider.js"></script>
 	<!-- ScrollUp JS -->
-	<script src="../assets/program/js/scrollup.js"></script>
+	<script src="assets/program/js/scrollup.js"></script>
 	<!-- Onepage Nav JS -->
-	<script src="../assets/program/js/onepage-nav.min.js"></script>
+	<script src="assets/program/js/onepage-nav.min.js"></script>
 	<!-- Easing JS -->
-	<script src="../assets/program/js/easing.js"></script>
+	<script src="assets/program/js/easing.js"></script>
 	<!-- Active JS -->
-	<script src="../assets/program/js/active.js"></script>
+	<script src="assets/program/js/active.js"></script>
 </body>
 </html>
