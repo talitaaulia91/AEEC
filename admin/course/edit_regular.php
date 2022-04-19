@@ -71,28 +71,52 @@ include_once('../../config/database.php');
     <section class="section">
     <div class="card" >
     <div class="card-header">
-    <div class="container-fluid py-1 px-5">
-              <div class="row col-md-6"> 
-              <h6 class="font-weight-bolder mb-0">Edit Data Program</h6>
+    <div class="container-fluid py-1 px-2">
+              <div class="row col-md-12"> 
+              <h6 class="font-weight-bolder mb-4">Edit Data Program</h6>
               <form method="post" action="" enctype="multipart/form-data">
-                    <div class="form-group  mb-0">
+                    <div class="form-group  mb-3">
                     <label for="exampleInputEmail1">Kode Program</label>
                     <input type="text" name="id_program"class="form-control" value="<?php echo  $ambil_data['ID_PROGRAM']; ?>"  required autofocus autocomplete="off">
                     </div>
-                    <div class="form-group  mb-0">
-                    <label for="exampleInputPassword1">Harga  satuan</label>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Nama Program</label>
                     <input type="text" name="nama_program"class="form-control" value="<?php echo  $ambil_data['NAMA_PROGRAM']; ?>"  required autofocus autocomplete="off">
                     </div>
-                    <div class="form-group  mb-0">
-                    <label for="exampleInputPassword1">Stok</label>
-                    <input type="number" name="stok"class="form-control" value="<?php echo $ambil_data['stok']; ?>"  required autofocus autocomplete="off">
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Batch</label>
+                    <input type="number" name="batch"class="form-control" value="<?php echo  $ambil_data['BATCH']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Harga Individu (Setelah PPN)</label>
+                    <input type="text" name="individu"class="form-control" value="<?php echo  $ambil_data['INDIVIDU']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Harga Kolektif (Setelah PPN)</label>
+                    <input type="text" name="kolektif"class="form-control" value="<?php echo  $ambil_data['KOLEKTIF']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Harga Korporat (Setelah PPN)</label>
+                    <input type="text" name="korporat"class="form-control" value="<?php echo  $ambil_data['KORPORAT']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Harga Mulai</label>
+                    <input type="date" name="tgl_mulai"class="form-control" value="<?php echo  $ambil_data['TGL_MULAI']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Tanggal Berakhir</label>
+                    <input type="date" name="tgl_berakhir"class="form-control" value="<?php echo  $ambil_data['TGL_BERAKHIR']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Deskripsi</label>
+                    <input type="textarea" name="deskripsi"class="form-control" value="<?php echo  $ambil_data['DESKRIPSI']; ?>"  required autofocus autocomplete="off">
                     </div>
                     <div class="form-group  mb-0">
                     <label for="exampleInputPassword1">Gambar</label>
                     <input type="file" name="gambar"class="form-control">
                     </div>
-      
-                <button type="submit" name="edit" value="edit" class="btn bg-gradient-info w-30 mt-4 mb-2">UPDATE</button>
+                    
+                <button type="submit" name="edit" value="edit" class="btn btn-primary w-30 mt-4 mb-2">UPDATE</button>
               </form>
               </div>
               </div>
@@ -101,6 +125,61 @@ include_once('../../config/database.php');
 </div>
 </div>
     </section>
+
+    <?php
+                  if(isset($_POST['edit'])){
+                      $id_program      = $_POST['id_program'];
+                      $nama_program    = $_POST['nama_program'];
+                      $batch           = $_POST['batch'];
+                      $individu        = $_POST['individu'];
+                      $kolektif        = $_POST['kolektif'];
+                      $korporat        = $_POST['korporat'];
+                      $tgl_mulai       = $_POST['tgl_mulai'];
+                      $tgl_berakhir    = $_POST['tgl_berakhir'];
+                      $deskripsi    = $_POST['deskripsi'];
+                      
+
+                      $gambar         = $_FILES['gambar']['name'];
+                      $lokasi         = $_FILES['gambar']['tmp_name'];
+
+
+
+
+                      if(!empty($lokasi)){
+                         $old = mysqli_query($mysqli,"SELECT IMAGE from program WHERE ID_PROGRAM='".$_GET['id']."'");
+                         $data = $old->fetch_assoc();
+                         $gambar_lama = $data['IMAGE'];
+
+                          unlink('../../assets/images/program/'.$gambar_lama);
+                          move_uploaded_file($lokasi,  '../../assets/images/program/'.$gambar);
+
+                          $update         = mysqli_query($mysqli, "UPDATE program
+                                                                   SET ID_PROGRAM='$id_program', NAMA_PROGRAM='$nama_program', BATCH='$batch', INDIVIDU='$individu',
+                                                                       KOLEKTIF='$kolektif', KORPORAT='$korporat', TGL_MULAI='$tgl_mulai', TGL_BERAKHIR='$tgl_berakhir',
+                                                                       DESKRIPSI='$deskripsi', IMAGE='$gambar'
+                                                                   WHERE ID_PROGRAM='" . $_GET['id'] ."'");
+
+
+                      } else {
+                        $update         = mysqli_query($mysqli,"UPDATE program
+                                                                SET ID_PROGRAM='$id_program', NAMA_PROGRAM='$nama_program', BATCH='$batch', INDIVIDU='$individu',
+                                                                    KOLEKTIF='$kolektif', KORPORAT='$korporat', TGL_MULAI='$tgl_mulai', TGL_BERAKHIR='$tgl_berakhir',
+                                                                    DESKRIPSI='$deskripsi'
+                                                                WHERE ID_PROGRAM='" . $_GET['id'] ."'");
+                      }
+
+                      if($update){
+                        echo "<script>location='reguler.php';</script>";
+                    }
+                  }
+              ?>
+
+
+
+
+
+
+
     <!-- Basic Tables end -->
 </div>
 

@@ -56,10 +56,6 @@ include_once('../../config/database.php');
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Regular Class</li>
-                    </ol>
                 </nav>
             </div>
         </div>
@@ -105,7 +101,7 @@ include_once('../../config/database.php');
                             <a href="edit_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
                     </tbody>
