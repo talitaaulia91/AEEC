@@ -65,8 +65,6 @@ include_once('../../config/database.php');
     <?php
      $regular    = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_PROGRAM ='".$_GET['id']."' " );
      $ambil_data = $regular->fetch_assoc();
-     $start      = strtotime($ambil_data['TGL_MULAI']);
-     $end        = strtotime($ambil_data['TGL_BERAKHIR']);
     ?>
     <section class="section">
     <div class="card" >
@@ -96,10 +94,6 @@ include_once('../../config/database.php');
             </th>
         </tr>
         <tr>
-            <th>Batch</th>    
-            <th><?= $ambil_data['BATCH'] ?></th>
-        </tr>
-        <tr>
             <th>Individu (PPN)</th>    
             <th><?= 'Rp. '. number_format($ambil_data['INDIVIDU']) ?></th>
         </tr>
@@ -120,40 +114,72 @@ include_once('../../config/database.php');
             <th><?= 'coming soon' ?></th>
         </tr>
         <tr>
-            <th>Tanggal Mulai</th>    
-            <th><?= date("d-m-Y", $start) ?></th>
-        </tr>
-        <tr>
-            <th>Tanggal Berakhir</th>  
-            <th>
-            <?php            
-            if($ambil_data['TGL_BERAKHIR']== null){
-               echo "-";
-            }else{
-                echo date("d-m-Y", $end);
-            }
-            ?>
-            </th>
-        </tr>
-        <tr>
             <th width="200px">Deskripsi</th>    
             <th><?= $ambil_data['DESKRIPSI'] ?></th>
         </tr>
-        <tr>
-            <th>Status</th>    
-            <th>
-            <?php 
-            if($ambil_data['ACTIVE']=='1'){?> 
-            <a href="change_status.php?id=<?php echo $ambil_data['ID_PROGRAM']; ?>" class="btn btn-success">ACTIVE</a>
-            <?php } else{ ?> 
-            <a href="change_status.php?id=<?php echo $ambil_data['ID_PROGRAM']; ?>" class="btn btn-secondary">NON-ACTIVE</a>
-            <?php } ?>
-            </th>
-        </tr>
+      
     </thead>
-    </table>
+    </table>   
 </div>
 </div>
+
+<div class="card" >
+            <div class="card-header">
+            <a href="insert_batch.php" class="btn btn-success">Add +</a>
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                    <thead> 
+                        <tr>
+                            <th>ID Batch</th>
+                            <th>Tanggal Mulai</th> 
+                            <th>Tanggal Berakhir</th> 
+                            <th>Batch</th> 
+                            <th>Status</th>                     
+                            <th>Detail</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $query_program = "SELECT * FROM batch_program WHERE ID_PROGRAM = '".$_GET['id']."' ";
+                        $tabel_program= mysqli_query($mysqli, $query_program);
+                        foreach ($tabel_program as $data_program) : 
+                        ?>
+                        <tr>
+                            <td><?php echo $data_program['ID_BATCH']; ?></td>
+                            <td><?php echo $data_program['TGL_MULAI']; ?></td>     
+                            <td><?php echo $data_program['TGL_BERAKHIR']; ?></td>  
+                            <td><?php echo $data_program['BATCH']; ?></td>     
+                            <td> 
+                                <?php 
+                                if($data_program['STATUS']=='1'){?> 
+                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>" class="btn btn-success">ACTIVE</a>
+                                <?php } else{ ?> 
+                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>" class="btn btn-secondary">NON-ACTIVE</a>
+                                <?php } ?>  
+                           </td>    
+                            <td>
+                            <a href="#" class="btn btn-primary">Detail</a>
+                            </td>
+                            <td>
+                            <a href="#" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                            </td>              
+                        </tr>                      
+                    </tbody>
+                    <?php
+                       endforeach
+                    ?>
+                    </div>
+
+                </table>
+            </div>
+        </div>
     </section>
     <!-- Basic Tables end -->
 </div>

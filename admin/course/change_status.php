@@ -1,16 +1,16 @@
 <?php
 include_once('../../config/database.php');
 
-$program = mysqli_query($mysqli, "SELECT ACTIVE from program WHERE ID_PROGRAM = '".$_GET['id']."'");
+$program = mysqli_query($mysqli, "SELECT STATUS from batch_program WHERE ID_BATCH = '".$_GET['id']."'");
 $data    = mysqli_fetch_assoc($program);
-$status  = $data['ACTIVE'];
+$status  = $data['STATUS'];
 
 if($status == 0){
-    $update = mysqli_query($mysqli,"UPDATE program SET ACTIVE='1' WHERE ID_PROGRAM = '".$_GET['id']."'");
+    $update = mysqli_query($mysqli,"UPDATE batch_program SET STATUS='1' WHERE ID_BATCH = '".$_GET['id']."'");
 }else{
-    $update = mysqli_query($mysqli,"UPDATE program SET ACTIVE='0' WHERE ID_PROGRAM = '".$_GET['id']."'");
+    $update = mysqli_query($mysqli,"UPDATE batch_program SET STATUS='0' WHERE ID_BATCH = '".$_GET['id']."'");
 }
-echo "<script> alert('konfirmasi berhasil!'); </script>";
+echo "<script> alert('status berhasil diganti!'); </script>";
 echo "<script> location='reguler.php'; </script>";
 
 ?>

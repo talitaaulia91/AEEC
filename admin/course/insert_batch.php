@@ -56,10 +56,6 @@ include_once('../../config/database.php');
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Regular Class</li>
-                    </ol>
                 </nav>
             </div>
         </div>
@@ -72,7 +68,7 @@ include_once('../../config/database.php');
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" >Insert New Class</h4>
+                        <h4 class="card-title" >Insert New Batch</h4>
                     </div>
                     <!-- <div class="card-content"> -->
                         <div class="card-body">
@@ -81,50 +77,49 @@ include_once('../../config/database.php');
                                     <div class="row">
                                     <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Kode Program</label>
+                                                <label for="first-name-vertical">Kode Batch</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="id_program" placeholder="Kode Program" required>
+                                                    name="id_batch" placeholder="Kode Batch" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  mb-3">
+                                        <label for="exampleInputPassword1">Program</label>
+                                            <select class="form-select" name="id_program">
+                                                <option value="">Pilih Program</option>
+                                                    <?php
+                                                    $program = $mysqli->query("SELECT * FROM program");
+                                                    while ( $tipe = $program->fetch_assoc()){
+                                                    ?>
+                                                    <option value="<?php echo $tipe['ID_PROGRAM'] ?>">
+                                                    <?php 
+                                                    echo $tipe['NAMA_PROGRAM'];
+                                                    ?>
+                                                    </option>
+                                                    <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Tanggal Mulai</label>
+                                                <input type="date" id="first-name-vertical" class="form-control"
+                                                    name="tgl_mulai" placeholder="Tanggal Mulai Batch" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Nama Program</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama_program" placeholder="Nama Program" required>
+                                                <label for="first-name-vertical">Tanggal Berakhir</label>
+                                                <input type="date" id="first-name-vertical" class="form-control"
+                                                    name="tgl_berakhir" placeholder="Tanggal berakhir Batch" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Harga Individu</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="individu" placeholder="Harga Individu (sebelum PPN)" required>
+                                                <label for="first-name-vertical">Batch</label>
+                                                <input type="number" id="first-name-vertical" class="form-control"
+                                                    name="batch" placeholder="Batch" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Harga Kolektif</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="kolektif" placeholder="Harga Kolektif (sebelum PPN)" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Harga Korporat</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="korporat" placeholder="Harga Korporat (sebelum PPN)" required>
-                                            </div>
-                                        </div>
-                                        <div>
-                                           Deskripsi
-                                            <div class="form-floating">
-                                                        <textarea class="form-control" type="text" name="deskripsi" id="floatingTextarea" required></textarea>
-                                                        </div>
-                                        </div>
-                                        
-                                        <div class="form-group ">
-                                        <label for="exampleInputPassword1">Gambar</label>
-                                        <input type="file" name="gambar"class="form-control" required>
-                                        </div>
+        
                                       
                                        <br></br>
                                        <br></br>
@@ -142,30 +137,21 @@ include_once('../../config/database.php');
                 </div>
             </div>
     </section>
+
     <?php
                 if(isset($_POST['tambah'])){
-                $id_program      = $_POST['id_program'];
-                $nama_program    = $_POST['nama_program'];
-                $individu        = $_POST['individu'];
-                $kolektif        = $_POST['kolektif'];
-                $korporat        = $_POST['korporat'];
-                $deskripsi       = $_POST['deskripsi'];
-
-
-                $individu_ppn = $individu + ($individu * 11/100);
-                $kolektif_ppn = $kolektif + ($kolektif  * 11/100);
-                $korporat_ppn = $korporat + ($korporat * 11/100);
-
-                $gambar         = $_FILES['gambar']['name'];
-                $lokasi         = $_FILES['gambar']['tmp_name'];
-                move_uploaded_file($lokasi, '../../assets/images/program/'.$gambar);
+                $id_batch      = $_POST['id_batch'];
+                $id_program    = $_POST['id_program'];
+                $tgl_mulai     = $_POST['tgl_mulai'];
+                $tgl_berakhir  = $_POST['tgl_berakhir'];
+                $batch         = $_POST['batch'];
+            
  
                 
-    
   
-                //insert program
-                $program       = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, IMAGE)
-                                                     VALUES ('$id_program', 'SR', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi','$gambar')");
+                //insert batch_program
+                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, TGL_MULAI, TGL_BERAKHIR, BATCH)
+                                                       VALUES ('$id_batch', '$id_program', '$tgl_mulai', '$tgl_berakhir', '$batch')");
 
 
                 
