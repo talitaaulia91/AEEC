@@ -80,27 +80,36 @@ include_once('../../config/database.php');
                             <th>ID</th>
                             <th>Diskon</th>
                             <th>Presentase</th>
-                            <th>Bentuk</th>
-                            <th>Keterangan</th>
+                            <th>Detail</th>
                             <th>Edit</th>   
                             <th>Delete</th>                         
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        $query_diskon = "SELECT * FROM diskon ";
+                        $tabel_diskon = mysqli_query($mysqli, $query_diskon);
+                        foreach ($tabel_diskon as $data_diskon) : 
+                        ?>
                         <tr>
-                            <td>DS1</td>
-                            <td>Follow sosmed AEEC</td>
-                            <td>10%</td>  
-                            <td>Cashback</td>   
-                            <td>Diskon untuk peserta yang mengikuti sosial media AEEC sesuai ketentuan</td>    
+                            <td><?php echo $data_diskon['ID_DISKON']; ?></td>
+                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td>
+                            <td><?php echo $data_diskon['PRESENTASE']; ?></td>   
                             <td>
+                            <a href="#" class="btn btn-primary">Detail</a>
+                            </td> 
+                            <td> 
                             <a href="#" class="btn btn-warning">Edit</a>
                             </td>
-                        <td>
+                            <td>
                             <a href="#" class="btn btn-danger">Delete</a>
-                            </td>              
+                            </td>  
+                                        
                         </tr>                      
                     </tbody>
+                    <?php
+                       endforeach
+                    ?>
                     </div>
 
                 </table>

@@ -62,58 +62,98 @@ include_once('../../config/database.php');
     </div>
 
     <!-- Basic Tables start -->
+    <?php
+     $regular    = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_PROGRAM ='".$_GET['id']."' " );
+     $ambil_data = $regular->fetch_assoc();
+     $start      = strtotime($ambil_data['TGL_MULAI']);
+     $end        = strtotime($ambil_data['TGL_BERAKHIR']);
+    ?>
     <section class="section">
-        <div class="card" >
-            <div class="card-header">
-            <a href="insert_reguler.php" class="btn btn-success">Add +</a>
-            </div>
-            <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama Program</th>
-                            <th>INDIVIDU (PPN)</th> 
-                            <th>KOLEKTIF (PPN)</th> 
-                            <th>KORPORAT (PPN)</th>                     
-                            <th>Detail</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query_program = "SELECT * FROM program ";
-                        $tabel_program= mysqli_query($mysqli, $query_program);
-                        foreach ($tabel_program as $data_program) : 
-                        ?>
-                        <tr>
-                            <td><?php echo $data_program['ID_PROGRAM']; ?></td>
-                            <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
-                            <td><?php echo number_format($data_program['INDIVIDU']); ?></td>     
-                            <td><?php echo number_format($data_program['KOLEKTIF']); ?></td>     
-                            <td><?php echo number_format($data_program['KORPORAT']); ?></td>    
-                            <td>
-                            <a href="detail_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-primary">Detail</a>
-                            </td>
-                            <td>
-                            <a href="edit_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
-                            </td>
-                            <td>
-                            <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-danger">Delete</a>
-                            </td>              
-                        </tr>                      
-                    </tbody>
-                    <?php
-                       endforeach
-                    ?>
-                    </div>
+    <div class="card" >
+    <div class="card-header">
+    <table class="table table-bordered"  width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th>Kode program</th>    
+            <th><?=$ambil_data['ID_PROGRAM'] ?></th>
+        </tr>
+        <tr>
+            <th>Nama Program</th>    
+            <th><?= $ambil_data['NAMA_PROGRAM'] ?></th>
+        </tr>
+        <tr>
+            <th>Kategori Program</th>    
+            <th>
+            <?php
+            $kategori = mysqli_query($mysqli, "SELECT k.NAMA_KATEGORI FROM kategori_program k, program p 
+                                                WHERE k.ID_KATEGORI = p.ID_KATEGORI 
+                                                AND p.ID_PROGRAM = '".$_GET['id']."'");
+            $data     = mysqli_fetch_assoc($kategori);
+            $kat      = $data['NAMA_KATEGORI'];
+            echo $kat;                                    
+            ?>
 
-                </table>
-            </div>
-        </div>
-
+            </th>
+        </tr>
+        <tr>
+            <th>Batch</th>    
+            <th><?= $ambil_data['BATCH'] ?></th>
+        </tr>
+        <tr>
+            <th>Individu (PPN)</th>    
+            <th><?= 'Rp. '. number_format($ambil_data['INDIVIDU']) ?></th>
+        </tr>
+        <tr>
+            <th>Kolektif (PPN)</th>    
+            <th><?= 'Rp. '. number_format($ambil_data['KOLEKTIF']) ?></th>
+        </tr>
+        <tr>
+            <th>Korporat (PPN)</th>    
+            <th><?= 'Rp. '. number_format($ambil_data['KORPORAT']) ?></th>
+        </tr>
+        <tr>
+            <th>Voucher 5%</th>    
+            <th><?= 'coming soon' ?></th>
+        </tr>
+        <tr>
+            <th>Cashback 10%</th>    
+            <th><?= 'coming soon' ?></th>
+        </tr>
+        <tr>
+            <th>Tanggal Mulai</th>    
+            <th><?= date("d-m-Y", $start) ?></th>
+        </tr>
+        <tr>
+            <th>Tanggal Berakhir</th>  
+            <th>
+            <?php            
+            if($ambil_data['TGL_BERAKHIR']== null){
+               echo "-";
+            }else{
+                echo date("d-m-Y", $end);
+            }
+            ?>
+            </th>
+        </tr>
+        <tr>
+            <th width="200px">Deskripsi</th>    
+            <th><?= $ambil_data['DESKRIPSI'] ?></th>
+        </tr>
+        <tr>
+            <th>Status</th>    
+            <th>
+            <?php 
+            if($ambil_data['ACTIVE']=='1'){?> 
+            <a href="change_status.php?id=<?php echo $ambil_data['ID_PROGRAM']; ?>" class="btn btn-success">ACTIVE</a>
+            <?php } else{ ?> 
+            <a href="change_status.php?id=<?php echo $ambil_data['ID_PROGRAM']; ?>" class="btn btn-secondary">NON-ACTIVE</a>
+            <?php } ?>
+            </th>
+        </tr>
+    </thead>
+    </table>
+</div>
+</div>
     </section>
     <!-- Basic Tables end -->
 </div>
