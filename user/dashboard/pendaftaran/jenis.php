@@ -58,7 +58,7 @@ include_once 'header.php';
                                 <h1 class="price text-white"><i class="bi bi-person-fill"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <a href="diskon.php"><button class="btn btn-outline-white btn-block">Daftar</button></a>
+                                    <a href="individu/diskon.php"><button class="btn btn-outline-white btn-block">Daftar</button></a>
                                 </div>
                             </div>
                         </div>
