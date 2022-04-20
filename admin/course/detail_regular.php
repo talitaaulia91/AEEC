@@ -137,7 +137,7 @@ include_once('../../config/database.php');
                             <th>Tanggal Berakhir</th> 
                             <th>Batch</th> 
                             <th>Status</th>                     
-                            <th>Detail</th>
+                            <th>Peserta</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -162,10 +162,10 @@ include_once('../../config/database.php');
                                 <?php } ?>  
                            </td>    
                             <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
+                            <a href="#" class="btn btn-primary">Show</a>
                             </td>
                             <td>
-                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="edit_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
                             <a href="#" class="btn btn-danger">Delete</a>
