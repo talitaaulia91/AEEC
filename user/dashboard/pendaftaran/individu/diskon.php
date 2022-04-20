@@ -36,6 +36,7 @@ include_once 'header.php';
             <div class="col-12 col-md-8 offset-md-2">
                 <div class="pricing">
                     <div class="row align-items-center">
+                        
                         <div class="col-md-4 px-0">
                             <div class="card">
                                 <div class="card-header text-center">
@@ -50,6 +51,7 @@ include_once 'header.php';
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-md-4 px-0">
                             <div class="card card-highlighted">
                                 <div class="card-header text-center">
@@ -59,10 +61,11 @@ include_once 'header.php';
                                 <h1 class="price text-white"><i class="bi bi-person-x"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <button class="btn btn-outline-white btn-block">Daftar</button>
+                                    <a href = "form.php"><button class="btn btn-outline-white btn-block">Daftar</button> </a>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4 px-0">
                             <div class="card">
                                 <div class="card-header text-center">
