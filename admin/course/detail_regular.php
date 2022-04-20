@@ -65,6 +65,7 @@ include_once('../../config/database.php');
     <?php
      $regular    = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_PROGRAM ='".$_GET['id']."' " );
      $ambil_data = $regular->fetch_assoc();
+     $id_prog    = $ambil_data['ID_PROGRAM'];
     ?>
     <section class="section">
     <div class="card" >
@@ -73,15 +74,15 @@ include_once('../../config/database.php');
         <thead>
         <tr>
             <th>Kode program</th>    
-            <th><?=$ambil_data['ID_PROGRAM'] ?></th>
+            <td><?=$ambil_data['ID_PROGRAM'] ?></td>
         </tr>
         <tr>
             <th>Nama Program</th>    
-            <th><?= $ambil_data['NAMA_PROGRAM'] ?></th>
+            <td><?= $ambil_data['NAMA_PROGRAM'] ?></td>
         </tr>
         <tr>
             <th>Kategori Program</th>    
-            <th>
+            <td>
             <?php
             $kategori = mysqli_query($mysqli, "SELECT k.NAMA_KATEGORI FROM kategori_program k, program p 
                                                 WHERE k.ID_KATEGORI = p.ID_KATEGORI 
@@ -90,32 +91,71 @@ include_once('../../config/database.php');
             $kat      = $data['NAMA_KATEGORI'];
             echo $kat;                                    
             ?>
-
-            </th>
+            </td>
         </tr>
         <tr>
             <th>Individu (PPN)</th>    
-            <th><?= 'Rp. '. number_format($ambil_data['INDIVIDU']) ?></th>
+            <td><?= 'Rp. '. number_format($ambil_data['INDIVIDU']) ?></td>
         </tr>
         <tr>
             <th>Kolektif (PPN)</th>    
-            <th><?= 'Rp. '. number_format($ambil_data['KOLEKTIF']) ?></th>
+            <td><?= 'Rp. '. number_format($ambil_data['KOLEKTIF']) ?></td>
         </tr>
         <tr>
             <th>Korporat (PPN)</th>    
-            <th><?= 'Rp. '. number_format($ambil_data['KORPORAT']) ?></th>
+            <td><?= 'Rp. '. number_format($ambil_data['KORPORAT']) ?></td>
         </tr>
         <tr>
             <th>Voucher 5%</th>    
-            <th><?= 'coming soon' ?></th>
+            <td><?php
+               $voucher5     = mysqli_query($mysqli, "SELECT voucher5('$id_prog') AS 'voucher5'");
+               $row_voucher5 = $voucher5->fetch_assoc();
+               $v5           = $row_voucher5['voucher5'];
+               echo 'Rp. '.number_format($v5);
+            ?></td>
         </tr>
         <tr>
             <th>Cashback 10%</th>    
-            <th><?= 'coming soon' ?></th>
+            <td><?php
+               $cashback10   = mysqli_query($mysqli, "SELECT cashback10('$id_prog') AS 'cashback10'");
+               $row_cs10     = $cashback10->fetch_assoc();
+               $cs10         = $row_cs10['cashback10'];
+               echo 'Rp. '.number_format($cs10);
+            ?></td>
+        </tr>
+        <tr>
+            <th>Cashback 5%</th>    
+            <td><?php
+               $cashback5   = mysqli_query($mysqli, "SELECT cashback5('$id_prog') AS 'cashback5'");
+               $row_cs5     = $cashback5->fetch_assoc();
+               $cs5         = $row_cs5['cashback5'];
+               echo 'Rp. '.number_format($cs5);
+            ?></td>
+        </tr>
+        <tr>
+            <th width="200px">Jadwal</th>    
+            <td><?php
+            $jadwal = mysqli_query($mysqli, "SELECT d.*, j.*, h.*, w.*
+                                             FROM detail_program d JOIN jadwal j 
+                                             ON d.ID_JADWAL = j.ID_JADWAL
+                                             JOIN hari h
+                                             ON j.ID_HARI = h.ID_HARI
+                                             JOIN waktu w
+                                             ON j.ID_WAKTU = w.ID_WAKTU
+                                             AND d.ID_PROGRAM = '".$_GET['id']."'");
+            $count  = mysqli_num_rows($jadwal);
+
+            foreach ($jadwal as $data_jadwal) : 
+            echo $data_jadwal['NAMA_HARI'].', '.$data_jadwal['WAKTU_MULAI'].' - '.$data_jadwal['WAKTU_BERAKHIR'];
+            ?>          
+            <br>
+            <?php
+            endforeach
+            ?></td>
         </tr>
         <tr>
             <th width="200px">Deskripsi</th>    
-            <th><?= $ambil_data['DESKRIPSI'] ?></th>
+            <td><?= $ambil_data['DESKRIPSI'] ?></td>
         </tr>
       
     </thead>
@@ -168,7 +208,7 @@ include_once('../../config/database.php');
                             <a href="edit_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="delete_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
                     </tbody>

@@ -13,6 +13,7 @@ include_once('../../config/database.php');
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+   
     
 <!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
 <link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
@@ -30,6 +31,8 @@ include_once('../../config/database.php');
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../../assets/css/app.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
 </head>
 
 <body>
@@ -134,7 +137,7 @@ include_once('../../config/database.php');
                                         <label for="exampleInputPassword1" class="mb-0">Jadwal</label>
                                         <div class="row g-3 mt-0 mb-3">                  
                                         <div class="col">
-                                        <select class="form-select mt-0"  name="id_hari">
+                                        <select class="form-select"  name="id_hari">
                                                 <option value="">Pilih Hari</option>
                                                     <?php
                                                     $hari = $mysqli->query("SELECT * from hari");
@@ -163,8 +166,16 @@ include_once('../../config/database.php');
                                                     <?php } ?>
                                             </select>
                                         </div>
+                                        <!-- <div class="col-1">
+                                        <div class="input-group-btn"> 
+                                        <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Tambah</button>
+                                            </button>
                                         </div>
-
+                                        </div> -->
+                                        </div>
+                                    
+                                      
+                                              
 
 
                                         <div class="form-group ">
@@ -176,18 +187,21 @@ include_once('../../config/database.php');
                                        <br></br>
                                 
                                         <div class="col-12 d-flex justify-content-end ">
-                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Tambah</button>
+                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
                                             <button type="reset"
                                                 class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
     </section>
+
+
     <?php
                 if(isset($_POST['tambah'])){
                 $id_program      = $_POST['id_program'];

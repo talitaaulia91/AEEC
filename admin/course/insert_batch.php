@@ -125,7 +125,7 @@ include_once('../../config/database.php');
                                        <br></br>
                                 
                                         <div class="col-12 d-flex justify-content-end ">
-                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Tambah</button>
+                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
                                             <button type="reset"
                                                 class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
