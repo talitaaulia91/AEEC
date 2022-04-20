@@ -91,9 +91,9 @@ include_once('../../config/database.php');
                         <tr>
                             <td><?php echo $data_program['ID_PROGRAM']; ?></td>
                             <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
-                            <td><?php echo number_format($data_program['INDIVIDU']); ?></td>     
-                            <td><?php echo number_format($data_program['KOLEKTIF']); ?></td>     
-                            <td><?php echo number_format($data_program['KORPORAT']); ?></td>    
+                            <td><?php echo 'Rp. '.number_format($data_program['INDIVIDU']); ?></td>     
+                            <td><?php echo 'Rp. '.number_format($data_program['KOLEKTIF']); ?></td>     
+                            <td><?php echo 'Rp. '.number_format($data_program['KORPORAT']); ?></td>    
                             <td>
                             <a href="detail_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-primary">Detail</a>
                             </td>

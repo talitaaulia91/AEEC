@@ -56,10 +56,6 @@ include_once('../../config/database.php');
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Regular Class</li>
-                    </ol>
                 </nav>
             </div>
         </div>
@@ -114,13 +110,63 @@ include_once('../../config/database.php');
                                                     name="korporat" placeholder="Harga Korporat (sebelum PPN)" required>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Sesi</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="sesi" placeholder="Sesi" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Kuota</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kuota" placeholder="Kuota Peserta" required>
+                                            </div>
+                                        </div>
                                         <div>
                                            Deskripsi
-                                            <div class="form-floating">
+                                            <div class="form-floating mb-3">
                                                         <textarea class="form-control" type="text" name="deskripsi" id="floatingTextarea" required></textarea>
                                                         </div>
                                         </div>
-                                        
+
+                                        <label for="exampleInputPassword1" class="mb-0">Jadwal</label>
+                                        <div class="row g-3 mt-0 mb-3">                  
+                                        <div class="col">
+                                        <select class="form-select mt-0"  name="id_hari">
+                                                <option value="">Pilih Hari</option>
+                                                    <?php
+                                                    $hari = $mysqli->query("SELECT * from hari");
+                                                    while ( $tipe = $hari->fetch_assoc()){
+                                                    ?>
+                                                    <option value="<?php echo $tipe['ID_HARI'] ?>">
+                                                    <?php 
+                                                    echo $tipe['NAMA_HARI'];
+                                                    ?>
+                                                    </option>
+                                                    <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                        <select class="form-select"  name="id_waktu">
+                                                <option value="">Pilih Waktu</option>
+                                                    <?php
+                                                    $waktu = $mysqli->query("SELECT * FROM waktu");
+                                                    while ( $tipe = $waktu->fetch_assoc()){
+                                                    ?>
+                                                    <option value="<?php echo $tipe['ID_WAKTU'] ?>">
+                                                    <?php 
+                                                    echo $tipe['WAKTU_MULAI'].' - '.$tipe['WAKTU_BERAKHIR'];
+                                                    ?>
+                                                    </option>
+                                                    <?php } ?>
+                                            </select>
+                                        </div>
+                                        </div>
+
+
+
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Gambar</label>
                                         <input type="file" name="gambar"class="form-control" required>
@@ -150,6 +196,11 @@ include_once('../../config/database.php');
                 $kolektif        = $_POST['kolektif'];
                 $korporat        = $_POST['korporat'];
                 $deskripsi       = $_POST['deskripsi'];
+                $id_hari         = $_POST['id_hari'];
+                $id_waktu        = $_POST['id_waktu'];
+                $sesi            = $_POST['sesi'];
+                $kuota           = $_POST['kuota'];
+
 
 
                 $individu_ppn = $individu + ($individu * 11/100);
@@ -164,10 +215,49 @@ include_once('../../config/database.php');
     
   
                 //insert program
-                $program       = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, IMAGE)
-                                                     VALUES ('$id_program', 'SR', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi','$gambar')");
+                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, SESI, KUOTA, IMAGE)
+                                                     VALUES ('$id_program', 'SR', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi', '$sesi', '$kuota','$gambar')");
 
 
+
+
+
+                //insert detail program (jadwal)
+                $select_jadwal  = mysqli_query($mysqli, "SELECT ID_JADWAL 
+                                              FROM jadwal 
+                                              WHERE ID_HARI = '$id_hari'
+                                              AND ID_WAKTU = '$id_waktu'");              
+
+                $cek            = mysqli_num_rows($select_jadwal);
+
+                if($cek==0){
+                    //insert jadwal
+                    $jadwal     = mysqli_query($mysqli,"INSERT INTO jadwal (ID_HARI, ID_WAKTU) 
+                                                        VALUES ('$id_hari','$id_waktu')");
+
+                    //ambil id_jadwal
+                    $id         = mysqli_query($mysqli,"SELECT ID_JADWAL FROM jadwal
+                                                        ORDER BY ID_JADWAL DESC LIMIT 1");
+                    $row_id     = $id->fetch_assoc();
+                    $id_jadwal  = $row_id['ID_JADWAL'];
+                    
+                    //insert detail_program
+                    $detail     = mysqli_query($mysqli,"INSERT INTO detail_program (ID_PROGRAM, ID_JADWAL)
+                                                        VALUES ('$id_program', '$id_jadwal')");
+
+
+                }else{
+                    //ambil id_jadwal
+                    $rows       = $select_jadwal->fetch_assoc();
+                    $id_jadwal  = $rows['ID_JADWAL'];
+
+
+                     //insert detail_program
+                     $detail     = mysqli_query($mysqli,"INSERT INTO detail_program (ID_PROGRAM, ID_JADWAL)
+                     VALUES ('$id_program', '$id_jadwal')");
+                }
+
+                
                 
                 echo "<script>location='reguler.php';</script>";
               }
