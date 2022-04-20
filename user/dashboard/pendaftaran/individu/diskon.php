@@ -59,7 +59,7 @@ include_once 'header.php';
                                 <h1 class="price text-white"><i class="bi bi-person-x"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <button class="btn btn-outline-white btn-block">Daftar</button>
+                                    <a href = "form.php"><button class="btn btn-outline-white btn-block">Daftar</button> <a>
                                 </div>
                             </div>
                         </div>
