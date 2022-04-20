@@ -45,7 +45,7 @@ include_once 'header.php';
                                 <h1 class="price"><i class="bi bi-people"></i></h1>
                             
                                 <div class="card-footer">
-                                    <button class="btn btn-primary btn-block">Daftar</button>
+                                    <a href="kolektif/form.php"><button class="btn btn-primary btn-block">Daftar</button></a>
                                 </div>
                             </div>
                         </div>
@@ -66,12 +66,13 @@ include_once 'header.php';
                             <div class="card">
                                 <div class="card-header text-center">
                                     <h4 class="card-title">Korporat</h4>
+                                    <p class="text-center">Min. 10 orang</p>
                                     <p class="text-center">Dalam Institusi Yang Sama</p>
                                 </div>
                                 <h1 class="price"><i class="bi bi-person-square"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <button class="btn btn-primary btn-block">Daftar</button>
+                                <a href="korporat/form.php"><button class="btn btn-primary btn-block">Daftar</button></a>
                                 </div>
                             </div>
                         </div>
