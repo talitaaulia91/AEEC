@@ -89,52 +89,7 @@ include_once('../../config/database.php');
             </div>
         </div>
 
-        <section class="section">
-        <div class="card" >
-            <div class="card-header">
-                <a href="insert.php" class="btn btn-success">Add +</a>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                        <thead> 
-                            <tr>
-                                <th>ID</th>
-                                <th>Diskon</th>
-                                <th>Presentase</th>
-                                <th>Detail</th>
-                                <th>Edit</th>   
-                                <th>Delete</th>  
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query_diskon = "SELECT * FROM diskon ";
-                        $tabel_diskon = mysqli_query($mysqli, $query_diskon);
-                        foreach ($tabel_diskon as $data_diskon) :                            
-                        ?>
-                        <tr>
-                            <td><?php echo $data_diskon['ID_DISKON']; ?></td>
-                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td> 
-                            <td><?php echo $data_diskon['PRESENTASE']; ?></td> 
-                            <td>
-                                <a href="detail.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
-                            </td>
-                            <td>
-                                <a href="edit.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-warning">Edit</a>
-                            </td>
-                            <td>
-                                <a href="delete.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-danger">Delete</a>
-                            </td>              
-                        </tr>
-                        </tbody>
-                        <?php
-                            endforeach
-                        ?>
-                        </div>
-                    </table>
-                </div>
-            </div>
+    
         </section>
     <!-- Basic Tables end -->
 </div>

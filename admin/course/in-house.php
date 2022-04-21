@@ -70,42 +70,10 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
-            <a href="#" class="btn btn-success">Add +</a>
+            
             </div>
             <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama Program</th>
-                            <th>Harga</th> 
-                            <th>Harga PPN</th> 
-                            <th>Voucher 5%</th>  
-                            <th>Cashback 10%</th>                       
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CRS001</td>
-                            <td>Digital Leadership</td>
-                            <td>Rp. 2.000.000</td>     
-                            <td>Rp. 2.220.000</td>     
-                            <td>Rp. 2.109.000</td>    
-                            <td>Rp. 200.000</td>   
-                            <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                          
-                            <a href="#" class="btn btn-warning">Edit</a>
-                         
-                            <a href="#" class="btn btn-danger">Delete</a>
-                            </td>              
-                        </tr>                      
-                    </tbody>
-                    </div>
-
-                </table>
+               <h5>Coming Soon</h5>
             </div>
         </div>
 
