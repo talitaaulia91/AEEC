@@ -19,7 +19,7 @@ if( isset ($_POST["regis"])){
     $password = password_hash($pass, PASSWORD_DEFAULT);
     
 
-    $masukan="INSERT INTO `aeec`.`user` (`NAMA`, `EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$nama', '$email', '$password', 'USER')";
+    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `NAMA`, `PASSWORD`, `ROLE`) VALUES ('$email', '$nama', '$password', 'user')";
     mysqli_query($koneksi, $masukan); //buat query
 
     // Cek Data
@@ -34,6 +34,8 @@ if( isset ($_POST["regis"])){
         document.location.href = 'registrasi.php';
         </script>";
     }
+
+  
 }
 
 
