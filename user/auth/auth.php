@@ -13,13 +13,13 @@ if( isset ($_POST["regis"])){
         exit;
     }
 
-    // $nama= htmlspecialchars($_POST["nama"]);
+    $nama= htmlspecialchars($_POST["nama"]);
     $email= htmlspecialchars($_POST["email"]);
     $pass= htmlspecialchars($_POST["password"]);
     $password = password_hash($pass, PASSWORD_DEFAULT);
     
 
-    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`) VALUES ('$email', '$password')";
+    $masukan="INSERT INTO `aeec`.`user` (`NAMA`, `EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$nama', '$email', '$password', 'USER')";
     mysqli_query($koneksi, $masukan); //buat query
 
     // Cek Data
@@ -55,8 +55,11 @@ if( isset($_POST["login"]) ) {
             session_start();
             $_SESSION["user"] = $user;
             // login sukses, alihkan ke halaman timeline
-            header("Location: ../dashboard/index.php");
-            
+            if($user['ROLE'] == 'USER'){
+                header("Location: ../dashboard/index.php");
+            }else{
+                header("Location: ../../admin/dashboard/layout/dashboard.php");
+            }
             exit;
         }else{
             echo "<script> 

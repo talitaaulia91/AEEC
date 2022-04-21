@@ -1,70 +1,96 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Mazer Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <link rel="stylesheet" href="../../assets/css/pages/auth.css">
+	<title>Registrasi</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="../assets/csslogin/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../assets/csslogin/css/main.css">
+<!--===============================================================================================-->
 </head>
-
 <body>
-    <div id="auth">
-        
-<div class="row h-100">
-    <div class="col-lg-5 col-12">
-        <div id="auth-left">
-            <div class="auth-logo">
-                <a href="index.html"><img src="../assets/logo.png" width="80%" alt="Logo"></a>
-            </div>
-            <h1 class="auth-title">Sign Up</h1>
-            <p class="auth-subtitle mb-5">Airlangga ExecutiveEducation Center</p>
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('../assets/bglogin.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-50">
+				<span class="login100-form-title p-b-41">
+					Buat Akun
+				</span>
+				<div class="login100-form validate-form p-b-33 p-t-5 ">
+				<form  action="auth.php" method="POST" enctype="multipart/form-data">
 
-            <form action="auth.php" method="POST" enctype="multipart/form-data">
-                <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" class="form-control form-control-xl" placeholder="Email" name="email">
-                    <div class="form-control-icon">
-                        <i class="bi bi-envelope"></i>
-                    </div>
-                </div>
-                <!-- <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" class="form-control form-control-xl" placeholder="Nama" name="nama">
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
-                    </div>
-                </div> -->
-                <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="password" class="form-control form-control-xl" placeholder="Password" name="password">
-                    <div class="form-control-icon">
-                        <i class="bi bi-shield-lock"></i>
-                    </div>
-                </div>
-                <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="password" class="form-control form-control-xl" placeholder="Confirm Password" name="password2">
-                    <div class="form-control-icon">
-                        <i class="bi bi-shield-lock"></i>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5" name="regis" type="submit">Sign Up</button>
-            </form>
-            <div class="text-center mt-5 text-lg fs-4">
-                <p class='text-gray-600'>Sudah punya account? <a href="login.php" class="font-bold">Log
-                        in</a>.</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-7 d-none d-lg-block">
-        <div id="auth-right">
+                    <div class="wrap-input100 validate-input" data-validate = "Masukkan Nama">
+						<input class="input100" type="text" name="nama" placeholder="nama">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
 
-        </div>
-    </div>
-</div>
+					<div class="wrap-input100 validate-input" data-validate = "Masukkan Email">
+						<input class="input100" type="text" name="email" placeholder="email">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
 
-    </div>
+					<div class="wrap-input100 validate-input" data-validate="Masukkan Password">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+                    <div class="wrap-input100 validate-input" data-validate="Masukkan Password ">
+						<input class="input100" type="password" name="password2" placeholder="Konfirmasi Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-32">
+						<button class="login100-form-btn" name="regis" type="submit">
+							Login
+						</button>
+					</div>
+					
+				</form>
+					Sudah Punya Akun ? <a href="login.php" >Login</a>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/vendor/bootstrap/js/popper.js"></script>
+	<script src="../assets/csslogin/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../assets/csslogin/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="../assets/csslogin/js/main.js"></script>
+
 </body>
-
 </html>
