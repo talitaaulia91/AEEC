@@ -46,7 +46,8 @@ include_once('../../../../config/database.php');
                         </div>
                         <!-- <div class="card-content"> -->
                         <div class="card-body">
-                            <form class="form form-vertical" method="post" action="" enctype="multipart/form-data">
+                            <form method="POST" action="../process/createpayment.php" role="form" class="text-start" enctype="multipart/form-data">
+                            <!-- <form class="form form-vertical" method="post" action="" enctype="multipart/form-data"> -->
                                 <div class="form-body">
                                     <div class="row">
                                     <div class="col-12">

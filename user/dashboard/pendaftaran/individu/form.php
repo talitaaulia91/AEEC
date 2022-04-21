@@ -195,7 +195,6 @@ foreach($program as $hasil){
             $id = query("SELECT ID_CLIENT FROM client
             ORDER BY ID_CLIENT DESC LIMIT 1");
             foreach($id as $idterbaru){
-
             }
             // $id_pemesanan = $id['id_pemesanan'];
     
@@ -213,7 +212,6 @@ foreach($program as $hasil){
             // if (mysqli_affected_rows($koneksi) > 0){
             //     echo "<script> 
             //             alert('Data MASUK');
-                        
             //         </script>";
             // }else{
             //     echo "<script> 
