@@ -185,8 +185,8 @@ foreach($program as $hasil){
             $lokasi         = $_FILES['berkas']['tmp_name'];
             move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
 
-            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) 
-                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni)";
+            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `JABATAN`, `BERKAS_NPWP`, `ALUMNI`) 
+                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$jabatan', '$gambar', $alumni)";
             mysqli_query($koneksi, $masukan); //buat query  
 
             // INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) VALUES ('123', '1', '2', '2', '3', '3', '4', '6', '5');

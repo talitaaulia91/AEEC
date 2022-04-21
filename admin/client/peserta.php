@@ -76,30 +76,34 @@ include_once('../../config/database.php');
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>NPWP</th>
-                            <th>No.Telp</th>                         
-                            <th>Action</th>
+                            <th>ID Client</th>
+                            <th>ID User</th>
+                            <th>Jenis Kelamin</th>
+                            <th>No Telp</th>
+                            <th>NPWP</th>                         
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $query_client = "SELECT * FROM client ";
+                        $tabel_client = mysqli_query($mysqli, $query_client);
+                        foreach ($tabel_client as $data_client) :                            
+                        ?>
                         <tr>
-                            <td>CUS001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>annisa.aristawati@gmail.com</td>
-                            <td>07648208838</td>
-                            <td>085706568677</td>              
+                            <td><?php echo $data_client['ID_CLIENT']; ?></td>
+                            <td><?php echo $data_client['ID_USER']; ?></td> 
+                            <td><?php echo $data_client['JK']; ?></td> 
+                            <td><?php echo $data_client['NO_TELP']; ?></td> 
+                            <td><?php echo $data_client['NPWP']; ?></td> 
                             <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                          
-                            <a href="#" class="btn btn-warning">Edit</a>
-                         
-                            <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
                             </td>              
-                        </tr>                      
-                    </tbody>
+                        </tr>
+                        </tbody>
+                        <?php
+                            endforeach
+                        ?>
                     </div>
 
                 </table>

@@ -1,7 +1,6 @@
 <?php 
-include_once('../../../../config/database.php');
-
 include_once 'header.php'; 
+include_once('../../../../config/database.php');
 ?>
 
 <!-- HALAMAN UTAMA -->
@@ -50,68 +49,95 @@ include_once 'header.php';
                             <form class="form form-vertical" method="post" action="" enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Jenis Kelamin</label>
-                                                    <select class="form-select" name="jk" required>
-	                                                    <option value="0">Laki-Laki</option>
-	                                                    <option value="1">Wanita</option>
-                                                    </select>
+                                    <div class="col-12">
+                                            <div class="form-group has-icon-left">
+                                                <label for="email-id-icon">No Telp : </label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="+62.."
+                                                        id="email-id-icon" name="telp" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-phone"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">No Telp</label>
-                                                <input type="number" id="first-name-vertical" class="form-control"
-                                                    name="no_telp" placeholder="No Telp" required>
+                                            <div class="form-group has-icon-left">
+                                                <label for="mobile-id-icon">NPWP</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="NPWP"
+                                                        id="mobile-id-icon" name="npwp" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-archive-fill"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">NPWP</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="npwp" placeholder="NPWP" required>
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Alamat NPWP</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Alamat NPWP"
+                                                        id="password-id-icon" name="alamatnpwp" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-house"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Alamat NPWP</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="alamat_npwp" placeholder="Alamat NPWP" required>
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Alamat Rumah</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Alamat Rumah"
+                                                        id="password-id-icon" name="alamat" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-house-door-fill"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Alamat Rumah</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="alamat_rumah" placeholder="Alamat Rumah" required>
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Instansi</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Instansi"
+                                                        id="password-id-icon" name="instansi" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-building"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Instansi</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="instansi" placeholder="Instansi" required>
+                                            <div class="form-group has-icon-left">
+                                                <label for="password-id-icon">Jabatan</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" placeholder="Jabatan"
+                                                        id="password-id-icon" name="jabatan" required>
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-person-badge"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Jabatan</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="jabatan" placeholder="Jabatan" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
+                                            <div class="mb-3">
                                                 <label for="formFile" class="form-label">Berkas NPWP</label>
-                                                <input type="file" id="formFile" class="form-control"
-                                                    name="alamat_rumah" placeholder="Alamat Rumah" required>
+                                                <input class="form-control" type="file" id="formFile" name="berkas" required>
                                             </div>
-                                        </div>     
-                                      
-                                       <br></br>
-                                       <br></br>
-                                
+                                        </div>
+                                        <div class="col-12">
+                                            <h7>Jenis Kelamin</h7>
+                                            <fieldset class="form-group">
+                                                <select class="form-select" id="basicSelect" name="jk" required>
+                                                    <option >Pilih </option>
+                                                    <option value="0">Laki - Laki </option>
+                                                    <option value="1">Perempuan</option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
+                                        
                                         <div class="col-12 d-flex justify-content-end ">
                                             <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
                                             <button type="reset"
@@ -123,30 +149,58 @@ include_once 'header.php';
                         </div>
                     </div>
                 </div>
-            </div>
-    </section>
 
-    <?php
-                if(isset($_POST['tambah'])){
-                $jk             = $_POST['jk'];
-                $no_telp        = $_POST['no_telp'];
-                $npwp           = $_POST['npwp'];
-                $alamat_npwp    = $_POST['alamat_npwp'];
-                $alamat_rumah   = $_POST['alamat_rumah'];    
-                $instansi       = $_POST['instansi'];
-                $jabatan        = $_POST['jabatan'];
-                $berkas_npwp    = $_FILES['berkas_npwp']['name'];
-                $lokasi         = $_FILES['berkas_npwp']['tmp_name'];
-                move_uploaded_file($lokasi, '../../../../assets/berkas-npwp/'.$berkas_npwp);
-  
-                //insert 
-                $program       = mysqli_query($mysqli,"INSERT INTO client (JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, JABATAN, BERKAS NPWP)
-                                                       VALUES ('$jk', '$no_telp', '$npwp', '$alamat_npwp', '$alamat_rumah', '$instansi'
-                                                       , '$jabatan', '$berkas_npwp')");
-                
-                echo "<script>location='form.php';</script>";
-              }
-              ?>
+            
+            </div>
+        </div>
+
+    </section>
+    <!-- Basic Tables end -->
 </div>
 
 <?php include 'footer.php'; ?>
+
+
+<?php
+        
+        if(isset($_POST['tambah'])){
+            // var_dump($_POST['berkas']);
+            $id_user = $_SESSION["user"]["ID_USER"];
+            $jk = $_POST['jk'];
+            $notelp = $_POST['telp'];
+            $npwp = $_POST['npwp'];
+            $alamatnpwp = $_POST['alamatnpwp'];
+            $alamat = $_POST['alamat'];
+            $instansi = $_POST['instansi'];
+            $jabatan = $_POST['jabatan'];
+            $alumni = $_POST['alumni'];
+
+            // UNTUK BUKTI NPWP
+            $gambar         = $_FILES['berkas']['name'];
+            $lokasi         = $_FILES['berkas']['tmp_name'];
+            move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
+
+            // $program       = mysqli_query($mysqli,"INSERT INTO client (ID_USER, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP,)
+            //                                            VALUES ('$id_user', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar')");
+                
+            // echo "<script>location='form.php';</script>";
+
+
+            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) 
+                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni)";
+            mysqli_query($koneksi, $masukan); //buat query  
+
+            // INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) VALUES ('123', '1', '2', '2', '3', '3', '4', '6', '5');
+
+            if (mysqli_affected_rows($koneksi) > 0){
+                echo "<script> 
+                        alert('Data MASUK');
+                        
+                    </script>";
+            }else{
+                echo "<script> 
+                alert('GAGAL');
+                
+                </script>";
+            }
+        }

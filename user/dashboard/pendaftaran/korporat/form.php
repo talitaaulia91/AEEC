@@ -1,5 +1,6 @@
 <?php 
 include_once 'header.php'; 
+include_once('../../../../config/database.php');
 ?>
 
 <!-- HALAMAN UTAMA -->
@@ -9,7 +10,7 @@ include_once 'header.php';
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Formulir Pendaftaran Kolektif</h3>
+                        <h3>Formulir Pendaftaran Korporat</h3>
                         <!-- <p class="text-subtitle text-muted">For user to check they list</p> -->
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
@@ -34,7 +35,7 @@ include_once 'header.php';
                     <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                         <thead> 
                             <tr>
-                                <th>Nama Lengkap</th>
+                                <th>Jenis Kelamin</th>
                                 <th>No Telp</th>
                                 <th>NPWP</th>
                                 <th>Alamat NPWP</th>
@@ -46,26 +47,30 @@ include_once 'header.php';
                             </tr>
                         </thead>
                     <tbody>
-                        <!-- <?php foreach ($sql as $item) : ?> -->
+                    <?php
+                        $query_client = "SELECT * FROM client ";
+                        $tabel_client = mysqli_query($mysqli, $query_client);
+                        foreach ($tabel_client as $data_client) :                            
+                        ?>
                         <tr>
-                        <td class="align-middle text-center text-sm">
-                            <span class="text-secondary font-weight-bold text-xs"><?php echo $item['']; ?></span>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="text-secondary font-weight-bold text-xs"><?php echo $item['']; ?></span>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="text-secondary font-weight-bold text-xs"><?php echo $item['']; ?></span>
-                        </td>
-                        <td class="align-middle text-center text-sm">
-                            <span class="text-secondary font-weight-bold text-xs"><?php echo $item['']; ?></span>
-                        </td>
-                        <td>
-                            <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="deleteoffer.php?id_penawaran=<?php echo $item['']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                            <a class="btn btn-link text-warning px-3 mb-0" href="editoffer.php?id_penawaran=<?php echo $item['']; ?>"><i class="material-icons text-sm me-2">edit</i>Edit</a>
-                        </td>
+                            <td><?php echo $data_client['JENIS_KELAMIN']; ?></td>
+                            <td><?php echo $data_client['NO_TELP']; ?></td> 
+                            <td><?php echo $data_client['NPWP']; ?></td> 
+                            <td><?php echo $data_client['ALAMAT_NPWP']; ?></td> 
+                            <td><?php echo $data_client['ALAMAT_RUMAH']; ?></td> 
+                            <td><?php echo $data_client['INSTANSI']; ?></td> 
+                            <td><?php echo $data_client['JABATAN']; ?></td> 
+                            <td><?php echo $data_client['BERKAS NPWP']; ?></td> 
+                            <td>
+                                <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
+                                <a href="edit.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-warning">Edit</a>
+                                <a href="delete.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-danger">Delete</a>
+                            </td>              
                         </tr>
-                        <!-- <?php endforeach; ?>                       -->
+                        </tbody>
+                        <?php
+                            endforeach
+                        ?>
                     </tbody>
                     </div>
 
