@@ -41,7 +41,7 @@ require '../../../method.php';
             
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'index') ? 'active' : '' ?> ">
-                <a href="../index.php" class='sidebar-link'>
+                <a href="../../index.php" class='sidebar-link'>
                     <i class="bi bi-person-badge-fill"></i>
                     <span>Profile</span>
                 </a>
@@ -49,7 +49,7 @@ require '../../../method.php';
 
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'pilih') ? 'active' : '' ?> ">
-                <a href="../program.php" class='sidebar-link'>
+                <a href="../../program.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Daftar Program</span>
                 </a>
@@ -57,7 +57,7 @@ require '../../../method.php';
 
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'aktif') ? 'active' : '' ?> ">
-                <a href="../aktif.php" class='sidebar-link'>
+                <a href="../../aktif.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Program Aktif</span>
                 </a>
@@ -65,7 +65,7 @@ require '../../../method.php';
 
             <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'history') ? 'active' : '' ?> ">
-                <a href="../history.php" class='sidebar-link'>
+                <a href="../../history.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>History Program</span>
                 </a>
@@ -144,7 +144,7 @@ require '../../../method.php';
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="logout.php"><i
+                                    <li><a class="dropdown-item" href="../../logout.php"><i
                                                 class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
                                 </ul>
                             </div>
