@@ -1,6 +1,10 @@
 <?php 
 include_once 'header.php'; 
+$id = $_GET['idprog'];
+$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+foreach($program as $hasil){
 
+};
 ?>
             <!-- HALAMAN UTAMA -->
             <div id="main-content">
@@ -26,7 +30,7 @@ include_once 'header.php';
        <section class="section">
         <div class="card" >
             <div class="card-header">
-            <h4>Nama Program<h4>
+            <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
             </div>
             <div class="card-body">
                 
@@ -36,7 +40,7 @@ include_once 'header.php';
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-vertical">
+                            <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
                                         
@@ -45,7 +49,7 @@ include_once 'header.php';
                                                 <label for="email-id-icon">No Telp : </label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="+62.."
-                                                        id="email-id-icon">
+                                                        id="email-id-icon" name="telp" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
                                                     </div>
@@ -57,7 +61,7 @@ include_once 'header.php';
                                                 <label for="mobile-id-icon">NPWP</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="NPWP"
-                                                        id="mobile-id-icon">
+                                                        id="mobile-id-icon" name="npwp" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-archive-fill"></i>
                                                     </div>
@@ -69,7 +73,7 @@ include_once 'header.php';
                                                 <label for="password-id-icon">Alamat NPWP</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="Alamat NPWP"
-                                                        id="password-id-icon">
+                                                        id="password-id-icon" name="alamatnpwp" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-house"></i>
                                                     </div>
@@ -81,7 +85,7 @@ include_once 'header.php';
                                                 <label for="password-id-icon">Alamat Rumah</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="Alamat Rumah"
-                                                        id="password-id-icon">
+                                                        id="password-id-icon" name="alamat" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-house-door-fill"></i>
                                                     </div>
@@ -93,7 +97,7 @@ include_once 'header.php';
                                                 <label for="password-id-icon">Instansi</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="Instansi"
-                                                        id="password-id-icon">
+                                                        id="password-id-icon" name="instansi" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-building"></i>
                                                     </div>
@@ -105,7 +109,7 @@ include_once 'header.php';
                                                 <label for="password-id-icon">Jabatan</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" placeholder="Jabatan"
-                                                        id="password-id-icon">
+                                                        id="password-id-icon" name="jabatan" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person-badge"></i>
                                                     </div>
@@ -115,30 +119,32 @@ include_once 'header.php';
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Berkas NPWP</label>
-                                                <input class="form-control" type="file" id="formFile">
+                                                <input class="form-control" type="file" id="formFile" name="berkas" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <h7>Apakah Alumni Unair</h7>
+                                            <h7>Jenis Kelamin</h7>
                                             <fieldset class="form-group">
-                                                <select class="form-select" id="basicSelect">
-                                                    <option>Ya</option>
-                                                    <option>Tidak</option>
-                                                    <option>Nanti Ada Nama Fakultas</option>
+                                                <select class="form-select" id="basicSelect" name="jk" required>
+                                                    <option >Pilih </option>
+                                                    <option value="0">Laki - Laki </option>
+                                                    <option value="1">Perempuan</option>
                                                 </select>
                                             </fieldset>
                                         </div>
                                         <div class="col-12">
-                                            <div class='form-check'>
-                                                <div class="checkbox mt-2">
-                                                    <input type="checkbox" id="remember-me-v" class='form-check-input'
-                                                        checked>
-                                                    <label for="remember-me-v">Remember Me</label>
-                                                </div>
-                                            </div>
+                                            <h7>Apakah Alumni Unair</h7>
+                                            <fieldset class="form-group">
+                                                <select class="form-select" id="basicSelect" name="alumni" required>
+                                                    <option value="1">Ya</option>
+                                                    <option value="0">Tidak</option>
+                                                    <option>Nanti Ada Nama Fakultas</option>
+                                                </select>
+                                            </fieldset>
                                         </div>
+                                        
                                         <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                            <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
                                             <button type="reset"
                                                 class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
@@ -158,3 +164,44 @@ include_once 'header.php';
 </div>
 
 <?php include 'footer.php'; ?>
+
+
+<?php
+        
+        if(isset($_POST['tambah'])){
+            // var_dump($_POST['berkas']);
+            $iduser = $_SESSION["user"]["ID_USER"];
+            $jk = $_POST['jk'];
+            $notelp = $_POST['telp'];
+            $npwp = $_POST['npwp'];
+            $alamatnpwp = $_POST['alamatnpwp'];
+            $alamat = $_POST['alamat'];
+            $instansi = $_POST['instansi'];
+            $jabatan = $_POST['jabatan'];
+            $alumni = $_POST['alumni'];
+
+            // UNTUK BUKTI NPWP
+            $gambar         = $_FILES['berkas']['name'];
+            $lokasi         = $_FILES['berkas']['tmp_name'];
+            move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
+
+            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) 
+                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni)";
+            mysqli_query($koneksi, $masukan); //buat query  
+
+            // INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) VALUES ('123', '1', '2', '2', '3', '3', '4', '6', '5');
+
+            if (mysqli_affected_rows($koneksi) > 0){
+                echo "<script> 
+                        alert('Data MASUK');
+                        
+                    </script>";
+            }else{
+                echo "<script> 
+                alert('GAGAL');
+                
+                </script>";
+            }
+        }
+
+?>
