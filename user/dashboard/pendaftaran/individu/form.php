@@ -192,14 +192,11 @@ foreach($program as $hasil){
 
             //AMbil ID CLient Terbaru
             //ambil id_jadwal
-            $id = query("SELECT ID_CLIENT FROM client
-            ORDER BY ID_CLIENT DESC LIMIT 1");
-            foreach($id as $idterbaru){
-
-            }
+            $id = mysqli_query($koneksi,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
+            $id_terbaru = $id->fetch_assoc();
             // $id_pemesanan = $id['id_pemesanan'];
     
-            $id_client  = $idterbaru['ID_CLIENT'];
+            $id_client  = $id_terbaru['ID_CLIENT'];
 
             //Menangkap Data
             $batch = $_GET['idbatch'];

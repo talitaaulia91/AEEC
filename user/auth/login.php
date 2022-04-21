@@ -55,7 +55,11 @@
 					</div>
 					
 				</form>
-					Tidak Punya Akun ? <a href="registrasi.php" >Registrasi</a>
+					<h6 class="mt-3 "><center>Tidak Punya Akun ? 
+						<a href="registrasi.php" >
+							<font color="blue"><b>Registrasi</b></font>
+						</a>
+					</center></h6>
 				</div>
 				
 			</div>
