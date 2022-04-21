@@ -52,14 +52,13 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Data Diskon</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
+                        <li class="breadcrumb-item active" aria-current="page">Data Diskon</li>
                     </ol>
                 </nav>
             </div>
@@ -70,72 +69,67 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
-            <a href="#" class="btn btn-success">Add +</a>
+                <a href="insert.php" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
-                        <tr>
-                            <th>ID</th>
-                            <th>Diskon</th>
-                            <th>Presentase</th>
-                            <th>Detail</th>
-                            <th>Edit</th>   
-                            <th>Delete</th>                         
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                        <thead> 
+                            <tr>
+                                <th>ID</th>
+                                <th>Diskon</th>
+                                <th>Presentase</th>
+                                <th>Detail</th>
+                                <th>Edit</th>   
+                                <th>Delete</th>  
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $query_diskon = "SELECT * FROM diskon ";
                         $tabel_diskon = mysqli_query($mysqli, $query_diskon);
-                        foreach ($tabel_diskon as $data_diskon) : 
+                        foreach ($tabel_diskon as $data_diskon) :                            
                         ?>
                         <tr>
                             <td><?php echo $data_diskon['ID_DISKON']; ?></td>
-                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td>
-                            <td><?php echo $data_diskon['PRESENTASE']; ?></td>   
+                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td> 
+                            <td><?php echo $data_diskon['PRESENTASE']; ?></td> 
                             <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                            </td> 
-                            <td> 
-                            <a href="#" class="btn btn-warning">Edit</a>
+                                <a href="detail.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
                             </td>
                             <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                            </td>  
-                                        
-                        </tr>                      
-                    </tbody>
-                    <?php
-                       endforeach
-                    ?>
-                    </div>
-
-                </table>
+                                <a href="edit.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                                <a href="delete.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-danger">Delete</a>
+                            </td>              
+                        </tr>
+                        </tbody>
+                        <?php
+                            endforeach
+                        ?>
+                        </div>
+                    </table>
+                </div>
             </div>
-        </div>
-
-    </section>
+        </section>
     <!-- Basic Tables end -->
 </div>
 
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+<footer>
+    <div class="footer clearfix mb-0 text-muted">
+        <div class="float-start">
+            <p>2021 &copy; Mazer</p>
+        </div>
+        <div class="float-end">
+            <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <ahref="http://ahmadsaugi.com">A. Saugi</a></p>
         </div>
     </div>
-    <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-    
+</footer>
+</div>
+</div>
+<script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="../../assets/js/bootstrap.bundle.min.js"></script> 
 <script src="../../assets/vendors/jquery/jquery.min.js"></script>
 <script src="../../assets/vendors/jquery-datatables/jquery.dataTables.min.js"></script>
 <script src="../../assets/vendors/jquery-datatables/custom.jquery.dataTables.bootstrap5.min.js"></script>
