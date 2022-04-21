@@ -44,7 +44,7 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Detail Diskon</h3>
+                <h3>Detail Peserta</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
@@ -54,9 +54,9 @@ include_once('../../config/database.php');
 
     <!-- Basic Tables start -->
     <?php
-        $regular    = mysqli_query($mysqli, "SELECT * FROM diskon WHERE ID_DISKON ='".$_GET['id']."' " );
+        $regular    = mysqli_query($mysqli, "SELECT * FROM client WHERE ID_CLIENT ='".$_GET['id']."' " );
         $ambil_data = $regular->fetch_assoc();
-        $id_prog    = $ambil_data['ID_DISKON'];
+        $id_cli    = $ambil_data['ID_CLIENT'];
     ?>
 
     <section class="section">
@@ -65,24 +65,24 @@ include_once('../../config/database.php');
                 <table class="table table-bordered"  width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Diskon</th>    
-                            <td><?=$ambil_data['ID_DISKON'] ?></td>
+                            <th>Alamat NPWP</th>    
+                            <td><?=$ambil_data['ALAMAT_NPWP'] ?></td>
                         </tr>
                         <tr>
-                            <th>Nama Diskon</th>    
-                            <td><?=$ambil_data['NAMA_DISKON'] ?></td>
+                            <th>Alamat Rumah</th>    
+                            <td><?=$ambil_data['ALAMAT_RUMAH'] ?></td>
                         </tr>
                         <tr>
-                            <th>Presentase</th>    
-                            <td><?=$ambil_data['PRESENTASE'] ?></td>
+                            <th>Instansi</th>    
+                            <td><?=$ambil_data['INSTANSI'] ?></td>
                         </tr>
                         <tr>
-                            <th>Bentuk</th>    
-                            <td><?=$ambil_data['BENTUK'] ?></td>
+                            <th>Jabatan</th>    
+                            <td><?=$ambil_data['JABATAN'] ?></td>
                         </tr>
                         <tr>
-                            <th width="200px">Deskripsi</th>    
-                            <td><?= $ambil_data['DESKRIPSI'] ?></td>
+                            <th>Berkas NPWP</th>    
+                            <td><?=$ambil_data['BERKAS_NPWP'] ?></td>
                         </tr>
                     </thead>
                 </table>   

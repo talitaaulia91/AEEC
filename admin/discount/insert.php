@@ -83,7 +83,8 @@ include_once('../../config/database.php');
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Bentuk</label>
-                                                    <select class="form-select" name="jk" required>
+                                                    <select class="form-select" name="bentuk" required>
+                                                        <option >Pilih </option>
 	                                                    <option value="Cashback">Cashback</option>
 	                                                    <option value="Voucher">Voucher</option>
                                                     </select>
@@ -119,11 +120,15 @@ include_once('../../config/database.php');
             $bentuk         = $_POST['bentuk'];
             $deskripsi      = $_POST['deskripsi'];
 
-            //insert 
-            $program       = mysqli_query($mysqli,"INSERT INTO diskon (NAMA_DISKON, PRESENTASE, BENTUK, DESKRIPSI)
-                                                       VALUES ('$nama_diskon','$presentase','$bentuk,'$deskripsi')");
-                
-            echo "<script>location='discount.php';</script>";
+            //insert
+            $program       = mysqli_query($mysqli,"INSERT INTO diskon (ID_DISKON, NAMA_DISKON, PRESENTASE, BENTUK, DESKRIPSI)
+                                                       VALUES ('$id_diskon','$nama_diskon','$presentase','$bentuk,'$deskripsi')");
+
+        if ($program) {
+            header("location=discount.php");  
+        } else {
+            echo "gagal input data";
+        } 
         }
     ?>
     <!-- Basic Tables end -->

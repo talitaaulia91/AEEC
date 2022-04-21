@@ -186,31 +186,48 @@ foreach($program as $hasil){
             move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
 
             // TAMBAH DATA CLIENT
-            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) 
-                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni)";
+            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `JABATAN`, `BERKAS_NPWP`, `ALUMNI`) 
+                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$jabatan' , '$gambar', $alumni)";
             mysqli_query($koneksi, $masukan); //buat query  
 
+<<<<<<< Updated upstream
             //AMbil ID CLient Terbaru
             //ambil id_jadwal
+<<<<<<< HEAD
             $id = mysqli_query($koneksi,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
             $id_terbaru = $id->fetch_assoc();
             // $id_pemesanan = $id['id_pemesanan'];
     
             $id_client  = $id_terbaru['ID_CLIENT'];
 
+=======
+            $id = query("SELECT ID_CLIENT FROM client
+            ORDER BY ID_CLIENT DESC LIMIT 1");
+            foreach($id as $idterbaru){
+=======
+           //Mengambil id CLIENT
+            $idterbaru = query("SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1;");
+            foreach($idterbaru as $id){
+
+>>>>>>> Stashed changes
+            }
+            $ID_CLIENT = $id['ID_CLIENT'];            
+>>>>>>> de3b522aa9c766176f71c96517a02836411bed66
             //Menangkap Data
             $batch = $_GET['idbatch'];
             date_default_timezone_set("Asia/Jakarta");
-            $tanggal = date("d-m-Y");
-            
-            //Tambah Data pendaftaran
+            $tanggal = date("Y-m-d");
+            // //Tambah Data pendaftaran
             $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `TGL_PENDAFTARAN`, `STATUS`) 
-                            VALUES ('$batch', '$id_client', '$tanggal', '0',)";
+            VALUES ('$batch', '$ID_CLIENT', '$tanggal', '0')";
+            mysqli_query($koneksi, $masukan2); //buat query  
+
+            var_dump($ID_CLIENT, $batch, $tanggal);
+            
 
             // if (mysqli_affected_rows($koneksi) > 0){
             //     echo "<script> 
             //             alert('Data MASUK');
-                        
             //         </script>";
             // }else{
             //     echo "<script> 
@@ -219,10 +236,10 @@ foreach($program as $hasil){
             //     </script>";
             // }
 
-            echo "<script> 
-                alert('Data Masuk');
-                document.location.href = '../../index.php';
-                </script>";
+            // echo "<script> 
+            //     alert('Data Masuk');
+            //     document.location.href = '../../index.php';
+            //     </script>";
         }
 
 ?>
