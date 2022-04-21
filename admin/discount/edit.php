@@ -84,8 +84,10 @@ include_once('../../config/database.php');
                                             </div>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">BENTUK</label>
-                                                <input type="int" id="first-name-vertical" class="form-control" 
-                                                name="bentuk" value="<?php echo $data_diskon['BENTUK'];?>" required>
+                                                    <select class="form-select" name="jk" required>
+	                                                    <option value="Cashback">Cashback</option>
+	                                                    <option value="Voucher">Voucher</option>
+                                                    </select>
                                             </div>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">DESKRIPSI</label>
