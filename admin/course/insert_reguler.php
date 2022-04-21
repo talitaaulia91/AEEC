@@ -166,17 +166,6 @@ include_once('../../config/database.php');
                                                     <?php } ?>
                                             </select>
                                         </div>
-                                        <!-- <div class="col-1">
-                                        <div class="input-group-btn"> 
-                                        <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Tambah</button>
-                                            </button>
-                                        </div>
-                                        </div> -->
-                                        </div>
-                                    
-                                      
-                                              
-
 
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Gambar</label>

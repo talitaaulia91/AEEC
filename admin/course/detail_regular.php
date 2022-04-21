@@ -165,7 +165,7 @@ include_once('../../config/database.php');
 
 <div class="card" >
             <div class="card-header">
-            <a href="insert_batch.php" class="btn btn-success">Add +</a>
+            <a href="insert_batch_regular.php" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -177,8 +177,8 @@ include_once('../../config/database.php');
                             <th>Tanggal Berakhir</th> 
                             <th>Batch</th> 
                             <th>Status</th>                     
-                            <th>Peserta</th>
-                            <th>Edit</th>
+                            <th class="col-1">Peserta</th>
+                            <th class="col-1">Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -196,9 +196,13 @@ include_once('../../config/database.php');
                             <td> 
                                 <?php 
                                 if($data_program['STATUS']=='1'){?> 
-                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>" class="btn btn-success">ACTIVE</a>
+                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>">
+                                   <font color="success"><i><b>Active</b></i></font>
+                                </a>
                                 <?php } else{ ?> 
-                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>" class="btn btn-secondary">NON-ACTIVE</a>
+                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>">
+                                  <font color="grey"><i><b>Non-active</b></i></font>
+                                </a>
                                 <?php } ?>  
                            </td>    
                             <td>

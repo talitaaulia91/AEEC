@@ -56,10 +56,6 @@ include_once('../../config/database.php');
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Non-Regular Class</li>
-                    </ol>
                 </nav>
             </div>
         </div>
@@ -69,7 +65,7 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
-            <a href="insert_non_reguler.php" class="btn btn-success">Add +</a>
+            <a href="insert_non-reg.php" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -77,29 +73,36 @@ include_once('../../config/database.php');
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Nama Program</th>
-                            <th>Harga Paket</th> 
-                            <th>Harga PPN</th>                    
-                            <th>Action</th>
+                            <th>Nama Program</th>            
+                            <th class="col-1">Detail</th>
+                            <th class="col-1">Edit</th>
+                            <th class="col-1">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $query_program = "SELECT * FROM program WHERE ID_KATEGORI = 'NRC'";
+                        $tabel_program= mysqli_query($mysqli, $query_program);
+                        foreach ($tabel_program as $data_program) : 
+                        ?>
                         <tr>
-                            <td>CRS001</td>
-                            <td>Digital Leadership</td>
-                            <td>Rp. 2.000.000</td>     
-                            <td>Rp. 2.220.000</td>       
+                            <td><?php echo $data_program['ID_PROGRAM']; ?></td>
+                            <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
                             <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
-                          
+                            <a href="detail_non-reg.php?id=<?php echo $data_program['ID_PROGRAM'];?>" class="btn btn-primary">Detail</a>
+                            </td>
+                            <td>
                             <a href="#" class="btn btn-warning">Edit</a>
-                         
+                            </td>
+                            <td>
                             <a href="#" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
                     </tbody>
+                     <?php
+                      endforeach
+                      ?>
                     </div>
-
                 </table>
             </div>
         </div>

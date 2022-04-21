@@ -9,7 +9,13 @@ if(isset($_GET['id'])){
 
 
 echo " <script>alert('Data berhasil dihapus!');</script>";
-echo " <script>location='detail_regular.php?id=$program';</script>";
+if($kategori == 'RC'){
+    echo " <script>location='detail_regular.php?id=$program';</script>";
+} else if($kategori == 'NRC'){
+    echo " <script>location='detail_non-reg.php?id=$program';</script>";
+} else{
+    echo " <script>location='in-house.php';</script>";
+}
 
  
 

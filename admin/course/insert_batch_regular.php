@@ -87,7 +87,7 @@ include_once('../../config/database.php');
                                             <select class="form-select" name="id_program">
                                                 <option value="">Pilih Program</option>
                                                     <?php
-                                                    $program = $mysqli->query("SELECT * FROM program");
+                                                    $program = $mysqli->query("SELECT * FROM program WHERE  ID_KATEGORI = 'RC'");
                                                     while ( $tipe = $program->fetch_assoc()){
                                                     ?>
                                                     <option value="<?php echo $tipe['ID_PROGRAM'] ?>">
@@ -145,13 +145,22 @@ include_once('../../config/database.php');
                 $tgl_mulai     = $_POST['tgl_mulai'];
                 $tgl_berakhir  = $_POST['tgl_berakhir'];
                 $batch         = $_POST['batch'];
-            
- 
-                
-  
+
+
+
+                //concat nama_class_regular
+                $class         = mysqli_query($mysqli, "SELECT CONCAT((SELECT p.NAMA_PROGRAM 
+                                                                      FROM program p
+                                                                      WHERE p.ID_PROGRAM = '$id_program'),' BATCH ',
+                                                                      '$batch') AS 'CLASS'");
+                $row_class     = $class->fetch_assoc();
+                $nama_class    = $row_class['CLASS'];
+
+
                 //insert batch_program
-                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, TGL_MULAI, TGL_BERAKHIR, BATCH)
-                                                       VALUES ('$id_batch', '$id_program', '$tgl_mulai', '$tgl_berakhir', '$batch')");
+                
+                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, NAMA_CLASS, TGL_MULAI, TGL_BERAKHIR, BATCH)
+                                                       VALUES ('$id_batch', '$id_program', '$nama_class','$tgl_mulai', '$tgl_berakhir', '$batch')");
 
 
                 

@@ -63,9 +63,10 @@ include_once('../../config/database.php');
 
     <!-- Basic Tables start -->
     <section class="section">
-        <div class="card" >
+    
+    <div class="card" >
             <div class="card-header">
-            <a href="insert_reguler.php" class="btn btn-success">Add +</a>
+            <a href="insert_batch_non-reg.php" class="btn btn-success">Add +</a>
             </div>
             <div class="card-body">
             <div class="table-responsive">
@@ -73,35 +74,48 @@ include_once('../../config/database.php');
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>Nama Program</th>
-                            <th>INDIVIDU (PPN)</th> 
-                            <th>KOLEKTIF (PPN)</th> 
-                            <th>KORPORAT (PPN)</th>                     
-                            <th>Detail</th>
+                            <th class="col-4">Nama Webinar</th> 
+                            <th>Tanggal </th> 
+                            <th>Waktu</th> 
+                            <th>Status</th>                     
+                            <th>Peserta</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query_program = "SELECT * FROM program WHERE ID_KATEGORI = 'RC'";
+                        $query_program = "SELECT * FROM batch_program WHERE ID_PROGRAM = '".$_GET['id']."' ";
                         $tabel_program= mysqli_query($mysqli, $query_program);
                         foreach ($tabel_program as $data_program) : 
                         ?>
                         <tr>
-                            <td><?php echo $data_program['ID_PROGRAM']; ?></td>
-                            <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
-                            <td><?php echo 'Rp. '.number_format($data_program['INDIVIDU']); ?></td>     
-                            <td><?php echo 'Rp. '.number_format($data_program['KOLEKTIF']); ?></td>     
-                            <td><?php echo 'Rp. '.number_format($data_program['KORPORAT']); ?></td>    
+                            <td><?php echo $data_program['ID_BATCH']; ?></td>
+                            <td><?php echo $data_program['NAMA_CLASS']; ?></td>   
+                            <td><?php echo $data_program['TGL_MULAI']; ?></td>     
+                            <td><?php 
+                            echo $data_program['WAKTU_MULAI'].' - '.$data_program['WAKTU_BERAKHIR']; 
+                            ?></td>  
+                            <td> 
+                                <?php 
+                                if($data_program['STATUS']=='1'){?> 
+                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>">
+                                     <font color="success"><i><b>Active</b></i></font>
+                                </a>
+                                <?php } else{ ?> 
+                                <a href="change_status.php?id=<?php echo $data_program['ID_BATCH']; ?>">
+                                     <font color="grey"><i><b>Non-active</b></i></font></a>
+                               </a>
+                                <?php } ?>  
+                           </td>    
                             <td>
-                            <a href="detail_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-primary">Detail</a>
+                            <a href="#" class="btn btn-primary">Show</a>
                             </td>
                             <td>
-                            <a href="edit_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
+                            <a href="edit_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
-                            <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-danger">Delete</a>
+                            <a href="delete_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
                     </tbody>
@@ -111,10 +125,8 @@ include_once('../../config/database.php');
                     </div>
 
                 </table>
-
             </div>
         </div>
-
     </section>
     <!-- Basic Tables end -->
 </div>

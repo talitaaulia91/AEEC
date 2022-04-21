@@ -11,9 +11,9 @@ if(isset($_GET['id'])){
 echo " <script>alert('Data berhasil dihapus!');</script>";
 
 
-if($kategori == 'SR'){
+if($kategori == 'RC'){
     echo " <script>location='reguler.php';</script>";
-} else if($kategori == 'NSR'){
+} else if($kategori == 'NRC'){
     echo " <script>location='non-reg.php';</script>";
 } else{
     echo " <script>location='in-house.php';</script>";
