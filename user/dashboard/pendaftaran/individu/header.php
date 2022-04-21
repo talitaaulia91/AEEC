@@ -1,4 +1,7 @@
-<?php require_once("../../auth.php"); ?>
+<?php require_once("../../auth.php"); 
+require '../../../method.php';
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">

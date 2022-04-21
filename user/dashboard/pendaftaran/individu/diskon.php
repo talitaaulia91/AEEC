@@ -1,6 +1,10 @@
 <?php 
 include_once 'header.php'; 
+$id = $_GET['idprog'];
+$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+foreach($program as $hasil){
 
+};
 ?>
             <!-- HALAMAN UTAMA -->
             <div id="main-content">
@@ -26,7 +30,7 @@ include_once 'header.php';
        <section class="section">
         <div class="card" >
             <div class="card-header">
-            <h4>Nama Program<h4>
+            <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
             </div>
             <div class="card-body">
                 
@@ -61,7 +65,7 @@ include_once 'header.php';
                                 <h1 class="price text-white"><i class="bi bi-person-x"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <a href = "form.php"><button class="btn btn-outline-white btn-block">Daftar</button> </a>
+                                    <a href = "form.php?idprog=<?=$hasil['ID_PROGRAM'] ?>"><button class="btn btn-outline-white btn-block">Daftar</button> </a>
                                 </div>
                             </div>
                         </div>
