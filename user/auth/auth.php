@@ -57,10 +57,10 @@ if( isset($_POST["login"]) ) {
             session_start();
             $_SESSION["user"] = $user;
             // login sukses, alihkan ke halaman timeline
-            if($user['ROLE'] == 'USER'){
+            if($user['ROLE'] == 'user'){
                 header("Location: ../dashboard/index.php");
             }else{
-                header("Location: ../../admin/dashboard/layout/dashboard.php");
+                header("Location: ../../admin/layout/dashboard.php");
             }
             exit;
         }else{
