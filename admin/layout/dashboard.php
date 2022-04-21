@@ -1,8 +1,6 @@
-<?php
-include_once('../../config/database.php');
-?>
 
 <?php
+session_start();
 include_once('../../config/database.php');
 ?>
 

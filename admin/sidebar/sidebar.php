@@ -1,5 +1,5 @@
+
   <!-- Sidebar -->
-  <div class="sidebar">
     <!-- Sidebar Menu -->
     <nav class="mt-2">
     </nav>
@@ -84,59 +84,17 @@
                     <span>Pembayaran</span>
                 </a>
             </li>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
 
-            
-                   
-            <!-- <li class="sidebar-title">Forms &amp; Tables</li>
-            
-            <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-hexagon-fill"></i>
-                    <span>Form Elements</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="form-element-input.php">Input</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-input-group.php">Input Group</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-select.php">Select</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-radio.php">Radio</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-checkbox.php">Checkbox</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-textarea.php">Textarea</a>
-                    </li>
-                </ul>
+
+            <li  class="sidebar-item mt-3">
+                <center>                
+                <a href="#" class="btn btn-danger" style="width: 200px; height: 40px;">LOGOUT</a>
+            </center>
+
             </li>
-            
-            <li
-                class="sidebar-item  ">
-                <a href="form-layout.php" class='sidebar-link'>
-                    <i class="bi bi-file-earmark-medical-fill"></i>
-                    <span>Form Layout</span>
-                </a>
-            </li> -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- /.sidebar-menu -->
   </div>
