@@ -185,23 +185,47 @@ foreach($program as $hasil){
             $lokasi         = $_FILES['berkas']['tmp_name'];
             move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
 
+            // TAMBAH DATA CLIENT
             $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) 
                                     VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni)";
             mysqli_query($koneksi, $masukan); //buat query  
 
-            // INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) VALUES ('123', '1', '2', '2', '3', '3', '4', '6', '5');
+            //AMbil ID CLient Terbaru
+            //ambil id_jadwal
+            $id = query("SELECT ID_CLIENT FROM client
+            ORDER BY ID_CLIENT DESC LIMIT 1");
+            foreach($id as $idterbaru){
 
-            if (mysqli_affected_rows($koneksi) > 0){
-                echo "<script> 
-                        alert('Data MASUK');
-                        
-                    </script>";
-            }else{
-                echo "<script> 
-                alert('GAGAL');
-                
-                </script>";
             }
+            // $id_pemesanan = $id['id_pemesanan'];
+    
+            $id_client  = $idterbaru['ID_CLIENT'];
+
+            //Menangkap Data
+            $batch = $_GET['idbatch'];
+            date_default_timezone_set("Asia/Jakarta");
+            $tanggal = date("d-m-Y");
+            
+            //Tambah Data pendaftaran
+            $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `TGL_PENDAFTARAN`, `STATUS`) 
+                            VALUES ('$batch', '$id_client', '$tanggal', '0',)";
+
+            // if (mysqli_affected_rows($koneksi) > 0){
+            //     echo "<script> 
+            //             alert('Data MASUK');
+                        
+            //         </script>";
+            // }else{
+            //     echo "<script> 
+            //     alert('GAGAL');
+                
+            //     </script>";
+            // }
+
+            echo "<script> 
+                alert('Data Masuk');
+                document.location.href = '../../index.php';
+                </script>";
         }
 
 ?>

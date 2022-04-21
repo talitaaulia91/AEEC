@@ -5,6 +5,7 @@ $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 
 };
+
 ?>
             <!-- HALAMAN UTAMA -->
             <div id="main-content">
@@ -62,7 +63,7 @@ foreach($program as $hasil){
                                 <h1 class="price text-white"><i class="bi bi-person-fill"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <a href="individu/diskon.php?idprog=<?=$hasil['ID_PROGRAM'] ?>"><button class="btn btn-outline-white btn-block">Daftar</button></a>
+                                    <a href="individu/diskon.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>"><button class="btn btn-outline-white btn-block">Daftar</button></a>
                                 </div>
                             </div>
                         </div>
