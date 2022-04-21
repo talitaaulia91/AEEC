@@ -118,7 +118,7 @@ include_once 'header.php';
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label for="formFile" class="form-label">Berkas NPWP</label>
+                                                <label for="formFile" class="form-label">File NPWP</label>
                                                 <input class="form-control" type="file" id="formFile">
                                             </div>
                                         </div>
