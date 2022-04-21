@@ -52,32 +52,68 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Edit Data Program</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
-                    </ol>
                 </nav>
             </div>
         </div>
     </div>
 
     <!-- Basic Tables start -->
-    <section class="section">
-        <div class="card" >
-            <div class="card-header">
-            
-            </div>
-            <div class="card-body">
-               <h5>Coming Soon</h5>
-            </div>
-        </div>
+    <?php
+     $regular    = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_PROGRAM ='".$_GET['id']."' " );
+     $ambil_data = $regular->fetch_assoc();
 
+    ?>
+    <section class="section">
+    <div class="card" >
+    <div class="card-header">
+    <div class="container-fluid py-1 px-2">
+              <div class="row col-md-12"> 
+              <h6 class="font-weight-bolder mb-4">Edit Data Program</h6>
+              <form method="post" action="" enctype="multipart/form-data">
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputEmail1">Kode Program</label>
+                    <input type="text" name="id_program"class="form-control" value="<?php echo  $ambil_data['ID_PROGRAM']; ?>"  required autofocus autocomplete="off">
+                    </div>
+                    <div class="form-group  mb-3">
+                    <label for="exampleInputPassword1">Nama Program</label>
+                    <input type="text" name="nama_program"class="form-control" value="<?php echo  $ambil_data['NAMA_PROGRAM']; ?>"  required autofocus autocomplete="off">
+                    </div>                  
+                <button type="submit" name="edit" value="edit" class="btn btn-primary w-30 mt-4 mb-2">UPDATE</button>
+              </form>
+              </div>
+              </div>
+              </div>
+
+</div>
+</div>
     </section>
+
+    <?php
+                  if(isset($_POST['edit'])){
+                      $id_program      = $_POST['id_program'];
+                      $nama_program    = $_POST['nama_program'];
+                 
+                     
+                      $update_program  = mysqli_query($mysqli,"UPDATE program
+                                                               SET ID_PROGRAM='$id_program', NAMA_PROGRAM='$nama_program'
+                                                               WHERE ID_PROGRAM='" . $_GET['id'] ."'");
+
+                    
+                      echo "<script>location='non-reg.php';</script>";
+                  
+                  }
+              ?>
+
+
+
+
+
+
+
     <!-- Basic Tables end -->
 </div>
 

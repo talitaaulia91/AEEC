@@ -1,7 +1,8 @@
 <?php 
 include_once 'header.php'; 
 
-$program = query("SELECT * FROM aeec.program");
+$program = query("SELECT * from program
+join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch_program.STATUS = 1;");
 ?>
             <!-- HALAMAN UTAMA -->
             <div id="main-content">
@@ -69,12 +70,14 @@ $program = query("SELECT * FROM aeec.program");
                                             </p>
                                         </div>
                                         <div class="card-read-more">
-                                            <a href="pendaftaran/jenis.php?idprog=<?=$hasil['ID_PROGRAM'] ?>" class="btn btn-link btn-block">
+                                            <a href="pendaftaran/jenis.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
                                                 DAFTAR
                                             </a>
                                         </div>
                                     </div>
                                 </div>
+                                
+
                                 <?php endforeach; ?>
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="card">

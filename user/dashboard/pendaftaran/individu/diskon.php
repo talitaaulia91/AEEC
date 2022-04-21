@@ -65,7 +65,7 @@ foreach($program as $hasil){
                                 <h1 class="price text-white"><i class="bi bi-person-x"></i></h1>
                                 
                                 <div class="card-footer">
-                                    <a href = "form.php?idprog=<?=$hasil['ID_PROGRAM'] ?>"><button class="btn btn-outline-white btn-block">Daftar</button> </a>
+                                    <a href = "form.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$_GET['idbatch'] ?>"><button class="btn btn-outline-white btn-block">Daftar</button> </a>
                                 </div>
                             </div>
                         </div>

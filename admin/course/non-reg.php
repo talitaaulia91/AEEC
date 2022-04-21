@@ -92,10 +92,10 @@ include_once('../../config/database.php');
                             <a href="detail_non-reg.php?id=<?php echo $data_program['ID_PROGRAM'];?>" class="btn btn-primary">Detail</a>
                             </td>
                             <td>
-                            <a href="#" class="btn btn-warning">Edit</a>
+                            <a href="edit_non-reg.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>"  class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
                     </tbody>

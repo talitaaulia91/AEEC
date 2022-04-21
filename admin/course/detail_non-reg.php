@@ -52,7 +52,7 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Regular Class</h3>
+                <h3>Non-Regular Class</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -112,7 +112,7 @@ include_once('../../config/database.php');
                             <a href="#" class="btn btn-primary">Show</a>
                             </td>
                             <td>
-                            <a href="edit_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
+                            <a href="edit_batch_non-reg.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
                             <a href="delete_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-danger">Delete</a>
