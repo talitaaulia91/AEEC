@@ -3,7 +3,14 @@ include_once('../../config/database.php');
 if(isset($_GET['id'])){
     $cek = mysqli_query($mysqli, "SELECT ID_PROGRAM from batch_program WHERE ID_BATCH = '".$_GET['id']."'");
     $id  = $cek->fetch_assoc();
-    $program = $id['ID_PROGRAM'];
+    $id_program = $id['ID_PROGRAM'];
+
+
+    $kat      = mysqli_query($mysqli, "SELECT ID_KATEGORI from program WHERE ID_PROGRAM = '$id_program'");
+    $id_kat   = $kat->fetch_assoc();
+    $kategori = $id_kat['ID_KATEGORI'];
+
+
     $hapus = mysqli_query($mysqli, "DELETE FROM batch_program WHERE ID_BATCH = '".$_GET['id']."'");
 }
 

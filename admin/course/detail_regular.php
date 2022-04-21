@@ -209,7 +209,7 @@ include_once('../../config/database.php');
                             <a href="#" class="btn btn-primary">Show</a>
                             </td>
                             <td>
-                            <a href="edit_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
+                            <a href="edit_batch_regular.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
                             <a href="delete_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-danger">Delete</a>

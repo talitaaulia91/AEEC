@@ -52,7 +52,7 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Non-Regular Class</h3>
+                <h3>Edit Data Batch</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -62,13 +62,17 @@ include_once('../../config/database.php');
     </div>
 
     <!-- Basic Tables start -->
-    <section class="section">
-    <section id="basic-vertical-layouts">
+    <?php
+    $query_batch = "SELECT * FROM batch_program WHERE ID_BATCH = '".$_GET['id']."' ";
+    $tabel_batch = mysqli_query($mysqli, $query_batch);    
+    $data_batch  = $tabel_batch->fetch_assoc();  
+    ?>
+     <section id="basic-vertical-layouts">
         <div class="row match-height">
             <div class="col-md-12 col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" >Insert New Webinar</h4>
+                        <h4 class="card-title" >Edit  Batch</h4>
                     </div>
                     <!-- <div class="card-content"> -->
                         <div class="card-body">
@@ -79,66 +83,54 @@ include_once('../../config/database.php');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Kode Webinar</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="id_batch" placeholder="Kode Batch" required>
+                                                    name="id_batch" readonly value="<?php echo $data_batch['ID_BATCH'];?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Kode Program</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="id_program" readonly value="<?php echo $data_batch['ID_PROGRAM'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Webinar</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama_class" placeholder="Kode Batch" required>
+                                                    name="nama_class" value="<?php echo $data_batch['NAMA_CLASS'];?>" required>
                                             </div>
                                         </div>
-                                        <div class="form-group  mb-3">
-                                        <label for="exampleInputPassword1">Program</label>
-                                            <select class="form-select" name="id_program">
-                                                <option value="">Pilih Program</option>
-                                                    <?php
-                                                    $program = $mysqli->query("SELECT * FROM program WHERE ID_KATEGORI = 'NRC'");
-                                                    while ( $tipe = $program->fetch_assoc()){
-                                                    ?>
-                                                    <option value="<?php echo $tipe['ID_PROGRAM'] ?>">
-                                                    <?php 
-                                                    echo $tipe['NAMA_PROGRAM'];
-                                                    ?>
-                                                    </option>
-                                                    <?php } ?>
-                                            </select>
-                                        </div>
+                                    
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Tanggal Pelaksanaan</label>
                                                 <input type="date" id="first-name-vertical" class="form-control"
-                                                    name="tgl_mulai" placeholder="Tanggal Mulai Batch" required>
+                                                    name="tgl_mulai" value="<?php echo $data_batch['TGL_MULAI'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Waktu Mulai</label>
                                                 <input type="time" id="first-name-vertical" class="form-control"
-                                                    name="waktu_mulai" placeholder="Tanggal Mulai Batch" required>
+                                                    name="waktu_mulai" value="<?php echo $data_batch['TGL_BERAKHIR'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Waktu Berakhir</label>
                                                 <input type="time" id="first-name-vertical" class="form-control"
-                                                    name="waktu_berakhir" placeholder="Tanggal Mulai Batch" required>
+                                                    name="waktu_berakhir" value="<?php echo $data_batch['TGL_BERAKHIR'];?>" required>
                                             </div>
                                         </div>
-                                        <div class="form-group ">
-                                        <label for="exampleInputPassword1">Gambar</label>
-                                        <input type="file" name="gambar"class="form-control" required>
+                                        <div class="form-group  mb-0">
+                                            <label for="exampleInputPassword1">Gambar</label>
+                                            <input type="file" name="gambar"class="form-control">
                                         </div>
-    
-                                      
                                        <br></br>
                                        <br></br>
                                 
                                         <div class="col-12 d-flex justify-content-end ">
-                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                            <button type="submit" name="edit" value="edit" class="btn btn-primary me-1 mb-1">UPDATE</button>
                                         </div>
                                     </div>
                                 </div>
@@ -150,30 +142,48 @@ include_once('../../config/database.php');
     </section>
 
     <?php
-                if(isset($_POST['tambah'])){
-                $id_batch       = $_POST['id_batch'];
-                $nama_class     = $_POST['nama_class'];
-                $id_program     = $_POST['id_program'];
-                $tgl_mulai      = $_POST['tgl_mulai'];
-                $waktu_mulai    = $_POST['waktu_mulai'];
-                $waktu_berakhir = $_POST['waktu_berakhir'];
+                  if(isset($_POST['edit'])){
+                    $id_batch       = $_POST['id_batch'];
+                    $nama_class     = $_POST['nama_class'];
+                    $id_program     = $_POST['id_program'];
+                    $tgl_mulai      = $_POST['tgl_mulai'];
+                    $waktu_mulai    = $_POST['waktu_mulai'];
+                    $waktu_berakhir = $_POST['waktu_berakhir'];
+                  
 
-                $gambar         = $_FILES['gambar']['name'];
-                $lokasi         = $_FILES['gambar']['tmp_name'];
-                move_uploaded_file($lokasi, '../../assets/images/program/'.$gambar);
-             
-
-                //insert batch_program
-                
-                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, NAMA_CLASS, TGL_MULAI, WAKTU_MULAI, WAKTU_BERAKHIR,  IMAGE)
-                                                       VALUES ('$id_batch', '$id_program', '$nama_class','$tgl_mulai', '$waktu_mulai','$waktu_berakhir', '$gambar')");
+                    $gambar         = $_FILES['gambar']['name'];
+                    $lokasi         = $_FILES['gambar']['tmp_name'];
 
 
-                
-                echo "<script>location='non-reg.php';</script>";
-              }
+
+                    if(!empty($lokasi)){
+                        $old = mysqli_query($mysqli,"SELECT IMAGE from batch_program WHERE ID_BATCH='".$_GET['id']."'");
+                        $data = $old->fetch_assoc();
+                        $gambar_lama = $data['IMAGE'];
+
+                         unlink('../../assets/images/program/'.$gambar_lama);
+                         move_uploaded_file($lokasi,  '../../assets/images/program/'.$gambar);
+
+                         $update_batch    = mysqli_query($mysqli,"UPDATE batch_program
+                                                                  SET NAMA_CLASS='$nama_class',TGL_MULAI='$tgl_mulai',
+                                                                      WAKTU_MULAI='$waktu_mulai', WAKTU_BERAKHIR='$waktu_berakhir',
+                                                                      IMAGE='$gambar'
+                                                                   WHERE ID_BATCH='" . $_GET['id'] ."'");
+
+                        
+
+                     } else {
+                        $update_batch    = mysqli_query($mysqli,"UPDATE batch_program
+                                                                 SET NAMA_CLASS='$nama_class',TGL_MULAI='$tgl_mulai',
+                                                                    WAKTU_MULAI='$waktu_mulai', WAKTU_BERAKHIR='$waktu_berakhir'
+                                                                 WHERE ID_BATCH='" . $_GET['id'] ."'");
+                     }
+
+                    if($update_batch){
+                    echo "<script>location='detail_non-reg.php?id=$id_program';</script>";
+                    }
+                  }
               ?>
-
 
 
 
