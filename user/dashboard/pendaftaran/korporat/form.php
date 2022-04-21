@@ -53,16 +53,15 @@ include_once('../../../../config/database.php');
                         foreach ($tabel_client as $data_client) :                            
                         ?>
                         <tr>
-                            <td><?php echo $data_client['JENIS_KELAMIN']; ?></td>
+                            <td><?php echo $data_client['JK']; ?></td>
                             <td><?php echo $data_client['NO_TELP']; ?></td> 
                             <td><?php echo $data_client['NPWP']; ?></td> 
                             <td><?php echo $data_client['ALAMAT_NPWP']; ?></td> 
                             <td><?php echo $data_client['ALAMAT_RUMAH']; ?></td> 
                             <td><?php echo $data_client['INSTANSI']; ?></td> 
                             <td><?php echo $data_client['JABATAN']; ?></td> 
-                            <td><?php echo $data_client['BERKAS NPWP']; ?></td> 
+                            <td><?php echo $data_client['BERKAS_NPWP']; ?></td> 
                             <td>
-                                <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
                                 <a href="edit.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-warning">Edit</a>
                                 <a href="delete.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-danger">Delete</a>
                             </td>              

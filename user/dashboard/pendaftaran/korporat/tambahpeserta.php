@@ -46,8 +46,8 @@ include_once('../../../../config/database.php');
                         </div>
                         <!-- <div class="card-content"> -->
                         <div class="card-body">
-                            <form method="POST" action="../process/createpayment.php" role="form" class="text-start" enctype="multipart/form-data">
-                            <!-- <form class="form form-vertical" method="post" action="" enctype="multipart/form-data"> -->
+                            <!-- <form method="POST" action="proses-tambah.php" role="form" class="text-start" enctype="multipart/form-data"> -->
+                            <form class="form form-vertical" method="post" action="" enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
                                     <div class="col-12">
@@ -163,45 +163,60 @@ include_once('../../../../config/database.php');
 
 
 <?php
-        
-        if(isset($_POST['tambah'])){
-            // var_dump($_POST['berkas']);
-            $id_user = $_SESSION["user"]["ID_USER"];
-            $jk = $_POST['jk'];
-            $notelp = $_POST['telp'];
-            $npwp = $_POST['npwp'];
-            $alamatnpwp = $_POST['alamatnpwp'];
-            $alamat = $_POST['alamat'];
-            $instansi = $_POST['instansi'];
-            $jabatan = $_POST['jabatan'];
-            $alumni = $_POST['alumni'];
+    if(isset($_POST['tambah'])){
+        // var_dump($_POST['berkas']);
+        $iduser = $_SESSION["user"]["ID_USER"];
+        $jk = $_POST['jk'];
+        $notelp = $_POST['telp'];
+        $npwp = $_POST['npwp'];
+        $alamatnpwp = $_POST['alamatnpwp'];
+        $alamat = $_POST['alamat'];
+        $instansi = $_POST['instansi'];
+        $jabatan = $_POST['jabatan'];
 
-            // UNTUK BUKTI NPWP
-            $gambar         = $_FILES['berkas']['name'];
-            $lokasi         = $_FILES['berkas']['tmp_name'];
-            move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
+        // UNTUK BUKTI NPWP
+        $gambar         = $_FILES['berkas']['name'];
+        $lokasi         = $_FILES['berkas']['tmp_name'];
+        move_uploaded_file($lokasi, '../../../penyimpanan/npwp/'.$gambar);
 
-            // $program       = mysqli_query($mysqli,"INSERT INTO client (ID_USER, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP,)
-            //                                            VALUES ('$id_user', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar')");
-                
-            // echo "<script>location='form.php';</script>";
+        // TAMBAH DATA CLIENT
+        $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `JABATAN`, `BERKAS_NPWP`) 
+        VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$jabatan', '$gambar')";
+        mysqli_query($mysqli, $masukan); //buat query  
 
-
-            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) 
-                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni)";
-            mysqli_query($koneksi, $masukan); //buat query  
-
-            // INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`) VALUES ('123', '1', '2', '2', '3', '3', '4', '6', '5');
-
-            if (mysqli_affected_rows($koneksi) > 0){
-                echo "<script> 
-                        alert('Data MASUK');
-                        
-                    </script>";
-            }else{
-                echo "<script> 
-                alert('GAGAL');
-                
-                </script>";
-            }
+        //AMbil ID CLient Terbaru
+        //ambil id_jadwal
+        $id = query("SELECT ID_CLIENT FROM client
+        ORDER BY ID_CLIENT DESC LIMIT 1");
+        foreach($id as $idterbaru){
         }
+        // $id_pemesanan = $id['id_pemesanan'];
+
+        $id_client  = $idterbaru['ID_CLIENT'];
+
+        //Menangkap Data
+        $batch = $_GET['idbatch'];
+        date_default_timezone_set("Asia/Jakarta");
+        $tanggal = date("d-m-Y");
+
+        //Tambah Data pendaftaran
+        $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `TGL_PENDAFTARAN`, `STATUS`) 
+        VALUES ('$batch', '$id_client', '$tanggal', '0',)";
+
+        // if (mysqli_affected_rows($koneksi) > 0){
+        //     echo "<script> 
+        //             alert('Data MASUK');
+        //         </script>";
+        // }else{
+        //     echo "<script> 
+        //     alert('GAGAL');
+
+        //     </script>";
+        // }
+
+        echo "<script> 
+        alert('Data Masuk');
+        document.location.href = '../../index.php';
+        </script>";
+    }
+?>
