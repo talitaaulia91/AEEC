@@ -224,36 +224,6 @@ include_once('../../config/database.php');
 
                 </table>
             </div>
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
     </section>
     <!-- Basic Tables end -->
@@ -272,6 +242,7 @@ include_once('../../config/database.php');
             </footer>
         </div>
     </div>
+    <script src="../../assers/js/jquery-3.6.0.js"></script>
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     

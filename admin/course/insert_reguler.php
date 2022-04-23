@@ -13,9 +13,10 @@ include_once('../../config/database.php');
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="../../assets/js/jquery-3.6.0.js"></script>
    
-    
-<!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
+
 <link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
 <style>
@@ -134,10 +135,18 @@ include_once('../../config/database.php');
                                                         </div>
                                         </div>
 
+
+
+
+
+
+                                        
                                         <label for="exampleInputPassword1" class="mb-0">Jadwal</label>
-                                        <div class="row g-3 mt-0 mb-3">                  
-                                        <div class="col">
-                                        <select class="form-select"  name="id_hari">
+                                        <div class="more-field"></div>
+                                        <div class="main-field">
+                                        <div class="row g-3 mt-0 mb-3 ">                  
+                                        <div class="col-6">
+                                        <select class="form-select"  name="id_hari[]">
                                                 <option value="">Pilih Hari</option>
                                                     <?php
                                                     $hari = $mysqli->query("SELECT * from hari");
@@ -151,8 +160,8 @@ include_once('../../config/database.php');
                                                     <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="col">
-                                        <select class="form-select"  name="id_waktu">
+                                        <div class="col-5">
+                                        <select class="form-select"  name="id_waktu[]">
                                                 <option value="">Pilih Waktu</option>
                                                     <?php
                                                     $waktu = $mysqli->query("SELECT * FROM waktu");
@@ -166,17 +175,26 @@ include_once('../../config/database.php');
                                                     <?php } ?>
                                             </select>
                                         </div>
+                                        <div class="col-1 action-field">
+                                            <button class="btn btn-success btn-add"> + </button>
+                                        </div>
+                                                    </div>
+                                        
+
+
+
+
+
+
 
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Gambar</label>
                                         <input type="file" name="gambar"class="form-control" required>
                                         </div>
-                                      
-                                       <br></br>
-                                       <br></br>
+
                                 
                                         <div class="col-12 d-flex justify-content-end ">
-                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
+                                            <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1"> Add +</button>
                                             <button type="reset"
                                                 class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
@@ -198,12 +216,22 @@ include_once('../../config/database.php');
                 $individu        = $_POST['individu'];
                 $kolektif        = $_POST['kolektif'];
                 $korporat        = $_POST['korporat'];
-                $deskripsi       = $_POST['deskripsi'];
-                $id_hari         = $_POST['id_hari'];
-                $id_waktu        = $_POST['id_waktu'];
+                $deskripsi       = $_POST['deskripsi'];             
                 $sesi            = $_POST['sesi'];
                 $kuota           = $_POST['kuota'];
 
+                $result          = [];
+                $id_hari         = $_POST['id_hari'];
+                $id_waktu        = $_POST['id_waktu'];
+
+
+                // Merge into one array
+                for ($i = 0; $i < count($id_hari); $i++) { 
+                    array_push($result, [
+                        'id_hari'  => $id_hari[$i],
+                        'id_waktu' => $id_waktu[$i],
+                    ]);
+                }
 
 
                 $individu_ppn = $individu + ($individu * 11/100);
@@ -214,29 +242,30 @@ include_once('../../config/database.php');
                 $lokasi         = $_FILES['gambar']['tmp_name'];
                 move_uploaded_file($lokasi, '../../assets/images/program/'.$gambar);
  
-                
-    
+                   
   
                 //insert program
                 $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, SESI, KUOTA, IMAGE)
-                                                     VALUES ('$id_program', 'SR', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi', '$sesi', '$kuota','$gambar')");
+                                                     VALUES ('$id_program', 'RC', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi', '$sesi', '$kuota','$gambar')");
 
 
 
-
-
+                //loop insert jadwal
+                foreach($result as $r){
+                $hari  = $r['id_hari'];
+                $waktu = $r['id_waktu'];
                 //insert detail program (jadwal)
                 $select_jadwal  = mysqli_query($mysqli, "SELECT ID_JADWAL 
                                               FROM jadwal 
-                                              WHERE ID_HARI = '$id_hari'
-                                              AND ID_WAKTU = '$id_waktu'");              
+                                              WHERE ID_HARI = '$hari'
+                                              AND ID_WAKTU = '$waktu'");              
 
                 $cek            = mysqli_num_rows($select_jadwal);
 
-                if($cek==0){
+                if($cek == 0){
                     //insert jadwal
                     $jadwal     = mysqli_query($mysqli,"INSERT INTO jadwal (ID_HARI, ID_WAKTU) 
-                                                        VALUES ('$id_hari','$id_waktu')");
+                                                        VALUES ('$hari', '$waktu')");
 
                     //ambil id_jadwal
                     $id         = mysqli_query($mysqli,"SELECT ID_JADWAL FROM jadwal
@@ -259,19 +288,10 @@ include_once('../../config/database.php');
                      $detail     = mysqli_query($mysqli,"INSERT INTO detail_program (ID_PROGRAM, ID_JADWAL)
                      VALUES ('$id_program', '$id_jadwal')");
                 }
-
-                
-                
+                }             
                 echo "<script>location='reguler.php';</script>";
               }
               ?>
-
-
-
-
-
-
-
 
     <!-- Basic Tables end -->
 </div>
@@ -289,6 +309,24 @@ include_once('../../config/database.php');
             </footer>
         </div>
     </div>
+
+    <script>
+    $('.btn-add').click(function() {
+        $('.more-field').append('<div class="single remove"></div>'); // add more div inside more-field
+        $('.main-field .row').clone().appendTo('.more-field .single'); // clone field from main-field into .single
+        $('.single .row .action-field').remove(); // remove plus button from previous field so you can replace it with 'x' button
+        $('.single .row').append('<div class="col-1 action-field"><button class="btn btn-danger btn-remove">x</button></div>'); // add 'x' button
+        $('.single').attr('class', 'remove');
+    });
+
+    $(document).on('click', '.btn-remove', function(e) {
+        $(this).parentsUntil('.remove').remove();
+        e.preventDefault();
+    });
+   </script>
+
+
+
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     
@@ -300,7 +338,6 @@ include_once('../../config/database.php');
     // Jquery Datatable
     let jquery_datatable = $("#table1").DataTable()
 </script>
-
     <script src="../../assets/js/mazer.js"></script>
 </body>
 

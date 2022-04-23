@@ -84,7 +84,7 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                         <?php
-                        $query_program = "SELECT * FROM program WHERE ID_KATEGORI = 'SR'";
+                        $query_program = "SELECT * FROM program WHERE ID_KATEGORI = 'rc'";
                         $tabel_program= mysqli_query($mysqli, $query_program);
                         foreach ($tabel_program as $data_program) : 
                         ?>
