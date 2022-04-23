@@ -52,15 +52,10 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Data Peserta</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
-                    </ol>
                 </nav>
             </div>
         </div>
@@ -77,7 +72,8 @@ include_once('../../config/database.php');
                     <thead> 
                         <tr>
                             <th>ID Client</th>
-                            <th>ID User</th>
+                            <th>Nama</th>
+                            <th>Email</th>
                             <th>Jenis Kelamin</th>
                             <th>No Telp</th>
                             <th>NPWP</th>                         
@@ -86,24 +82,32 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                     <?php
-                        $query_client = "SELECT * FROM client ";
+                        $query_client = "SELECT * FROM peserta ";
                         $tabel_client = mysqli_query($mysqli, $query_client);
                         foreach ($tabel_client as $data_client) :                            
                         ?>
                         <tr>
-                            <td><?php echo $data_client['ID_CLIENT']; ?></td>
-                            <td><?php echo $data_client['ID_USER']; ?></td> 
-                            <td><?php echo $data_client['JK']; ?></td> 
+                            <td><?php echo $data_client['ID_CLIENT']; ?></td>                           
+                            <td><?php echo $data_client['NAMA']; ?></td> 
+                            <td><?php echo $data_client['EMAIL']; ?></td> 
+                            <td><?php
+                            if($data_client['JK']==1){
+                                echo 'Perempuan'; 
+                            }else{
+                                echo 'Laki-Laki';
+                            }
+                            
+                             ?></td> 
                             <td><?php echo $data_client['NO_TELP']; ?></td> 
                             <td><?php echo $data_client['NPWP']; ?></td> 
                             <td>
                                 <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
                             </td>              
                         </tr>
-                        </tbody>
                         <?php
                             endforeach
                         ?>
+                        </tbody>                   
                     </div>
 
                 </table>

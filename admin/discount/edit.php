@@ -89,11 +89,12 @@ include_once('../../config/database.php');
 	                                                    <option value="Voucher">Voucher</option>
                                                     </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">DESKRIPSI</label>
-                                                <input type="int" id="first-name-vertical" class="form-control" 
-                                                name="deskripsi" value="<?php echo $data_diskon['DESKRIPSI'];?>" required>
+                                            <div>
+                                             Deskripsi
+                                            <div class="form-floating mb-3">
+                                             <input class="form-control" type="text" value="<?php echo  $data_diskon['DESKRIPSI']; ?>" name="deskripsi" id="floatingTextarea" required>
                                             </div>
+                                        </div>
                                         </div>      
                                         <br></br>
                                         <br></br>

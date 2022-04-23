@@ -139,8 +139,8 @@ include_once('../../config/database.php');
                                         <div>
                                            Deskripsi
                                             <div class="form-floating mb-3">
-                                                        <input class="form-control" type="text" value="<?php echo  $ambil_data['DESKRIPSI']; ?>" name="deskripsi" id="floatingTextarea" required>
-                                                        </div>
+                                             <input class="form-control" type="text" value="<?php echo  $ambil_data['DESKRIPSI']; ?>" name="deskripsi" id="floatingTextarea" required>
+                                            </div>
                                         </div>
 
                                         <label for="exampleInputPassword1" class="mb-0">Jadwal</label>
