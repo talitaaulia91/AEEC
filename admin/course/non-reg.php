@@ -81,7 +81,7 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                     <?php
-                        $query_program = "SELECT * FROM program WHERE ID_KATEGORI = 'SNR'";
+                        $query_program = "SELECT * FROM program WHERE ID_KATEGORI = 'NRC'";
                         $tabel_program= mysqli_query($mysqli, $query_program);
                         foreach ($tabel_program as $data_program) : 
                         ?>
@@ -97,11 +97,11 @@ include_once('../../config/database.php');
                             <td>
                             <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>"  class="btn btn-danger">Delete</a>
                             </td>              
-                        </tr>                      
-                    </tbody>
-                     <?php
+                        </tr> 
+                        <?php
                       endforeach
-                      ?>
+                      ?>                     
+                    </tbody>                   
                     </div>
                 </table>
             </div>

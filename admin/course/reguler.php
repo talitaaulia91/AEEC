@@ -103,11 +103,11 @@ include_once('../../config/database.php');
                             <td>
                             <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-danger">Delete</a>
                             </td>              
-                        </tr>                      
-                    </tbody>
-                    <?php
+                        </tr>  
+                        <?php
                        endforeach
-                    ?>
+                       ?>                    
+                    </tbody>                
                     </div>
 
                 </table>

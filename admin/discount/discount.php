@@ -104,10 +104,10 @@ include_once('../../config/database.php');
                                 <a href="delete.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>
-                        </tbody>
                         <?php
                             endforeach
                         ?>
+                        </tbody>                     
                         </div>
                     </table>
                 </div>

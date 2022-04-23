@@ -117,11 +117,11 @@ include_once('../../config/database.php');
                             <td>
                             <a href="delete_batch.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-danger">Delete</a>
                             </td>              
-                        </tr>                      
-                    </tbody>
-                    <?php
+                        </tr>   
+                        <?php
                        endforeach
-                    ?>
+                    ?>                   
+                    </tbody>                 
                     </div>
 
                 </table>
