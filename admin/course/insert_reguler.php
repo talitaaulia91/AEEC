@@ -189,7 +189,7 @@ include_once('../../config/database.php');
 
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Gambar</label>
-                                        <input type="file" name="gambar"class="form-control" required>
+                                        <input type="file" name="gambar"class="form-control" >
                                         </div>
 
                                 
