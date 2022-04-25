@@ -256,24 +256,24 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
                     </button>
                 </div>
                 <div class="modal-body">
-                        <form action="action.php" method="POST">
+                        <form action="#" method="POST">
                         <div class="input-group control-group after-add-more">
-                        <input type="text" name="addmore[]" class="form-control" placeholder="Enter Name Here">
+                        <input type="text" name="addmore[]" class="form-control" placeholder="Masukkan Email : ">
                         <div class="input-group-btn"> 
-                            <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                            <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Tambah</button>
                         </div>
                         </div>
                         <div class="control-group text-center">
                             <br>
-                            <button class="btn btn-success" type="submit">Submit</button>
+                            <button class="btn btn-success" type="submit" name="cariemail">Submit</button>
                         </div>
                         </form>
                         <!-- Copy Fields -->
                         <div class="copy hide" style="display: none">
                         <div class="control-group input-group" style="margin-top:10px">
-                            <input type="text" name="addmore[]" class="form-control" placeholder="Enter Name Hereee">
+                            <input type="text" name="addmore[]" class="form-control" placeholder="Masukkan Email :">
                             <div class="input-group-btn"> 
-                            <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+                            <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Hapus</button>
                             </div>
                         </div>
                         </div>
@@ -438,6 +438,29 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
 
             
             
+        }
+
+        if(isset($_POST['cariemail'])){
+            
+            $input = $_POST['addmore'];
+            foreach ($input as $output) {
+                // mysqli_query($connect,"INSERT into users (username) Values('$output')");
+                $email=query("SELECT * FROM aeec.user where email = '$output'");
+                foreach($email as $cekhasil){
+                }
+
+                if($cekhasil == null){
+                    echo "<script> 
+                    alert('Data Tidak DItemukan');
+                    document.location.href = '#';
+                    </script>";
+                }else{
+                    echo "<script> 
+                    alert('Data DItemukan');
+                    document.location.href = '#';
+                    </script>";
+                }
+            }
         }
 
 ?>

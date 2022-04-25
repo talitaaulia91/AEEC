@@ -203,9 +203,13 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
                                             </p>
                                         </div>
                                         <div class="card-read-more">
-                                            <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
+                                            <!-- <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
+                                                DAFTAR
+                                            </a> -->
+                                            <a href="../program/detail.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
                                                 DAFTAR
                                             </a>
+                                        
                                         </div>
                                     </div>
                                 </div>
