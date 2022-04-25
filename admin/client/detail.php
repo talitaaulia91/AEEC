@@ -88,6 +88,58 @@ include_once('../../config/database.php');
                 </table>   
             </div>
         </div>
+
+
+        <div class="card" >
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                    <thead> 
+                        <tr>
+                            <th>ID Pendaftaran</th>
+                            <th>Nama Program</th>
+                            <th>Tanggal Pendaftaran</th> 
+                            <th>Status</th> 
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $query_program = "SELECT p.*, b.* FROM pendaftaran p, batch_program b 
+                                         WHERE P.ID_BATCH = b.ID_BATCH
+                                         AND ID_CLIENT = '".$_GET['id']."'";
+                        $tabel_program= mysqli_query($mysqli, $query_program);
+                        foreach ($tabel_program as $data_program) : 
+                        ?>
+                        <tr>
+                            <td><?php echo $data_program['ID_PENDAFTARAN']; ?></td>
+                            <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
+                            <td><?php echo $data_program['TGL_PENDAFTARAN']; ?></td>     
+                            <td><?php echo $data_program['TGL_PENDAFTARAN']; ?></td>  
+                            <td>
+                            <a href="edit_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
+                            </td>
+                            <td>
+                            <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-danger">Delete</a>
+                            </td>              
+                        </tr>  
+                        <?php
+                       endforeach
+                       ?>                    
+                    </tbody>                
+                    </div>
+
+                </table>
+
+            </div>
+        </div>
+
+
+
+
     <!-- Basic Tables end -->
 </div>
 

@@ -78,6 +78,8 @@ include_once('../../config/database.php');
                             <th>No Telp</th>
                             <th>NPWP</th>                         
                             <th>Detail</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,7 +104,13 @@ include_once('../../config/database.php');
                             <td><?php echo $data_client['NPWP']; ?></td> 
                             <td>
                                 <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
-                            </td>              
+                            </td>            
+                            <td>
+                                <a href="edit.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-warning">Edit</a>
+                            </td>  
+                            <td>
+                                <a href="dlete.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-danger">Delete</a>
+                            </td>    
                         </tr>
                         <?php
                             endforeach
