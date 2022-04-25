@@ -85,9 +85,9 @@ include_once('../../config/database.php');
                             <th>Program</th>
                             <th>Diskon</th>
                             <th>Tanggal</th>                         
-                            <th>Virtual Acc</th>
                             <th>Status</th>
-                            <th>Action</th>
+                            <th>Virtual Account</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,11 +97,11 @@ include_once('../../config/database.php');
                             <td>Digital Leadership</td>
                             <td>Voucher 5%</td>
                             <td>12-04-2022</td>     
-                            <td>8777123</td>
-                            <td> <font color="success"><i> success </i></font> </td>              
+                            <td> <font color="blue"><i> menunggu VA </i></font> </td>              
                             <td>
-                            <a href="#" class="btn btn-warning">Edit</a>
-                         
+                            <a href="#" class="btn btn-success">Add Virtual Account</a>
+                            </td>
+                            <td>
                             <a href="#" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>                      
