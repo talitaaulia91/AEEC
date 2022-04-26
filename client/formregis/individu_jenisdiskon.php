@@ -1,5 +1,5 @@
 <?php 
-// require_once("auth.php"); 
+require_once("../auth/auth.php"); 
 require '../method.php';
 
 $id = $_GET['idprog'];
@@ -7,6 +7,7 @@ $batch = $_GET['idbatch'];
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
+$iduser = $_SESSION["user"]["ID_USER"];
 
 // $dis = query("SELECT * FROM aeec.diskon");
 $program = query("SELECT * FROM aeec.kategori_program");

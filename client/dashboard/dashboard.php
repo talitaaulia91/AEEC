@@ -1,5 +1,5 @@
 <?php 
-// require_once("auth.php"); 
+require_once("../auth/auth.php"); 
 require '../method.php';
 ?>
 
@@ -156,7 +156,7 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> NAMA USER </h4>
+                <h4 class="card-title"> <?= $_SESSION["user"]["NAMA"]; ?> </h4>
             
                 <!-- NAVBAR 2 -->
                 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: blue; ">

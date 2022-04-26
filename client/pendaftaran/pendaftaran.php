@@ -1,6 +1,6 @@
 
 <?php 
-// require_once("auth.php"); 
+// require_once("../auth/auth.php"); 
 require '../method.php';
 $pendaftaran = query("SELECT ID_PENDAFTARAN, NAMA_PROGRAM, BATCH, TGL_PENDAFTARAN, pendaftaran.STATUS
 from client join pendaftaran

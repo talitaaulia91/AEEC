@@ -1,5 +1,5 @@
 <?php 
-// require_once("auth.php"); 
+require_once("../auth/auth.php"); 
 require '../method.php';
 
 $id = $_GET['idprog'];
@@ -246,6 +246,7 @@ $nama = query("SELECT * FROM aeec.program");
             $instansi = $_POST['instansi'];
             $jabatan = $_POST['jabatan'];
             $alumni = $_POST['alumni'];
+            $iduser = $_SESSION["user"]["ID_USER"];
 
 
             // UNTUK BUKTI NPWP
@@ -254,7 +255,7 @@ $nama = query("SELECT * FROM aeec.program");
             move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
 
             $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`, `JABATAN`) 
-                                    VALUES ('US04220002', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni, '$jabatan')";
+                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni, '$jabatan')";
             mysqli_query($koneksi, $masukan); //buat query  
 
             //Mengambil id CLIENT

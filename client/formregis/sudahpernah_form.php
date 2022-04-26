@@ -1,5 +1,5 @@
 <?php 
-// require_once("auth.php"); 
+require_once("../auth/auth.php"); 
 require '../method.php';
 
 $id = $_GET['idprog'];
@@ -257,6 +257,7 @@ foreach($client as $data){}
             $alamat = $_POST['alamat'];
             $instansi = $_POST['instansi'];
             $jabatan = $_POST['jabatan'];
+            $iduser = $_SESSION["user"]["ID_USER"];
 
             // UNTUK BUKTI NPWP
             //Ambil data gambar baru
