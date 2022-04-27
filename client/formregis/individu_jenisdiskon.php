@@ -7,9 +7,9 @@ $batch = $_GET['idbatch'];
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
+// Ambil ID USER
 $iduser = $_SESSION["user"]["ID_USER"];
 
-// $dis = query("SELECT * FROM aeec.diskon");
 $program = query("SELECT * FROM aeec.kategori_program");
 $nama = query("SELECT * FROM aeec.batch_program join program");
 ?>
@@ -419,7 +419,7 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
             // move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
 
             $riwayat=query("SELECT * from client 
-            join pendaftaran where client.`ID_CLIENT` = 'PS04220001'
+            join pendaftaran where client.ID_USER = '$iduser'
             and pendaftaran.ID_BATCH = '$batch'");
 
             foreach($riwayat as $cekhasil){
@@ -441,26 +441,33 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
             
         }
 
+        // MENCARI EMAIL PARTISIPAN
         if(isset($_POST['cariemail'])){
-            
+            $dataditemukan = 0;
             $input = $_POST['addmore'];
+            $banyakemail = count($input);
+            // Chechk EMail
             foreach ($input as $output) {
-                // mysqli_query($connect,"INSERT into users (username) Values('$output')");
+                
                 $email=query("SELECT * FROM aeec.user where email = '$output'");
                 foreach($email as $cekhasil){
+                    $dataditemukan = $dataditemukan+1;
                 }
+            }
+            
 
-                if($cekhasil == null){
-                    echo "<script> 
-                    alert('Data Tidak DItemukan');
-                    document.location.href = '#';
-                    </script>";
-                }else{
-                    echo "<script> 
-                    alert('Data DItemukan');
-                    document.location.href = '#';
-                    </script>";
-                }
+            if($dataditemukan == $banyakemail){
+                // Ketika semua email benar
+                echo "<script> 
+                alert('Email Partisipan Ditemukan');
+                document.location.href = 'form_indiv_ajak.php?idprog=$id&idbatch=$batch&iddiskon=D02';
+                </script>";
+            }else{
+                // Ketika ada email yang salah
+                echo "<script> 
+                alert('Email Tidak Ditemukan');
+                document.location.href = '#';
+                </script>";
             }
         }
 

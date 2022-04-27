@@ -1,5 +1,8 @@
 <?php 
-// require_once("../ceklog/auth.php"); 
+//Cek Login
+require_once("../auth/auth.php"); 
+
+
 require '../method.php';
 
 $id = $_GET['idprog'];

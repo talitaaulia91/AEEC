@@ -1,7 +1,11 @@
-
 <?php 
-// require_once("../auth/auth.php"); 
+//Cek Login
+require_once("../auth/auth.php"); 
+
 require '../method.php';
+$iduser = $_SESSION["user"]["ID_USER"];
+
+
 $pendaftaran = query("SELECT ID_PENDAFTARAN, NAMA_PROGRAM, BATCH, TGL_PENDAFTARAN, pendaftaran.STATUS
 from client join pendaftaran
 on (client.ID_CLIENT = pendaftaran.ID_CLIENT)
@@ -9,7 +13,7 @@ join batch_program
 on batch_program.ID_BATCH = pendaftaran.ID_BATCH
 join program
 on program.ID_PROGRAM = batch_program.ID_PROGRAM
-and client.ID_USER = 'US04220002'");
+and client.ID_USER = '$iduser'");
 ?>
 
 <!-- BAGIAN HEADER -->

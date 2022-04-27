@@ -5,12 +5,12 @@ require '../method.php';
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
 $iddiskon = $_GET['iddiskon'];
+
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 
-$program = query("SELECT * FROM aeec.kategori_program");
-$nama = query("SELECT * FROM aeec.program");
+
 ?>
 
 <!-- BAGIAN HEADER -->

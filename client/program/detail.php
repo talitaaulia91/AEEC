@@ -1,6 +1,7 @@
+<?php
+//Cek Login
+require_once("../auth/auth.php"); 
 
-<?php 
-// require_once("../ceklog/auth.php"); 
 require '../method.php';
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
@@ -8,7 +9,7 @@ $idbatch = $_GET['idbatch'];
 $program = query("SELECT * from program
 join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM
 and batch_program.ID_BATCH = '$idbatch'
-and program.ID_PROGRAM = '$id';");
+and program.ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 ?>

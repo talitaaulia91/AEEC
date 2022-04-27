@@ -1,5 +1,7 @@
-<?php 
+<?php
+//Cek Login
 require_once("../auth/auth.php"); 
+
 require '../method.php';
 ?>
 

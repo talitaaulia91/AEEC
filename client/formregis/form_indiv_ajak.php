@@ -9,11 +9,8 @@ $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 
-// AMBIL ID USER
-$iduser = $_SESSION["user"]["ID_USER"];
-$client = query("SELECT * FROM aeec.client where ID_USER='$iduser'");
-foreach($client as $data){}
-
+$program = query("SELECT * FROM aeec.kategori_program");
+$nama = query("SELECT * FROM aeec.program");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -81,12 +78,12 @@ foreach($client as $data){}
                             <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
-                                        
+                                       
                                         <div class="col-12">
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">No Telp : </label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" value="<?=$data['NO_TELP'] ?>"
+                                                    <input type="text" class="form-control" placeholder="+62.."
                                                         id="email-id-icon" name="telp" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
@@ -98,7 +95,7 @@ foreach($client as $data){}
                                             <div class="form-group has-icon-left">
                                                 <label for="mobile-id-icon">NPWP</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" value="<?=$data['NPWP'] ?>"
+                                                    <input type="text" class="form-control" placeholder="NPWP"
                                                         id="mobile-id-icon" name="npwp" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-archive-fill"></i>
@@ -110,7 +107,7 @@ foreach($client as $data){}
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Alamat NPWP</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" value="<?=$data['ALAMAT_NPWP'] ?>"
+                                                    <input type="text" class="form-control" placeholder="Alamat NPWP"
                                                         id="password-id-icon" name="alamatnpwp" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-house"></i>
@@ -122,7 +119,7 @@ foreach($client as $data){}
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Alamat Rumah</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" value="<?=$data['ALAMAT_RUMAH'] ?>"
+                                                    <input type="text" class="form-control" placeholder="Alamat Rumah"
                                                         id="password-id-icon" name="alamat" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-house-door-fill"></i>
@@ -134,7 +131,7 @@ foreach($client as $data){}
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Instansi</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" value="<?=$data['INSTANSI'] ?>"
+                                                    <input type="text" class="form-control" placeholder="Instansi"
                                                         id="password-id-icon" name="instansi" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-building"></i>
@@ -146,7 +143,7 @@ foreach($client as $data){}
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Jabatan</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" value="<?=$data['JABATAN'] ?>"
+                                                    <input type="text" class="form-control" placeholder="Jabatan"
                                                         id="password-id-icon" name="jabatan" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person-badge"></i>
@@ -156,32 +153,21 @@ foreach($client as $data){}
                                         </div>
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label for="formFile" class="form-label">Berkas NPWP Lama</label>
-                                                <!-- <input class="form-control" type="file" id="formFile" name="berkas" required> -->
-                                                <a href="../../penyimpanan/npwp/<?=$data['BERKAS_NPWP'] ?>" class="btn icon icon-left btn-primary"><i data-feather="edit"></i> NPWP</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label for="formFile" class="form-label">Berkas NPWP Baru</label>
-                                                <input class="form-control" type="file" id="formFile" name="berkas">
-                                                <!-- <a href="../../penyimpanan/npwp/<?=$data['BERKAS_NPWP'] ?>" class="btn icon icon-left btn-primary"><i data-feather="edit"></i> NPWP</a> -->
+                                                <label for="formFile" class="form-label">Berkas NPWP</label>
+                                                <input class="form-control" type="file" id="formFile" name="berkas" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <h7>Jenis Kelamin</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="jk" required>
-                                                    <?php if($data['JK']== 0){ ?>
+                                                    <option >Pilih </option>
                                                     <option value="0">Laki - Laki </option>
-                                                    <?php }else{ ?>
                                                     <option value="1">Perempuan</option>
-                                                    <?php   } ?>
-                                                    
                                                 </select>
                                             </fieldset>
                                         </div>
-                                        <!-- <div class="col-12">
+                                        <div class="col-12">
                                             <h7>Apakah Alumni Unair</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="alumni" required>
@@ -190,7 +176,7 @@ foreach($client as $data){}
                                                     <option>Nanti Ada Nama Fakultas</option>
                                                 </select>
                                             </fieldset>
-                                        </div> -->
+                                        </div>
                                         
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
@@ -238,8 +224,8 @@ foreach($client as $data){}
 
 
     <!-- Include Choices JavaScript -->
-<script src="assets/vendors/choices.js/choices.min.js"></script>
-<script src="assets/js/pages/form-element-select.js"></script>
+<script src="../../assets/vendors/choices.js/choices.min.js"></script>
+<script src="../../assets/js/pages/form-element-select.js"></script>
 
 
 </body>
@@ -259,56 +245,33 @@ foreach($client as $data){}
             $alamat = $_POST['alamat'];
             $instansi = $_POST['instansi'];
             $jabatan = $_POST['jabatan'];
+            $alumni = $_POST['alumni'];
             $iduser = $_SESSION["user"]["ID_USER"];
-            $idclient = $data['ID_CLIENT'];
+
 
             // UNTUK BUKTI NPWP
-            //Ambil data gambar baru
             $gambar         = $_FILES['berkas']['name'];
             $lokasi         = $_FILES['berkas']['tmp_name'];
-            
+            move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
 
-            // Kalau ada npwp baru
-            if(!empty($lokasi)){
-                //Ambil data Gambar lama
-                $gambarnpwp = query("SELECT BERKAS_NPWP FROM aeec.client where ID_USER='US04220002'");
-                foreach($gambarnpwp as $gambarlama){
+            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`, `JABATAN`) 
+                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni, '$jabatan')";
+            mysqli_query($koneksi, $masukan); //buat query  
 
-                }
-
-                //Update
-                $masukan = "UPDATE `aeec`.`client` 
-                            SET `JK` = '$jk', `NO_TELP` = '$notelp', 
-                            `NPWP` = '$npwp', `ALAMAT_NPWP` = '$alamatnpwp', 
-                            `JABATAN` = '$jabatan', `BERKAS_NPWP` =  '$gambar'
-                            WHERE (`ID_CLIENT` = '$idclient');";
-
-            
-
-            unlink('../../penyimpanan/npwp/'.$gambarlama['BERKAS_NPWP']);
-            move_uploaded_file($lokasi,  '../../penyimpanan/npwp/'.$gambar);
-            mysqli_query($koneksi, $masukan); //buat query 
-
-            // Kalau ga ada npwp baru
-            }else{
-                $masukan = "UPDATE `aeec`.`client` 
-                            SET `JK` = '$jk', `NO_TELP` = '$notelp', 
-                            `NPWP` = '$npwp', `ALAMAT_NPWP` = '$alamatnpwp', 
-                            `JABATAN` = '$jabatan' 
-                            WHERE (`ID_CLIENT` = '$idclient');";
-                mysqli_query($koneksi, $masukan); //buat query  
+            //Mengambil id CLIENT
+            $idterbaru = query("SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1;");
+            foreach($idterbaru as $id){
             }
-
+            $ID_CLIENT = $id['ID_CLIENT'];  
             
+            //Menangkap Data
+            $batch = $_GET['idbatch'];
             date_default_timezone_set("Asia/Jakarta");
             $tanggal = date("Y-m-d");
-            // var_dump($idbatch, $id_client, $tanggal, $iddiskon);
-             //Tambah Data pendaftaran
+            // //Tambah Data pendaftaran
             $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `ID_DISKON`, `TGL_PENDAFTARAN`,  `STATUS`) 
-            VALUES ('$idbatch', '$idclient', 'D01', '$tanggal', '0')";
+            VALUES ('$idbatch', '$ID_CLIENT', '$iddiskon', '$tanggal', '0')";
             mysqli_query($koneksi, $masukan2); //buat query  
-
-            
 
             echo "<script> 
                 alert('Pendaftaran Berhasil');
