@@ -56,15 +56,10 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Data Pendafatran</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
-                    </ol>
                 </nav>
             </div>
         </div>
@@ -80,31 +75,57 @@ include_once('../../config/database.php');
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th>ID</th>
-                            <th>Nama Peserta</th>
-                            <th>Program</th>
-                            <th>Diskon</th>
-                            <th>Tanggal</th>                         
-                            <th>Status</th>
-                            <th>Virtual Account</th>
-                            <th>Delete</th>
-                        </tr>
+                            <th class="col-1">ID</th>
+                            <th class="col-2">Nama Peserta</th>
+                            <th class="col-2">Program</th>
+                            <th >Tanggal</th>   
+                            <th >Status</th>
+                            <th >Detail</th>                      
+                            <th >VA</th>
+                            <th >Delete</th>
+                    </tr>                    
                     </thead>
                     <tbody>
+                        <?php
+                        $query_daftar = "SELECT p.*, c.*, b.NAMA_CLASS, d.* 
+                                        FROM pendaftaran p 
+                                        JOIN batch_program b ON p.ID_BATCH = b.ID_BATCH
+                                        JOIN peserta c ON p.ID_CLIENT = c.ID_CLIENT
+                                        JOIN diskon d  ON p.ID_DISKON = d.ID_DISKON";
+                        $tabel_daftar= mysqli_query($mysqli, $query_daftar);
+                        foreach ($tabel_daftar as $data_daftar) : 
+                        ?>
                         <tr>
-                            <td>REG001</td>
-                            <td>Annisa Aristawati</td>
-                            <td>Digital Leadership</td>
-                            <td>Voucher 5%</td>
-                            <td>12-04-2022</td>     
-                            <td> <font color="blue"><i> menunggu VA </i></font> </td>              
+                            <td><?php echo $data_daftar['ID_PENDAFTARAN'];?></td>
+                            <td><?php echo $data_daftar['NAMA'];?></td>
+                            <td><?php echo $data_daftar['NAMA_CLASS'];?></td>
+                            <td><?php echo $data_daftar['TGL_PENDAFTARAN'];?></td>
                             <td>
-                            <a href="#" class="btn btn-success">Add Virtual Account</a>
+                                <?php
+                                if($data_daftar['STATUS']=='1'){
+                                ?>
+                                <a href=""><font color="success"><i><b>Verived</b></i></font></a>
+                                <?php
+                                }else{
+                                ?>
+                                 <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
+                                <?php
+                                }
+                                ?>
+                            </td>            
+                            <td>
+                            <a href="#" class="btn btn-primary">Detail</a>
+                            </td>                              
+                            <td>
+                            <a href="#" class="btn btn-success">Add</a>
                             </td>
                             <td>
                             <a href="#" class="btn btn-danger">Delete</a>
                             </td>              
-                        </tr>                      
+                        </tr>   
+                        <?php
+                        endforeach
+                        ?>                   
                     </tbody>
                     </div>
 

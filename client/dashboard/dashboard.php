@@ -130,7 +130,7 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <!-- <h3>Vertical Layout with Navbar</h3> -->
-                <?php 
+                <!-- <?php 
                     date_default_timezone_set("Asia/Jakarta");
                     $a = date ("H");
                     if (($a>=6) && ($a<=11)) {
@@ -147,7 +147,7 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
                     
                     $jam = date ("H:i:s");
                     echo " | Pukul : <b> " . $jam . " " ." </b> ";
-                ?>
+                ?> -->
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -158,7 +158,7 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> <?= $_SESSION["user"]["NAMA"]; ?> </h4>
+                <!-- <h4 class="card-title"> <?= $_SESSION["user"]["NAMA"]; ?> </h4> -->
             
                 <!-- NAVBAR 2 -->
                 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: blue; ">

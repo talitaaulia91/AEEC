@@ -47,6 +47,19 @@
                     <span>History Program</span>
                 </a>
             </li>
+            <br></br>   
+            <br></br>  
+            <br></br>  
+            <br></br>  
+            <br></br>  
+            <br></br>   
+
+            <li  class="sidebar-item mt-3">
+                <center>                
+                <a href="../auth/logout.php" class="btn btn-danger" style="width: 200px; height: 40px;">LOGOUT</a>
+                </center>
+
+            </li>
             
             
         </ul>
@@ -55,7 +68,7 @@
 </div>
         </div>
         <div id="main" class='layout-navbar'>
-            <header class='mb-3'>
+            <!-- <header class='mb-3'>
                 <nav class="navbar navbar-expand navbar-light ">
                     <div class="container-fluid">
                         <a href="#" class="burger-btn d-block">
@@ -130,4 +143,4 @@
                 </nav>
             </header>
 
-
+ -->
