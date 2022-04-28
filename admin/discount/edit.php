@@ -125,8 +125,10 @@ include_once('../../config/database.php');
             
             if($update_diskon){
                 echo "<script>location='detail.php?id=$id_diskon';</script>";
+            } else {
+                echo "gagal input data";
+            } 
             }
-        }
     ?>
 
     <!-- Basic Tables end -->
