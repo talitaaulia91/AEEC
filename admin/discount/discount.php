@@ -93,7 +93,7 @@ include_once('../../config/database.php');
                         <tr>
                             <td><?php echo $data_diskon['ID_DISKON']; ?></td>
                             <td><?php echo $data_diskon['NAMA_DISKON']; ?></td> 
-                            <td><?php echo $data_diskon['PRESENTASE']; ?></td> 
+                            <td><?php echo $data_diskon['PERSENTASE']; ?></td> 
                             <td>
                                 <a href="detail.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
                             </td>

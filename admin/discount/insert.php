@@ -75,12 +75,12 @@ include_once('../../config/database.php');
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Presentase</label>
+                                                <label for="first-name-vertical">Persentase</label>
                                                 <input type="int" id="first-name-vertical" class="form-control"
-                                                    name="presentase" placeholder="Presentase" required>
+                                                    name="persentase" placeholder="Persentase" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12">aaa
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Bentuk</label>
                                                     <select class="form-select" name="bentuk" required>
@@ -116,16 +116,17 @@ include_once('../../config/database.php');
     <?php
         if(isset($_POST['tambah'])){
             $nama_diskon    = $_POST['nama_diskon'];
-            $presentase     = $_POST['presentase'];
+            $persentase     = $_POST['persentase'];
             $bentuk         = $_POST['bentuk'];
             $deskripsi      = $_POST['deskripsi'];
 
             //insert
-            $program       = mysqli_query($mysqli,"INSERT INTO diskon (ID_DISKON, NAMA_DISKON, PRESENTASE, BENTUK, DESKRIPSI)
-                                                       VALUES ('$id_diskon','$nama_diskon','$presentase','$bentuk,'$deskripsi')");
+            $diskon       = mysqli_query($mysqli,"INSERT INTO diskon (NAMA_DISKON, PERSENTASE, BENTUK, DESKRIPSI)
+                                                   VALUES ('$nama_diskon','$persentase','$bentuk','$deskripsi')");
 
-        if ($program) {
-            header("location=discount.php");  
+
+        if ($diskon) {
+            echo " <script>location='discount.php';</script>";
         } else {
             echo "gagal input data";
         } 
