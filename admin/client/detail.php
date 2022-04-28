@@ -117,7 +117,7 @@ include_once('../../config/database.php');
                         ?>
                         <tr>
                             <td><?php echo $data_program['ID_PENDAFTARAN']; ?></td>
-                            <td><?php echo $data_program['NAMA_PROGRAM']; ?></td>
+                            <td><?php echo $data_program['NAMA_CLASS']; ?></td>
                             <td><?php echo $data_program['TGL_PENDAFTARAN']; ?></td>     
                             <td><?php echo $data_program['TGL_PENDAFTARAN']; ?></td>  
                             <td>

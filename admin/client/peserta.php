@@ -109,7 +109,7 @@ include_once('../../config/database.php');
                                 <a href="edit.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-warning">Edit</a>
                             </td>  
                             <td>
-                                <a href="dlete.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-danger">Delete</a>
+                                <a href="delete.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-danger">Delete</a>
                             </td>    
                         </tr>
                         <?php

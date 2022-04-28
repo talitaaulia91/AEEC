@@ -138,8 +138,6 @@ include_once('../../config/database.php');
 
 
 
-
-
                                         
                                         <label for="exampleInputPassword1" class="mb-0">Jadwal</label>
                                         <div class="more-field"></div>
@@ -181,15 +179,9 @@ include_once('../../config/database.php');
                                                     </div>
                                         
 
-
-
-
-
-
-
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Gambar</label>
-                                        <input type="file" name="gambar"class="form-control" >
+                                        <input type="file" name="gambar"class="form-control" required >
                                         </div>
 
                                 
