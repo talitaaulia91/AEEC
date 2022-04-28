@@ -119,8 +119,10 @@ h1.heading {
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 <?php 
 
-$program = query("SELECT * from program
-join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch_program.STATUS = 1;");
+$program = query("SELECT p.*, b.* 
+                FROM batch_program b, program p
+                WHERE  p.ID_PROGRAM = b.ID_PROGRAM
+                AND b.STATUS = 1;");
 ?>
             <!-- HALAMAN UTAMA -->
             <div id="main-content">
@@ -129,25 +131,7 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <!-- <h3>Vertical Layout with Navbar</h3> -->
-                <!-- <?php 
-                    date_default_timezone_set("Asia/Jakarta");
-                    $a = date ("H");
-                    if (($a>=6) && ($a<=11)) {
-                        echo " <br><h3>Selamat Pagi !! </h3>";
-                    }else if(($a>=11) && ($a<=15)){
-                        echo " <br> <h3>Selamat  Siang !!</h3> ";
-                    }elseif(($a>15) && ($a<=18)){
-                        echo " <br><h3>Selamat Sore !! </h3>";
-                    }else{
-                        echo " <br><h3> Selamat Malam </h3>";
-                    }
-                    $tanggal = mktime(date('m'), date("d"), date('Y'));
-                    echo "Tanggal : <b> " . date("d-m-Y", $tanggal ) . "</b>";
-                    
-                    $jam = date ("H:i:s");
-                    echo " | Pukul : <b> " . $jam . " " ." </b> ";
-                ?> -->
+              
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -190,33 +174,27 @@ join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM and batch
                         <div class="container">
                             <div class="row">
                             <?php foreach($program as $hasil) : ?>
-                                <div class="col-xs-12 col-sm-4">
+                                <div class="col-xs-12 col-sm-4" >
                                     <div class="card" >
                                         <a class="img-card" href="">
-                                        <img src="../assets/program/aeec1.jpg" />
+                                        <img src="../../assets/images/program/<?php echo $hasil['IMAGE'];?>" />
                                     </a>
                                         <div class="card-content">
                                             <h4 class="card-title">
-                                                <a href=""> <?= $hasil['NAMA_PROGRAM']?>
+                                                <a href=""> <?= $hasil['NAMA_CLASS']?>
                                             </a>
                                             </h4>
                                             <p class="">
                                             FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
                                             </p>
                                         </div>
-                                        <div class="card-read-more">
-                                            <!-- <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
-                                                DAFTAR
-                                            </a> -->
-                                            <a href="../program/detail.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
+                                        <div class="card-read-more a" style="height:50px;">
+                                            <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
                                                 DAFTAR
                                             </a>
-                                        
                                         </div>
                                     </div>
-                                </div>
-                                
-
+                            </div>
                                 <?php endforeach; ?>
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="card">

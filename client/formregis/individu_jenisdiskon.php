@@ -53,10 +53,6 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Pendaftaran</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Jenis Diskon</li>
-                                    </ol>
                                 </nav>
                             </div>
                         </div>
@@ -79,63 +75,27 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
                                         <div class="col-xs-12 col-sm-4">
                                             <div class="card card-highlighted">
                                                 <div class="card-header text-center">
-                                                    <h6 class="card-title">Belum Pernah Daftar</h6>
+                                                    <h6 class="card-title">Daftar Tanpa</h6>
+                                                    <h6 class="card-title">Diskon</h6>
+                                                    <p> Daftar dengan harga asli</p>
                                                     <p></p>
                                                 </div>
                                                 <h1 class="price text-white"><i class="bi bi-person-x-fill"></i></h1>
-                                                
+                                               
                                                 <div class="card-footer">
-                                                    <!-- <a href="belumpernah_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=0"><button class="btn btn-outline-white btn-block">Daftar</button></a> -->
-                                                    <button type="button" class="btn btn-outline-white btn-block" data-bs-toggle="modal"
-                                                        data-bs-target="#sosmed">
-                                                        Daftar
-                                                    </button>
-
+                                                    <a href="belumpernah_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch']?>" class="btn btn-outline-white btn-block" >Daftar</a>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <!-- DISKON KALAU PERNAH DAFTAR -->
-                                        <div class="col-xs-12 col-sm-4">
-                                            <div class="card card-highlighted">
-                                                <div class="card-header text-center">
-                                                    <h6 class="card-title">Pernah Mendaftar Program</h6>
-                                                    <p> Mendapatkan Voucher 5%</p>
-                                                </div>
-                                                <h1 class="price text-white"><i class="bi bi-person-check-fill"></i></h1>
-                                                
-                                                <div class="card-footer">
-                                                    <!-- <a href="individu/diskon.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=D01"><button class="btn btn-outline-white btn-block">Daftar</button></a> -->
-                                                    <button type="button" class="btn btn-outline-white btn-block" data-bs-toggle="modal"
-                                                        data-bs-target="#program">
-                                                        Daftar
-                                                    </button>
-                                                
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!--CASHBACK FOLLOW SOSMED -->
-                                        <!-- <div class="col-xs-12 col-sm-4">
-                                            <div class="card card-highlighted">
-                                                <div class="card-header text-center">
-                                                    <h6 class="card-title">Follow Media Sosial AEEC</h6>
-                                                    <p> Mendapatkan Cashback 5%</p>
-                                                </div>
-                                                <h1 class="price text-white"><i class="bi bi-facebook"></i></h1>
-                                                
-                                                <div class="card-footer">
-                                                    <a href="individu/diskon.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=D02"><button class="btn btn-outline-white btn-block">Daftar</button></a>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                    
 
                                         <!--CASHBACK FOLLOW SOSMED -->
                                         <div class="col-xs-12 col-sm-4">
                                             <div class="card card-highlighted">
                                                 <div class="card-header text-center">
                                                     <h6 class="card-title">Mengajak 3 Partisipan</h6>
-                                                    <p> Mendapatkan Cashback 10%</p>
+                                                    <p> Dapatkan Cashback 10%</p>
                                                 </div>
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
                                                 
@@ -149,8 +109,38 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-xs-12 col-sm-4">
+                                            <div class="card card-highlighted">
+                                                <div class="card-header text-center">
+                                                    <h6 class="card-title">Follow sosmed AEEC</h6>
+                                                    <p>Dapatkan cashback 5%</p>
+                                                </div>
+                                                <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
+                                                
+                                                <div class="card-footer">
+                                                    <!-- <a href="belumpernah_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=0"><button class="btn btn-outline-white btn-block">Daftar</button></a> -->
+                                                    <button type="button" class="btn btn-outline-white btn-block" data-bs-toggle="modal"
+                                                        data-bs-target="#sosmed">
+                                                        Daftar
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </div>
+                                    
                                 </div>
+
+
+                        
+
+
+
+
+
                         </div>
                     </section>               
                             </div>
@@ -178,68 +168,6 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
     </div>
 
 
-
-<!-- MODAL PERNAH MENDAFTAR PROGRAM -->
- <!--primary theme Modal -->
- <div class="modal fade text-left" id="program" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-            role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h5 class="modal-title white" id="myModalLabel160">Masukkan Bukti Keikutsertaan Program
-                    </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form  action="#" method="POST" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="squareText">Program yang pernah didaftar </label>
-                            <select class="choices form-select" required>
-                                    <optgroup label="Kategory Program">
-                                        <option selected>Pilih..</option>
-                                        <?php foreach($program as $kategory): ?>
-                                        <option value="<?= $kategory['ID_KATEGORI'] ?>"><?= $kategory['NAMA_KATEGORI'] ?></option>
-                                        <?php endforeach; ?>
-                                    </optgroup>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="squareText">Program Pelatihan Pendidikan Eksekutif yang pernah didaftar </label>
-                            <select class="choices form-select" name="batch" required>
-                                    <optgroup label="Nama Program">
-                                    <option selected>Pilih..</option>
-                                        <?php foreach($nama as $namaprog): ?>
-                                        <option value="<?= $namaprog['ID_BATCH'] ?>"><?= $namaprog['NAMA_PROGRAM'].' Batch'.$namaprog['BATCH'] ?></option>
-                                        <?php endforeach; ?>
-                                    </optgroup>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">Upload Sertifikat </label>
-                            <input class="form-control" type="file" id="formFile">
-                        </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-secondary"
-                        data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                    <button  class="btn btn-primary ml-1"  type="submit" name="caririwayatprogram">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Konfirmasi</span>
-                    </button>
-                </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END MODAL PROGRAM -->
 
 
 

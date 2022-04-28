@@ -4,7 +4,7 @@ require '../method.php';
 
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
-$iddiskon = $_GET['iddiskon'];
+
 
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
@@ -52,10 +52,6 @@ foreach($program as $hasil){
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Pendaftaran</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Jenis Diskon</li>
-                                    </ol>
                                 </nav>
                             </div>
                         </div>
@@ -64,22 +60,17 @@ foreach($program as $hasil){
                     <!-- CARD UNTUK FORM -->
     <section class="section">
         <div class="card" >
-            <div class="card-header">
+            <div class="card-header mb-0">
             <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
             </div>
-            <div class="card-body">
-                
-            <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Mohon Isi Data Dibawah Dengan Benar</h4>
-                    </div>
+            <div class="card-body">             
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
                                         
-                                        <div class="col-12">
+                                        <div class="col-12 mb-2">
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">No Telp : </label>
                                                 <div class="position-relative">
@@ -91,7 +82,7 @@ foreach($program as $hasil){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <div class="form-group has-icon-left">
                                                 <label for="mobile-id-icon">NPWP</label>
                                                 <div class="position-relative">
@@ -103,7 +94,7 @@ foreach($program as $hasil){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Alamat NPWP</label>
                                                 <div class="position-relative">
@@ -115,7 +106,7 @@ foreach($program as $hasil){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Alamat Rumah</label>
                                                 <div class="position-relative">
@@ -127,7 +118,7 @@ foreach($program as $hasil){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Instansi</label>
                                                 <div class="position-relative">
@@ -139,7 +130,7 @@ foreach($program as $hasil){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <div class="form-group has-icon-left">
                                                 <label for="password-id-icon">Jabatan</label>
                                                 <div class="position-relative">
@@ -151,13 +142,13 @@ foreach($program as $hasil){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Berkas NPWP</label>
                                                 <input class="form-control" type="file" id="formFile" name="berkas" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <h7>Jenis Kelamin</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="jk" required>
@@ -167,7 +158,7 @@ foreach($program as $hasil){
                                                 </select>
                                             </fieldset>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12  mb-2">
                                             <h7>Apakah Alumni Unair</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="alumni" required>
@@ -182,7 +173,7 @@ foreach($program as $hasil){
                                             <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
                                             <button type="reset"
                                                 class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        </div>
+                                      
                                     </div>
                                 </div>
                             </form>
