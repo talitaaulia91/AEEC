@@ -79,7 +79,7 @@ and client.ID_USER = '$iduser'");
     <section class="section">
         <div class="card" >
             <div class="card-header">
-            <a href="insert_non-reg.php" class="btn btn-success">Add +</a>
+            <!-- <a href="insert_non-reg.php" class="btn btn-success">Add +</a> -->
             </div>
             <div class="card-body">
             <div class="table-responsive">

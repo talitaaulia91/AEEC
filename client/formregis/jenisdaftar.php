@@ -105,7 +105,7 @@ foreach($program as $hasil){
                                                 <h1 class="price"><i class="bi bi-person-square"></i></h1>
                                                 
                                                 <div class="card-footer">
-                                                <a href="korporat/form.php"><button class="btn btn-primary btn-block">Daftar</button></a>
+                                                <a href="korporat_form.php"><button class="btn btn-primary btn-block">Daftar</button></a>
                                                 </div>
                                             </div>
                                         </div>
