@@ -80,12 +80,12 @@ include_once('../../config/database.php');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">PRESENTASE</label>
                                                 <input type="int" id="first-name-vertical" class="form-control" 
-                                                name="presentase" value="<?php echo $data_diskon['PRESENTASE'];?>" required>
+                                                name="persentase" value="<?php echo $data_diskon['PERSENTASE'];?>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">BENTUK</label>
                                                     <select class="form-select" name="jk" required>
-                                                        <option value="Cashback">Pilih</option>
+                                                        <option>Pilih</option>
 	                                                    <option value="Cashback">Cashback</option>
 	                                                    <option value="Voucher">Voucher</option>
                                                     </select>
@@ -115,12 +115,12 @@ include_once('../../config/database.php');
         if(isset($_POST['edit'])){
             $id_diskon      = $_POST['id_diskon'];
             $nama_diskon    = $_POST['nama_diskon'];
-            $presentase     = $_POST['presentase'];
+            $persentase     = $_POST['persentase'];
             $bentuk         = $_POST['bentuk'];
             $deskripsi      = $_POST['deskripsi']; 
             
             $update_diskon  = mysqli_query($mysqli,"UPDATE diskon
-                                                SET NAMA_DISKON='$nama_diskon', PRESENTASE='$presentase', BENTUK='$bentuk', DESKRIPSI='$deskripsi'
+                                                SET NAMA_DISKON='$nama_diskon', PERSENTASE='$persentase', BENTUK='$bentuk', DESKRIPSI='$deskripsi'
                                                 WHERE ID_DISKON='".$_GET['id']."'");
             
             if($update_diskon){

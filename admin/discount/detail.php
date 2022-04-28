@@ -74,7 +74,7 @@ include_once('../../config/database.php');
                         </tr>
                         <tr>
                             <th>Presentase</th>    
-                            <td><?=$ambil_data['PRESENTASE'] ?></td>
+                            <td><?=$ambil_data['PERSENTASE'] ?></td>
                         </tr>
                         <tr>
                             <th>Bentuk</th>    
