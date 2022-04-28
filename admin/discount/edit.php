@@ -85,6 +85,7 @@ include_once('../../config/database.php');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">BENTUK</label>
                                                     <select class="form-select" name="jk" required>
+                                                        <option value="Cashback">Pilih</option>
 	                                                    <option value="Cashback">Cashback</option>
 	                                                    <option value="Voucher">Voucher</option>
                                                     </select>

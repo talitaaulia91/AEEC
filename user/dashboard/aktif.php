@@ -26,7 +26,7 @@ include_once 'header.php';
        <section class="section">
         <div class="card" >
             <div class="card-header">
-            <a href="#" class="btn btn-success">Daftar +</a>
+            <!-- <a href="#" class="btn btn-success">Daftar +</a> -->
             </div>
             <div class="card-body">
             <div class="table-responsive">
