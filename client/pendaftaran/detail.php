@@ -1,19 +1,17 @@
-<?php 
+<?php
 //Cek Login
 require_once("../auth/auth.php"); 
 
 require '../method.php';
-$iduser = $_SESSION["user"]["ID_USER"];
+$id = $_GET['idprog'];
+$idbatch = $_GET['idbatch'];
 
-
-$pendaftaran = query("SELECT ID_PENDAFTARAN, NAMA_PROGRAM, BATCH, TGL_PENDAFTARAN, pendaftaran.STATUS
-from client join pendaftaran
-on (client.ID_CLIENT = pendaftaran.ID_CLIENT)
-join batch_program
-on batch_program.ID_BATCH = pendaftaran.ID_BATCH
-join program
-on program.ID_PROGRAM = batch_program.ID_PROGRAM
-and client.ID_USER = '$iduser'");
+$program = query("SELECT * from program
+join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM
+and batch_program.ID_BATCH = '$idbatch'
+and program.ID_PROGRAM = '$id'");
+foreach($program as $hasil){
+}
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -60,14 +58,14 @@ and client.ID_USER = '$iduser'");
                     <div class="page-title">
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Pendaftaran Anda</h3>
-                                <p class="text-subtitle text-muted">Program Yang Sedang Berada Dalam Proses Pendaftaran</p>
+                                <h3>Detail Program</h3>
+                                <!-- <p class="text-subtitle text-muted">Program Yang Sedang Berada Dalam Proses Pendaftaran</p> -->
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Pendaftaran</li>
+                                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Detail Program</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -77,51 +75,42 @@ and client.ID_USER = '$iduser'");
 
                     <!-- Basic Tables start -->
     <section class="section">
-        <div class="card" >
+        <div class="card">
             <div class="card-header">
-            <!-- <a href="insert_non-reg.php" class="btn btn-success">Add +</a> -->
-            </div>
-            <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
+                <table class="table table-bordered"  width="100%" cellspacing="0">
+                    <thead>
                         <tr>
-                            <th class="col-2">ID Pendaftaran</th>
-                            <th>Nama Program</th>            
-                            <th class="col-1">Tanggal</th>
-                            <th class="col-1">status Pendaftaran</th>
-                            <th class="col-1">Detail </th>
+                            <th>Nama Program</th>    
+                            <td><?=$hasil['NAMA_PROGRAM'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Harga Individu</th>    
+                            <td><?= 'Rp. '. number_format($hasil['INDIVIDU']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Harga Pendaftaran Kolektf</th>    
+                            <td><?='Rp. '. number_format($hasil['KOLEKTIF']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Harga Pendaftaran korporat</th>    
+                            <td><?='Rp. '. number_format($hasil['KORPORAT']) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Mulai</th>    
+                            <td><?= $hasil['TGL_MULAI'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Mulai</th>    
+                            <td><?= $hasil['TGL_BERAKHIR'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Daftar</th>    
+                            <td><a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-outline-success">Daftar</a></td>
                         </tr>
                     </thead>
-                    <tbody>
-                    
-                    <?php foreach($pendaftaran as $hasil): ?>
-                        <tr>
-                            <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
-                            <td><?= $hasil['NAMA_PROGRAM'].' Batch '.$hasil['BATCH'] ?></td>
-                            <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
-                            <td><?php 
-
-                            if($hasil['STATUS'] == 0 ){
-                                echo '<a href="#" class="btn btn-sm btn-warning rounded-pill">Menunggu Verifikasi</a>';
-                            }else if($hasil['STATUS'] == 0 ){
-                                echo '<a href="#" class="btn btn-sm btn-success rounded-pill">Pendaftaran Berhasil</a>';
-                            }
-                            ?>
-                            
-                            </td>
-                            <td><a href="detail.php" class="btn btn-sm btn-info rounded-pill">Detail</a></td>    
-                        </tr>
-                    
-                    <?php endforeach; ?>
-                                                
-                    </tbody>
-                    
-                    </div>
-                </table>
+                </table>   
             </div>
         </div>
-
     </section>
     <!-- Basic Tables end -->
 

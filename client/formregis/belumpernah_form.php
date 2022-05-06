@@ -2,9 +2,24 @@
 require_once("../auth/auth.php"); 
 require '../method.php';
 
+// Tangkap Data
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
 
+<<<<<<< Updated upstream
+=======
+
+// Cek apakah dia udah pernah daftar belum
+$client = query("SELECT * FROM aeec.client where ID_USER = 'US04220002'");
+if($client != null){
+    
+    echo "<script> 
+    alert('Anda Sudah Pernah Mendaftar !, Silahkan pilih jenis pendaftaran lainnya ');
+    document.location.href = 'individu_jenisdiskon.php?idprog=$id&idbatch=$idbatch';
+    </script>";
+}
+
+>>>>>>> Stashed changes
 
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){

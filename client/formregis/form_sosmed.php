@@ -1,10 +1,20 @@
 <?php 
 require_once("../auth/auth.php"); 
 require '../method.php';
-
+// Buat Tangkat Data
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
 $iddiskon = $_GET['iddiskon'];
+
+// Cek apakah dia udah pernah daftar belum
+$client = query("SELECT * FROM aeec.client where ID_USER = 'US04220002'");
+if($client != null){
+    
+    echo "<script> 
+    alert('Anda Sudah Pernah Mendaftar !, Silahkan pilih jenis pendaftaran lainnya ');
+    document.location.href = 'individu_jenisdiskon.php?idprog=$id&idbatch=$idbatch';
+    </script>";
+}
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }

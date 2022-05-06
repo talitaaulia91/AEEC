@@ -14,10 +14,17 @@ if( isset ($_POST["regis"])){
     }
 
     $nama= htmlspecialchars($_POST["nama"]);
-    $email= htmlspecialchars($_POST["email"]);
+    $email= strtolower (htmlspecialchars($_POST["email"]));
     $pass= htmlspecialchars($_POST["password"]);
     $password = password_hash($pass, PASSWORD_DEFAULT);
     
+    $cekemail=query("SELECT * FROM aeec.user where email = '$email'");
+    if($cekemail != null){ //Cek email bila sudah pernah digunakan
+        echo "<script> 
+        alert('Registrasi Gagal, Email sudah Pernah Digunakan !!');
+        document.location.href = 'registrasi.php';
+        </script>";
+    }
 
     $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `NAMA`, `PASSWORD`, `ROLE`) VALUES ('$email', '$nama', '$password', 'user')";
     mysqli_query($koneksi, $masukan); //buat query
