@@ -5,12 +5,10 @@ require '../method.php';
 // Tangkap Data
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
-
-<<<<<<< Updated upstream
-=======
+$iduser = $_SESSION["user"]["ID_USER"];
 
 // Cek apakah dia udah pernah daftar belum
-$client = query("SELECT * FROM aeec.client where ID_USER = 'US04220002'");
+$client = query("SELECT * FROM aeec.client where ID_USER = '$iduser'");
 if($client != null){
     
     echo "<script> 
@@ -19,7 +17,6 @@ if($client != null){
     </script>";
 }
 
->>>>>>> Stashed changes
 
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){

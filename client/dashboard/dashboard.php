@@ -23,11 +23,103 @@ require '../method.php';
     <link rel="stylesheet" href="../../assets/css/app.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
     <style>
-        .wrapper {
-  display: table;
+/* TAB CSS */
+
+.wrapper{
+  /* max-width: 700px; */
+  width: 100%;
+  margin: 50px auto;
+  padding: 25px 30px 30px 30px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+}
+.wrapper header{
+  font-size: 30px;
+  font-weight: 600;
+  padding-bottom: 20px;
+}
+.wrapper nav{
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+.wrapper nav label{
+  display: block;
   height: 100%;
   width: 100%;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  color: #17a2b8;
+  font-size: 17px;
+  border-radius: 5px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
 }
+.wrapper nav label:hover{
+  background: rgba(23,162,184,0.3);
+}
+#home:checked ~ nav label.home,
+#blog:checked ~ nav label.blog,
+#code:checked ~ nav label.code,
+#help:checked ~ nav label.help,
+  #about:checked ~ nav label.about{
+  color: #fff;
+}
+nav label i{
+  padding-right: 7px;
+}
+nav .slider{
+  position: absolute;
+  height: 100%;
+  width: 20%;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  border-radius: 5px;
+  background: #17a2b8;
+  transition: all 0.3s ease;
+}
+input[type="radio"]{
+  display: none;
+}
+#blog:checked ~ nav .slider{
+  left: 20%;
+}
+#code:checked ~ nav .slider{
+  left: 40%;
+}
+#help:checked ~ nav .slider{
+  left: 60%;
+}
+#about:checked ~ nav .slider{
+  left: 80%;
+}
+section .content{
+  display: none;
+  background: #fff;
+}
+#home:checked ~ section .content-1,
+#blog:checked ~ section .content-2,
+#code:checked ~ section .content-3,
+#help:checked ~ section .content-4,
+#about:checked ~ section .content-5{
+  display: block;
+}
+section .content .title{
+  font-size: 21px;
+  font-weight: 500;
+  margin: 30px 0 10px 0;
+}
+section .content p{
+text-align: justify;
+}
+/* END TAB CSS */
 
 .container-fostrap {
   display: table-cell;
@@ -131,7 +223,9 @@ $program = query("SELECT p.*, b.*
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-              
+            <a href="#" class="burger-btn d-block">
+                            <i class="bi bi-justify fs-3"></i>
+            </a>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -141,129 +235,113 @@ $program = query("SELECT p.*, b.*
     </div>
     <section class="section">
         <div class="card">
-            <div class="card-header">
-                <!-- <h4 class="card-title"> <?= $_SESSION["user"]["NAMA"]; ?> </h4> -->
-            
-                <!-- NAVBAR 2 -->
-                <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: blue; ">
-                <div class="container-fluid" >
-                    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="#">Regular Class</a>
-                        <a class="nav-link" href="#">In-House Training</a>
-                        <a class="nav-link" href="#">C-Suite Connection</a>
-                        <a class="nav-link" href="#">Non-Regular Class</a>
-                        <!-- <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> -->
-                    </div>
-                    </div>
-                </div>
-                </nav>
-            
-            
-            </div>
+           
             <div class="card-body">
-                
-            <section class="wrapper">
-                <div class="container-fostrap">
-                    
-                    <div class="content">
-                        <div class="container">
-                            <div class="row">
-                            <?php foreach($program as $hasil) : ?>
-                                <div class="col-xs-12 col-sm-4" >
-                                    <div class="card" >
-                                        <a class="img-card" href="">
-                                        <img src="../../assets/images/program/<?php echo $hasil['IMAGE'];?>" />
-                                    </a>
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href=""> <?= $hasil['NAMA_CLASS']?>
-                                            </a>
-                                            </h4>
-                                            <p class="">
-                                            FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </p>
-                                        </div>
-                                        <div class="card-read-more a" style="height:50px;">
-                                            <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
-                                                DAFTAR
-                                            </a>
-                                        </div>
-                                    </div>
+
+            <div class="wrapper">
+    <header>Program yang Tersedia</header>
+    <input type="radio" name="slider" checked id="home">
+    <input type="radio" name="slider" id="blog">
+    <input type="radio" name="slider" id="code">
+    <input type="radio" name="slider" id="help">
+    <input type="radio" name="slider" id="about">
+    <nav>
+        <label for="home" class="home"><i class="fas fa-home"></i>Regular Class</label>
+        <label for="blog" class="blog"><i class="fas fa-blog"></i>In-House Training</label>
+        <label for="code" class="code"><i class="fas fa-code"></i>C-Suite Connection</label>
+        <label for="help" class="help"><i class="far fa-envelope"></i>Non-Regular Class</label>
+        <label for="about" class="about"><i class="far fa-user"></i>Program Lain ..</label>
+        <div class="slider"></div>
+    </nav>
+    <section>
+
+
+    <div class="content content-1">
+    
+        <!-- ISI CARD -->
+            <div class="container" style="margin:30px auto">
+                <div class="row">
+                <?php foreach($program as $hasil) : ?>
+                    <div class="col-xs-12 col-sm-4" >
+                        <div class="card" >
+                            <a class="img-card" href="">
+                            <img src="../../assets/images/program/<?php echo $hasil['IMAGE'];?>" />
+                        </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a href=""> <?= $hasil['NAMA_CLASS']?>
+                                </a>
+                                </h4>
+                                <p class="">
+                                FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
+                                </p>
                             </div>
-                                <?php endforeach; ?>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="card">
-                                        <a class="img-card" href="">
-                                        <img src="../assets/program/aeec2.jpg" />
-                                    </a>
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href=""> FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </a>
-                                            </h4>
-                                            <p class="">
-                                            FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </p>
-                                        </div>
-                                        <div class="card-read-more">
-                                            <a href="" class="btn btn-link btn-block">
-                                                DAFTAR
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="card">
-                                        <a class="img-card" href="">
-                                        <img src="../assets/program/aeec2.jpg" />
-                                    </a>
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href=""> FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </a>
-                                            </h4>
-                                            <p class="">
-                                            FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </p>
-                                        </div>
-                                        <div class="card-read-more">
-                                            <a href="" class="btn btn-link btn-block">
-                                                DAFTAR
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="card">
-                                        <a class="img-card" href="">
-                                        <img src="../assets/program/aeec3.jpg" />
-                                    </a>
-                                        <div class="card-content">
-                                            <h4 class="card-title">
-                                                <a href="">FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </a>
-                                            </h4>
-                                            <p class="">
-                                            FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                            </p>
-                                        </div>
-                                        <div class="card-read-more">
-                                            <a href="" class="btn btn-link btn-block">
-                                                DAFTAR
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="card-read-more a" style="height:50px;">
+                                <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
+                                    DAFTAR
+                                </a>
                             </div>
                         </div>
-                    </div>
                 </div>
-            </section>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <!-- END ISI CARD -->
+    </div>
+
+    <!-- IN HOUSE -->
+    <div class="content content-2">
+    
+     <!-- ISI CARD -->
+     <div class="container" style="margin:30px auto">
+                <div class="row">
+                
+                    <div class="col-xs-12 col-sm-4" >
+                        <div class="card" >
+                            <a class="img-card" href="">
+                            <img src="../../assets/images/program/" />
+                        </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a href=""> NANTI BUAT IN HOUSE 
+                                </a>
+                                </h4>
+                                <p class="">
+                                Baru Prototype
+                                </p>
+                            </div>
+                            <div class="card-read-more a" style="height:50px;">
+                                <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
+                                    DAFTAR
+                                </a>
+                            </div>
+                        </div>
+                </div>
+                   
+                </div>
+            </div>
+            <!-- END ISI CARD -->
+
+    </div>
+
+
+
+      <div class="content content-3">
+        <div class="title">This is a Code content</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, debitis nesciunt! Consectetur officiis, libero nobis dolorem pariatur quisquam temporibus. Labore quaerat neque facere itaque laudantium odit veniam consectetur numquam delectus aspernatur, perferendis repellat illo sequi excepturi quos ipsam aliquid est consequuntur.</p>
+      </div>
+      <div class="content content-4">
+        <div class="title">This is a Help content</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim reprehenderit null itaq, odio repellat asperiores vel voluptatem magnam praesentium, eveniet iure ab facere officiis. Quod sequi vel, rem quam provident soluta nihil, eos. Illo oditu omnis cumque praesentium voluptate maxime voluptatibus facilis nulla ipsam quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu necessitatibus, cumque laborum rem provident tenetur.</p>
+      </div>
+      <div class="content content-5">
+        <div class="title">This is a About content</div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur officia sequi aliquam. Voluptatem distinctio nemo culpa veritatis nostrum fugit rem adipisci ea ipsam, non veniam ut aspernatur aperiam assumenda quis esse soluta vitae, placeat quasi. Iste dolorum asperiores hic impedit nesciunt atqu, officia magnam commodi iusto aliquid eaque, libero.</p>
+      </div>
+    </section>
+  </div>
+
+            <!-- end coba -->
 
             </div>
         </div>
@@ -291,6 +369,9 @@ $program = query("SELECT p.*, b.*
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     
     <script src="../../assets/js/mazer.js"></script>
+
+
+  
 </body>
 
 </html>

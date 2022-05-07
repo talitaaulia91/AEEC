@@ -160,7 +160,7 @@ $program = query("SELECT * FROM aeec.program");
 						<div class="section-title">
 							<h2>Program Reguler</h2>
 						</div>
-					</div>
+					</div> 
 				</div>
 				<div class="row">
 					<div class="col-12">

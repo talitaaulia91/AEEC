@@ -13,7 +13,6 @@ if( isset ($_POST["regis"])){
         exit;
     }
 
-    $nama= htmlspecialchars($_POST["nama"]);
     $email= strtolower (htmlspecialchars($_POST["email"]));
     $pass= htmlspecialchars($_POST["password"]);
     $password = password_hash($pass, PASSWORD_DEFAULT);
@@ -26,7 +25,7 @@ if( isset ($_POST["regis"])){
         </script>";
     }
 
-    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `NAMA`, `PASSWORD`, `ROLE`) VALUES ('$email', '$nama', '$password', 'user')";
+    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$email',  '$password', 'user')";
     mysqli_query($koneksi, $masukan); //buat query
 
     // Cek Data
