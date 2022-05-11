@@ -12,7 +12,7 @@ require '../method.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || CLIENT</title>
+    <title>AEEC || DASHBOARD</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -160,12 +160,10 @@ h1.heading {
     line-height: 1.42857143;
     background-color: #fff;
     border-radius: 2px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); 
-    transition: box-shadow .25s; 
 }
-.card:hover {
+/* .card:hover {
   box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-}
+} */
 .img-card {
   width: 100%;
   height:200px;
@@ -211,10 +209,11 @@ h1.heading {
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 <?php 
 
-$program = query("SELECT p.*, b.* 
+$reguler = query("SELECT p.*, b.* 
                 FROM batch_program b, program p
                 WHERE  p.ID_PROGRAM = b.ID_PROGRAM
-                AND b.STATUS = 1;");
+                AND p.ID_KATEGORI = 'RC'
+                AND b.STATUS = '1';");
 ?>
             <!-- HALAMAN UTAMA -->
             <div id="main-content">
@@ -234,10 +233,7 @@ $program = query("SELECT p.*, b.*
         </div>
     </div>
     <section class="section">
-        <div class="card">
-           
-            <div class="card-body">
-
+        <div class="card">          
             <div class="wrapper">
     <header>Program yang Tersedia</header>
     <input type="radio" name="slider" checked id="home">
@@ -261,7 +257,7 @@ $program = query("SELECT p.*, b.*
         <!-- ISI CARD -->
             <div class="container" style="margin:30px auto">
                 <div class="row">
-                <?php foreach($program as $hasil) : ?>
+                <?php foreach($reguler as $hasil) : ?>
                     <div class="col-xs-12 col-sm-4" >
                         <div class="card" >
                             <a class="img-card" href="">
@@ -269,18 +265,16 @@ $program = query("SELECT p.*, b.*
                         </a>
                             <div class="card-content">
                                 <h4 class="card-title">
-                                    <a href=""> <?= $hasil['NAMA_CLASS']?>
+                                    <a href=""> <?= $hasil['NAMA_PROGRAM']?>
                                 </a>
                                 </h4>
                                 <p class="">
                                 FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
                                 </p>
                             </div>
-                            <div class="card-read-more a" style="height:50px;">
-                                <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
-                                    DAFTAR
-                                </a>
-                            </div>
+                            <center>                
+                            <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-primary" style="width: 320px; height: 40px;">DAFTAR</a>
+                            </center>
                         </div>
                 </div>
                     <?php endforeach; ?>
@@ -317,8 +311,7 @@ $program = query("SELECT p.*, b.*
                             </div>
                         </div>
                 </div>
-                   
-                </div>
+
             </div>
             <!-- END ISI CARD -->
 
@@ -344,7 +337,7 @@ $program = query("SELECT p.*, b.*
             <!-- end coba -->
 
             </div>
-        </div>
+       
     </section>
 </div>
 

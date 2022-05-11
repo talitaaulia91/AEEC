@@ -1,19 +1,18 @@
 <?php 
 //Cek Login
 require_once("../auth/auth.php"); 
+require_once("../../config/database.php");
 
-require '../method.php';
+
 $iduser = $_SESSION["user"]["ID_USER"];
 
 
-$pendaftaran = query("SELECT ID_PENDAFTARAN, NAMA_PROGRAM, BATCH, TGL_PENDAFTARAN, pendaftaran.STATUS
-from client join pendaftaran
-on (client.ID_CLIENT = pendaftaran.ID_CLIENT)
-join batch_program
-on batch_program.ID_BATCH = pendaftaran.ID_BATCH
-join program
-on program.ID_PROGRAM = batch_program.ID_PROGRAM
-and client.ID_USER = '$iduser'");
+$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, c.ID_CLIENT
+                                      FROM program pr, batch_program b, pendaftaran pn, client c
+                                      WHERE pr.ID_PROGRAM = b.ID_PROGRAM
+                                      AND pn.ID_BATCH = b.ID_BATCH
+                                      AND pn.ID_CLIENT = c.ID_CLIENT
+                                      AND c.ID_USER = '$iduser'");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -88,8 +87,8 @@ and client.ID_USER = '$iduser'");
                         <tr>
                             <th class="col-2">ID Pendaftaran</th>
                             <th>Nama Program</th>            
-                            <th class="col-1">Tanggal</th>
-                            <th class="col-1">status Pendaftaran</th>
+                            <th class="col-2">Tanggal</th>
+                            <th class="col-1">Status</th>
                             <th class="col-1">Detail </th>
                         </tr>
                     </thead>
@@ -98,19 +97,22 @@ and client.ID_USER = '$iduser'");
                     <?php foreach($pendaftaran as $hasil): ?>
                         <tr>
                             <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
-                            <td><?= $hasil['NAMA_PROGRAM'].' Batch '.$hasil['BATCH'] ?></td>
+                            <td><?= $hasil['NAMA_CLASS'] ?></td>
                             <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
-                            <td><?php 
-
-                            if($hasil['STATUS'] == 0 ){
-                                echo '<a href="#" class="btn btn-sm btn-warning rounded-pill">Menunggu Verifikasi</a>';
-                            }else if($hasil['STATUS'] == 0 ){
-                                echo '<a href="#" class="btn btn-sm btn-success rounded-pill">Pendaftaran Berhasil</a>';
-                            }
+                            <td>
+                            <?php
+                            if($hasil['STATUS']=='1'){
                             ?>
-                            
+                            <a href=""><font color="success"><i><b>Verived</b></i></font></a>
+                            <?php
+                            }else{
+                            ?>
+                            <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
+                            <?php
+                            }
+                            ?>                           
                             </td>
-                            <td><a href="detail.php" class="btn btn-sm btn-info rounded-pill">Detail</a></td>    
+                            <td><a class="btn btn-primary" href="detail_pendaftaran.php">Detail</a></td>    
                         </tr>
                     
                     <?php endforeach; ?>

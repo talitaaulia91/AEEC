@@ -8,13 +8,9 @@ $idbatch = $_GET['idbatch'];
 $iduser = $_SESSION["user"]["ID_USER"];
 
 // Cek apakah dia udah pernah daftar belum
-$client = query("SELECT * FROM aeec.client where ID_USER = '$iduser'");
-if($client != null){
-    
-    echo "<script> 
-    alert('Anda Sudah Pernah Mendaftar !, Silahkan pilih jenis pendaftaran lainnya ');
-    document.location.href = 'individu_jenisdiskon.php?idprog=$id&idbatch=$idbatch';
-    </script>";
+$client = query("SELECT * FROM client where ID_USER = '$iduser'");
+if($client != null){  
+    echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch';</script>";
 }
 
 
@@ -184,8 +180,7 @@ foreach($program as $hasil){
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
                                             <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                      
+                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>                                    
                                     </div>
                                 </div>
                             </form>
