@@ -112,7 +112,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN
                             }
                             ?>                           
                             </td>
-                            <td><a class="btn btn-primary" href="detail_pendaftaran.php">Detail</a></td>    
+                            <td><a class="btn btn-primary" href="#">Detail</a></td>    
                         </tr>
                     
                     <?php endforeach; ?>

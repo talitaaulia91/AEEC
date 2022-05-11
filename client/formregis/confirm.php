@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php"); 
 
@@ -164,7 +164,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                     </table>
 
                     <form method="post" action="">
-                    <a class="btn btn-danger " href="../dashboard/dashboard.php">Cancel</a>
+                    <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
                     <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
                     </form>
                       
@@ -226,14 +226,25 @@ $iduser = $_SESSION["user"]["ID_USER"];
             $pendaftaran = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TGL_PENDAFTARAN, STATUS) 
                                                   VALUES ('$idbatch', '$id_client', '$tanggal', '0')");
             
-            
-
-
             echo "<script> 
                 alert('Pendaftaran Berhasil');
                 document.location.href = '../pendaftaran/pendaftaran.php';
                 </script>";
             
+        }
+        
+        if(isset($_POST['cancel'])){
+            $id_client = $ambil_data['ID_CLIENT'];
+            $cek = mysqli_query($mysqli,"SELECT * FROM pendaftaran WHERE ID_CLIENT = '$id_client'");
+
+            if(mysqli_num_rows($cek) == 0){  
+                $delete = mysqli_query($mysqli, "DELETE FROM client WHERE ID_CLIENT = '$id_client'");
+                echo "<script>location='../dashboard/dashboard.php';</script>;";              
+            }else{
+                echo "<script>location='../dashboard/dashboard.php';</script>;";
+            }
+
+           
         }
 
 ?>
