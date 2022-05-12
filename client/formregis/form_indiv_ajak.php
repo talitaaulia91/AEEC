@@ -80,6 +80,13 @@ $nama = query("SELECT * FROM aeec.program");
                                     <div class="row">
                                        
                                         <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Nama Lengkap</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="nama" placeholder="Nama Lengkap" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">No Telp : </label>
                                                 <div class="position-relative">
@@ -171,6 +178,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <h7>Alumni Universitas Airlangga</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="alumni" required>
+                                                    <option >Pilih </option>
                                                     <option value="1">Ya</option>
                                                     <option value="0">Tidak</option>
                                                 </select>

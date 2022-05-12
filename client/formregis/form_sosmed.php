@@ -248,6 +248,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <h7>Alumni Universitas Airlangga</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="alumni" required>
+                                                    <option >Pilih </option>
                                                     <option value="1">Ya</option>
                                                     <option value="0">Tidak</option>
                                                 </select>
