@@ -168,12 +168,11 @@ $nama = query("SELECT * FROM aeec.program");
                                             </fieldset>
                                         </div>
                                         <div class="col-12">
-                                            <h7>Apakah Alumni Unair</h7>
+                                            <h7>Alumni Universitas Airlangga</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="alumni" required>
                                                     <option value="1">Ya</option>
                                                     <option value="0">Tidak</option>
-                                                    <option>Nanti Ada Nama Fakultas</option>
                                                 </select>
                                             </fieldset>
                                         </div>
