@@ -52,20 +52,14 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>DataTable Jquery</h3>
-                <p class="text-subtitle text-muted">For user to check they list</p>
+                <h3>Data Pembayaran</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">DataTable Jquery</li>
-                    </ol>
                 </nav>
             </div>
         </div>
     </div>
-
     <!-- Basic Tables start -->
     <section class="section">
         <div class="card" >
@@ -77,8 +71,7 @@ include_once('../../config/database.php');
                     <thead> 
                         <tr>
                             <th>ID</th>
-                            <th>ID Pedaftaran</th>
-                            <th>Harga PPN</th>
+                            <th>ID Pendaftaran</th>
                             <th>Diskon</th>
                             <th>Nominal Bayar</th>                         
                             <th>Tanggal</th>
@@ -87,19 +80,33 @@ include_once('../../config/database.php');
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $query_pembayaran = "SELECT p.*, e.ID_PENDAFTARAN, d.ID_DISKON
+                                        FROM pembayaran p 
+                                        JOIN pendafataran e ON p.ID_PENDAFTARAN = b.e.ID_PENDAFTARAN
+                                        JOIN diskon d  ON p.ID_DISKON = d.ID_DISKON";
+                        $tabel_bayar = mysqli_query($mysqli, $query_pembayaran);
+                        foreach ($tabel_bayar as $data_bayar) : 
+                        ?>
                         <tr>
-                            <td>PA0001</td>
-                            <td>REG001</td>
-                            <td>Rp. 2.220.000</td>
-                            <td>Voucher 5%</td>
-                            <td>Rp. 2.109.000</td>     
-                            <td>14-04-2022</td>
-                            <td><a href="#"><font color="blue"><i><b>Bukti Bayar</b></i></font></a></td>       
+                            
                             <td>
-                            <font color="success"><i><b>Confirmed</b></i></font>
-                            <!-- <a href="#" class="btn btn-success">Confirmed</a> -->
-                            </td>              
-                        </tr>                      
+                                <?php
+                                if($data_daftar['STATUS']=='1'){
+                                ?>
+                                <a href=""><font color="success"><i><b>Verived</b></i></font></a>
+                                <?php
+                                }else{
+                                ?>
+                                 <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
+                                <?php
+                                }
+                                ?>
+                            </td>                 
+                            </tr>   
+                        <?php
+                        endforeach
+                        ?>                   
                     </tbody>
                     </div>
 
@@ -107,7 +114,7 @@ include_once('../../config/database.php');
             </div>
         </div>
 
-    </section>
+        </section>
     <!-- Basic Tables end -->
 </div>
 
