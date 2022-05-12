@@ -79,31 +79,38 @@ include_once('../../config/database.php');
                             <th>Confirm Status</th>
                         </tr>
                     </thead>
+
+
                     <tbody>
                     <?php
-                        $query_pembayaran = "SELECT p.*, e.ID_PENDAFTARAN, d.ID_DISKON
+                        $query_bayar = "SELECT p.*, a.ID_PENDAFTARAN, d.ID_DISKON 
                                         FROM pembayaran p 
-                                        JOIN pendafataran e ON p.ID_PENDAFTARAN = b.e.ID_PENDAFTARAN
-                                        JOIN diskon d  ON p.ID_DISKON = d.ID_DISKON";
-                        $tabel_bayar = mysqli_query($mysqli, $query_pembayaran);
+                                        JOIN pendaftaran a ON p.ID_PENDAFTARAN = a.ID_PENDAFTARAN
+                                        JOIN diskon d  ON a.ID_DISKON = d.ID_DISKON";                                        
+                        $tabel_bayar = mysqli_query($mysqli, $query_bayar);
                         foreach ($tabel_bayar as $data_bayar) : 
                         ?>
                         <tr>
-                            
+                            <td><?php echo $data_bayar['ID_PEMBAYARAN'];?></td>
+                            <td><?php echo $data_bayar['ID_PENDAFTARAN'];?></td>
+                            <td><?php echo $data_bayar['ID_DISKON'];?></td>
+                            <td><?php echo $data_bayar['NOMINAL'];?></td>
+                            <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>
+                            <td><?php echo $data_bayar['BUKTI'];?></td>
                             <td>
                                 <?php
-                                if($data_daftar['STATUS']=='1'){
-                                ?>
-                                <a href=""><font color="success"><i><b>Verived</b></i></font></a>
-                                <?php
-                                }else{
-                                ?>
-                                 <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
-                                <?php
-                                }
-                                ?>
-                            </td>                 
-                            </tr>   
+                                if($data_bayar['STATUS']=='1'){
+                                    ?>
+                                    <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $data_bayar['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
+                                    <?php
+                                    }else{
+                                    ?>
+                                     <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $data_bayar['STATUS'] ?>"><font color="grey"><i><b>Unverifed</b></i></font></a>
+                                    <?php
+                                    }
+                                    ?>
+                            </td>         
+                        </tr>   
                         <?php
                         endforeach
                         ?>                   
@@ -114,7 +121,7 @@ include_once('../../config/database.php');
             </div>
         </div>
 
-        </section>
+    </section>
     <!-- Basic Tables end -->
 </div>
 

@@ -99,11 +99,11 @@ include_once('../../config/database.php');
                                 <?php
                                 if($data_daftar['STATUS']=='1'){
                                 ?>
-                                <a href=""><font color="success"><i><b>Verived</b></i></font></a>
+                                <a href="verif.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&status=<?= $data_daftar['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
                                 <?php
                                 }else{
                                 ?>
-                                 <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
+                                 <a href="verif.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&status=<?= $data_daftar['STATUS'] ?>"><font color="grey"><i><b>Unverified</b></i></font></a>
                                 <?php
                                 }
                                 ?>
