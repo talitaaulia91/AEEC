@@ -113,7 +113,7 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
                                         <div class="col-xs-12 col-sm-4">
                                             <div class="card card-highlighted">
                                                 <div class="card-header text-center">
-                                                    <h6 class="card-title">Follow sosmed AEEC</h6>
+                                                    <h6 class="card-title">Follow Sosmed AEEC</h6>
                                                     <p>Dapatkan cashback 5%</p>
                                                 </div>
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>

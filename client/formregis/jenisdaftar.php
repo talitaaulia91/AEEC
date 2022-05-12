@@ -74,7 +74,7 @@ foreach($program as $hasil){
                                                 <h1 class="price"><i class="bi bi-people"></i></h1>
                                             
                                                 <div class="card-footer">
-                                                    <a href="kolektif/form.php"><button class="btn btn-primary btn-block">Daftar</button></a>
+                                                    <a href="kolektif_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>"><button class="btn btn-primary btn-block">Daftar</button></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@ foreach($program as $hasil){
                                                 <h1 class="price"><i class="bi bi-person-square"></i></h1>
                                                 
                                                 <div class="card-footer">
-                                                <a href="korporat_form.php"><button class="btn btn-primary btn-block">Daftar</button></a>
+                                                    <a href="korporat_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>"><button class="btn btn-primary btn-block">Daftar</button></a>
                                                 </div>
                                             </div>
                                         </div>

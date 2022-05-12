@@ -93,7 +93,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Username Instagram : </label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="+62.."
+                                                    <input type="text" class="form-control" placeholder="@.."
                                                         id="email-id-icon" name="" >
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
@@ -105,7 +105,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Username Twitter : </label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="+62.."
+                                                    <input type="text" class="form-control" placeholder="@.."
                                                         id="email-id-icon" name="" >
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
@@ -117,7 +117,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Akun LinkedIn Anda : </label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="+62.."
+                                                    <input type="text" class="form-control" placeholder=".."
                                                         id="email-id-icon" name="" >
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
@@ -129,7 +129,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Akun LinkedIn Anda : </label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="+62.."
+                                                    <input type="text" class="form-control" placeholder=".."
                                                         id="email-id-icon" name="" >
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
@@ -141,7 +141,7 @@ $nama = query("SELECT * FROM aeec.program");
                                             <div class="form-group has-icon-left">
                                                 <label for="email-id-icon">Akun Facebook Anda : </label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="+62.."
+                                                    <input type="text" class="form-control" placeholder=".."
                                                         id="email-id-icon" name="" >
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-phone"></i>
