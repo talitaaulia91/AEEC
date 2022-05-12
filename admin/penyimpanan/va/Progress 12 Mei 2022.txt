@@ -1,0 +1,13 @@
+1. form pendaftaran
+- id pendaftaran (done)
+- nama peserta (done)
+- program (done)
+- id batch
+- id client
+- id diskon
+- tgl pendaftaran (done)
+- status pendaftaran (done)
+- va
+
+2. pembayaran
+3. tampilan upload berkas excel (done)

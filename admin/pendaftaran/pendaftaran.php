@@ -2,10 +2,6 @@
 include_once('../../config/database.php');
 ?>
 
-<?php
-include_once('../../config/database.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +78,6 @@ include_once('../../config/database.php');
                             <th >Status</th>
                             <th >Detail</th>                      
                             <th >VA</th>
-                            <th >Delete</th>
                     </tr>                    
                     </thead>
                     <tbody>
@@ -114,14 +109,11 @@ include_once('../../config/database.php');
                                 ?>
                             </td>            
                             <td>
-                            <a href="#" class="btn btn-primary">Detail</a>
+                            <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
                             </td>                              
                             <td>
-                            <a href="#" class="btn btn-success">Add</a>
-                            </td>
-                            <td>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                            </td>              
+                            <a href="add.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-success">Add</a>
+                            </td>         
                         </tr>   
                         <?php
                         endforeach
