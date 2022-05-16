@@ -56,7 +56,7 @@ require '../method.php';
   position: relative;
   z-index: 1;
   color: #17a2b8;
-  font-size: 17px;
+  font-size: 14px;
   border-radius: 5px;
   margin: 0 5px;
   transition: all 0.3s ease;
