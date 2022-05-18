@@ -109,10 +109,10 @@ include_once('../../config/database.php');
                                 ?>
                             </td>            
                             <td>
-                            <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
-                            </td>                              
+                                <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                            </td>                     
                             <td>
-                            <a href="add.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-success">Add</a>
+                                <a href="add.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-success">Add</a>                            
                             </td>         
                         </tr>   
                         <?php

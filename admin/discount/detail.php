@@ -86,6 +86,7 @@ include_once('../../config/database.php');
                         </tr>
                     </thead>
                 </table>   
+                <a href="discount.php" class="btn btn-primary">Kembali</a>
             </div>
         </div>
     <!-- Basic Tables end -->

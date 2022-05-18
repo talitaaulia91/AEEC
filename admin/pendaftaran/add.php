@@ -53,6 +53,11 @@ include_once('../../config/database.php');
     </div>
 
     <!-- Basic Tables start -->
+    <?php
+            $query_daftar = "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN = '".$_GET['id']."' ";
+            $tabel_daftar = mysqli_query($mysqli, $query_daftar);    
+            $data_daftar  = $tabel_daftar->fetch_assoc();  
+        ?>
     <section class="section">
         <section id="basic-vertical-layouts">
             <div class="row match-height">
@@ -67,13 +72,18 @@ include_once('../../config/database.php');
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-12">
-                                            
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label for="formFile" class="form-label">Berkas Virtual Account</label>
-                                                <input class="form-control" type="file" id="formFile" name="berkas" required>
+                                        <!-- <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Virtual Account</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="virtual_acc" placeholder="Virtual Account" required>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <div class="form-group">
+                                                <label for="first-name-vertical">Virtual Account</label>
+                                                <input type="int" id="first-name-vertical" class="form-control" 
+                                                name="virtual_acc" value="<?php echo $data_daftar['VIRTUAL_ACC'];?>" required>
+                                            </div>
                                         <div class="col-12 d-flex justify-content-end ">
                                             <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
                                             <button type="reset"
@@ -119,18 +129,16 @@ include_once('../../config/database.php');
 
 <?php
         if(isset($_POST['tambah'])){
-            // UNTUK BERKAS VA
-            $gambar         = $_FILES['berkas']['name'];
-            $lokasi         = $_FILES['berkas']['tmp_name'];
-            move_uploaded_file($lokasi, '../penyimpanan/va/'.$gambar);            
+            $id             = $_GET['id'];
+            $virtual_acc    = $_POST['virtual_acc'];     
 
             //insert
-            $insert         = mysqli_query($mysqli,"INSERT INTO pendaftaran (VIRTUAL_ACC)
-                                                   VALUES ('$gambar')");
-
-
-        if ($insert) {
-            echo " <script>location='detail.php';</script>";
+            $update         = mysqli_query($mysqli,"UPDATE pendaftaran SET VIRTUAL_ACC = '$virtual_acc'
+                                                    WHERE ID_PENDAFTARAN='".$_GET['id']."'");
+                                        
+        if ($update) {
+            // echo " <script>location='pendaftaran.php';</script>";
+            echo " <script>location='detail.php?id=$id';</script>";
         } else {
             echo "gagal input data";
         } 
