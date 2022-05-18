@@ -1,17 +1,17 @@
 <?php 
 require_once("../auth/auth.php"); 
-require '../method.php';
+require_once("../../config/database.php"); 
 
 $id = $_GET['idprog'];
 $batch = $_GET['idbatch'];
-$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$program = mysqli_query($mysqli,"SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 // Ambil ID USER
 $iduser = $_SESSION["user"]["ID_USER"];
 
-$program = query("SELECT * FROM aeec.kategori_program");
-$nama = query("SELECT * FROM aeec.batch_program join program");
+$program = mysqli_query($mysqli,"SELECT * FROM aeec.kategori_program");
+$nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -336,38 +336,10 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
 
 <!-- SINTAX UNTUK CARI RIWAYAT PROGAM -->
 <?php
-        
-        if(isset($_POST['caririwayatprogram'])){
-            $batch = $_POST['batch'];
-
-
-            // UNTUK BUKTI SERTIFIKAT YG LAMA
-            // $gambar         = $_FILES['berkas']['name'];
-            // $lokasi         = $_FILES['berkas']['tmp_name'];
-            // move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
-
-            $riwayat=query("SELECT * from client 
-            join pendaftaran where client.ID_USER = '$iduser'
-            and pendaftaran.ID_BATCH = '$batch'");
-
-            foreach($riwayat as $cekhasil){
-            }
-
-            if ($cekhasil != null){
-                echo "<script> 
-                alert('Data DItemukan');
-                document.location.href = 'sudahpernah_form.php?idprog=$id&idbatch=$batch&iddiskon=D01';
-                </script>";
-            }else{
-                echo "<script> 
-                alert('Data Tidak DItemukan');
-                document.location.href = '#';
-                </script>";
-            }
-
+    
             
             
-        }
+      
 
         // MENCARI EMAIL PARTISIPAN
         if(isset($_POST['cariemail'])){
@@ -375,9 +347,8 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
             $input = $_POST['addmore'];
             $banyakemail = count($input);
             // Chechk EMail
-            foreach ($input as $output) {
-                
-                $email=query("SELECT * FROM aeec.user where email = '$output'");
+            foreach ($input as $output) {               
+                $email= mysqli_query($mysqli,"SELECT * FROM user where EMAIL = '$output'");
                 foreach($email as $cekhasil){
                     $dataditemukan = $dataditemukan+1;
                 }
@@ -385,10 +356,22 @@ $nama = query("SELECT * FROM aeec.batch_program join program");
             
 
             if($dataditemukan == $banyakemail){
-                // Ketika semua email benar
+                // Ketika semua email benar  
+               
+              
+                $_SESSION['data'] = array();
+                $result = []; 
+                for ($i = 0; $i < count($input); $i++) { 
+                    array_push($result, [$input[$i]]);
+                }
+
+                for ($i = 0; $i < count($result); $i++) { 
+                   $_SESSION['data'][$i] = $result[$i];
+                }
+
                 echo "<script> 
                 alert('Email Partisipan Ditemukan');
-                document.location.href = 'form_indiv_ajak.php?idprog=$id&idbatch=$batch&iddiskon=D02';
+                document.location.href = 'cek_client.php?idprog=$id&idbatch=$batch&iddiskon=D02';
                 </script>";
             }else{
                 // Ketika ada email yang salah

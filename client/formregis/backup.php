@@ -2,10 +2,13 @@
 require_once("../auth/auth.php"); 
 require '../method.php';
 
-$id = $_GET['idprog'];
-$idbatch = $_GET['idbatch'];
+
+$iduser   = $_SESSION["user"]["ID_USER"];
+$email    = $_SESSION["user"]["EMAIL"];
+$id       = $_GET['idprog'];
+$idbatch  = $_GET['idbatch'];
 $iddiskon = $_GET['iddiskon'];
-$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$program  = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 
@@ -52,10 +55,6 @@ $nama = query("SELECT * FROM aeec.program");
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Pendaftaran</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Jenis Diskon</li>
-                                    </ol>
                                 </nav>
                             </div>
                         </div>
@@ -70,15 +69,28 @@ $nama = query("SELECT * FROM aeec.program");
             <div class="card-body">
                 
             <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Mohon Isi Data Dibawah Dengan Benar</h4>
-                    </div>
+                        <h4 class="card-title">Mohon isi data diri Anda</h4>
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
-                                       
+                                    <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Email</label>
+                                                <input type="text" id="first-name-vertical" readonly value="<?= "$email"?>" 
+                                                       class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Nama Lengkap</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="nama" placeholder="Nama Lengkap" required>
+<<<<<<< HEAD:client/formregis/backup.php
+=======
+                                            </div>
+                                        </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nama Lengkap</label>
@@ -96,85 +108,80 @@ $nama = query("SELECT * FROM aeec.program");
                                                         <i class="bi bi-phone"></i>
                                                     </div>
                                                 </div>
+>>>>>>> 7c3033bed5f1a877e642468f01a2a1803a3687f8:client/formregis/form_indiv_ajak.php
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="mobile-id-icon">NPWP</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="NPWP"
-                                                        id="mobile-id-icon" name="npwp" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-archive-fill"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">No. Telepon</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="no_telp" placeholder="No. Telepon" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Alamat NPWP</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Alamat NPWP"
-                                                        id="password-id-icon" name="alamatnpwp" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-house"></i>
-                                                    </div>
-                                                </div>
+                                        <div class="form-group">
+                                                <label for="first-name-vertical">Jenis Kelamin</label>
+                                                    <select class="form-select" name="jk" required>
+                                                        <option >Pilih </option>
+	                                                    <option value="0">Laki-Laki</option>
+	                                                    <option value="1">Perempuan</option>
+                                                    </select>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Alamat Rumah</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Alamat Rumah"
-                                                        id="password-id-icon" name="alamat" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-house-door-fill"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">NPWP</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="npwp" placeholder="NPWP" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Instansi</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Instansi"
-                                                        id="password-id-icon" name="instansi" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-building"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Alamat Rumah</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="alamat_rumah" placeholder="Alamat Rumah" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group has-icon-left">
-                                                <label for="password-id-icon">Jabatan</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control" placeholder="Jabatan"
-                                                        id="password-id-icon" name="jabatan" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-person-badge"></i>
-                                                    </div>
-                                                </div>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Alamat NPWP</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="alamat_npwp" placeholder="Alamat NPWP" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="mb-3">
-                                                <label for="formFile" class="form-label">Berkas NPWP</label>
-                                                <input class="form-control" type="file" id="formFile" name="berkas" required>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Instansi</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="instansi" placeholder="Asal Instansi">
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <h7>Jenis Kelamin</h7>
-                                            <fieldset class="form-group">
-                                                <select class="form-select" id="basicSelect" name="jk" required>
-                                                    <option >Pilih </option>
-                                                    <option value="0">Laki - Laki </option>
-                                                    <option value="1">Perempuan</option>
-                                                </select>
-                                            </fieldset>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Jabatan</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="jabatan" placeholder="Jabatan di Instansi">
+                                            </div>
                                         </div>
                                         <div class="col-12">
+<<<<<<< Updated upstream:client/formregis/form_indiv_ajak.php
+=======
+<<<<<<< HEAD:client/formregis/backup.php
+                                        <div class="form-group">
+                                                <label for="first-name-vertical">Alumni Universitas Airlangga</label>
+                                                    <select class="form-select" name="alumni" required>
+                                                        <option >Pilih </option>
+	                                                    <option value="0">Bukan</option>
+	                                                    <option value="1">Iya</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group ">
+                                        <label for="exampleInputPassword1">Berkas NPWP</label>
+                                        <input type="file" name="npwp"class="form-control" required >
+=======
+>>>>>>> Stashed changes:client/formregis/backup.php
                                             <h7>Alumni Universitas Airlangga</h7>
                                             <fieldset class="form-group">
                                                 <select class="form-select" id="basicSelect" name="alumni" required>
@@ -183,6 +190,7 @@ $nama = query("SELECT * FROM aeec.program");
                                                     <option value="0">Tidak</option>
                                                 </select>
                                             </fieldset>
+>>>>>>> 7c3033bed5f1a877e642468f01a2a1803a3687f8:client/formregis/form_indiv_ajak.php
                                         </div>
                                         
                                         <div class="col-12 d-flex justify-content-end">
