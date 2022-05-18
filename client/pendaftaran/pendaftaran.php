@@ -103,11 +103,11 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN
                             <?php
                             if($hasil['STATUS']=='1'){
                             ?>
-                            <a href=""><font color="success"><i><b>Verived</b></i></font></a>
+                            <a href=""><font color="success"><i><b>Verifed</b></i></font></a>
                             <?php
                             }else{
                             ?>
-                            <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
+                            <a href=""><font color="grey"><i><b>Unverified</b></i></font></a>
                             <?php
                             }
                             ?>                           
