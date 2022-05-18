@@ -5,9 +5,9 @@ require '../method.php';
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
 $iddiskon = $_GET['iddiskon'];
-
+$iduser = $_SESSION["user"]["ID_USER"];
 // Cek apakah dia udah pernah daftar belum
-$client = query("SELECT * FROM aeec.client where ID_USER = 'US04220002'");
+$client = query("SELECT * FROM aeec.client where ID_USER = '$iduser'");
 if($client != null){
     
     echo "<script> 

@@ -1,6 +1,6 @@
 <?php 
-require_once("../../auth/auth.php"); 
-require '../../method.php';
+require_once("../auth/auth.php"); 
+require '../method.php';
 
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
@@ -12,10 +12,10 @@ foreach($program as $hasil){
 use Phppot\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-require_once '../DataSource.php';
+require_once 'DataSource.php';
 $db = new DataSource();
 $conn = $db->getConnection();
-require_once ('../../../vendor/autoload.php');
+require_once ('../../vendor/autoload.php');
 
 if (isset($_POST["import"])) {
 
@@ -30,8 +30,24 @@ if (isset($_POST["import"])) {
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = '../../../assets/excel/' . $_FILES['file']['name'];
-        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+        $namafile= $_FILES['file']['name'];
+        $tempat = $_FILES['file']['tmp_name'];
+        //hanya boleh up Exce;
+        $ekstensiboleh = ['xls', 'xlsx'];
+        $ekstensiupload = explode('.', $namafile);
+        $ekstensiupload = strtolower (end($ekstensiupload));
+
+         //upload
+        //Ganti NamaMh
+        $namafotobaru= uniqid();
+        $namafotobaru.= ".";
+        $namafotobaru.=$ekstensiupload;
+
+        // move_uploaded_file($tempat, '../../assets/excel/'.$namafotobaru);
+
+
+        $targetPath = '../../assets/excel/' . $namafotobaru;
+        move_uploaded_file($tempat, $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 
@@ -86,13 +102,15 @@ if (isset($_POST["import"])) {
             if (isset($spreadSheetAry[$i][9])) {
                 $jabatan = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
             }
-            $berkasnpwp = "";
-            if (isset($spreadSheetAry[$i][10])) {
-                $berkasnpwp = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
-            }
+            
             $alumni = "";
-            if (isset($spreadSheetAry[$i][11])) {
-                $alumni = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            if (isset($spreadSheetAry[$i][10])) {
+                $al = strtolower (mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]));
+                if($al == 'tidak'){
+                    $alumni = 0;
+                }else if($al == 'ya'){
+                    $alumni = 1;
+                }
             }
             
 
@@ -109,9 +127,11 @@ if (isset($_POST["import"])) {
                 $row_id     = $id->fetch_assoc();
                 $id_user = $row_id['ID_USER'];
 
-                $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `BERKAS_NPWP`, `ALUMNI`) 
-                VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan','$berkasnpwp','$alumni')";
+                $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`) 
+                VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni')";
                 $paramType = "ssssssssss";
+                $jumlahInput = $sheetCount -1;
+
                 $paramArray = array(
                     $name,
                     $jk,
@@ -127,14 +147,14 @@ if (isset($_POST["import"])) {
                 // $insertId = $db->insert($query, $paramType, $paramArray);
                 // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
                 $result = mysqli_query($conn, $query);
-                // var_dump($result);
-                // exit;
-                
+
                 // if (! empty($insertId)) {
                     
                 if($result = true){
                     $type = "success";
                     $message = "Data Berhasil Dimasukkan";
+
+                    echo"<script>location='korporat_tampil_excel.php?jenis=$type&pesan=$message&jumlah=$jumlahInput'</script>";
                 } else {
                     $type = "error";
                     $message = "Data Gagal Dimasukkan";
@@ -149,6 +169,8 @@ if (isset($_POST["import"])) {
         $type = "error";
         $message = "Invalid Tipe File. Upload File Excel Sesuai Template.";
     }
+
+    
 }
 
 ?>
@@ -164,12 +186,12 @@ if (isset($_POST["import"])) {
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     
-    <link rel="stylesheet" href="../../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../../assets/css/app.css">
-    <link rel="shortcut icon" href="../../../assets/images/favicon.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../assets/css/app.css">
+    <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
 
     <!-- FORM DINAMIS -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
@@ -199,7 +221,7 @@ if (isset($_POST["import"])) {
   
 </head>
 <!-- BAGIAN SIDEBAR -->
-<?php include_once('../../sidebar/sidebar.php'); ?>
+<?php include_once('../sidebar/sidebar.php'); ?>
 
 
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
@@ -306,38 +328,3 @@ if (isset($_POST["import"])) {
 
 </html>
 
-
-<?php
-if(isset($_POST['tambah'])){
-
-    // UNTUK BUKTI NPWP
-    $gambar         = $_FILES['berkas']['name'];
-    $lokasi         = $_FILES['berkas']['tmp_name'];
-    move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
-
-    $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`, `JABATAN`) 
-                            VALUES ('$iduser', '$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni, '$jabatan')";
-    mysqli_query($koneksi, $masukan); //buat query  
-
-    //Mengambil id CLIENT
-    $idterbaru = query("SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1;");
-    foreach($idterbaru as $id){
-    }
-    $ID_CLIENT = $id['ID_CLIENT'];  
-    
-    //Menangkap Data
-    $batch = $_GET['idbatch'];
-    date_default_timezone_set("Asia/Jakarta");
-    $tanggal = date("Y-m-d");
-    // //Tambah Data pendaftaran
-    $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `ID_DISKON`, `TGL_PENDAFTARAN`,  `STATUS`) 
-    VALUES ('$idbatch', '$ID_CLIENT', '$iddiskon', '$tanggal', '0')";
-    mysqli_query($koneksi, $masukan2); //buat query  
-
-    echo "<script> 
-        alert('Pendaftaran Berhasil');
-        document.location.href = '../pendaftaran/pendaftaran.php';
-        </script>";
-    
-}
-?>
