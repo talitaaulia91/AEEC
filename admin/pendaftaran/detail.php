@@ -78,14 +78,13 @@ include_once('../../config/database.php');
                         </tr>
                         <tr>
                             <th>Berkas Virtual Account</th>    
-                            <td> <a href="../penyimpanan/va/ echo $ambil_data['BERKAS_NPWP']; ?>"
-                                     class="btn btn-primary">Lihat Berkas</a></td>
+                            <td><?=$ambil_data['VIRTUAL_ACC'] ?></td>
                         </tr>
                     </thead>
                 </table>   
+                <a href="pendaftaran.php" class="btn btn-primary">Kembali</a>
             </div>
         </div>
-
 
         <div class="card" >
             <div class="card-header">
@@ -95,46 +94,59 @@ include_once('../../config/database.php');
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th>ID Pendaftaran</th>
-                            <th>Nama Program</th>
-                            <th>Tanggal Pendaftaran</th> 
-                            <th>Status</th> 
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
+                            <th class="col-1">ID</th>
+                            <th class="col-2">Nama Peserta</th>
+                            <th class="col-2">Program</th>
+                            <th >Tanggal</th>   
+                            <th >Status</th>
+                            <th >Detail</th>                      
+                            <th >VA</th>
+                    </tr>                    
                     </thead>
                     <tbody>
                         <?php
-                        $query_program = "SELECT p.*, b.* FROM pendaftaran p, batch_program b 
-                                         WHERE P.ID_BATCH = b.ID_BATCH
-                                         AND ID_CLIENT = '".$_GET['id']."'";
-                        $tabel_program= mysqli_query($mysqli, $query_program);
-                        foreach ($tabel_program as $data_program) : 
+                        $query_daftar = "SELECT p.*, c.*, b.NAMA_CLASS, d.* 
+                                        FROM pendaftaran p 
+                                        JOIN batch_program b ON p.ID_BATCH = b.ID_BATCH
+                                        JOIN peserta c ON p.ID_CLIENT = c.ID_CLIENT
+                                        JOIN diskon d  ON p.ID_DISKON = d.ID_DISKON";
+                        $tabel_daftar= mysqli_query($mysqli, $query_daftar);
+                        foreach ($tabel_daftar as $data_daftar) : 
                         ?>
                         <tr>
-                            <td><?php echo $data_program['ID_PENDAFTARAN']; ?></td>
-                            <td><?php echo $data_program['NAMA_CLASS']; ?></td>
-                            <td><?php echo $data_program['TGL_PENDAFTARAN']; ?></td>     
-                            <td><?php echo $data_program['TGL_PENDAFTARAN']; ?></td>  
+                            <td><?php echo $data_daftar['ID_PENDAFTARAN'];?></td>
+                            <td><?php echo $data_daftar['NAMA'];?></td>
+                            <td><?php echo $data_daftar['NAMA_CLASS'];?></td>
+                            <td><?php echo $data_daftar['TGL_PENDAFTARAN'];?></td>
                             <td>
-                            <a href="edit_regular.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-warning">Edit</a>
-                            </td>
+                                <?php
+                                if($data_daftar['STATUS']=='1'){
+                                ?>
+                                <a href="verif.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&status=<?= $data_daftar['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
+                                <?php
+                                }else{
+                                ?>
+                                 <a href="verif.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&status=<?= $data_daftar['STATUS'] ?>"><font color="grey"><i><b>Unverified</b></i></font></a>
+                                <?php
+                                }
+                                ?>
+                            </td>            
                             <td>
-                            <a href="delete_program.php?id=<?php echo $data_program['ID_PROGRAM']; ?>" class="btn btn-danger">Delete</a>
-                            </td>              
-                        </tr>  
+                                <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                            </td>                     
+                            <td>
+                                <a href="add.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-success">Add</a>                            
+                            </td>         
+                        </tr>   
                         <?php
-                       endforeach
-                       ?>                    
-                    </tbody>                
+                        endforeach
+                        ?>                   
+                    </tbody>
                     </div>
 
                 </table>
-
             </div>
         </div>
-
-
 
 
     <!-- Basic Tables end -->

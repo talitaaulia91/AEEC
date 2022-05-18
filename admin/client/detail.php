@@ -86,7 +86,8 @@ include_once('../../config/database.php');
                                      class="btn btn-primary">Lihat Berkas</a></td>
                         </tr>
                     </thead>
-                </table>   
+                </table>  
+                <a href="peserta.php" class="btn btn-primary">Kembali</a> 
             </div>
         </div>
 
@@ -132,14 +133,9 @@ include_once('../../config/database.php');
                        ?>                    
                     </tbody>                
                     </div>
-
                 </table>
-
             </div>
         </div>
-
-
-
 
     <!-- Basic Tables end -->
 </div>
