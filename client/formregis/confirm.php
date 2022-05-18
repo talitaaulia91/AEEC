@@ -223,8 +223,18 @@ $iduser = $_SESSION["user"]["ID_USER"];
             $id_client = $ambil_data['ID_CLIENT'];
 
             //insert pendaftaran
-            $pendaftaran = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TGL_PENDAFTARAN, STATUS) 
-                                                  VALUES ('$idbatch', '$id_client', '$tanggal', '0')");
+            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TGL_PENDAFTARAN, STATUS) 
+                                                     VALUES ('$idbatch', '$id_client', '$tanggal', '0')"); 
+
+            $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
+            $row_daftar     = $select_daftar->fetch_assoc();
+            $id_pendaftaran = $row_daftar['ID_PENDAFTARAN'];
+
+            //insert histori leader
+            $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
+                                                     VALUE ('$id_client', '$id_pendaftaran')");
+
+            
             
             echo "<script> 
                 alert('Pendaftaran Berhasil');
@@ -235,7 +245,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
         
         if(isset($_POST['cancel'])){
             $id_client = $ambil_data['ID_CLIENT'];
-            $cek = mysqli_query($mysqli,"SELECT * FROM pendaftaran WHERE ID_CLIENT = '$id_client'");
+            $cek = mysqli_query($mysqli,"SELECT * FROM histori WHERE ID_CLIENT = '$id_client'");
 
             if(mysqli_num_rows($cek) == 0){  
                 $delete = mysqli_query($mysqli, "DELETE FROM client WHERE ID_CLIENT = '$id_client'");

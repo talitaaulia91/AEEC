@@ -12,18 +12,10 @@ $iddiskon = $_GET['iddiskon'];
 
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
 if(mysqli_num_rows($client) > 0){  
-    echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch';</script>";
+    echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon=D02';</script>";
 }
 
-
-
-
-// $program  = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
-// foreach($program as $hasil){}
-
-// $program = query("SELECT * FROM aeec.kategori_program");
-// $nama = query("SELECT * FROM aeec.program");
-// ?>
+ ?>
 
 <!-- BAGIAN HEADER -->
 <!DOCTYPE html>
@@ -70,15 +62,12 @@ if(mysqli_num_rows($client) > 0){
                     </div>
 
                     <!-- CARD UNTUK FORM -->
-    <section class="section">
+                    <section class="section">
         <div class="card" >
-            <div class="card-header">
+            <div class="card-header mb-0">
             <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
             </div>
-            <div class="card-body">
-                
-            <div class="card">
-                        <h4 class="card-title">Mohon isi data diri Anda</h4>
+            <div class="card-body">             
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
@@ -165,12 +154,12 @@ if(mysqli_num_rows($client) > 0){
                                         <label for="exampleInputPassword1">Berkas NPWP</label>
                                         <input type="file" name="npwp"class="form-control" required >
                                         </div>
+                                      
                                         
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
                                             <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        </div>
+                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>                                    
                                     </div>
                                 </div>
                             </form>
@@ -224,47 +213,31 @@ if(mysqli_num_rows($client) > 0){
 <?php
         
         if(isset($_POST['tambah'])){
-            // var_dump($_POST['berkas']);
-            // $iduser = $_SESSION["user"]["ID_USER"];
-            $jk = $_POST['jk'];
-            $notelp = $_POST['telp'];
-            $npwp = $_POST['npwp'];
-            $alamatnpwp = $_POST['alamatnpwp'];
-            $alamat = $_POST['alamat'];
-            $instansi = $_POST['instansi'];
-            $jabatan = $_POST['jabatan'];
-            $alumni = $_POST['alumni'];
-            $iduser = $_SESSION["user"]["ID_USER"];
-
+            $nama       = $_POST['nama'];
+            $jk         = $_POST['jk'];
+            $notelp     = $_POST['no_telp'];
+            $npwp       = $_POST['npwp'];
+            $alamatnpwp = $_POST['alamat_npwp'];
+            $alamat     = $_POST['alamat_rumah'];
+            $instansi   = $_POST['instansi'];
+            $jabatan    = $_POST['jabatan'];
+            $alumni     = $_POST['alumni'];
 
             // UNTUK BUKTI NPWP
-            $gambar         = $_FILES['berkas']['name'];
-            $lokasi         = $_FILES['berkas']['tmp_name'];
-            move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
+            $npwp           = $_FILES['npwp']['name'];
+            $lokasi         = $_FILES['npwp']['tmp_name'];
+            move_uploaded_file($lokasi, '../../assets/NPWP/'.$npwp);
 
-            $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`, `JABATAN`) 
-                                    VALUES ('$iduser', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni, '$jabatan')";
-            mysqli_query($koneksi, $masukan); //buat query  
+            $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$npwp', $alumni, '$jabatan')");
+
 
             //Mengambil id CLIENT
-            $idterbaru = query("SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1;");
-            foreach($idterbaru as $id){
-            }
-            $ID_CLIENT = $id['ID_CLIENT'];  
-            
-            //Menangkap Data
-            $batch = $_GET['idbatch'];
-            date_default_timezone_set("Asia/Jakarta");
-            $tanggal = date("Y-m-d");
-            // //Tambah Data pendaftaran
-            $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `ID_DISKON`, `TGL_PENDAFTARAN`,  `STATUS`) 
-            VALUES ('$idbatch', '$ID_CLIENT', '$iddiskon', '$tanggal', '0')";
-            mysqli_query($koneksi, $masukan2); //buat query  
-
-            echo "<script> 
-                alert('Pendaftaran Berhasil');
-                document.location.href = '../pendaftaran/pendaftaran.php';
-                </script>";
+            $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
+            $row       = $idterbaru->fetch_assoc();
+            $id_client = $row['ID_CLIENT']; 
+               
+            echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon=D02';</script>";
             
         }
 
