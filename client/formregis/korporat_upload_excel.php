@@ -2,9 +2,9 @@
 require_once("../auth/auth.php"); 
 require '../method.php';
 
-$id = $_GET['idprog'];
-$idbatch = $_GET['idbatch'];
-$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$idprog    = $_GET['idprog'];
+$idbatch   = $_GET['idbatch'];
+$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$idprog'");
 foreach($program as $hasil){
 }
 
@@ -55,12 +55,22 @@ if (isset($_POST["import"])) {
         $excelSheet = $spreadSheet->getActiveSheet();
         $spreadSheetAry = $excelSheet->toArray();
         $sheetCount = count($spreadSheetAry);
+        // var_dump($sheetCount);
+        // exit;
+        if(count($spreadSheetAry) < 11){
+            echo "<script> 
+            alert('Data Yang Anda Masukkan Dalam Excel Kurang Dari ari 10 Peserta, Mohon Lengkapi Data !');
+            document.location.href = 'korporat_upload_excel.php?idprog=$id&idbatch=$idbatch';
+            </script>";
+            exit;
+        }
 
         for ($i = 1; $i <= $sheetCount; $i ++) {
             $email = "";
             if (isset($spreadSheetAry[$i][0])) {
                 $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
+            
             $pass = "";
             if (isset($spreadSheetAry[$i][1])) {
                 $pass = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
@@ -141,7 +151,6 @@ if (isset($_POST["import"])) {
                     $alamatrumah,
                     $instansi,
                     $jabatan,
-                    $berkasnpwp,
                     $alumni
                 );
                 // $insertId = $db->insert($query, $paramType, $paramArray);
@@ -154,7 +163,7 @@ if (isset($_POST["import"])) {
                     $type = "success";
                     $message = "Data Berhasil Dimasukkan";
 
-                    echo"<script>location='korporat_tampil_excel.php?jenis=$type&pesan=$message&jumlah=$jumlahInput'</script>";
+                    echo"<script>location='korporat_tampil_excel.php?idprog=$idprog&idbatch=$idbatch&jenis=$type&pesan=$message&jumlah=$jumlahInput'</script>";
                 } else {
                     $type = "error";
                     $message = "Data Gagal Dimasukkan";

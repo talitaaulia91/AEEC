@@ -65,7 +65,6 @@ if(mysqli_num_rows($client) > 0){
                     <section class="section">
         <div class="card" >
             <div class="card-header mb-0">
-            <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
             </div>
             <div class="card-body">             
                     <div class="card-content">

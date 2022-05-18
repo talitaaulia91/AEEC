@@ -2,6 +2,8 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php"); 
 
+$idprog    = $_GET['idprog'];
+$idbatch   = $_GET['idbatch'];
 $type = $_GET['jenis'];
 $message = $_GET['pesan'];
 $jumlah = $_GET['jumlah'];
@@ -169,25 +171,36 @@ $iduser = $_SESSION["user"]["ID_USER"];
                             <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                                 <thead> 
                                     <tr>
-                                        <th>ID Client</th>
+                                        
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Jenis Kelamin</th>
                                         <th>No Telp</th>
-                                        <th>NPWP</th>                         
-                                        <!-- <th>Detail</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th> -->
+                                        <th>NPWP</th>
+                                        <th>Alamat NPWP </th>
+                                        <th>Alamat Rumah </th>
+                                        <th>Instansi </th> 
+                                        <th>Jabatan </th>                                
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php
+                                
                                     $query_client = "SELECT * FROM peserta ORDER BY ID_CLIENT DESC LIMIT $jumlah";
                                     $tabel_client = mysqli_query($mysqli, $query_client);
-                                    foreach ($tabel_client as $data_client) :                            
+                                    
+                                    $result = []; 
+                                        
+                                    foreach ($tabel_client as $data_client) :
+                                        array_push($result, $data_client['EMAIL']);
+                                        // $_SESSION['data'] = array();
+                                                            
                                     ?>
+
+                                    
                                     <tr>
-                                        <td><?php echo $data_client['ID_CLIENT']; ?></td>                           
+                                                                 
                                         <td><?php echo $data_client['NAMA']; ?></td> 
                                         <td><?php echo $data_client['EMAIL']; ?></td> 
                                         <td><?php
@@ -200,15 +213,15 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                         ?></td> 
                                         <td><?php echo $data_client['NO_TELP']; ?></td> 
                                         <td><?php echo $data_client['NPWP']; ?></td> 
+                                        <td><?php echo $data_client['ALAMAT_NPWP']; ?></td> 
+                                        <td><?php echo $data_client['ALAMAT_RUMAH']; ?></td> 
+                                        <td><?php echo $data_client['INSTANSI']; ?></td> 
+                                        <td><?php echo $data_client['JABATAN']; ?></td> 
+
                                         <!-- <td>
                                             <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
-                                        </td>            
-                                        <td>
-                                            <a href="edit.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-warning">Edit</a>
-                                        </td>  
-                                        <td>
-                                            <a href="delete.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-danger">Delete</a>
-                                        </td>     -->
+                                        </td>    -->         
+                                    
                                     </tr>
                                     <?php
                                         endforeach
@@ -219,11 +232,15 @@ $iduser = $_SESSION["user"]["ID_USER"];
                             </table>
                         </div>
 
-                        <!-- <a href="delete.php?" class="btn btn-info">Konfirmasi Pendaftaran</a> -->
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                            data-bs-target="#primary">
-                            Konfirmasi Pendaftaran
-                        </button>
+                        <form method="post" action="">
+                            <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+                            <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
+                        </form>
+                        <!-- <?php 
+                        $_SESSION['data'] = $result;
+                        var_dump($result);
+                        var_dump($_SESSION['data']);
+                        ?>  -->
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -261,48 +278,6 @@ $iduser = $_SESSION["user"]["ID_USER"];
         </div>
     </div>
 
-
-    <div class="modal fade text-left" id="primary" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel160" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-                role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h5 class="modal-title white" id="myModalLabel160">Primary Modal
-                        </h5>
-                        <button type="button" class="close" data-bs-dismiss="modal"
-                            aria-label="Close">
-                            <i data-feather="x"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Tart lemon drops macaroon oat cake chocolate toffee chocolate
-                        bar icing. Pudding jelly beans
-                        carrot cake pastry gummies cheesecake lollipop. I love cookie
-                        lollipop cake I love sweet
-                        gummi
-                        bears cupcake dessert.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-secondary"
-                            data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Close</span>
-                        </button>
-                        <button type="button" class="btn btn-primary ml-1"
-                            data-bs-dismiss="modal">
-                            <i class="bx bx-check d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Accept</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     
@@ -318,3 +293,78 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
 </html>
 
+<?php
+    date_default_timezone_set("Asia/Jakarta");
+    $tanggal   = date("Y-m-d");
+    $select_client  = mysqli_query($mysqli, "SELECT * FROM client WHERE ID_USER = '$iduser'");
+    $row_client     = $select_client->fetch_assoc();
+    $id_client      = $row_client['ID_CLIENT'];
+
+    
+    if(isset($_POST['daftar'])){
+                       
+            //insert pendaftaran
+            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN, STATUS) 
+                                                        VALUES ('$idbatch', '$id_client', '$tanggal', '0')");
+
+            //ambil id pendaftaran
+            $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");
+            $row_daftar     = $select_daftar->fetch_assoc();
+            $id_pendaftaran = $row_daftar['ID_PENDAFTARAN'];
+
+            //insert histori leader
+            $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
+                                                        VALUE ('$id_client', '$id_pendaftaran')");
+
+            //insert histori member
+            for($i = 0; $i < $jumlah; $i++){ 
+                $cek_client  = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
+                                                        WHERE c.ID_USER = u.ID_USER
+                                                        AND u.EMAIL = '".$result[$i]."'");
+                $row_cl      = $cek_client->fetch_assoc();
+
+                $insert_hs   = mysqli_query($mysqli,"INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
+                                                        VALUE ('".$row_cl['ID_CLIENT']."', '$id_pendaftaran')");
+
+            }
+            echo "<script> 
+                alert('Pendaftaran Berhasil');
+                document.location.href = '../pendaftaran/pendaftaran.php';
+                </script>";
+                  
+    }
+
+
+
+    
+    if(isset($_POST['cancel'])){
+        $cek = mysqli_query($mysqli,"SELECT * FROM histori WHERE ID_CLIENT = '$id_client'");
+
+        if(mysqli_num_rows($cek) == 0){  
+            $delete_leader = mysqli_query($mysqli, "DELETE FROM client WHERE ID_CLIENT = '$id_client'");       
+        }
+
+        
+
+        for($i = 0; $i < $jumlah; $i++){ 
+            $cek_cl2     = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
+                                                    WHERE c.ID_USER = u.ID_USER
+                                                    AND u.EMAIL = '".$result[$i]."'");
+
+            $row_cl2      = $cek_cl2->fetch_assoc();
+
+            $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM histori 
+                                                    WHERE ID_CLIENT = '".$row_cl2['ID_CLIENT']."'");
+
+            if(mysqli_num_rows($cek_cl3) == 0){
+            $delete_member = mysqli_query($mysqli, "DELETE FROM user 
+                                                    WHERE ID_USER =  '".$row_cl2['ID_USER']."'");
+            }
+        }
+            echo "<script>location='../dashboard/dashboard.php';</script>;";
+        
+
+        
+   }
+
+?>
