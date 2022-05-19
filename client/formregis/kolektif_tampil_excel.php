@@ -87,7 +87,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="index.html">Pendaftaran</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Korporat</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Kolektif</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -256,14 +256,14 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                 echo '<tr>
                                         <td>'.$data['ID_BATCH'].'</td>
                                         <td>'.$data['NAMA_PROGRAM'].'</td>
-                                        <td>'.'Rp. '.number_format($data['KORPORAT']).'</td>
+                                        <td>'.'Rp. '.number_format($data['KOLEKTIF']).'</td>
                                         <td>'.($jumlah+1).'</td>
                                       </tr>';
                                 endforeach
                             ?>
                             <tr>
                                 <th colspan="3" class="text-right">TOTAL</th>
-                                <?php $tagihan =$data['KORPORAT']*($jumlah+1);  ?>
+                                <?php $tagihan =$data['KOLEKTIF']*($jumlah+1);  ?>
                                 <th><?= 'Rp. '.number_format($tagihan) ?></th>
                             </tr>
                         </tbody>
@@ -274,11 +274,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                             <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
                             <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
                         </form>
-                        <!-- <?php 
-                        $_SESSION['data'] = $result;
-                        var_dump($result);
-                        var_dump($_SESSION['data']);
-                        ?>  -->
+
                     </div>
                     
                 </div>

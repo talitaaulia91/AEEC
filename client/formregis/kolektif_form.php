@@ -1,15 +1,18 @@
 <?php 
 require_once("../auth/auth.php"); 
-require '../method.php';
+require_once("../../config/database.php"); 
 
+// Tangkap Data
 $id = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
-$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$iduser = $_SESSION["user"]["ID_USER"];
+$email = $_SESSION["user"]["EMAIL"];
+
+$program = mysqli_query($mysqli,"SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 
-$program = query("SELECT * FROM aeec.kategori_program");
-$nama = query("SELECT * FROM aeec.program");
+
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -35,7 +38,7 @@ $nama = query("SELECT * FROM aeec.program");
   
 </head>
 <!-- BAGIAN SIDEBAR -->
-<?php include_once('../sidebar/sidebar.php'); ?>
+<?php include('../sidebar/sidebar.php'); ?>
 
 
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
@@ -51,44 +54,110 @@ $nama = query("SELECT * FROM aeec.program");
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Pendaftaran</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Jenis Diskon</li>
-                                    </ol>
                                 </nav>
                             </div>
                         </div>
                     </div>
 
-            <!-- CARD UNTUK FORM -->
-            <section class="section">
-                <div class="card" >
-                    <div class="card-header">
-                        <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-header">
-                        <h4 class="card-title">Mohon Isi File dengan Data yang Sudah Benar</h4>
-                    </div>
+                    <!-- CARD UNTUK FORM -->
+    <section class="section">
+        <div class="card" >
+            <div class="card-header mb-0">
+            <h4><?= $hasil['NAMA_PROGRAM'] ?><h4>
+            </div>
+            <div class="card-body">             
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
-                                       
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <label for="formFile" class="form-label">Berkas Pendaftaran</label>
-                                                <input class="form-control" type="file" id="formFile" name="berkas" required>
+                                    <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Email</label>
+                                                <input type="text" id="first-name-vertical" readonly value="<?= "$email"?>" 
+                                                       class="form-control" required>
                                             </div>
                                         </div>
-                                                                                
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Nama Lengkap</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="nama" placeholder="Nama Lengkap" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">No. Telepon</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="no_telp" placeholder="No. Telepon" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                        <div class="form-group">
+                                                <label for="first-name-vertical">Jenis Kelamin</label>
+                                                    <select class="form-select" name="jk" required>
+                                                        <option >Pilih </option>
+	                                                    <option value="0">Laki-Laki</option>
+	                                                    <option value="1">Perempuan</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">NPWP</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="npwp" placeholder="NPWP" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Alamat Rumah</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="alamat_rumah" placeholder="Alamat Rumah" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Alamat NPWP</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="alamat_npwp" placeholder="Alamat NPWP" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Instansi</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="instansi" placeholder="Asal Instansi">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Jabatan</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="jabatan" placeholder="Jabatan di Instansi">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                        <div class="form-group">
+                                                <label for="first-name-vertical">Alumni Universitas Airlangga</label>
+                                                    <select class="form-select" name="alumni" required>
+                                                        <option >Pilih </option>
+	                                                    <option value="0">Bukan</option>
+	                                                    <option value="1">Iya</option>
+                                                    </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group ">
+                                        <label for="exampleInputPassword1">Berkas NPWP</label>
+                                        <input type="file" name="npwp"class="form-control" required >
+                                        </div>
+                                      
+                                        
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
                                             <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                        </div>
+                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>                                    
                                     </div>
                                 </div>
                             </form>
@@ -98,10 +167,6 @@ $nama = query("SELECT * FROM aeec.program");
             </div>
         </div>
     </section>
-
-
-                
-            
                     <!-- END CARD -->
                     <!-- Basic Tables end -->
                 </div>
@@ -144,36 +209,38 @@ $nama = query("SELECT * FROM aeec.program");
 
 
 <?php
-if(isset($_POST['tambah'])){
+        
+        if(isset($_POST['tambah'])){
+            $nama       = $_POST['nama'];
+            $jk         = $_POST['jk'];
+            $notelp     = $_POST['no_telp'];
+            $npwp       = $_POST['npwp'];
+            $alamatnpwp = $_POST['alamat_npwp'];
+            $alamat     = $_POST['alamat_rumah'];
+            $instansi   = $_POST['instansi'];
+            $jabatan    = $_POST['jabatan'];
+            $alumni     = $_POST['alumni'];
+            $iduser     = $_SESSION["user"]["ID_USER"];
 
-    // UNTUK BUKTI NPWP
-    $gambar         = $_FILES['berkas']['name'];
-    $lokasi         = $_FILES['berkas']['tmp_name'];
-    move_uploaded_file($lokasi, '../../penyimpanan/npwp/'.$gambar);
 
-    $masukan="INSERT INTO `aeec`.`client` (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`, `BERKAS_NPWP`, `ALUMNI`, `JABATAN`) 
-                            VALUES ('$iduser', '$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$gambar', $alumni, '$jabatan')";
-    mysqli_query($koneksi, $masukan); //buat query  
+            // UNTUK BUKTI NPWP
+            $npwp           = $_FILES['npwp']['name'];
+            $lokasi         = $_FILES['npwp']['tmp_name'];
+            move_uploaded_file($lokasi, '../../assets/NPWP/'.$npwp);
 
-    //Mengambil id CLIENT
-    $idterbaru = query("SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1;");
-    foreach($idterbaru as $id){
-    }
-    $ID_CLIENT = $id['ID_CLIENT'];  
-    
-    //Menangkap Data
-    $batch = $_GET['idbatch'];
-    date_default_timezone_set("Asia/Jakarta");
-    $tanggal = date("Y-m-d");
-    // //Tambah Data pendaftaran
-    $masukan2 = "INSERT INTO `aeec`.`pendaftaran` (`ID_BATCH`, `ID_CLIENT`, `ID_DISKON`, `TGL_PENDAFTARAN`,  `STATUS`) 
-    VALUES ('$idbatch', '$ID_CLIENT', '$iddiskon', '$tanggal', '0')";
-    mysqli_query($koneksi, $masukan2); //buat query  
+            $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$npwp', $alumni, '$jabatan')");
 
-    echo "<script> 
-        alert('Pendaftaran Berhasil');
-        document.location.href = '../pendaftaran/pendaftaran.php';
-        </script>";
-    
-}
+
+            //Mengambil id CLIENT
+            $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
+            $row       = $idterbaru->fetch_assoc();
+            $id_client = $row['ID_CLIENT']; 
+            
+      
+            
+            echo "<script>location='kolektif_upload_excel.php?idprog=$id&idbatch=$idbatch';</script>";
+            
+        }
+
 ?>

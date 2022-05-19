@@ -8,13 +8,6 @@ $idbatch = $_GET['idbatch'];
 $iduser = $_SESSION["user"]["ID_USER"];
 $email = $_SESSION["user"]["EMAIL"];
 
-// // Cek apakah dia udah pernah daftar belum
-// $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
-// if(mysqli_num_rows($client) > 0){  
-//     echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch';</script>";
-// }
-
-
 $program = mysqli_query($mysqli,"SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }

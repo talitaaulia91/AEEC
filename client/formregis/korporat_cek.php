@@ -13,7 +13,7 @@ if(mysqli_num_rows($client) > 0){
     echo "<script> 
     document.location.href = 'korporat_upload_excel.php?idprog=$id&idbatch=$idbatch';
     </script>";
-    header("korporat_form_pernah.php");
+    
 }else{
     echo "<script> 
     document.location.href = 'korporat_form.php?idprog=$id&idbatch=$idbatch';
