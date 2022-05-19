@@ -128,45 +128,125 @@ $iduser = $_SESSION["user"]["ID_USER"];
                             </tr>
                         </thead>
                         </table>
-                        <br></br>                       
+                        <br>
+                        <?php
+                        date_default_timezone_set("Asia/Jakarta");
+                        $tanggal           = date("Y-m-d");
 
+                        $select_cashback   = mysqli_query($mysqli,"SELECT u.*, c.* FROM user u, cashback c
+                                                                   WHERE u.ID_USER = c.ID_USER
+                                                                   AND u.ID_USER = '$iduser'
+                                                                   AND c.KADALUWARSA > '$tanggal'");
 
+                        $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
+                                                                   WHERE u.ID_USER = c.ID_USER
+                                                                   AND u.ID_USER = '$iduser'
+                                                                   AND c.KADALUWARSA > '$tanggal'");
+                        $row_emoney        = $emoney->fetch_assoc();
+                        $data_em           = $row_emoney['EMONEY'];
 
-                        <table class="table table-bordered bg-white">
-                        <thead>
-                            <tr>
-                                <th>ID</th>    
-                                <th>Nama Program</th>
-                                <th>Harga</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                    $class = mysqli_query($mysqli, "SELECT p.*, b.* 
-                                                                  FROM program p, batch_program b
-                                                                  WHERE p.ID_PROGRAM = b.ID_PROGRAM
-                                                                  AND ID_BATCH = '$idbatch'");
-                                    
-                            
+                        $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
+                                                        FROM program p, batch_program b
+                                                        WHERE p.ID_PROGRAM = b.ID_PROGRAM
+                                                        AND ID_BATCH = '$idbatch'");
+                        $row_class         = $class->fetch_assoc();
+                        $individu          = $row_class['INDIVIDU'];
+
+                        $total             = $individu;
+     
+                        $default_em        = 0;
+                        $harga_fix         = 0;
+                        
+                        if(mysqli_num_rows($select_cashback)>0){
+                        $default_em        = 0;
+                        ?>
+                              <h6 >E-money AEEC yang Anda miliki : Rp. <?= number_format($data_em); ?>; </h6>
+                              <h6 >Gunakan sekarang?</h6>
+                              <form method="post" action="">
+                              <button type="submit" class="btn btn-secondary" name="lain_kali">Lain kali</button>
+                              <button type="submit" class="btn btn-warning" name="gunakan">Gunakan</button>
+                              </form>
+                        <?php
+                        }
+                        ?>
+                        <br>                 
+                        <?php
+                        if(isset($_POST['gunakan'])){
+                        $default_em = $data_em;
+                        $total      = $total-$data_em;
+                    
+                        ?>
+                            <table class="table table-bordered bg-white">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Nama Program</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
                                     foreach ($class as $data):
                                     echo '<tr>
                                             <td>'.$data['ID_BATCH'].'</td>
                                             <td>'.$data['NAMA_PROGRAM'].'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
                                         </tr>';
-                                endforeach
-                            ?>
-                            <tr>
-                                <th colspan="2" class="text-right">TOTAL</th>
-                                <th><?= 'Rp. '.number_format($data['INDIVIDU']) ?></th>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    endforeach
+                                ?>
+                                <tr>
+                                    <td colspan="2" class="text-right">Potongan E-money AEEC</td>
+                                    <td><?= 'Rp. '.number_format($data_em) ?></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2" class="text-right">TOTAL</th>
+                                    <th><?= 'Rp. '.number_format($total) ?></th>
+                                </tr>
+                            </tbody>
+                            </table>
+                        <?php
+                        $harga_fix=$total;
+                        }else{
+                            $default_em = 0;
+                        ?>
+                            <table class="table table-bordered bg-white">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Nama Program</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach ($class as $data):
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                        </tr>';
+                                    endforeach
+                                ?>
+                                <tr>
+                                    <th colspan="2" class="text-right">TOTAL</th>
+                                    <th><?= 'Rp. '.number_format($total) ?></th>
+                                </tr>
+                            </tbody>
+                            </table>
 
-                    <form method="post" action="">
-                    <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
-                    <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
-                    </form>
+                        <?php
+                        $harga_fix=$total;
+                        }
+                        ?>
+
+                        <form method="post" action="">
+                        <div class="form-group">
+                        <input type="hidden" value="<?= "$harga_fix"?>" name= "harga_fix" required>
+                        <input type="hidden" value="<?= "$default_em"?>" name= "default_em" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
+                        </form>
                       
                     </div>
                 </div>
@@ -218,21 +298,27 @@ $iduser = $_SESSION["user"]["ID_USER"];
         
         if(isset($_POST['daftar'])){
 
-            date_default_timezone_set("Asia/Jakarta");
-            $tanggal   = date("Y-m-d");
+            $fix       = $_POST['harga_fix'];
+            $default   = $_POST['default_em'];
             $id_client = $ambil_data['ID_CLIENT'];
 
             //insert pendaftaran
-            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TGL_PENDAFTARAN, STATUS) 
-                                                     VALUES ('$idbatch', '$id_client', '$tanggal', '0')"); 
+            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                     VALUES ('$idbatch', '$id_client','$fix', '$tanggal', '0')"); 
 
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
             $row_daftar     = $select_daftar->fetch_assoc();
             $id_pendaftaran = $row_daftar['ID_PENDAFTARAN'];
 
-            //insert histori leader
+            //insert histori 
             $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
                                                      VALUE ('$id_client', '$id_pendaftaran')");
+
+            //delete cashback
+            if($default != 0){
+                $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
+            }
+             
 
             
             

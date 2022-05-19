@@ -125,58 +125,170 @@ $iddiskon  = $_GET['iddiskon'];
                               </div>
                             </table>
                         </div>  
-                        <br></br>    
+                        <br>
+                
+                        
+                        <?php                       
+                        date_default_timezone_set("Asia/Jakarta");
+                        $tanggal           = date("Y-m-d");
+                        $select_cashback   = mysqli_query($mysqli,"SELECT u.*, c.* FROM user u, cashback c
+                                                                       WHERE u.ID_USER = c.ID_USER
+                                                                       AND u.ID_USER = '$iduser'
+                                                                       AND c.KADALUWARSA > '$tanggal'");
+
+                        $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
+                                                                                WHERE u.ID_USER = c.ID_USER
+                                                                                AND u.ID_USER = '$iduser'
+                                                                                AND c.KADALUWARSA > '$tanggal'");
+                        $row_emoney        = $emoney->fetch_assoc();
+                        $data_em           = $row_emoney['EMONEY'];
+
+                        $jumlah_email      = count($_SESSION['data']);
+                        $jumlah_client     = count($id_user);  
+
+                        $select_diskon     = mysqli_query($mysqli,"SELECT * FROM DISKON WHERE ID_DISKON = '$iddiskon'");
+                        $row_diskon        = $select_diskon->fetch_assoc();
+
+                        $persentase1       = mysqli_query($mysqli, "SELECT cashback10 ('$idprog') AS CASHBACK");
+                        $row_p1            = $persentase1->fetch_assoc();
+                        $cs10              = $row_p1['CASHBACK'];
+
+                        $cashback          = (($jumlah_email - ( $jumlah_client % 3))/3)*$cs10;
 
 
+                        $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
+                                                        FROM program p, batch_program b
+                                                        WHERE p.ID_PROGRAM = b.ID_PROGRAM
+                                                        AND ID_BATCH = '$idbatch'");
+                        $row_class         = $class->fetch_assoc();
+                        $individu          = $row_class['INDIVIDU'];
 
-                        <table class="table table-bordered bg-white">
-                        <thead>
-                            <tr>
-                                <th>ID</th>    
-                                <th>Nama Program</th>
-                                <th>Harga</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $jumlah_email  = count($_SESSION['data']);
-                                $jumlah_client = count($id_user);   
-                                $select_diskon = mysqli_query($mysqli,"SELECT * FROM DISKON WHERE ID_DISKON = '$iddiskon'");
-                                $row_diskon    = $select_diskon->fetch_assoc();
+                        $total             = $individu;
 
-                                $persentase1   = mysqli_query($mysqli, "SELECT cashback10 ('$idprog') AS CASHBACK");
-                                $row_p1        = $persentase1->fetch_assoc();
-                                $cs10          = $row_p1['CASHBACK'];
+                        $persentase2       = mysqli_query($mysqli, "SELECT voucher5 ('$idprog') AS VOUCHER");
+                        $row_p2            = $persentase2->fetch_assoc();
+                        $vo5               = $row_p2['VOUCHER'];
 
-                                $cashback      = (($jumlah_email - ( $jumlah_client % 3))/3)*$cs10;
+                        for($i=0; $i<$jumlah_email; $i++){
+                            $total         = $total + $vo5;
+                        } 
+
+                        $harga_fix   = 0;
+                                                
+
+                        if(mysqli_num_rows($select_cashback)>0){
+                        $default_em        = 0;
+                        ?>
+                          <h6 >E-money AEEC yang Anda miliki : Rp. <?= number_format($data_em); ?>; </h6>
+                          <h6 >Gunakan sekarang?</h6>
+                          <form method="post" action="">
+                          <button type="submit" class="btn btn-secondary" name="lain_kali">Lain kali</button>
+                          <button type="submit" class="btn btn-warning" name="gunakan">Gunakan</button>
+                          </form>
+                        <?php
+                        }
+                        ?>
+                         <br>
+                         <br>
 
 
-                                $class = mysqli_query($mysqli, "SELECT p.*, b.* 
-                                                                FROM program p, batch_program b
-                                                                WHERE p.ID_PROGRAM = b.ID_PROGRAM
-                                                                AND ID_BATCH = '$idbatch'");
-                          
-                                foreach ($class as $data):
-                                echo '<tr>
-                                        <td>'.$data['ID_BATCH'].'</td>
-                                        <td>'.$data['NAMA_PROGRAM'].'</td>
-                                        <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                      </tr>';
-                                endforeach
-                            ?>
-                            <tr>
-                                <th colspan="2" class="text-right">TOTAL</th>
-                                <th><?= 'Rp. '.number_format($data['INDIVIDU']) ?></th>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h6>cashback yang akan didapatkan : Rp. <?= number_format($cashback)?>; </h6>
-                    <br></br>
+                        <?php
+                        if(isset($_POST['gunakan'])){
+                        $default_em = $data_em;
+                        $total      = $total-$data_em;
+                    
+                       
+                        ?>
+                            <table class="table table-bordered bg-white">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Nama Program</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach ($class as $data):
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.($jumlah_email+1).'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']*($jumlah_email+1)).'</td>
+                                        </tr>';
+                                    endforeach
+                                ?>
+                                <tr>
+                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=$jumlah_email?> peserta yang diajak</td>
+                                    <td><?= 'Rp. '.number_format($jumlah_email*(5/100*$data['INDIVIDU'])) ?></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-right">Potongan E-money AEEC</td>
+                                    <td><?= 'Rp. '.number_format($data_em) ?></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" class="text-right">TOTAL</th>
+                                    <th><?= 'Rp. '.number_format($total) ?></th>
+                                </tr>
+                            </tbody>
+                            </table>
+                        <?php
+                        $harga_fix=$total;
+                        }else{
+                        $default_em = 0;
+                        ?>
+                            <table class="table table-bordered bg-white">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Nama Program</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach ($class as $data):
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.($jumlah_email+1).'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']*($jumlah_email+1)).'</td>
+                                        </tr>';
+                                    endforeach
+                                ?>
+                                <tr>
+                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=$jumlah_email?> peserta yang diajak</td>
+                                    <td><?= 'Rp. '.number_format($jumlah_email*(5/100*$data['INDIVIDU'])) ?></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" class="text-right">TOTAL</th>
+                                    <th><?= 'Rp. '.number_format($total) ?></th>
+                                </tr>
+                            </tbody>
+                            </table>
 
-                    <form method="post" action="">
-                    <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
-                    <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
-                    </form>
+                        <?php
+                        $harga_fix=$total;
+                        }
+                        ?>
+
+                        <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($cashback)?>; </h6>
+                        <br></br>
+
+                        <form method="post" action="">
+                        <div class="form-group">
+                        <input type="hidden" value="<?= "$harga_fix"?>" name= "harga_fix" required>
+                        <input type="hidden" value="<?= "$default_em"?>" name= "default_em" required>
+                        </div>
+                        <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
+                        </form>
                       
                     </div>
                 </div>
@@ -226,20 +338,23 @@ $iddiskon  = $_GET['iddiskon'];
 
 <?php
 
-        date_default_timezone_set("Asia/Jakarta");
-        $tanggal   = date("Y-m-d");
+
+
         $select_client  = mysqli_query($mysqli, "SELECT * FROM client WHERE ID_USER = '$iduser'");
         $row_client     = $select_client->fetch_assoc();
         $id_client      = $row_client['ID_CLIENT'];
 
         
         if(isset($_POST['daftar'])){
+            $fix       = $_POST['harga_fix'];
+            $default   = $_POST['default_em'];
+
             if($jumlah_email != $jumlah_client){
                 echo "<script>alert('Lengkapi data peserta!');</script>";
             }else{                
                 //insert pendaftaran
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$tanggal', '0')");
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client','D02','$fix', '$tanggal', '0')");
 
                 //ambil id pendaftaran
                 $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");
@@ -258,9 +373,21 @@ $iddiskon  = $_GET['iddiskon'];
                     $row_cl      = $cek_client->fetch_assoc();
 
                     $insert_hs   = mysqli_query($mysqli,"INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
-                                                         VALUE ('".$row_cl['ID_CLIENT']."', '$id_pendaftaran')");
-
+                                                         VALUES ('".$row_cl['ID_CLIENT']."', '$id_pendaftaran')");
                 }
+
+                //delete cashback
+                if($default != 0){
+                   $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
+                }
+
+                //insert cashback
+                $kadaluarsa      = date('Y-m-d', strtotime('+30 days', strtotime($tanggal)));
+                $insert_cashback = mysqli_query($mysqli,"INSERT INTO cashback (ID_USER, NOMINAL, KADALUWARSA)
+                                                         VALUES ('$iduser', '$cashback','$kadaluarsa')");
+
+               
+
                 echo "<script> 
                     alert('Pendaftaran Berhasil');
                     document.location.href = '../pendaftaran/pendaftaran.php';
