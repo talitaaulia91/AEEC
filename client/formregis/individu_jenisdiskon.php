@@ -119,11 +119,8 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
                                                 
                                                 <div class="card-footer">
-                                                    <!-- <a href="belumpernah_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=0"><button class="btn btn-outline-white btn-block">Daftar</button></a> -->
-                                                    <button type="button" class="btn btn-outline-white btn-block" data-bs-toggle="modal"
-                                                        data-bs-target="#sosmed">
-                                                        Daftar
-                                                    </button>
+                                                    <a href="follow_sosmed.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=0">
+                                                    <button class="btn btn-outline-white btn-block">Daftar</button></a>
 
                                                 </div>
                                             </div>
@@ -194,7 +191,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                         </div>
                         <div class="control-group text-center">
                             <br>
-                            <button class="btn btn-success" type="submit" name="cariemail">Submit</button>
+                            <button class="btn btn-primary" type="submit" name="cariemail">Submit</button>
                         </div>
                         </form>
                         <!-- Copy Fields -->
@@ -207,18 +204,6 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                         </div>
                         </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light-secondary"
-                        data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                    <button type="button" class="btn btn-primary ml-1"
-                        data-bs-dismiss="modal">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Accept</span>
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -226,81 +211,6 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 
 <!-- END MODAL AJAK TEMAN -->
 
-
-
-<!-- MODAL SOSIAL MEDIA -->
-<div class="modal fade text-left" id="sosmed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-            role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-primary">
-                    <h5 class="modal-title white" id="myModalLabel160">Dapatkan Tambahan Cashback Dengan Cara Berikut
-                    </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <div class="row row-centered">
-                            <div class="col-md-6 col-centered">
-
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Follow Social Media AEEC</h4>
-                                        <p class="card-text">
-                                            Dapatkan Cashback 5% dengan follow dan subscribe semua media sosial
-                                            AEEC
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between">
-                                <a href="form_sosmed.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=D03"><button class="btn btn-light-primary">Daftar</button></a>
-                                </div>
-                            </div>
-
-                            </div>
-
-
-                            <div class="col-md-6 col-centered">
-                                    
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Lewati Promo Ini</h4>
-                                        <p class="card-text">
-                                            <br><br> <br><br><br>
-                                        </p>
-                                    </div>
-                                    
-                                </div>
-                                <div class="card-footer d-flex justify-content-between">
-                                <a href="belumpernah_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=0"><button class="btn btn-light-primary">Daftar</button></a>
-                                </div>
-                            </div>
-                        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-light-secondary"
-                        data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button> -->
-                    <button type="button" class="btn btn-primary ml-1"
-                        data-bs-dismiss="modal">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Close</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -346,7 +256,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
             $dataditemukan = 0;
             $input = $_POST['addmore'];
             $banyakemail = count($input);
-            // Chechk EMail
+            // Check Email
             foreach ($input as $output) {               
                 $email= mysqli_query($mysqli,"SELECT * FROM user where EMAIL = '$output'");
                 foreach($email as $cekhasil){
