@@ -57,15 +57,15 @@ if (isset($_POST["import"])) {
         $sheetCount = count($spreadSheetAry);
         // var_dump($sheetCount);
         // exit;
-        if(count($spreadSheetAry) < 11){
+        if(count($spreadSheetAry) < 12){
             echo "<script> 
             alert('Data Yang Anda Masukkan Dalam Excel Kurang Dari ari 10 Peserta, Mohon Lengkapi Data !');
-            document.location.href = 'korporat_upload_excel.php?idprog=$id&idbatch=$idbatch';
+            document.location.href = 'korporat_upload_excel.php?idprog=$idprog&idbatch=$idbatch';
             </script>";
             exit;
         }
 
-        for ($i = 1; $i <= $sheetCount; $i ++) {
+        for ($i = 2; $i <= $sheetCount; $i ++) {
             $email = "";
             if (isset($spreadSheetAry[$i][0])) {
                 $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
@@ -140,7 +140,7 @@ if (isset($_POST["import"])) {
                 $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`) 
                 VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni')";
                 $paramType = "ssssssssss";
-                $jumlahInput = $sheetCount -1;
+                $jumlahInput = $sheetCount -2;
 
                 $paramArray = array(
                     $name,

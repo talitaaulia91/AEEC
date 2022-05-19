@@ -232,6 +232,43 @@ $iduser = $_SESSION["user"]["ID_USER"];
                             </table>
                         </div>
 
+
+                        <!-- HARGA -->
+
+                        <table class="table table-bordered bg-white">
+                        <thead>
+                            <tr>
+                                <th>ID</th>    
+                                <th>Nama Program</th>
+                                <th>Harga</th>
+                                <th>Jumlah Peserta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            
+                                $class = mysqli_query($mysqli, "SELECT p.*, b.* 
+                                                                FROM program p, batch_program b
+                                                                WHERE p.ID_PROGRAM = b.ID_PROGRAM
+                                                                AND ID_BATCH = '$idbatch'");
+                          
+                                foreach ($class as $data):
+                                echo '<tr>
+                                        <td>'.$data['ID_BATCH'].'</td>
+                                        <td>'.$data['NAMA_PROGRAM'].'</td>
+                                        <td>'.'Rp. '.number_format($data['KORPORAT']).'</td>
+                                        <td>'.($jumlah+1).'</td>
+                                      </tr>';
+                                endforeach
+                            ?>
+                            <tr>
+                                <th colspan="3" class="text-right">TOTAL</th>
+                                <th><?= 'Rp. '.number_format(($data['KORPORAT']*($jumlah+1))) ?></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <!-- END HARGA -->
+
                         <form method="post" action="">
                             <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
                             <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
@@ -242,11 +279,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                         var_dump($_SESSION['data']);
                         ?>  -->
                     </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            
-                        </div>
-                    </div>
+                    
                 </div>
                 
             </div>
@@ -353,8 +386,12 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
             $row_cl2      = $cek_cl2->fetch_assoc();
 
-            $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM histori 
-                                                    WHERE ID_CLIENT = '".$row_cl2['ID_CLIENT']."'");
+            // $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM histori 
+            //                                         WHERE ID_CLIENT = '".$row_cl2['ID_CLIENT']."'");
+
+            $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM aeec.histori join client 
+                                                    WHERE histori.ID_CLIENT = client.ID_CLIENT
+                                                    AND client.ID_CLIENT = '".$row_cl2['ID_CLIENT']."'");
 
             if(mysqli_num_rows($cek_cl3) == 0){
             $delete_member = mysqli_query($mysqli, "DELETE FROM user 
@@ -365,6 +402,6 @@ $iduser = $_SESSION["user"]["ID_USER"];
         
 
         
-   }
+}
 
 ?>
