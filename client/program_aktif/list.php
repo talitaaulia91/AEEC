@@ -3,15 +3,16 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-
 $iduser = $_SESSION["user"]["ID_USER"];
 
+$tgl    =DATE("Y-m-d");
 
-$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, c.ID_CLIENT
-                                      FROM program pr, batch_program b, pendaftaran pn, client c
+$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.TGL_MULAI, b.TGL_BERAKHIR, b.WAKTU_MULAI, b.WAKTU_BERAKHIR
+                                      FROM program pr, batch_program b, pendaftaran pn, CLIENT c
                                       WHERE pr.ID_PROGRAM = b.ID_PROGRAM
                                       AND pn.ID_BATCH = b.ID_BATCH
                                       AND pn.ID_CLIENT = c.ID_CLIENT
+                                      AND b.TGL_BERAKHIR > '$tgl'
                                       AND c.ID_USER = '$iduser'");
 ?>
 
@@ -59,14 +60,14 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN
                     <div class="page-title">
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Pendaftaran Anda</h3>
-                                <p class="text-subtitle text-muted">Program Yang Sedang Berada Dalam Proses Pendaftaran</p>
+                                <h3>Program Aktif Anda</h3>
+                                <p class="text-subtitle text-muted">Program Aktif yang Anda Ikuti</p>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Pendaftaran</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Program Aktif</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -84,40 +85,25 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th class="col-2">ID Pendaftaran</th>
                             <th>Nama Program</th>            
-                            <th class="col-2">Tanggal Pendaftaran</th>
-                            <th class="col-1">Status</th>
-                            <th class="col-1">Detail </th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Berakhir</th>
+                            <th>Waktu Mulai</th>
+                            <th>Waktu Berakhir</th>
                         </tr>
                     </thead>
                     <tbody>
-                    
+
                     <?php foreach($pendaftaran as $hasil): ?>
                         <tr>
-                            <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
-                            <td><?= $hasil['NAMA_CLASS'] ?></td>
-                            <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
-                            <td>
-                            <?php
-                            if($hasil['STATUS']=='1'){
-                            ?>
-                            <a href=""><font color="success"><i><b>Verifed</b></i></font></a>
-                            <?php
-                            }else{
-                            ?>
-                            <a href=""><font color="grey"><i><b>Unverified</b></i></font></a>
-                            <?php
-                            }
-                            ?>                           
-                            </td>
-                            <td><a class="btn btn-primary" href="#">Detail</a></td>    
+                            <td><?= $hasil['NAMA_PROGRAM'] ?> </td>
+                            <td><?= $hasil['TGL_MULAI'] ?></td>
+                            <td><?= $hasil['TGL_BERAKHIR'] ?></td> 
+                            <td><?= $hasil['WAKTU_MULAI'] ?></td>
+                            <td><?= $hasil['WAKTU_BERAKHIR'] ?></td>   
                         </tr>
-                    
-                    <?php endforeach; ?>
-                                                
+                    <?php endforeach; ?>                   
                     </tbody>
-                    
                     </div>
                 </table>
             </div>
