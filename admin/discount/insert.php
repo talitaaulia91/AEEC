@@ -80,7 +80,7 @@ include_once('../../config/database.php');
                                                     name="persentase" placeholder="Persentase" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">aaa
+                                        <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Bentuk</label>
                                                     <select class="form-select" name="bentuk" required>
