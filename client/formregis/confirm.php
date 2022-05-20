@@ -355,9 +355,9 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
             if(mysqli_num_rows($cek) == 0){  
                 $delete = mysqli_query($mysqli, "DELETE FROM client WHERE ID_CLIENT = '$id_client'");
-                echo "<script>location='../dashboard/dashboard.php';</script>;";              
+                echo "<script>location='../dashboard/regular.php';</script>;";              
             }else{
-                echo "<script>location='../dashboard/dashboard.php';</script>;";
+                echo "<script>location='../dashboard/regular.php';</script>;";
             }
 
            

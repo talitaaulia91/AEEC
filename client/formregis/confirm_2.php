@@ -443,7 +443,7 @@ $iddiskon  = $_GET['iddiskon'];
                                                         WHERE ID_CLIENT =  '".$row_cl2['ID_CLIENT']."'");
                 }
             }
-                echo "<script>location='../dashboard/dashboard.php';</script>;";
+                echo "<script>location='../dashboard/regular.php';</script>;";
             
 
            

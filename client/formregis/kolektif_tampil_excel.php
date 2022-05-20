@@ -418,7 +418,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                                     WHERE ID_USER =  '".$row_cl2['ID_USER']."'");
             }
         }
-            echo "<script>location='../dashboard/dashboard.php';</script>;";
+            echo "<script>location='../dashboard/regular.php';</script>;";
         
 
         

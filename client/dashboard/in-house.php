@@ -205,6 +205,7 @@ h1.heading {
   font-weight:600;
   text-transform: uppercase
 }
+
 </style>
 
 <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -229,6 +230,24 @@ h1.heading {
             </a>
         </header>
 
+        <div class="page-heading">
+                    <div class="page-title">
+                        <div class="row">
+                            <div class="col-12 col-md-6 order-md-1 order-last">
+                                <h3>Regular CLass</h3>
+                                <p class="text-subtitle text-muted">Program Reguler yang sedang aktif</p>
+                            </div>
+                            <div class="col-12 col-md-6 order-md-2 order-first">
+                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Program</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 <?php 
 
@@ -242,118 +261,57 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
             <!-- <div id="main-content">
                  -->
         <section class="section">
-        <div class="card">          
-            <div class="wrapper">
-    <header>Program yang Tersedia</header>
-    <input type="radio" name="slider" checked id="home">
-    <input type="radio" name="slider" id="blog">
-    <input type="radio" name="slider" id="code">
-    <input type="radio" name="slider" id="help">
-    <input type="radio" name="slider" id="about">
-    <nav>
-        <label for="home" class="home"><i class="fas fa-home"></i>Regular Class</label>
-        <label for="blog" class="blog"><i class="fas fa-blog"></i>In-House Training</label>
-        <label for="code" class="code"><i class="fas fa-code"></i>C-Suite Connection</label>
-        <label for="help" class="help"><i class="far fa-envelope"></i>Non-Regular Class</label>
-        <label for="about" class="about"><i class="far fa-user"></i>Program Lain ..</label>
-        <div class="slider"></div>
-    </nav>
-    <section>
+        <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
 
+    <?php 
+		while($spare = mysqli_fetch_array($reguler)){ ?>
+                <div class="mb-3 col-md-8 col-lg-3">
+                  <div class="border rounded h-100 d-flex flex-column justify-content-between pb-3">
+                    <div class="overflow-hidden">
+                      <div class="position-relative rounded-top overflow-hidden">
+                          <img class="img-fluid rounded-top" style="width:100%; height: 200px; object-fit:cover;" 
+                           src="../../assets/images/program/<?=$spare['IMAGE'] ?>" alt="">
+                          <span class="badge badge-pill badge-success position-absolute r-0 t-0 mt-2 mr-2 z-index-2">New</span>
+                        </div> 
 
-    <div class="content content-1">
-    
-        <!-- ISI CARD -->
-            <div class="container" style="margin:30px auto">
-                <div class="row">
-                <?php 
-                foreach($reguler as $hasil) : 
-                  $count_kuota   = mysqli_query($mysqli,"SELECT h.* 
-                                                        FROM histori h JOIN pendaftaran p
-                                                        ON h.ID_PENDAFTARAN = p.ID_PENDAFTARAN
-                                                        JOIN batch_program b
-                                                        ON b.ID_BATCH = p.ID_BATCH
-                                                        AND b.ID_BATCH = '".$hasil['ID_BATCH']."'
-                                                        ");
-                ?>
-                    <div class="col-xs-12 col-sm-4" >
-                        <div class="card" >
-                            <a class="img-card" href="">
-                            <img src="../../assets/images/program/<?php echo $hasil['IMAGE'];?>" />
-                        </a>
-                            <div class="card-content">
-                                <h4 class="card-title">
-                                    <a href=""> <?= $hasil['NAMA_PROGRAM']?>
-                                </a>
-                                </h4>
-                                <p>Kuota tersedia : <?= $hasil['KUOTA'] ?></p>
-                            </div>
-                            <center>                
-                            <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-primary" style="width: 320px; height: 40px;">DAFTAR</a>
-                            </center>
-                        </div>
+                        <div class="p-3">
+                        <h5 class="fs-0"><a class="text-dark" href="">
+                        <?= $spare['NAMA_PROGRAM']  ?>
+                        </a></h5>
+                        
+                        <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> 
+                        <?php echo 'Kuota : '.$spare['KUOTA'] ?>
+                        </h5>
+
+                         <!-- <p class="fs--1 mb-1">
+                         Stock: <?= (($spare['stok'] >= 1) ? 
+                        '<strong class="text-success">Available</strong>' : '<strong class="text-danger">Unvailable</strong>') ?>
+                        </p> -->
+                        <!-- <?php
+                        if($spare['stok']>0){
+                        ?>
+                        <a href="beli.php?id=<?php echo $spare['ID_Suku_Cadang']; ?>"
+                        class="btn bg-gradient-info w-100 mt-4 mb-0">Masukkan keranjang</a>
+                        <?php
+                        }else{
+                       ?> -->
+                       <a href="" class="btn btn-primary w-100 mt-4 mb-0">DAFTAR</a>
+                       <!-- <?php
+                        }
+                        ?> -->
+                        
+                                      
+                      </div>
+                    </div> 
+                  </div>
                 </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <!-- END ISI CARD -->
-    </div>
+      <?php }?>
+              </div>
+            </div>       
+          </div>
 
-    <!-- IN HOUSE -->
-    <div class="content content-2">
-    
-     <!-- ISI CARD -->
-     <div class="container" style="margin:30px auto">
-                <div class="row">
-                
-                    <div class="col-xs-12 col-sm-4" >
-                        <div class="card" >
-                            <a class="img-card" href="">
-                            <img src="../../assets/images/program/" />
-                        </a>
-                            <div class="card-content">
-                                <h4 class="card-title">
-                                    <a href=""> NANTI BUAT IN HOUSE 
-                                </a>
-                                </h4>
-                                <p class="">
-                                Baru Prototype
-                                </p>
-                            </div>
-                            <div class="card-read-more a" style="height:50px;">
-                                <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-link btn-block">
-                                    DAFTAR
-                                </a>
-                            </div>
-                        </div>
-                </div>
-
-            </div>
-            <!-- END ISI CARD -->
-
-    </div>
-
-
-
-      <div class="content content-3">
-        <div class="title">This is a Code content</div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, debitis nesciunt! Consectetur officiis, libero nobis dolorem pariatur quisquam temporibus. Labore quaerat neque facere itaque laudantium odit veniam consectetur numquam delectus aspernatur, perferendis repellat illo sequi excepturi quos ipsam aliquid est consequuntur.</p>
-      </div>
-      <div class="content content-4">
-        <div class="title">This is a Help content</div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim reprehenderit null itaq, odio repellat asperiores vel voluptatem magnam praesentium, eveniet iure ab facere officiis. Quod sequi vel, rem quam provident soluta nihil, eos. Illo oditu omnis cumque praesentium voluptate maxime voluptatibus facilis nulla ipsam quidem mollitia! Veniam, fuga, possimus. Commodi, fugiat aut ut quorioms stu necessitatibus, cumque laborum rem provident tenetur.</p>
-      </div>
-      <div class="content content-5">
-        <div class="title">This is a About content</div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur officia sequi aliquam. Voluptatem distinctio nemo culpa veritatis nostrum fugit rem adipisci ea ipsam, non veniam ut aspernatur aperiam assumenda quis esse soluta vitae, placeat quasi. Iste dolorum asperiores hic impedit nesciunt atqu, officia magnam commodi iusto aliquid eaque, libero.</p>
-      </div>
-    </section>
-  </div>
-
-            <!-- end coba -->
-
-            </div>
-       
     </section>
 </div>
 
