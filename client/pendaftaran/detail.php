@@ -3,7 +3,7 @@
 require_once("../auth/auth.php"); 
 
 require '../method.php';
-$id = $_GET['idprog'];
+$id = $_GET['id'];
 $idbatch = $_GET['idbatch'];
 
 $program = query("SELECT * from program

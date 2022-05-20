@@ -92,24 +92,23 @@ include_once('../../config/database.php');
             <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
+                <thead> 
                         <tr>
                             <th class="col-1">ID</th>
                             <th class="col-2">Nama Peserta</th>
                             <th class="col-2">Program</th>
-                            <th >Tanggal</th>   
-                            <th >Status</th>
-                            <th >Detail</th>                      
-                            <th >VA</th>
+                            <th>Tanggal</th>   
+                            <th>Status</th>
+                            <th>Detail</th>                      
+                            <th>VA</th>
                     </tr>                    
                     </thead>
                     <tbody>
                         <?php
-                        $query_daftar = "SELECT p.*, c.*, b.NAMA_CLASS, d.* 
-                                        FROM pendaftaran p 
-                                        JOIN batch_program b ON p.ID_BATCH = b.ID_BATCH
-                                        JOIN peserta c ON p.ID_CLIENT = c.ID_CLIENT
-                                        JOIN diskon d  ON p.ID_DISKON = d.ID_DISKON";
+                        $query_daftar = "SELECT p.ID_PENDAFTARAN, p.TGL_PENDAFTARAN, p.STATUS, b.NAMA_CLASS, c.NAMA 
+                                            FROM pendaftaran p, batch_program b, client c
+                                            WHERE p.ID_BATCH = b.ID_BATCH
+                                            AND p.ID_CLIENT = c.ID_CLIENT";
                         $tabel_daftar= mysqli_query($mysqli, $query_daftar);
                         foreach ($tabel_daftar as $data_daftar) : 
                         ?>

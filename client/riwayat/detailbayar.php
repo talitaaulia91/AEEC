@@ -1,5 +1,18 @@
 <?php
+require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
+
+$iduser = $_SESSION["user"]["ID_USER"];
+$id     = $_GET['id']; 
+
+$bayar = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.BATCH, pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL_ACC, c.ID_CLIENT, pe.ID_PEMBAYARAN, pe.NOMINAL, pe.TGL_PEMBAYARAN, pe.BUKTI, pe.STATUS
+                        FROM program pr, batch_program b, pendaftaran pn, CLIENT c, pembayaran pe
+                        WHERE pr.ID_PROGRAM = b.ID_PROGRAM
+                        AND pn.ID_PENDAFTARAN = '$id'
+                        AND pe.ID_PENDAFTARAN = '$id'
+                        AND pn.ID_BATCH = b.ID_BATCH
+                        AND pn.ID_CLIENT = c.ID_CLIENT
+                        AND c.ID_USER = '$iduser'");
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +21,7 @@ include_once('../../config/database.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || Administrator</title>
+    <title>AEEC || CLIENT</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -52,10 +65,15 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Data Pembayaran</h3>
+                <h3>Riwayat Pembayaran</h3>
+                <p class="text-subtitle text-muted">Riwayat Pembayaran dari Pendaftaran Program Anda</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Riwayat Pembayaran</li>
+                </ol>
                 </nav>
             </div>
         </div>
@@ -64,49 +82,48 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
+                <a href="addbayar.php" class="btn btn-success">Add +</a>  
             </div>
             <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th>ID</th>
                             <th>ID Pendaftaran</th>
-                            <th>Nominal Bayar</th>                         
+                            <th>ID Pembayaran</th>
+                            <th>Nominal</th>          
+                            <th>Virtual Account</th>               
                             <th>Tanggal</th>
                             <th>Bukti</th>
-                            <th>Confirm Status</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
 
 
                     <tbody>
                     <?php
-                        $query_bayar = "SELECT p.*, a.ID_PENDAFTARAN
-                                        FROM pembayaran p 
-                                        JOIN pendaftaran a ON p.ID_PENDAFTARAN = a.ID_PENDAFTARAN";                                          
-                        $tabel_bayar = mysqli_query($mysqli, $query_bayar);
-                        foreach ($tabel_bayar as $data_bayar) : 
+                        foreach ($bayar as $data_bayar) : 
                         ?>
                         <tr>
-                            <td><?php echo $data_bayar['ID_PEMBAYARAN'];?></td>
                             <td><?php echo $data_bayar['ID_PENDAFTARAN'];?></td>
+                            <td><?php echo $data_bayar['ID_PEMBAYARAN'];?></td>
                             <td><?php echo $data_bayar['NOMINAL'];?></td>
-                            <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>
+                            <td><?php echo $data_bayar['VIRTUAL_ACC'];?></td>
+                            <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>  
                             <td> 
                                 <a href="../../penyimpanan/buktipembayaran/<?php echo $data_bayar['BUKTI']; ?>"
                                      class="btn btn-primary">Lihat Berkas
                                 </a>
-                            </td>  
+                            </td>                            
                             <td>
                                 <?php
                                 if($data_bayar['STATUS']=='1'){
                                     ?>
-                                    <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $data_bayar['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
+                                        <font color="success"><i><b>Verifed</b></i></font>
                                     <?php
                                     }else{
                                     ?>
-                                     <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $data_bayar['STATUS'] ?>"><font color="grey"><i><b>Unverifed</b></i></font></a>
+                                        <font color="grey"><i><b>Unverifed</b></i></font>
                                     <?php
                                     }
                                     ?>
@@ -117,8 +134,8 @@ include_once('../../config/database.php');
                         ?>                   
                     </tbody>
                     </div>
-
                 </table>
+                    <a href="pembayaran.php" class="btn btn-primary">Kembali</a>
             </div>
         </div>
 

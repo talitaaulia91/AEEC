@@ -1,5 +1,16 @@
 <?php
+require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
+
+$iduser = $_SESSION["user"]["ID_USER"];
+
+$bayar = mysqli_query($mysqli, "SELECT pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL_ACC, c.ID_CLIENT, pe.ID_PEMBAYARAN, pe.NOMINAL, pe.TGL_PEMBAYARAN, pe.BUKTI, pe.STATUS
+                        FROM program pr, batch_program b, pendaftaran pn, CLIENT c, pembayaran pe
+                        WHERE pr.ID_PROGRAM = b.ID_PROGRAM
+                        AND pn.ID_PENDAFTARAN = pe.ID_PENDAFTARAN
+                        AND pn.ID_BATCH = b.ID_BATCH
+                        AND pn.ID_CLIENT = c.ID_CLIENT
+                        AND c.ID_USER = '$iduser'");
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +18,7 @@ include_once('../../config/database.php');
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AEEC || Administrator</title>
+        <title>AEEC || CLIENT</title>
     
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -44,7 +55,7 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Data Diskon</h3>
+                <!-- <h3>Data Pembayaran</h3> -->
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
@@ -59,50 +70,51 @@ include_once('../../config/database.php');
                 <div class="col-md-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title" >Insert New Discount</h4>
+                            <h4 class="card-title" >Tambahkan Data Pembayaran</h4>
                         </div>
                         
                         <div class="card-body">
                             <form class="form form-vertical" method="post" action="" enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
+                                        
                                         <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Nama Diskon</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama_diskon" placeholder="Nama Diskon" required>
+                                            <div class="input-group input-group-outline mb-1">
+                                                <select class="form-control" name="id_pendaftaran" required>
+                                                    <?php
+                                                    $result = "SELECT * FROM pendaftaran";
+                                                    $emp    = mysqli_query($mysqli, $result);
+                                                    foreach ($emp as $daftar) :
+                                                    ?>
+                                                    <option value="<?php echo $daftar['ID_PENDAFTARAN']; ?>"><?php echo $daftar['ID_PENDAFTARAN']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Persentase</label>
+                                                <label for="first-name-vertical">Tanggal Pembayaran</label>
+                                                <input type="date" id="first-name-vertical" class="form-control"
+                                                    name="tgl_pembayaran" placeholder="Tanggal Pembayaran" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Nominal</label>
                                                 <input type="int" id="first-name-vertical" class="form-control"
-                                                    name="persentase" placeholder="Persentase" required>
+                                                    name="nominal" placeholder="Nominal" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Bentuk</label>
-                                                    <select class="form-select" name="bentuk" required>
-                                                        <option >Pilih </option>
-	                                                    <option value="Cashback">Cashback</option>
-	                                                    <option value="Voucher">Voucher</option>
-                                                    </select>
-                                            </div>
+                                        <div class="form-group ">
+                                            <label for="exampleInputPassword1">Bukti Pembayaran</label>
+                                            <input type="file" name="bukti" class="form-control" required >
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Deskripsi</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="deskripsi" placeholder="Deskripsi" required>
-                                            </div>
                                         </div>
                                         <br></br>
                                         <br></br>
                                         <div class="col-12 d-flex justify-content-end ">
                                             <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
                                     </div>
                                 </div>
@@ -115,18 +127,27 @@ include_once('../../config/database.php');
 
     <?php
         if(isset($_POST['tambah'])){
-            $nama_diskon    = $_POST['nama_diskon'];
-            $persentase     = $_POST['persentase'];
-            $bentuk         = $_POST['bentuk'];
-            $deskripsi      = $_POST['deskripsi'];
+            $id_pendaftaran = $_POST['id_pendaftaran'];
+            $tgl_pembayaran = $_POST['tgl_pembayaran'];
+            $nominal        = $_POST['nominal'];
+
+            $bukti          = $_FILES['bukti']['name'];
+            $lokasi         = $_FILES['bukti']['tmp_name'];
+            move_uploaded_file($lokasi, '../../penyimpanan/buktipembayaran/'.$bukti);
 
             //insert
-            $diskon       = mysqli_query($mysqli,"INSERT INTO diskon (NAMA_DISKON, PERSENTASE, BENTUK, DESKRIPSI)
-                                                   VALUES ('$nama_diskon','$persentase','$bentuk','$deskripsi')");
+            $bayar          = mysqli_query($mysqli, 
+                                "INSERT INTO pembayaran (ID_PENDAFTARAN, TGL_PEMBAYARAN, NOMINAL, BUKTI) 
+                                    VALUES ('$id_pendaftaran','$tgl_pembayaran', '$nominal', '$bukti')");
 
 
-        if ($diskon) {
-            echo " <script>location='discount.php';</script>";
+            //Mengambil id CLIENT
+            // $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
+            // $row       = $idterbaru->fetch_assoc();
+            // $id_client = $row['ID_CLIENT']; 
+
+        if ($bayar) {
+            echo " <script>location='detailbayar.php?id=$id_pendaftaran';</script>";
         } else {
             echo "gagal input data";
         } 
