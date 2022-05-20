@@ -297,7 +297,7 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
                         <?php
                         }else{
                        ?> -->
-                       <a href="" class="btn btn-primary w-100 mt-4 mb-0">DAFTAR</a>
+                       <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary w-100 mt-4 mb-0">DAFTAR</a>
                        <!-- <?php
                         }
                         ?> -->
