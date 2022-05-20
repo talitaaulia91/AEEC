@@ -134,8 +134,8 @@ $bayar = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.BATCH, pn.ID_PENDAFTAR
                         ?>                   
                     </tbody>
                     </div>
-
                 </table>
+                    <a href="pembayaran.php" class="btn btn-primary">Kembali</a>
             </div>
         </div>
 

@@ -7,7 +7,7 @@ require_once("../../config/database.php");
 $iduser = $_SESSION["user"]["ID_USER"];
 
 
-$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, c.ID_CLIENT
+$pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.ID_BATCH, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, c.ID_CLIENT
                                       FROM program pr, batch_program b, pendaftaran pn, client c
                                       WHERE pr.ID_PROGRAM = b.ID_PROGRAM
                                       AND pn.ID_BATCH = b.ID_BATCH
@@ -111,7 +111,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN
                             }
                             ?>                           
                             </td>
-                            <td><a class="btn btn-primary" href="#">Detail</a></td>    
+                            <td><a class="btn btn-primary" href="detail.php?id=<?php echo $hasil['ID_PROGRAM']; ?>&idbatch=<?= $hasil['ID_BATCH'] ?>">Detail</a></td>    
                         </tr>
                     
                     <?php endforeach; ?>
