@@ -156,8 +156,8 @@ foreach($program as $hasil){
                                         </div>
 
                                         <div class="form-group ">
-                                        <label for="exampleInputPassword1">Berkas NPWP</label>
-                                        <input type="file" name="npwp"class="form-control" required >
+                                            <label for="exampleInputPassword1">Berkas NPWP</label>
+                                            <input type="file" name="npwp"class="form-control" required >
                                         </div>
                                       
                                         

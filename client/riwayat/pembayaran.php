@@ -3,17 +3,16 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-$id_user = $_SESSION["user"]["ID_USER"];
 
-$tgl    = DATE("Y-m-d");
+$iduser = $_SESSION["user"]["ID_USER"];
 
-$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN, b.TGL_MULAI, b.TGL_BERAKHIR
+$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, 
+                                    pn.TAGIHAN, c.ID_CLIENT
                                       FROM program pr, batch_program b, pendaftaran pn, client c
                                       WHERE pr.ID_PROGRAM = b.ID_PROGRAM
                                       AND pn.ID_BATCH = b.ID_BATCH
                                       AND pn.ID_CLIENT = c.ID_CLIENT
-                                      AND b.TGL_BERAKHIR < '$tgl'
-                                      AND c.ID_USER = '$id_user'");
+                                      AND c.ID_USER = '$iduser'");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -60,14 +59,14 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN,
                     <div class="page-title">
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>History Program Anda</h3>
-                                <p class="text-subtitle text-muted">Program Anda yang Sudah Terlaksana</p>
+                                <h3>Riwayat Pembayaran Anda</h3>
+                                <p class="text-subtitle text-muted">Riwayat Pembayaran Program Anda</p>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Program Aktif</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Pendaftaran</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -85,23 +84,30 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN,
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th>ID Pendaftaran</th> 
+                            <th>ID Pendaftaran</th>
                             <th>Nama Program</th>            
-                            <th>Tanggal Mulai</th>
-                            <th>Tanggal Berakhir</th>
+                            <th>Tanggal Pendaftaran</th>
+                            <th>Tagihan</th>
+                            <th>Detail </th>
                         </tr>
                     </thead>
                     <tbody>
-
+                    
                     <?php foreach($pendaftaran as $hasil): ?>
                         <tr>
                             <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
-                            <td><?= $hasil['NAMA_PROGRAM'] ?> </td>
-                            <td><?= $hasil['TGL_MULAI'] ?></td>
-                            <td><?= $hasil['TGL_BERAKHIR'] ?></td>    
+                            <td><?= $hasil['NAMA_CLASS'] ?></td>
+                            <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
+                            <td><?= $hasil['TAGIHAN'] ?></td>
+                            <td>
+                                <a href="detailbayar.php?id=<?php echo $hasil['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                            </td>    
                         </tr>
-                    <?php endforeach; ?>                   
+                    
+                    <?php endforeach; ?>
+                                                
                     </tbody>
+                    
                     </div>
                 </table>
             </div>
