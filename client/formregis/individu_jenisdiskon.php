@@ -15,29 +15,46 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 ?>
 
 <!-- BAGIAN HEADER -->
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || CLIENT</title>
+    <title>Airlangga Executive Education</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     
+<!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
+<link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
+
+    <!-- FORM DINAMIS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+<style>
+    table.dataTable td{
+        padding: 15px 8px;
+    }
+    .fontawesome-icons .the-icon svg {
+        font-size: 24px;
+    }
+</style>
+
     <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../../assets/css/app.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
-
-    <!-- FORM DINAMIS -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-  
 </head>
-<!-- BAGIAN SIDEBAR -->
-<?php include('../sidebar/sidebar.php'); ?>
+
+<body>
+
+<?php include_once('../sidebar/sidebar.php'); ?>
+
+  
+
 
 
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
@@ -148,7 +165,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 
 
 <!-- BAGIAN FOOTER -->
-<footer>
+<!-- <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
             <p>2021 &copy; Mazer</p>
@@ -158,7 +175,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                 by <a href="https://ahmadsaugi.com">Saugi</a></p>
         </div>
     </div>
-</footer>
+</footer> -->
         </div>
             <!-- END HALAMAN UTAMA -->
         </div>

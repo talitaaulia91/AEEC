@@ -110,6 +110,13 @@ include_once('../../config/database.php');
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="first-name-vertical">Kuota</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kuota" value="<?php echo  $data_batch['KUOTA']; ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="first-name-vertical">Batch</label>
                                                 <input type="number" id="first-name-vertical" class="form-control"
                                                     name="batch" value="<?php echo $data_batch['BATCH'];?>" required>
@@ -137,10 +144,11 @@ include_once('../../config/database.php');
                     $tgl_mulai     = $_POST['tgl_mulai'];
                     $tgl_berakhir  = $_POST['tgl_berakhir'];
                     $batch         = $_POST['batch'];
+                    $kuota         = $_POST['kuota'];
 
 
                     $update_batch  = mysqli_query($mysqli,"UPDATE batch_program
-                                                           SET TGL_MULAI='$tgl_mulai', TGL_BERAKHIR='$tgl_berakhir', BATCH='$batch'
+                                                           SET TGL_MULAI='$tgl_mulai', TGL_BERAKHIR='$tgl_berakhir', BATCH='$batch', KUOTA='$kuota'
                                                            WHERE ID_BATCH='".$_GET['id']."'");
 
 

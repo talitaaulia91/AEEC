@@ -129,13 +129,7 @@ include_once('../../config/database.php');
                                                     name="sesi" value="<?php echo  $ambil_data['SESI']; ?>" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Kuota</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="kuota" value="<?php echo  $ambil_data['KUOTA']; ?>" required>
-                                            </div>
-                                        </div>
+
                                         <div>
                                            Deskripsi
                                             <div class="form-floating mb-3">

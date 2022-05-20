@@ -23,7 +23,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN,
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || CLIENT</title>
+    <title>Airlangga Executive Education</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -45,16 +45,27 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN,
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../../assets/css/app.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
-   
 </head>
-<!-- BAGIAN SIDEBAR -->
+
+<body>
+
 <?php include_once('../sidebar/sidebar.php'); ?>
 
-
+        </ul>
+    </div>
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 
                     <!-- HALAMAN UTAMA -->
-                    <div id="main-content">
+                    <!-- <div id="main-content"> -->
                 
                 <div class="page-heading">
                     <div class="page-title">
@@ -117,7 +128,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN,
 
 
 <!-- BAGIAN FOOTER -->
-<footer>
+<!-- <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
             <p>2022 &copy; AEEC</p>
@@ -126,7 +137,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.ID_PENDAFTARAN,
             <p>AIRLANGGA EXECUTIVE EDUCATION CENTER <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span></p>
         </div>
     </div>
-</footer>
+</footer> -->
         </div>
             <!-- END HALAMAN UTAMA -->
         </div>

@@ -1,8 +1,7 @@
 <?php
 //Cek Login
 require_once("../auth/auth.php"); 
-
-require '../method.php';
+require_once("../../config/database.php");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -12,17 +11,23 @@ require '../method.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || DASHBOARD</title>
+    <title>Airlangga Executive Education</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     
-    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
-    <style>
+<!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
+<link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
+<style>
+    table.dataTable td{
+        padding: 15px 8px;
+    }
+    .fontawesome-icons .the-icon svg {
+        font-size: 24px;
+    }
+
 /* TAB CSS */
 
 .wrapper{
@@ -200,39 +205,43 @@ h1.heading {
   font-weight:600;
   text-transform: uppercase
 }
-    </style>
+</style>
+
+<link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+<link rel="stylesheet" href="../../assets/css/app.css">
+<link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
 </head>
-<!-- BAGIAN SIDEBAR -->
+
+<body>
+
 <?php include_once('../sidebar/sidebar.php'); ?>
 
+    </ul>
+</div>
+<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+    </div>
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
 
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 <?php 
 
-$reguler = query("SELECT p.*, b.* 
+$reguler = mysqli_query($mysqli,"SELECT p.*, b.* 
                 FROM batch_program b, program p
                 WHERE  p.ID_PROGRAM = b.ID_PROGRAM
                 AND p.ID_KATEGORI = 'RC'
                 AND b.STATUS = '1';");
 ?>
             <!-- HALAMAN UTAMA -->
-            <div id="main-content">
-                
-<div class="page-heading mt-0">
-    <div class="page-title">
-        <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-            <a href="#" class="burger-btn d-block">
-                            <i class="bi bi-justify fs-3"></i>
-            </a>
-            </div>
-            <div class="col-12 col-md-6 order-md-2 order-first">
-                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                </nav>
-            </div>
-        </div>
-    </div>
-    <section class="section">
+            <!-- <div id="main-content">
+                 -->
+        <section class="section">
         <div class="card">          
             <div class="wrapper">
     <header>Program yang Tersedia</header>
@@ -257,7 +266,16 @@ $reguler = query("SELECT p.*, b.*
         <!-- ISI CARD -->
             <div class="container" style="margin:30px auto">
                 <div class="row">
-                <?php foreach($reguler as $hasil) : ?>
+                <?php 
+                foreach($reguler as $hasil) : 
+                  $count_kuota   = mysqli_query($mysqli,"SELECT h.* 
+                                                        FROM histori h JOIN pendaftaran p
+                                                        ON h.ID_PENDAFTARAN = p.ID_PENDAFTARAN
+                                                        JOIN batch_program b
+                                                        ON b.ID_BATCH = p.ID_BATCH
+                                                        AND b.ID_BATCH = '".$hasil['ID_BATCH']."'
+                                                        ");
+                ?>
                     <div class="col-xs-12 col-sm-4" >
                         <div class="card" >
                             <a class="img-card" href="">
@@ -268,9 +286,7 @@ $reguler = query("SELECT p.*, b.*
                                     <a href=""> <?= $hasil['NAMA_PROGRAM']?>
                                 </a>
                                 </h4>
-                                <p class="">
-                                FINANCE ACCOUNTING FOR NON-FINANCIAL MANAGER
-                                </p>
+                                <p>Kuota tersedia : <?= $hasil['KUOTA'] ?></p>
                             </div>
                             <center>                
                             <a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-primary" style="width: 320px; height: 40px;">DAFTAR</a>
@@ -343,7 +359,7 @@ $reguler = query("SELECT p.*, b.*
 
 
 <!-- BAGIAN FOOTER -->
-<footer>
+<!-- <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
             <p>2021 &copy; Mazer</p>
@@ -353,7 +369,7 @@ $reguler = query("SELECT p.*, b.*
                 by <a href="https://ahmadsaugi.com">Saugi</a></p>
         </div>
     </div>
-</footer>
+</footer> -->
         </div>
             <!-- END HALAMAN UTAMA -->
         </div>
