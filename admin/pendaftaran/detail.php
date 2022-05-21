@@ -77,7 +77,7 @@ include_once('../../config/database.php');
                             <td><?=$ambil_data['ID_DISKON'] ?></td>
                         </tr>
                         <tr>
-                            <th>Berkas Virtual Account</th>    
+                            <th>Virtual Account</th>    
                             <td><?=$ambil_data['VIRTUAL_ACC'] ?></td>
                         </tr>
                     </thead>
