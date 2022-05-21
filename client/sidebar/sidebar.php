@@ -16,12 +16,33 @@
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
             
-            <li
+            <!-- <li
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : '' ?> ">
                 <a href="../dashboard/dashboard.php" class='sidebar-link'>
                     <i class="bi bi-person-badge-fill"></i>
-                    <span>Dashboard</span>
+                    <span>Program</span>
                 </a>
+            </li> -->
+
+            <li
+                class="sidebar-item  has-sub ">
+                <a href="#" class='sidebar-link '>
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>Program</span>
+                </a>
+                <ul class="submenu ">
+                    <li class="submenu-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'regular') ? 'active' : '' ?>">
+                        <a href="../dashboard/regular.php">Regular Class</a>
+                    </li>
+                    <li class="submenu-item  <?= !!strpos($_SERVER['REQUEST_URI'], 'in-house') ? 'active' : '' ?>">
+                        <a href="../dashboard/in-house.php">In-House Training</a>
+                    </li>
+           
+                    <li class="submenu-item <?= !!strpos($_SERVER['REQUEST_URI'], 'non-reg') ? 'active' : '' ?>">
+                        <a href="../dashboard/non-reg.php">Non-Regular Class</a>
+                    </li>
+                    
+                </ul>
             </li>
 
             <li
@@ -61,7 +82,7 @@
             <br></br>  
             <br></br>  
             <br></br>  
-            <br></br>   
+
 
             <li  class="sidebar-item mt-3">
                 <center>                

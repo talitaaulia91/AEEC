@@ -119,6 +119,13 @@ include_once('../../config/database.php');
                                                     name="batch" placeholder="Batch" required>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Kuota</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kuota" placeholder="Kuota Peserta" required>
+                                            </div>
+                                        </div>
         
                                       
                                        <br></br>
@@ -145,6 +152,7 @@ include_once('../../config/database.php');
                 $tgl_mulai     = $_POST['tgl_mulai'];
                 $tgl_berakhir  = $_POST['tgl_berakhir'];
                 $batch         = $_POST['batch'];
+                $kuota           = $_POST['kuota'];
 
 
 
@@ -159,8 +167,8 @@ include_once('../../config/database.php');
 
                 //insert batch_program
                 
-                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, NAMA_CLASS, TGL_MULAI, TGL_BERAKHIR, BATCH)
-                                                       VALUES ('$id_batch', '$id_program', '$nama_class','$tgl_mulai', '$tgl_berakhir', '$batch')");
+                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, NAMA_CLASS, TGL_MULAI, TGL_BERAKHIR, KUOTA, BATCH)
+                                                       VALUES ('$id_batch', '$id_program', '$nama_class','$tgl_mulai', '$tgl_berakhir', '$kuota', '$batch')");
 
 
                 

@@ -3,9 +3,7 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-
 $iduser = $_SESSION["user"]["ID_USER"];
-
 
 $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.ID_BATCH, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, c.ID_CLIENT
                                       FROM program pr, batch_program b, pendaftaran pn, client c
@@ -22,7 +20,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || CLIENT</title>
+    <title>Airlangga Executive Education</title>
     
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -44,16 +42,28 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../../assets/css/app.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
-   
 </head>
-<!-- BAGIAN SIDEBAR -->
+
+<body>
+
 <?php include_once('../sidebar/sidebar.php'); ?>
 
+        </ul>
+    </div>
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 
                     <!-- HALAMAN UTAMA -->
-                    <div id="main-content">
+                    <!-- <div id="main-content"> -->
                 
                 <div class="page-heading">
                     <div class="page-title">
@@ -65,7 +75,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="../dashboard/regular.php">Dashboard</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Pendaftaran</li>
                                     </ol>
                                 </nav>
@@ -111,7 +121,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
                             }
                             ?>                           
                             </td>
-                            <td><a class="btn btn-primary" href="detail.php?id=<?php echo $hasil['ID_PROGRAM']; ?>&idbatch=<?= $hasil['ID_BATCH'] ?>">Detail</a></td>    
+                            <td><a class="btn btn-primary" href="detail.php?id=<?php echo $hasil['ID_PROGRAM']; ?>">Detail</a></td>    
                         </tr>
                     
                     <?php endforeach; ?>
@@ -133,7 +143,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
 
 
 <!-- BAGIAN FOOTER -->
-<footer>
+<!-- <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
             <p>2022 &copy; AEEC</p>
@@ -142,7 +152,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
             <p>AIRLANGGA EXECUTIVE EDUCATION CENTER <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span></p>
         </div>
     </div>
-</footer>
+</footer> -->
         </div>
             <!-- END HALAMAN UTAMA -->
         </div>

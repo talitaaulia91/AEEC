@@ -64,7 +64,7 @@ if( isset($_POST["login"]) ) {
             $_SESSION["user"] = $user;
             // login sukses, alihkan ke halaman timeline
             if($user['ROLE'] == 'user'){
-                header("Location: ../dashboard/dashboard.php");
+                header("Location: ../dashboard/regular.php");
             }else{
                 header("Location: ../../admin/layout/dashboard.php");
             }

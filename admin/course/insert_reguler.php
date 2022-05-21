@@ -121,13 +121,6 @@ include_once('../../config/database.php');
                                                     name="sesi" placeholder="Sesi" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Kuota</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="kuota" placeholder="Kuota Peserta" required>
-                                            </div>
-                                        </div>
                                         <div>
                                            Deskripsi
                                             <div class="form-floating mb-3">
@@ -143,7 +136,7 @@ include_once('../../config/database.php');
                                         <div class="more-field"></div>
                                         <div class="main-field">
                                         <div class="row g-3 mt-0 mb-3 ">                  
-                                        <div class="col-6">
+                                        <div class="col-5">
                                         <select class="form-select"  name="id_hari[]">
                                                 <option value="">Pilih Hari</option>
                                                     <?php
@@ -173,10 +166,10 @@ include_once('../../config/database.php');
                                                     <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="col-1 action-field">
-                                            <button class="btn btn-success btn-add"> + </button>
+                                        <div class="col action-field">
+                                            <button class="btn btn-success btn-add"> Add + </button>
                                         </div>
-                                                    </div>
+                                        </div>
                                         
 
                                         <div class="form-group ">
@@ -237,8 +230,8 @@ include_once('../../config/database.php');
                    
   
                 //insert program
-                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, SESI, KUOTA, IMAGE)
-                                                     VALUES ('$id_program', 'RC', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi', '$sesi', '$kuota','$gambar')");
+                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, SESI, IMAGE)
+                                                     VALUES ('$id_program', 'RC', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi', '$sesi','$gambar')");
 
 
 

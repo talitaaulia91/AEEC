@@ -2,10 +2,10 @@
 require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
 
-$iduser = $_SESSION["user"]["ID_USER"];
-$id     = $_GET['id']; 
+$iduser     = $_SESSION["user"]["ID_USER"];
+$id         = $_GET['id']; 
 
-$bayar = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.BATCH, pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL_ACC, c.ID_CLIENT, pe.ID_PEMBAYARAN, pe.NOMINAL, pe.TGL_PEMBAYARAN, pe.BUKTI, pe.STATUS
+$pembayaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.BATCH, pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL_ACC, c.ID_CLIENT, pe.ID_PEMBAYARAN, pe.NOMINAL, pe.TGL_PEMBAYARAN, pe.BUKTI, pe.STATUS
                         FROM program pr, batch_program b, pendaftaran pn, CLIENT c, pembayaran pe
                         WHERE pr.ID_PROGRAM = b.ID_PROGRAM
                         AND pn.ID_PENDAFTARAN = '$id'
@@ -66,12 +66,12 @@ $bayar = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.BATCH, pn.ID_PENDAFTAR
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Riwayat Pembayaran</h3>
-                <p class="text-subtitle text-muted">Riwayat Pembayaran dari Pendaftaran Program Anda</p>
+                <p class="text-subtitle text-muted">Riwayat Pembayaran Program Anda</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="../dashboard/regular.php">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Riwayat Pembayaran</li>
                 </ol>
                 </nav>
@@ -80,69 +80,102 @@ $bayar = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.BATCH, pn.ID_PENDAFTAR
     </div>
     <!-- Basic Tables start -->
     <section class="section">
-        <div class="card" >
-            <div class="card-header">
-                <a href="addbayar.php" class="btn btn-success">Add +</a>  
-            </div>
+    <div class="card" >
+            <div class="card-header"></div>
             <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                    <thead> 
-                        <tr>
-                            <th>ID Pendaftaran</th>
-                            <th>ID Pembayaran</th>
-                            <th>Nominal</th>          
-                            <th>Virtual Account</th>               
-                            <th>Tanggal</th>
-                            <th>Bukti</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-
-                    <tbody>
-                    <?php
-                        foreach ($bayar as $data_bayar) : 
-                        ?>
-                        <tr>
-                            <td><?php echo $data_bayar['ID_PENDAFTARAN'];?></td>
-                            <td><?php echo $data_bayar['ID_PEMBAYARAN'];?></td>
-                            <td><?php echo $data_bayar['NOMINAL'];?></td>
-                            <td><?php echo $data_bayar['VIRTUAL_ACC'];?></td>
-                            <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>  
-                            <td> 
-                                <a href="../../penyimpanan/buktipembayaran/<?php echo $data_bayar['BUKTI']; ?>"
-                                     class="btn btn-primary">Lihat Berkas
-                                </a>
-                            </td>                            
-                            <td>
-                                <?php
-                                if($data_bayar['STATUS']=='1'){
-                                    ?>
-                                        <font color="success"><i><b>Verifed</b></i></font>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                        <thead> 
+                            <tr>
+                                <th>ID Pendaftaran</th>
+                                <th>ID Pembayaran</th>            
+                                <th>Nominal</th>
+                                <th>Virtual Account</th>
+                                <th>Bukti Bayar</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                foreach($pembayaran as $hasil): ?>
+                                <tr>
+                                    <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
+                                    <td><?= $hasil['ID_PEMBAYARAN'] ?></td>
+                                    <td><?= $hasil['NOMINAL'] ?></td>
+                                    <td><?= $hasil['VIRTUAL_ACC'] ?></td>
+                                    <td> 
+                                        <a href="../../penyimpanan/buktipembayaran/<?php echo $hasil['BUKTI']; ?>"
+                                        class="btn btn-primary">Lihat Berkas</a>
+                                    </td> 
+                                    <td>
                                     <?php
-                                    }else{
-                                    ?>
-                                        <font color="grey"><i><b>Unverifed</b></i></font>
-                                    <?php
-                                    }
-                                    ?>
-                            </td>         
-                        </tr>   
-                        <?php
-                        endforeach
-                        ?>                   
-                    </tbody>
-                    </div>
-                </table>
+                                        if($hasil['STATUS']=='1'){
+                                        ?>
+                                            <a href=""><font color="success"><i><b>Verifed</b></i></font></a>
+                                        <?php
+                                            }else{
+                                        ?>
+                                            <a href=""><font color="grey"><i><b>Unverified</b></i></font></a>
+                                        <?php
+                                        }
+                                    ?>           
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </div>
+                    </table>
                     <a href="pembayaran.php" class="btn btn-primary">Kembali</a>
+                </div>
             </div>
-        </div>
+        </section>
 
-    </section>
+        <div class="card" >
+            <div class="card-header"></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                        <thead> 
+                            <tr>
+                                <th>ID Pendaftaran</th>
+                                <th>Nama Program</th>            
+                                <th>Tanggal Pendaftaran</th>
+                                <th>Tagihan</th>
+                                <th>Bukti Pembayaran</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                                $pembayaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, 
+                                                    b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, pn.TAGIHAN, 
+                                                    c.ID_CLIENT
+                                                FROM program pr, batch_program b, pendaftaran pn, client c
+                                                WHERE pr.ID_PROGRAM = b.ID_PROGRAM
+                                                AND pn.ID_BATCH = b.ID_BATCH
+                                                AND pn.ID_CLIENT = c.ID_CLIENT
+                                                AND c.ID_USER = '$iduser'");
+                                foreach($pembayaran as $hasil): ?>
+                                <tr>
+                                    <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
+                                    <td><?= $hasil['NAMA_CLASS'] ?></td>
+                                    <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
+                                    <td><?= $hasil['TAGIHAN'] ?></td>
+                                    <td>
+                                        <a href="addbayar.php?id=<?php echo $hasil['ID_PENDAFTARAN']; ?>&tagihan=<?= $hasil['TAGIHAN']?>" class="btn btn-success">Add</a>
+                                    </td>   
+                                    <td>
+                                        <a href="detailbayar.php?id=<?php echo $hasil['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                                    </td>    
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </div>
+                    </table>
+                </div>
+            </div>
     <!-- Basic Tables end -->
 </div>
-
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">

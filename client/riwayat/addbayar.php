@@ -2,12 +2,15 @@
 require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
 
-$iduser = $_SESSION["user"]["ID_USER"];
+$iduser     = $_SESSION["user"]["ID_USER"];
+$iddaftar   = $_GET["id"];
+$tagihan    = $_GET["tagihan"];
 
 $bayar = mysqli_query($mysqli, "SELECT pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL_ACC, c.ID_CLIENT, pe.ID_PEMBAYARAN, pe.NOMINAL, pe.TGL_PEMBAYARAN, pe.BUKTI, pe.STATUS
                         FROM program pr, batch_program b, pendaftaran pn, CLIENT c, pembayaran pe
                         WHERE pr.ID_PROGRAM = b.ID_PROGRAM
-                        AND pn.ID_PENDAFTARAN = pe.ID_PENDAFTARAN
+                        AND pn.ID_PENDAFTARAN = '$iddaftar'
+                        AND pe.ID_PEMBAYARAN = '$tagihan'
                         AND pn.ID_BATCH = b.ID_BATCH
                         AND pn.ID_CLIENT = c.ID_CLIENT
                         AND c.ID_USER = '$iduser'");
@@ -77,20 +80,14 @@ $bayar = mysqli_query($mysqli, "SELECT pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL
                             <form class="form form-vertical" method="post" action="" enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
-                                        
+
                                         <div class="col-12">
-                                            <div class="input-group input-group-outline mb-1">
-                                                <select class="form-control" name="id_pendaftaran" required>
-                                                    <?php
-                                                    $result = "SELECT * FROM pendaftaran";
-                                                    $emp    = mysqli_query($mysqli, $result);
-                                                    foreach ($emp as $daftar) :
-                                                    ?>
-                                                    <option value="<?php echo $daftar['ID_PENDAFTARAN']; ?>"><?php echo $daftar['ID_PENDAFTARAN']; ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">ID Pendaftaran</label>
+                                                <input type="text" id="first-name-vertical" readonly value="<?= "$iddaftar"?>" 
+                                                       class="form-control" required>
                                             </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Tanggal Pembayaran</label>
@@ -101,10 +98,10 @@ $bayar = mysqli_query($mysqli, "SELECT pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Nominal</label>
-                                                <input type="int" id="first-name-vertical" class="form-control"
-                                                    name="nominal" placeholder="Nominal" required>
+                                                <input type="text" id="first-name-vertical" readonly value="<?= "$tagihan"?>" 
+                                                       class="form-control" required>
                                             </div>
-                                        </div>
+                                        </div>       
                                         <div class="form-group ">
                                             <label for="exampleInputPassword1">Bukti Pembayaran</label>
                                             <input type="file" name="bukti" class="form-control" required >
@@ -127,27 +124,19 @@ $bayar = mysqli_query($mysqli, "SELECT pn.ID_PENDAFTARAN, pn.TAGIHAN, pn.VIRTUAL
 
     <?php
         if(isset($_POST['tambah'])){
-            $id_pendaftaran = $_POST['id_pendaftaran'];
+            $iddaftar       = $_GET["id"];
             $tgl_pembayaran = $_POST['tgl_pembayaran'];
-            $nominal        = $_POST['nominal'];
+            $tagihan        = $_GET["tagihan"];
 
             $bukti          = $_FILES['bukti']['name'];
             $lokasi         = $_FILES['bukti']['tmp_name'];
             move_uploaded_file($lokasi, '../../penyimpanan/buktipembayaran/'.$bukti);
 
-            //insert
             $bayar          = mysqli_query($mysqli, 
                                 "INSERT INTO pembayaran (ID_PENDAFTARAN, TGL_PEMBAYARAN, NOMINAL, BUKTI) 
-                                    VALUES ('$id_pendaftaran','$tgl_pembayaran', '$nominal', '$bukti')");
-
-
-            //Mengambil id CLIENT
-            // $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
-            // $row       = $idterbaru->fetch_assoc();
-            // $id_client = $row['ID_CLIENT']; 
-
+                                    VALUES ('$iddaftar','$tgl_pembayaran', '$tagihan', '$bukti')");
         if ($bayar) {
-            echo " <script>location='detailbayar.php?id=$id_pendaftaran';</script>";
+            echo " <script>location='detailbayar.php?id=$iddaftar';</script>";
         } else {
             echo "gagal input data";
         } 

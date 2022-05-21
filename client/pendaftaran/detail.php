@@ -1,138 +1,171 @@
 <?php
-//Cek Login
+include_once('../../config/database.php');
 require_once("../auth/auth.php"); 
-
 require '../method.php';
-$id = $_GET['id'];
-$idbatch = $_GET['idbatch'];
 
-$program = query("SELECT * from program
-join batch_program where program.ID_PROGRAM = batch_program.ID_PROGRAM
-and batch_program.ID_BATCH = '$idbatch'
-and program.ID_PROGRAM = '$id'");
-foreach($program as $hasil){
+$iduser = $_SESSION["user"]["ID_USER"];
+$id     = $_GET['id'];
+
+$daftar = mysqli_query($mysqli, "SELECT p.*, c.*
+                                    FROM pendaftaran p, CLIENT c
+                                    WHERE p.ID_CLIENT = c.ID_CLIENT
+                                    AND c.ID_USER = '$iduser'");
+foreach($daftar as $hasil){
 }
 ?>
 
-<!-- BAGIAN HEADER -->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEEC || CLIENT</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AEEC || CLIENT</title>
     
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
-    
-<!-- <link rel="stylesheet" href="assets/vendors/jquery-datatables/jquery.dataTables.min.css"> -->
-<link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
-<style>
-    table.dataTable td{
-        padding: 15px 8px;
-    }
-    .fontawesome-icons .the-icon svg {
-        font-size: 24px;
-    }
-</style>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+        <link rel="stylesheet" href="../../assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css">
+        <link rel="stylesheet" href="../../assets/vendors/fontawesome/all.min.css">
+        <style>
+        table.dataTable td{
+            padding: 15px 8px;
+        }
+        .fontawesome-icons .the-icon svg {
+            font-size: 24px;
+        }
+        </style>
+        <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="../../assets/css/app.css">
+        <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
+    </head>
+<body>
 
-    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../../assets/css/app.css">
-    <link rel="shortcut icon" href="../../assets/images/favicon.svg" type="image/x-icon">
-   
-</head>
-<!-- BAGIAN SIDEBAR -->
 <?php include_once('../sidebar/sidebar.php'); ?>
+</ul>
+</div>
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+</div>
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none"><i class="bi bi-justify fs-3"></i></a>
+    </header>
+            
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Detail Pendaftaran</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
+            </div>
+        </div>
+    </div>
 
-
-<!-- BAGIAN UTAMA CODING [MULAI main-content] -->
-
-                    <!-- HALAMAN UTAMA -->
-                    <div id="main-content">
-                
-                <div class="page-heading">
-                    <div class="page-title">
-                        <div class="row">
-                            <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Detail Program</h3>
-                                <!-- <p class="text-subtitle text-muted">Program Yang Sedang Berada Dalam Proses Pendaftaran</p> -->
-                            </div>
-                            <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Detail Program</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    
-
-                    <!-- Basic Tables start -->
+    <!-- Basic Tables start -->
     <section class="section">
         <div class="card">
             <div class="card-header">
                 <table class="table table-bordered"  width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nama Program</th>    
-                            <td><?=$hasil['NAMA_PROGRAM'] ?></td>
+                            <th>ID Client</th>    
+                            <td><?=$hasil['ID_CLIENT'] ?></td>
                         </tr>
                         <tr>
-                            <th>Harga Individu</th>    
-                            <td><?= 'Rp. '. number_format($hasil['INDIVIDU']) ?></td>
+                            <th>ID Batch</th>    
+                            <td><?=$hasil['ID_BATCH'] ?></td>
                         </tr>
                         <tr>
-                            <th>Harga Pendaftaran Kolektf</th>    
-                            <td><?='Rp. '. number_format($hasil['KOLEKTIF']) ?></td>
+                            <th>ID Diskon</th>    
+                            <td><?=$hasil['ID_DISKON'] ?></td>
                         </tr>
                         <tr>
-                            <th>Harga Pendaftaran korporat</th>    
-                            <td><?='Rp. '. number_format($hasil['KORPORAT']) ?></td>
+                            <th>Tagihan</th>    
+                            <td><?=$hasil['TAGIHAN'] ?></td>
                         </tr>
                         <tr>
-                            <th>Tanggal Mulai</th>    
-                            <td><?= $hasil['TGL_MULAI'] ?></td>
+                            <th>Berkas NPWP</th>    
+                            <td> 
+                                <a href="../../penyimpanan/NPWP/<?php echo $hasil['BERKAS_NPWP']; ?>"
+                                     class="btn btn-primary">Lihat Berkas
+                                </a>
+                            </td> 
                         </tr>
-                        <tr>
-                            <th>Tanggal Mulai</th>    
-                            <td><?= $hasil['TGL_BERAKHIR'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Daftar</th>    
-                            <td><a href="../formregis/jenisdaftar.php?idprog=<?=$hasil['ID_PROGRAM'] ?>&idbatch=<?=$hasil['ID_BATCH'] ?>" class="btn btn-outline-success">Daftar</a></td>
-                        </tr>
+                        
                     </thead>
                 </table>   
+                <a href="pendaftaran.php" class="btn btn-primary">Kembali</a>
             </div>
         </div>
-    </section>
-    <!-- Basic Tables end -->
-
-
-
-
+        
+        <div class="card" >
+            <div class="card-header"></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                        <thead> 
+                            <tr>
+                                <th class="col-2">ID Pendaftaran</th>
+                                <th>Nama Program</th>            
+                                <th class="col-2">Tanggal Pendaftaran</th>
+                                <th class="col-1">Status</th>
+                                <th class="col-1">Detail </th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <?php 
+                                $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.ID_BATCH, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, c.ID_CLIENT
+                                FROM program pr, batch_program b, pendaftaran pn, client c
+                                WHERE pr.ID_PROGRAM = b.ID_PROGRAM
+                                AND pn.ID_BATCH = b.ID_BATCH
+                                AND pn.ID_CLIENT = c.ID_CLIENT
+                                AND c.ID_USER = '$iduser'");
+                                
+                                foreach($pendaftaran as $hasil): ?>
+                                <tr>
+                                    <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
+                                    <td><?= $hasil['NAMA_CLASS'] ?></td>
+                                    <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
+                                    <td>
+                                        <?php
+                                            if($hasil['STATUS']=='1'){
+                                            ?>
+                                            <a href=""><font color="success"><i><b>Verifed</b></i></font></a>
+                                            <?php
+                                            }else{
+                                            ?>
+                                            <a href=""><font color="grey"><i><b>Unverified</b></i></font></a>
+                                            <?php
+                                            }
+                                        ?>                           
+                                    </td>
+                                    <td><a class="btn btn-primary" href="detail.php?id=<?php echo $hasil['ID_PROGRAM']; ?>">Detail</a></td>    
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </div>
+                    </table>
                 </div>
+            </div>    
+        </section>               
 
-
-<!-- BAGIAN FOOTER -->
-<footer>
-    <div class="footer clearfix mb-0 text-muted">
-        <div class="float-start">
-            <p>2022 &copy; AEEC</p>
-        </div>
-        <div class="float-end">
-            <p>AIRLANGGA EXECUTIVE EDUCATION CENTER <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span></p>
-        </div>
-    </div>
-</footer>
-        </div>
-            <!-- END HALAMAN UTAMA -->
+    <!-- Basic Tables end -->
+</div>
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2021 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                href="http://ahmadsaugi.com">A. Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
