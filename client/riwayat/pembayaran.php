@@ -3,7 +3,6 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-
 $iduser = $_SESSION["user"]["ID_USER"];
 
 $pembayaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, 
