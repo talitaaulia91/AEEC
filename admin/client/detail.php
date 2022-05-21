@@ -82,7 +82,7 @@ include_once('../../config/database.php');
                         </tr>
                         <tr>
                             <th>Berkas NPWP</th>    
-                            <td> <a href="../../assets/images/NPWP/<?php echo $ambil_data['BERKAS_NPWP']; ?>"
+                            <td> <a href="../../penyimpanan/npwp/<?php echo $ambil_data['BERKAS_NPWP']; ?>"
                                      class="btn btn-primary">Lihat Berkas</a></td>
                         </tr>
                     </thead>
