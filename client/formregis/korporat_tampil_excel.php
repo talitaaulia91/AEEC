@@ -1,4 +1,7 @@
 <?php 
+
+// var_dump($jumlah = $_GET['jumlah']);
+// exit;
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php"); 
 
@@ -134,7 +137,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                 <td><?=$ambil_data['ID_CLIENT'] ?></td>
                             </tr>
                             <tr>
-                                <th>Nama Peserta</th>    
+                                <th>Nama Pendaftar</th>    
                                 <td><?=$ambil_data['NAMA'] ?></td>
                             </tr>
                             <tr>
@@ -150,7 +153,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                 <td><?= $ambil_data['ALAMAT_NPWP'] ?></td>
                             </tr>
                             <tr>
-                                <th>Alamat Rumah</th>    
+                                <th>Alamat Perusahaan</th>    
                                 <td><?= $ambil_data['ALAMAT_RUMAH'] ?></td>
                             </tr>
                             <tr>
@@ -186,11 +189,11 @@ $iduser = $_SESSION["user"]["ID_USER"];
                         </thead>
                         </table>
                         <br></br>           
-
+                            <?php $no=1; ?>
                             <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                                 <thead> 
                                     <tr>
-                                        
+                                        <th>No</th> 
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Jenis Kelamin</th>
@@ -219,7 +222,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
                                     
                                     <tr>
-                                                                 
+                                        <td><?= $no; $no++; ?></td> 
                                         <td><?php echo $data_client['NAMA']; ?></td> 
                                         <td><?php echo $data_client['EMAIL']; ?></td> 
                                         <td><?php
@@ -276,13 +279,13 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                         <td>'.$data['ID_BATCH'].'</td>
                                         <td>'.$data['NAMA_PROGRAM'].'</td>
                                         <td>'.'Rp. '.number_format($data['KORPORAT']).'</td>
-                                        <td>'.($jumlah+1).'</td>
+                                        <td>'.$jumlah.'</td>
                                       </tr>';
                                 endforeach
                             ?>
                             <tr>
                                 <th colspan="3" class="text-right">TOTAL</th>
-                                <?php $tagihan =$data['KORPORAT']*($jumlah+1);  ?>
+                                <?php $tagihan =$data['KORPORAT']*($jumlah);  ?>
                                 <th><?= 'Rp. '.number_format($tagihan) ?></th>
                             </tr>
                         </tbody>
@@ -356,7 +359,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
     
     if(isset($_POST['daftar'])){
                        
-            //insert pendaftaran
+            //insert pendaftaran HRDNYA
             $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN, TAGIHAN, STATUS) 
                                                         VALUES ('$idbatch', '$id_client', '$tanggal',$tagihan, '0')");
 
@@ -365,11 +368,11 @@ $iduser = $_SESSION["user"]["ID_USER"];
             $row_daftar     = $select_daftar->fetch_assoc();
             $id_pendaftaran = $row_daftar['ID_PENDAFTARAN'];
 
-            //insert histori leader
+            //insert histori HRDNYA
             $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
                                                         VALUE ('$id_client', '$id_pendaftaran')");
 
-            //insert histori member
+            //insert histori Pegawai
             for($i = 0; $i < $jumlah; $i++){ 
                 $cek_client  = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
                                                         WHERE c.ID_USER = u.ID_USER
@@ -391,6 +394,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
     
     if(isset($_POST['cancel'])){
+        // Menghapus Data Kalau Ga Jadi Daftar
         $cek = mysqli_query($mysqli,"SELECT * FROM histori WHERE ID_CLIENT = '$id_client'");
 
         if(mysqli_num_rows($cek) == 0){  

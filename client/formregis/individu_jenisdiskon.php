@@ -51,7 +51,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 
 <body>
 
-<?php include_once('../sidebar/sidebar.php'); ?>
+<!-- <?php include_once('../sidebar/sidebar.php'); ?> -->
 
   
 
@@ -272,41 +272,57 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
         if(isset($_POST['cariemail'])){
             $dataditemukan = 0;
             $input = $_POST['addmore'];
-            $banyakemail = count($input);
-            // Check Email
-            foreach ($input as $output) {               
-                $email= mysqli_query($mysqli,"SELECT * FROM user where EMAIL = '$output'");
-                foreach($email as $cekhasil){
-                    $dataditemukan = $dataditemukan+1;
-                }
-            }
             
-
-            if($dataditemukan == $banyakemail){
-                // Ketika semua email benar  
-               
-              
-                $_SESSION['data'] = array();
-                $result = []; 
-                for ($i = 0; $i < count($input); $i++) { 
-                    array_push($result, [$input[$i]]);
-                }
-
-                for ($i = 0; $i < count($result); $i++) { 
-                   $_SESSION['data'][$i] = $result[$i];
-                }
-
+            $banyakemail = count($input);
+            $emailuser = $_SESSION["user"]["EMAIL"];
+            $simpanemail=[];
+            //Check inputan Minimal 3
+            if($banyakemail < 3){
                 echo "<script> 
-                alert('Email Partisipan Ditemukan');
-                document.location.href = 'cek_client.php?idprog=$id&idbatch=$batch&iddiskon=D02';
-                </script>";
-            }else{
-                // Ketika ada email yang salah
-                echo "<script> 
-                alert('Email Tidak Ditemukan');
-                document.location.href = '#';
-                </script>";
+                    alert('Masukkan Minimal 3 Email Partisipan !');
+                    document.location.href = '#?idprog=$id&idbatch=$batch&iddiskon=D02';
+                    </script>";
             }
+                // Check Email 
+                foreach ($input as $output) {       
+                    //Ga boleh sama kayak user        
+                    $email= mysqli_query($mysqli,"SELECT * FROM user where EMAIL = '$output' and EMAIL != '$emailuser'");
+                    foreach($email as $cekhasil){
+                        // $simpanemail = $cekhasil['EMAIL'];
+                        array_push($simpanemail, $cekhasil['EMAIL']);
+                        $dataditemukan = $dataditemukan+1;
+                    }
+                }
+                
+                var_dump($simpanemail, $dataditemukan);
+                
+                exit;
+
+                if($dataditemukan == $banyakemail){
+                    // Ketika semua email benar  
+
+                    $_SESSION['data'] = array();
+                    $result = []; 
+                    for ($i = 0; $i < count($input); $i++) { 
+                        array_push($result, [$input[$i]]);
+                    }
+
+                    for ($i = 0; $i < count($result); $i++) { 
+                        $_SESSION['data'][$i] = $result[$i];
+                    }
+
+                    echo "<script> 
+                    alert('Email Partisipan Ditemukan');
+                    document.location.href = 'cek_client.php?idprog=$id&idbatch=$batch&iddiskon=D02';
+                    </script>";
+                }else{
+                    // Ketika ada email yang salah
+                    echo "<script> 
+                    alert('Terdapat Email Yang Tidak Ditemukan');
+                    document.location.href = '#';
+                    </script>";
+                }
+            
         }
 
 ?>

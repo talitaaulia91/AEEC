@@ -67,17 +67,17 @@ if (isset($_POST["import"])) {
 
         for ($i = 2; $i <= $sheetCount; $i ++) {
             $email = "";
-            if (isset($spreadSheetAry[$i][0])) {
-                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            if (isset($spreadSheetAry[$i][1])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
             }
             
             $pass = "";
-            if (isset($spreadSheetAry[$i][1])) {
-                $pass = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            if (isset($spreadSheetAry[$i][2])) {
+                $pass = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
             }
             $name = "";
-            if (isset($spreadSheetAry[$i][2])) {
-                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            if (isset($spreadSheetAry[$i][0])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
             $jk = "";
             if (isset($spreadSheetAry[$i][3])) {
@@ -127,7 +127,7 @@ if (isset($_POST["import"])) {
             
             
             if (!empty($name)) {
-                
+                // Memasukkan Ke Usser
                 $password = password_hash($pass, PASSWORD_DEFAULT);
                 $queri = "INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$email', '$password', 'user')";
                 $hasil = mysqli_query($conn, $queri);
@@ -137,6 +137,7 @@ if (isset($_POST["import"])) {
                 $row_id     = $id->fetch_assoc();
                 $id_user = $row_id['ID_USER'];
 
+                // Memasukkan ke Client
                 $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`) 
                 VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni')";
                 $paramType = "ssssssssss";
