@@ -271,7 +271,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
         // MENCARI EMAIL PARTISIPAN
         if(isset($_POST['cariemail'])){
             $dataditemukan = 0;
-            $input = $_POST['addmore'];
+            $input = array_unique($_POST['addmore']);
             
             $banyakemail = count($input);
             $emailuser = $_SESSION["user"]["EMAIL"];
@@ -288,29 +288,29 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                     //Ga boleh sama kayak user        
                     $email= mysqli_query($mysqli,"SELECT * FROM user where EMAIL = '$output' and EMAIL != '$emailuser'");
                     foreach($email as $cekhasil){
-                        // $simpanemail = $cekhasil['EMAIL'];
                         array_push($simpanemail, $cekhasil['EMAIL']);
                         $dataditemukan = $dataditemukan+1;
                     }
                 }
                 
-                var_dump($simpanemail, $dataditemukan);
                 
-                exit;
 
                 if($dataditemukan == $banyakemail){
                     // Ketika semua email benar  
 
                     $_SESSION['data'] = array();
-                    $result = []; 
-                    for ($i = 0; $i < count($input); $i++) { 
-                        array_push($result, [$input[$i]]);
-                    }
+                    // $result = []; 
+                    // for ($i = 0; $i < count($input); $i++) { 
+                    //     array_push($result, [$input[$i]]);
+                    // }
 
-                    for ($i = 0; $i < count($result); $i++) { 
-                        $_SESSION['data'][$i] = $result[$i];
-                    }
+                    // for ($i = 0; $i < count($result); $i++) { 
+                    //     $_SESSION['data'][$i] = $result[$i];
+                    // }
 
+                    $_SESSION['data'] = $simpanemail;
+
+                    
                     echo "<script> 
                     alert('Email Partisipan Ditemukan');
                     document.location.href = 'cek_client.php?idprog=$id&idbatch=$batch&iddiskon=D02';

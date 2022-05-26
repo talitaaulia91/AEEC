@@ -110,7 +110,7 @@ $iddiskon  = $_GET['iddiskon'];
                                     $counter = 2;   
                                     $id_user = [];                          
                                     for($i = 0; $i < count($_SESSION['data']); $i++){   
-                                        $data_client = mysqli_query($mysqli, "SELECT * FROM  user  WHERE EMAIL ='".$_SESSION['data'][$i][0]."'");
+                                        $data_client = mysqli_query($mysqli, "SELECT * FROM  user  WHERE EMAIL ='".$_SESSION['data'][$i]."'");
                                         $user        = $data_client->fetch_assoc();
 
                                         
@@ -390,7 +390,7 @@ $iddiskon  = $_GET['iddiskon'];
                 for($i = 0; $i < $jumlah_client; $i++){ 
                     $cek_client  = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
                                                          WHERE c.ID_USER = u.ID_USER
-                                                         AND u.EMAIL = '".$_SESSION['data'][$i][0]."'");
+                                                         AND u.EMAIL = '".$_SESSION['data'][$i]."'");
                     $row_cl      = $cek_client->fetch_assoc();
 
                     $insert_hs   = mysqli_query($mysqli,"INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
@@ -431,7 +431,7 @@ $iddiskon  = $_GET['iddiskon'];
             for($i = 0; $i < $jumlah_client; $i++){ 
                 $cek_cl2     = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
                                                      WHERE c.ID_USER = u.ID_USER
-                                                     AND u.EMAIL = '".$_SESSION['data'][$i][0]."'");
+                                                     AND u.EMAIL = '".$_SESSION['data'][$i]."'");
 
                 $row_cl2      = $cek_cl2->fetch_assoc();
 
