@@ -15,7 +15,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 ?>
 
 <!-- BAGIAN HEADER -->
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,7 +34,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
     <!-- FORM DINAMIS -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
-<style>
+    <style>
     table.dataTable td{
         padding: 15px 8px;
     }
@@ -53,14 +53,23 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 
 <?php include_once('../sidebar/sidebar.php'); ?>
 
-  
-
+        </ul>
+    </div>
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
 
 <!-- BAGIAN UTAMA CODING [MULAI main-content] -->
 
 <!-- HALAMAN UTAMA -->
-<div id="main-content">
+<!-- <div id="main-content"> -->
                 
                 <div class="page-heading">
                     <div class="page-title">

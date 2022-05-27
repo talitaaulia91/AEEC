@@ -69,10 +69,11 @@ include_once('../../config/database.php');
     <?php
      $regular    = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_PROGRAM ='".$_GET['id']."' " );
      $ambil_data = $regular->fetch_assoc();
+     $ppn        = $ambil_data['PPN'];
      
-     $individu_awal = (100/111)*$ambil_data['INDIVIDU'];                 
-     $kolektif_awal = (100/111)*$ambil_data['KOLEKTIF'];
-     $korporat_awal = (100/111)*$ambil_data['KORPORAT'];
+     $individu_awal = (100/(100 + $ppn))*$ambil_data['INDIVIDU'];                 
+     $kolektif_awal = (100/(100 + $ppn))*$ambil_data['KOLEKTIF'];
+     $korporat_awal = (100/(100 + $ppn))*$ambil_data['KORPORAT'];
     ?>
     <section class="section">
     <section id="basic-vertical-layouts">
@@ -91,7 +92,7 @@ include_once('../../config/database.php');
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Kode Program</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="id_program" value="<?php echo  $ambil_data['ID_PROGRAM']; ?>" required>
+                                                    name="id_program" readonly value="<?php echo  $ambil_data['ID_PROGRAM']; ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -103,23 +104,30 @@ include_once('../../config/database.php');
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Harga Individu</label>
+                                                <label for="first-name-vertical">Harga Individu (sebelum PPN)</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
                                                     name="individu" value="<?php echo  $individu_awal; ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Harga Kolektif</label>
+                                                <label for="first-name-vertical">Harga Kolektif (sebelum PPN)</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
                                                     name="kolektif" value="<?php echo  $kolektif_awal; ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Harga Korporat</label>
+                                                <label for="first-name-vertical">Harga Korporat (sebelum PPN)</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
                                                     name="korporat" value="<?php echo  $korporat_awal; ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">PPN</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="ppn" value="<?php echo  $ppn; ?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -205,9 +213,9 @@ include_once('../../config/database.php');
                 $individu        = $_POST['individu'];
                 $kolektif        = $_POST['kolektif'];
                 $korporat        = $_POST['korporat'];
+                $ppn             = $_POST['ppn'];
                 $deskripsi       = $_POST['deskripsi'];             
                 $sesi            = $_POST['sesi'];
-                $kuota           = $_POST['kuota'];
 
                 $result          = [];
                 $id_hari         = $_POST['id_hari'];
@@ -223,9 +231,9 @@ include_once('../../config/database.php');
                 }
 
 
-                $individu_ppn = $individu + ($individu * 11/100);
-                $kolektif_ppn = $kolektif + ($kolektif  * 11/100);
-                $korporat_ppn = $korporat + ($korporat * 11/100);
+                $individu_ppn = $individu + ($individu * $ppn/100);
+                $kolektif_ppn = $kolektif + ($kolektif  *  $ppn/100);
+                $korporat_ppn = $korporat + ($korporat *  $ppn/100);
 
                 $gambar         = $_FILES['gambar']['name'];
                 $lokasi         = $_FILES['gambar']['tmp_name'];
@@ -302,7 +310,7 @@ include_once('../../config/database.php');
     <!-- Basic Tables end -->
 </div>
 
-            <footer>
+            <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2021 &copy; Mazer</p>
@@ -312,7 +320,7 @@ include_once('../../config/database.php');
                                 href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
 

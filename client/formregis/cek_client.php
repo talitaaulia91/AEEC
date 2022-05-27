@@ -163,18 +163,35 @@ if(mysqli_num_rows($client) > 0){
                                         <div class="form-group">
                                                 <label for="first-name-vertical">Alumni Universitas Airlangga</label>
                                                     <select class="form-select" name="alumni" required>
-                                                        <option >Pilih </option>
+                                                        <option >Apakah Anda alumni? </option>
 	                                                    <option value="0">Bukan</option>
 	                                                    <option value="1">Iya</option>
                                                     </select>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                        <div class="form-group">
+                                                <label for="first-name-vertical">Fakultas</label>
+                                                <select class="form-select" name="fakultas">
+                                                    <option value="">Pilih fakultas jika Anda alumni</option>
+                                                        <?php
+                                                        $fakultas = $mysqli->query("SELECT * FROM fakultas");
+                                                        while ( $fak = $fakultas->fetch_assoc()){
+                                                        ?>
+                                                        <option value="<?php echo $fak['ID_FAKULTAS'] ?>">
+                                                        <?php 
+                                                        echo $fak['NAMA_FAKULTAS'];
+                                                        ?>
+                                                        </option>
+                                                        <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Berkas NPWP</label>
-                                        <input type="file" name="npwp"class="form-control" required >
-                                        </div>
-                                      
+                                        <input type="file" name="berkas_npwp"class="form-control" required >
+                                        </div>                                     
                                         
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
@@ -242,15 +259,21 @@ if(mysqli_num_rows($client) > 0){
             $instansi   = $_POST['instansi'];
             $jabatan    = $_POST['jabatan'];
             $alumni     = $_POST['alumni'];
+            $fakultas   = $_POST['fakultas'];
 
             // UNTUK BUKTI NPWP
-            $npwp           = $_FILES['npwp']['name'];
-            $lokasi         = $_FILES['npwp']['tmp_name'];
-            move_uploaded_file($lokasi, '../../assets/NPWP/'.$npwp);
+            $berkas_npwp    = $_FILES['berkas_npwp']['name'];
+            $lokasi         = $_FILES['berkas_npwp']['tmp_name'];
+            move_uploaded_file($lokasi, '../../assets/NPWP/'.$berkas_npwp);
 
-            $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
-                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$npwp', $alumni, '$jabatan')");
-
+            if($fakultas != null){
+                $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, ID_FAKULTAS, JABATAN) 
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$berkas_npwp', '$alumni','$fakultas', '$jabatan')");
+            }else{
+                $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$berkas_npwp', '$alumni', '$jabatan')");
+            }
+           
 
             //Mengambil id CLIENT
             $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");

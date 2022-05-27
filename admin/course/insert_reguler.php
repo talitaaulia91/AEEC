@@ -116,11 +116,19 @@ include_once('../../config/database.php');
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="first-name-vertical">PPN</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="ppn" placeholder="Besar persentase PPN" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="first-name-vertical">Sesi</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
                                                     name="sesi" placeholder="Sesi" required>
                                             </div>
                                         </div>
+                                        
                                         <div>
                                            Deskripsi
                                             <div class="form-floating mb-3">
@@ -201,9 +209,9 @@ include_once('../../config/database.php');
                 $individu        = $_POST['individu'];
                 $kolektif        = $_POST['kolektif'];
                 $korporat        = $_POST['korporat'];
+                $ppn             = $_POST['ppn'];
                 $deskripsi       = $_POST['deskripsi'];             
                 $sesi            = $_POST['sesi'];
-                $kuota           = $_POST['kuota'];
 
                 $result          = [];
                 $id_hari         = $_POST['id_hari'];
@@ -219,9 +227,9 @@ include_once('../../config/database.php');
                 }
 
 
-                $individu_ppn = $individu + ($individu * 11/100);
-                $kolektif_ppn = $kolektif + ($kolektif  * 11/100);
-                $korporat_ppn = $korporat + ($korporat * 11/100);
+                $individu_ppn = $individu + ($individu * $ppn/100);
+                $kolektif_ppn = $kolektif + ($kolektif  * $ppn/100);
+                $korporat_ppn = $korporat + ($korporat * $ppn/100);
 
                 $gambar         = $_FILES['gambar']['name'];
                 $lokasi         = $_FILES['gambar']['tmp_name'];
@@ -230,8 +238,8 @@ include_once('../../config/database.php');
                    
   
                 //insert program
-                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT, DESKRIPSI, SESI, IMAGE)
-                                                     VALUES ('$id_program', 'RC', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$deskripsi', '$sesi','$gambar')");
+                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, INDIVIDU, KOLEKTIF, KORPORAT,PPN, DESKRIPSI, SESI, IMAGE)
+                                                     VALUES ('$id_program', 'RC', '$nama_program', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$ppn', '$deskripsi', '$sesi','$gambar')");
 
 
 

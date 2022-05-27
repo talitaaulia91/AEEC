@@ -254,7 +254,7 @@ h1.heading {
 $reguler = mysqli_query($mysqli,"SELECT p.*, b.* 
                 FROM batch_program b, program p
                 WHERE  p.ID_PROGRAM = b.ID_PROGRAM
-                AND p.ID_KATEGORI = 'RC'
+                AND p.ID_KATEGORI = 'NRC'
                 AND b.STATUS = '1';");
 ?>
             <!-- HALAMAN UTAMA -->
@@ -278,7 +278,7 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
 
                         <div class="p-3">
                         <h5 class="fs-0"><a class="text-dark" href="">
-                        <?= $spare['NAMA_PROGRAM']  ?>
+                        <?= $spare['NAMA_CLASS']  ?>
                         </a></h5>
                         
                         <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> 

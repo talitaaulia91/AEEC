@@ -9,8 +9,6 @@ $idbatch   = $_GET['idbatch'];
 $iduser    = $_SESSION["user"]["ID_USER"];
 $iddiskon  = $_GET['iddiskon'];
 
-
-
 ?>
 
 <!-- BAGIAN HEADER -->
