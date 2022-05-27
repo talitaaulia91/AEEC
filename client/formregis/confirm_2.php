@@ -174,13 +174,13 @@ $iddiskon  = $_GET['iddiskon'];
                         $row_p1            = $persentase1->fetch_assoc();
                         $cs10              = $row_p1['CASHBACK'];
 
-                        $cashback          = (($jumlah_email - ( $jumlah_client % 3))/3)*$cs10;
+                        $cashback          = (($jumlah_email - ( $jumlah_email % 3))/3)*$cs10;
 
 
                         $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
-                                                        FROM program p, batch_program b
-                                                        WHERE p.ID_PROGRAM = b.ID_PROGRAM
-                                                        AND ID_BATCH = '$idbatch'");
+                                                                    FROM program p, batch_program b
+                                                                    WHERE p.ID_PROGRAM = b.ID_PROGRAM
+                                                                    AND ID_BATCH = '$idbatch'");
                         $row_class         = $class->fetch_assoc();
                         $individu          = $row_class['INDIVIDU'];
 
@@ -190,9 +190,11 @@ $iddiskon  = $_GET['iddiskon'];
                         $row_p2            = $persentase2->fetch_assoc();
                         $vo5               = $row_p2['VOUCHER'];
 
-                        for($i=0; $i<$jumlah_email; $i++){
+                        for($i=0; $i<($jumlah_email - ($jumlah_email% 3)); $i++){
                             $total         = $total + $vo5;
                         } 
+
+                        $total             = $total + ($individu * ($jumlah_email% 3));
 
                         $harga_fix   = 0;
                                                 
@@ -243,8 +245,8 @@ $iddiskon  = $_GET['iddiskon'];
                                     endforeach
                                 ?>
                                 <tr>
-                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=$jumlah_email?> peserta yang diajak</td>
-                                    <td><?= 'Rp. '.number_format($jumlah_email*(5/100*$data['INDIVIDU'])) ?></td>
+                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
+                                    <td><?= 'Rp. '.number_format(($jumlah_email - ($jumlah_email% 3))*(5/100*$data['INDIVIDU'])) ?></td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-right">Potongan E-money AEEC</td>
@@ -284,8 +286,8 @@ $iddiskon  = $_GET['iddiskon'];
                                     endforeach
                                 ?>
                                 <tr>
-                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=$jumlah_email?> peserta yang diajak</td>
-                                    <td><?= 'Rp. '.number_format($jumlah_email*(5/100*$data['INDIVIDU'])) ?></td>
+                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
+                                    <td><?= 'Rp. '.number_format(($jumlah_email - ($jumlah_email% 3))*(5/100*$data['INDIVIDU'])) ?></td>
                                 </tr>
                                 <tr>
                                     <th colspan="4" class="text-right">TOTAL</th>

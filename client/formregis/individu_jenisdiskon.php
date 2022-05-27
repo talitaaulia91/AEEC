@@ -51,7 +51,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
 
 <body>
 
-<!-- <?php include_once('../sidebar/sidebar.php'); ?> -->
+<?php include_once('../sidebar/sidebar.php'); ?>
 
   
 
@@ -136,7 +136,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
                                                 
                                                 <div class="card-footer">
-                                                    <a href="follow_sosmed.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=0">
+                                                    <a href="follow_sosmed.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=D03">
                                                     <button class="btn btn-outline-white btn-block">Daftar</button></a>
 
                                                 </div>

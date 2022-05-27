@@ -2,9 +2,10 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-$email = $_GET['email'];
+$email = $_SESSION["user"]["EMAIL"];
 $idprog = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
+$iddiskon  = $_GET['iddiskon'];
 
 ?>
 
@@ -250,8 +251,13 @@ $idbatch = $_GET['idbatch'];
             $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
             $row       = $idterbaru->fetch_assoc();
             $id_client = $row['ID_CLIENT']; 
-               
+            
+            if($iddiskon == 'D03'){
+            echo "<script>location='follow_sosmed.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D03';</script>";   
+            }else if($iddiskon == 'D02'){
             echo "<script>location='confirm_2.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D02';</script>";
+            }
+           
             
         }
 

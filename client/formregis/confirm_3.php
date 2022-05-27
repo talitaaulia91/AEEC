@@ -4,9 +4,10 @@ require_once("../auth/auth.php");
 require_once("../../config/database.php"); 
 
 // Tangkap Data
-$idprog = $_GET['idprog'];
-$idbatch = $_GET['idbatch'];
-$iduser = $_SESSION["user"]["ID_USER"];
+$idprog    = $_GET['idprog'];
+$idbatch   = $_GET['idbatch'];
+$iduser    = $_SESSION["user"]["ID_USER"];
+$iddiskon  = $_GET['iddiskon'];
 
 
 
@@ -165,6 +166,11 @@ $iduser = $_SESSION["user"]["ID_USER"];
                         $row_emoney        = $emoney->fetch_assoc();
                         $data_em           = $row_emoney['EMONEY'];
 
+                        $persentase1       = mysqli_query($mysqli, "SELECT cashback5 ('$idprog') AS CASHBACK");
+                        $row_p1            = $persentase1->fetch_assoc();
+                        $cashback          = $row_p1['CASHBACK'];
+
+
                         $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
                                                         FROM program p, batch_program b
                                                         WHERE p.ID_PROGRAM = b.ID_PROGRAM
@@ -259,6 +265,9 @@ $iduser = $_SESSION["user"]["ID_USER"];
                         }
                         ?>
 
+                        <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($cashback)?>; </h6>
+                        <br></br>
+
                         <form method="post" action="">
                         <div class="form-group">
                         <input type="hidden" value="<?= "$harga_fix"?>" name= "harga_fix" required>
@@ -323,8 +332,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
             $id_client = $ambil_data['ID_CLIENT'];
 
             //insert pendaftaran
-            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                     VALUES ('$idbatch', '$id_client','$fix', '$tanggal', '0')"); 
+            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                     VALUES ('$idbatch', '$id_client', '$iddiskon', '$fix', '$tanggal', '0')"); 
 
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
             $row_daftar     = $select_daftar->fetch_assoc();

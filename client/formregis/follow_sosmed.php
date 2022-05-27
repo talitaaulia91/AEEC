@@ -228,7 +228,7 @@ if(mysqli_num_rows($client) == 0){
             $follow_linkedin .= ".";
             $follow_linkedin .= $ekstensiupload3;   
             // move_uploaded_file($tempat, '../../assets/excel/'.$namafotobaru);
-            $targetPath3 = '../../assets/sosmed/' . $follow_linkkedin;
+            $targetPath3 = '../../assets/sosmed/' . $follow_linkedin;
             move_uploaded_file($tempat3, $targetPath3);
 
 
@@ -307,8 +307,13 @@ if(mysqli_num_rows($client) == 0){
             $targetPath8 = '../../assets/sosmed/' . $follow_fb;
             move_uploaded_file($tempat8, $targetPath8);
 
+
+            //insert bukti
+            $insert_bukti = mysqli_query($mysqli,"INSERT INTO penyimpanan (ID_CLIENT, FOLLOW_IG, LIKE_IG, FOLLOW_LINKEDIN, LIKE_LINKEDIN, SUBS_YT, LIKE_YT, TWITTER, FACEBOOK)
+                                                  VALUES  ('$idclient', '$follow_ig', '$like_ig', '$follow_linkedin', '$like_linkedin', '$subs_yt', '$like_yt', '$follow_twitter', '$follow_fb')");
+
                
-            echo "<script>location='confirm_2.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D02';</script>";
+            echo "<script>location='confirm_3.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D03';</script>";
             
         }
 
