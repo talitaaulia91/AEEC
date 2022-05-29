@@ -168,6 +168,13 @@ foreach($program as $hasil){
                                                     </select>
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Asal Fakultas</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="fakultas" placeholder="Wajib di isi jika alumni Universitas Airlangga">
+                                            </div>
+                                        </div>
 
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Berkas NPWP</label>

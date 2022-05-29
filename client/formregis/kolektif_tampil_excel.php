@@ -355,7 +355,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
     
     if(isset($_POST['daftar'])){
-                       
+            
             //insert pendaftaran
             $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN, TAGIHAN, STATUS) 
                                                         VALUES ('$idbatch', '$id_client', '$tanggal',$tagihan, '0')");
@@ -384,7 +384,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                 alert('Pendaftaran Berhasil');
                 document.location.href = '../pendaftaran/pendaftaran.php';
                 </script>";
-                  
+            
     }
 
 
