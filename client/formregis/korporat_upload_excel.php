@@ -123,6 +123,44 @@ if (isset($_POST["import"])) {
                 }
             }
             
+            $fakultas = "";
+            if (isset($spreadSheetAry[$i][11])) {
+                $fakultas = strtolower (mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]));
+                //ambil Fakultas
+                if($fakultas == 'fib'){
+                    $idfak = 'F01';
+                }else if($fakultas == 'feb'){
+                    $idfak = 'F02';
+                }else if($fakultas == 'fk'){
+                    $idfak = 'F03';
+                }else if($fakultas == 'fkg'){
+                    $idfak = 'F04';
+                }else if($fakultas == 'fkh'){
+                    $idfak = 'F05';
+                }else if($fakultas == 'fpk'){
+                    $idfak = 'F06';
+                }else if($fakultas == 'fpsi'){
+                    $idfak = 'F07';
+                }else if($fakultas == 'ffarm'){
+                    $idfak = 'F08';
+                }else if($fakultas == 'fkm'){
+                    $idfak = 'F09';
+                }else if($fakultas == 'fst'){
+                    $idfak = 'F10';
+                }else if($fakultas == 'fh'){
+                    $idfak = 'F11';
+                }else if($fakultas == 'fkep'){
+                    $idfak = 'F12';
+                }else if($fakultas == 'fisip'){
+                    $idfak = 'F13';
+                }else if($fakultas == 'fv'){
+                    $idfak = 'F14';
+                }else if($fakultas == 'pasca'){
+                    $idfak = 'F15';
+                }else if($fakultas == 'ftmm'){
+                    $idfak = 'F16';
+                }
+            }
 
             
             
@@ -138,8 +176,8 @@ if (isset($_POST["import"])) {
                 $id_user = $row_id['ID_USER'];
 
                 // Memasukkan ke Client
-                $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`) 
-                VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni')";
+                $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`, `ID_FAKULTAS`) 
+                VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni', '$idfak')";
                 $paramType = "ssssssssss";
                 $jumlahInput = $sheetCount -2;
 

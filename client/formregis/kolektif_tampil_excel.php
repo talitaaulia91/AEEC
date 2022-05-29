@@ -92,11 +92,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                     <div class="page-title">
                         <div class="row">
                         <div class="row">
-                            <div class="col-12 col-md-6 order-md-1 order-last">
-                            <a href="#" class="burger-btn d-block">
-                                            <i class="bi bi-justify fs-3"></i>
-                            </a>
-                            </div>
+                            
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 </nav>
@@ -204,7 +200,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                         <th>Alamat Rumah </th>
                                         <th>Instansi </th> 
                                         <th>Jabatan </th>                                
-                                        
+                                        <th>Alumni</th>
+                                        <th>Asal Fakultas</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -240,6 +237,19 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                         <td><?php echo $data_client['ALAMAT_RUMAH']; ?></td> 
                                         <td><?php echo $data_client['INSTANSI']; ?></td> 
                                         <td><?php echo $data_client['JABATAN']; ?></td> 
+                                        <td><?php 
+                                                        if($data_client['ALUMNI'] == 1) {
+                                                            echo "Ya";
+                                                        }else if($data_client['ALUMNI'] == 0){
+                                                            echo "Bukan Alumni";
+                                                        }
+                                            
+                                            ?>
+                                        </td>
+                                        <td>
+                                            
+                                            nanti buat fakultas 
+                                        </td>
 
                                         <!-- <td>
                                             <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
