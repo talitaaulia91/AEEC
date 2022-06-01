@@ -54,11 +54,20 @@ include_once('../../config/database.php');
 
     <!-- Basic Tables start -->
     <?php
-        $regular    = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='".$_GET['id']."' " );
+    // AMBIL ID CLIENT
+    $idclient = $_GET['idclient'];
+    $iddaftar = $_GET['id'];
+        $regular    = mysqli_query($mysqli, "SELECT * FROM aeec.pendaftaran join client 
+        where pendaftaran.ID_CLIENT = client.ID_CLIENT
+        and pendaftaran.ID_PENDAFTARAN = '$iddaftar'
+        and client.ID_CLIENT = '$idclient'; " );
         $ambil_data = $regular->fetch_assoc();
         $id_cli    = $ambil_data['ID_PENDAFTARAN'];
-    ?>
 
+        // AMBIL ID CLIENT
+        $idclient = $_GET['idclient'];
+    ?>
+ 
     <section class="section">
         <div class="card">
             <div class="card-header">
@@ -78,7 +87,29 @@ include_once('../../config/database.php');
                         </tr>
                         <tr>
                             <th>Virtual Account</th>    
-                            <td><?=$ambil_data['VIRTUAL_ACC'] ?></td>
+                            <td><?=$ambil_data['VIRTUAL_ACC'] ?>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Nama</th>    
+                            <td><?=$ambil_data['NAMA'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal Pendaftaran</th>    
+                            <td><?=$ambil_data['TGL_PENDAFTARAN'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Tagihan</th>    
+                            <td><?=$ambil_data['TAGIHAN'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Alamat NPWP</th>    
+                            <td><?=$ambil_data['ALAMAT_NPWP'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Berkas NPWP</th>    
+                            <td><a href="../../assets/NPWP/<?= $ambil_data['BERKAS_NPWP'] ?> " class="btn btn-success">Lihat</a>  </td>
                         </tr>
                     </thead>
                 </table>   
@@ -86,7 +117,7 @@ include_once('../../config/database.php');
             </div>
         </div>
 
-        <div class="card" >
+        <!-- <div class="card" >
             <div class="card-header">
             </div>
             <div class="card-body">
@@ -145,7 +176,7 @@ include_once('../../config/database.php');
 
                 </table>
             </div>
-        </div>
+        </div> -->
 
 
     <!-- Basic Tables end -->

@@ -137,7 +137,7 @@ include_once('../../config/database.php');
                                                     WHERE ID_PENDAFTARAN='".$_GET['id']."'");
                                         
         if ($update) {
-            echo " <script>location='detail.php?id=$id';</script>";
+            echo " <script>location='pendaftaran.php';</script>";
         } else {
             echo "gagal input data";
         } 

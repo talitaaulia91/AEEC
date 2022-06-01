@@ -82,7 +82,7 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                         <?php
-                        $query_daftar = "SELECT p.ID_PENDAFTARAN, p.TGL_PENDAFTARAN, p.STATUS, b.NAMA_CLASS, c.NAMA 
+                        $query_daftar = "SELECT p.ID_PENDAFTARAN, p.TGL_PENDAFTARAN, p.STATUS, b.NAMA_CLASS, c.NAMA, c.ID_CLIENT 
                                             FROM pendaftaran p, batch_program b, client c
                                             WHERE p.ID_BATCH = b.ID_BATCH
                                             AND p.ID_CLIENT = c.ID_CLIENT";
@@ -108,7 +108,7 @@ include_once('../../config/database.php');
                                 ?>
                             </td>            
                             <td>
-                                <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                                <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&idclient=<?= $data_daftar['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
                             </td>                     
                             <td>
                                 <a href="add.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-success">Add</a>                            
