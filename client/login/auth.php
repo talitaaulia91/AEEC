@@ -23,6 +23,7 @@ if( isset ($_POST["regis"])){
         alert('Registrasi Gagal, Email sudah Pernah Digunakan !!');
         document.location.href = 'registrasi.php';
         </script>";
+        exit;
     }
 
     $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$email',  '$password', 'user')";

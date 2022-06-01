@@ -207,7 +207,8 @@ include_once('../../config/database.php');
                                 <?php } ?>  
                            </td>    
                             <td>
-                            <a href="#" class="btn btn-primary">Show</a>
+                            <?php $idbatch = $data_program['ID_BATCH']; ?>
+                            <a href="../peserta/tabelpeserta.php?idbatch=<?=$idbatch?>" class="btn btn-primary">Lihat</a>
                             </td>
                             <td>
                             <a href="edit_batch_regular.php?id=<?php echo $data_program['ID_BATCH'];?>" class="btn btn-warning">Edit</a>
