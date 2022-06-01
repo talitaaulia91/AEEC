@@ -5,7 +5,7 @@ require_once("../../config/database.php");
 
 $iduser = $_SESSION["user"]["ID_USER"];
 
-$tgl    =DATE("Y-m-d");
+$tgl    = DATE("Y-m-d");
 
 $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.TGL_MULAI, b.TGL_BERAKHIR, b.WAKTU_MULAI, b.WAKTU_BERAKHIR
                                       FROM program pr, batch_program b, pendaftaran pn, CLIENT c

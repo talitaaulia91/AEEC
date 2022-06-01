@@ -121,7 +121,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
                             }
                             ?>                           
                             </td>
-                            <td><a class="btn btn-primary" href="detail.php?id=<?php echo $hasil['ID_PROGRAM']; ?>">Detail</a></td>    
+                            <td><a class="btn btn-primary" href="detail.php?id=<?php echo $hasil['ID_PENDAFTARAN']; ?>">Detail</a></td>    
                         </tr>
                     
                     <?php endforeach; ?>

@@ -186,6 +186,9 @@ if(mysqli_num_rows($select_histori) > 0){
      
                         $default_em        = 0;
                         $harga_fix         = 0;
+
+                        $harga_awal        = $row_class['INDIVIDU'];
+                        $potongan          = 0;
                         
                         if(mysqli_num_rows($select_cashback)>0){
                         $default_em        = 0;
@@ -203,6 +206,7 @@ if(mysqli_num_rows($select_histori) > 0){
                         <?php
                         if(isset($_POST['gunakan'])){
                         $default_em = $data_em;
+                        $potongan   = $$data_em;
                         $total      = $total-$data_em;
                     
                         ?>
@@ -332,9 +336,17 @@ if(mysqli_num_rows($select_histori) > 0){
             $default   = $_POST['default_em'];
             $id_client = $ambil_data['ID_CLIENT'];
 
-            //insert pendaftaran
-            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                     VALUES ('$idbatch', '$id_client','$fix', '$tanggal', '0')"); 
+            if($potongan == 0){
+               //insert pendaftaran
+               $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, HARGA_AWAL, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                        VALUES ('$idbatch', '$id_client', '$harga_awal', '$fix', '$tanggal', '0')"); 
+            }else{
+                //insert pendaftaran
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  HARGA_AWAL, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client', '$harga_awal', '$potongan', '$fix', '$tanggal', '0')"); 
+            }
+
+           
 
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
             $row_daftar     = $select_daftar->fetch_assoc();

@@ -73,51 +73,27 @@ foreach($daftar as $hasil){
     <section class="section">
         <div class="card">
             <div class="card-header">
-                <table class="table table-bordered"  width="100%" cellspacing="0">
-                    <thead>
+                    <?php
+                    $nota = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='$id' " );
+                    $ambil_data = $nota->fetch_assoc();
+
+                    $cek = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PENDAFTARAN = '$id'");
+
+                    ?>
+
+                        <table class="table table-bordered bg-white ">
+                        <thead>
                         <tr>
-                            <th class ="col-4">No Pendaftaran</th>    
-                            <td><?=$hasil['ID_PENDAFTARAN'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Tanggal Pendaftaran</th>    
-                            <td><?=$hasil['TGL_PENDAFTARAN'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>ID Pendaftar</th>    
-                            <td><?=$hasil['ID_CLIENT'] ?></td>
+                            <th class="col-4">No Pendafatran</th>    
+                            <th><?=$ambil_data['ID_PENDAFTARAN'] ?></th>
                         </tr>
                         <tr>
                             <th>Nama Pendaftar</th>    
-                            <td><?=$hasil['NAMA'] ?></td>
+                            <th><?= $hasil['NAMA'] ?></th>
                         </tr>
                         <tr>
-                            <th>ID Program</th>    
-                            <td><?=$hasil['ID_PROGRAM'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Nama Program</th>    
-                            <td><?=$hasil['NAMA_PROGRAM'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Batch</th>    
-                            <td><?=$hasil['BATCH'] ?></td>
-                        </tr>                   
-                        <tr>
-                            <th>Status</th>    
-                            <td>
-                            <?php
-                            if($hasil['STATUS']=='1'){
-                            ?>
-                            <a href=""><font color="success"><i><b>Verifed</b></i></font></a>
-                            <?php
-                            }else{
-                            ?>
-                            <a href=""><font color="grey"><i><b>Unverified</b></i></font></a>
-                            <?php
-                            }
-                            ?>     
-                            </td>
+                            <th>Tanggal Pendaftaran</th>    
+                            <th><?= $hasil['TGL_PENDAFTARAN'] ?></th>
                         </tr>
                         <tr>
                             <th>Virtual Account</th>    
@@ -135,21 +111,66 @@ foreach($daftar as $hasil){
                             ?>     
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <th>Status</th>    
+                            <th>
+                            <?php 
+                            if(mysqli_num_rows($cek) < 1){ echo 'BELUM BAYAR'; }else{ echo 'SUDAH BAYAR'; } ?>
+                            </th>
+                        </tr>
                     </thead>
-                </table>   
-                <a href="pendaftaran.php" class="btn btn-primary">Kembali</a>  
-                <?php
-                            if($hasil['VIRTUAL_ACC']!=null){
-                            ?>
-                            <a href="../pembayaran/bayar.php?id=<?=$hasil['ID_PENDAFTARAN']?>" class="btn btn-success">Bayar</a>
-                            <?php
-                            }else{
-                            ?>
-                            <a href="" class="btn btn-secondary">Bayar</a>
-                            <?php
-                            }
-                            ?>          
+                    </table>
+
+
+                    <div class="table-responsive">
+                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Nama Program</th>
+                                    <th>Harga</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach ($daftar as $data):
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                        </tr>';
+                                    endforeach
+                                ?>
+                              
+                                <?php
+                                if($hasil['POTONGAN'] != null){
+                                ?>
+                                  <tr>
+                                    <td colspan="3" class="text-right">Potongan E-money AEEC</td>
+                                    <td><?= 'Rp. '.number_format($data_em) ?></td>                                        
+                                </tr>
+                                <?php
+                                }
+                                ?>
+                                <tr>
+                                    <th colspan="3" class="text-right">TOTAL</th>
+                                    <th><?= 'Rp. '.number_format($hasil['TAGIHAN']) ?></th>
+                                </tr>
+                            </tbody>
+                            </table>
+                            </div>
+
+
+                            <form method="post" action="" enctype="multipart/form-data">
+                            <div class="form-group  mb-0">
+                            <label for="exampleInputPassword1">Bukti Bayar</label>
+                            <input type="file" name="bukti"class="form-control">
+                            </div>
+      
+                <button type="submit" name="bayar" value="bayar" class="btn btn-success w-30 mt-4 mb-2">Konfirmasi</button>
+              </form>   
             </div>
         </div>
         
@@ -188,3 +209,37 @@ foreach($daftar as $hasil){
 </body>
 
 </html>
+
+
+<?php
+                if(isset($_POST['bayar'])){
+                $tagihan         = $hasil['TAGIHAN'];
+
+
+                //NAMA FILE
+                $namafile         = $_FILES['bukti']['name'];
+                $tempat           = $_FILES['bukti']['tmp_name'];
+                $ekstensiupload   = explode('.', $namafile);
+                $ekstensiupload   = strtolower (end($ekstensiupload));    
+                //Ganti Nama
+                $bukti  = uniqid();
+                $bukti .= ".";
+                $bukti .= $ekstensiupload;   
+                // move_uploaded_file
+                $targetPath = '../../assets/bukti_bayar/' . $bukti;
+                move_uploaded_file($tempat, $targetPath);
+
+
+                date_default_timezone_set("Asia/jakarta");
+                $tanggal        = date("Y-m-d"); 
+
+
+                if($namafile == null){
+                  echo "<script> alert('Lampirkan bukti pembayaran!'); </script>";
+                }else{
+                $pembayaran =mysqli_query($mysqli, "INSERT INTO pembayaran (ID_PENDAFTARAN, TGL_PEMBAYARAN, NOMINAL, BUKTI, STATUS) 
+                                                    VALUES ('$id','$tanggal', '$tagihan', '$bukti', '0')");
+                echo "<script>location='../program_aktif/list.php';</script>";
+              }
+              }
+           ?>

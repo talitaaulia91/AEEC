@@ -65,7 +65,7 @@
                 class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'history') ? 'active' : '' ?> ">
                 <a href="../riwayat/program.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
-                    <span>History Program</span>
+                    <span>Histori Program</span>
                 </a>
             </li>
 
