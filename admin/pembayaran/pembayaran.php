@@ -94,7 +94,7 @@ include_once('../../config/database.php');
                             <td><?php echo $data_bayar['NOMINAL'];?></td>
                             <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>
                             <td> 
-                                <a href="../../penyimpanan/buktipembayaran/<?php echo $data_bayar['BUKTI']; ?>"
+                                <a href="../../assets/bukti_bayar/<?php echo $data_bayar['BUKTI']; ?>"
                                      class="btn btn-primary">Lihat Berkas
                                 </a>
                             </td>  

@@ -46,8 +46,8 @@
             </li>
 
             <li
-                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'pendaftaran') ? 'active' : '' ?> ">
-                <a href="../pendaftaran/pendaftaran.php" class='sidebar-link'>
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'transaksi') ? 'active' : '' ?> ">
+                <a href="../transaksi/pendaftaran.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Pendaftaran</span>
                 </a>

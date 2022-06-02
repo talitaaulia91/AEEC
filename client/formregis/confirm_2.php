@@ -118,10 +118,12 @@ if(mysqli_num_rows($select_histori) > 0){
 
                                     <?php
                                     $counter = 2;   
-                                    $id_user = [];                          
-                                    for($i = 0; $i < count($_SESSION['data']); $i++){   
-                                        $data_client = mysqli_query($mysqli, "SELECT * FROM  user  WHERE EMAIL ='".$_SESSION['data'][$i]."'");
+                                    $id_user = [];      
+                                                     
+                                    for($i = 0; $i<count($_SESSION['data']); $i++){   
+                                        $data_client = mysqli_query($mysqli, "SELECT * FROM  user  WHERE EMAIL ='".$_SESSION['data'][$i][0]."'");
                                         $user        = $data_client->fetch_assoc();
+
 
                                         
                                     ?>
@@ -131,7 +133,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                         <td><?php echo $user['EMAIL']; ?></td>
                                         <td>
                                             <?php
-                                            $cek = mysqli_query($mysqli,"SELECT c.*, u.* FROM client c, user u 
+                                            $cek = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
                                                                          WHERE c.ID_USER = u.ID_USER
                                                                          AND u.EMAIL = '".$user['EMAIL']."'");
                                             
@@ -207,6 +209,8 @@ if(mysqli_num_rows($select_histori) > 0){
                         $total             = $total + ($individu * ($jumlah_email% 3));
 
                         $harga_fix   = 0;
+                        $harga_awal  = $row_class['INDIVIDU']*($jumlah_email+1);
+                        $diskon      = ($jumlah_email - ($jumlah_email% 3))*(5/100*$row_class['INDIVIDU']);
                                                 
 
                         if(mysqli_num_rows($select_cashback)>0){
@@ -256,7 +260,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                 ?>
                                 <tr>
                                     <td colspan="4" class="text-right">Diskon 5% untuk <?=($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
-                                    <td><?= 'Rp. '.number_format(($jumlah_email - ($jumlah_email% 3))*(5/100*$data['INDIVIDU'])) ?></td>
+                                    <td><?= 'Rp. '.number_format($diskon) ?></td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-right">Potongan E-money AEEC</td>
@@ -297,7 +301,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                 ?>
                                 <tr>
                                     <td colspan="4" class="text-right">Diskon 5% untuk <?=($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
-                                    <td><?= 'Rp. '.number_format(($jumlah_email - ($jumlah_email% 3))*(5/100*$data['INDIVIDU'])) ?></td>
+                                    <td><?= 'Rp. '.number_format($diskon) ?></td>
                                 </tr>
                                 <tr>
                                     <th colspan="4" class="text-right">TOTAL</th>
@@ -307,7 +311,7 @@ if(mysqli_num_rows($select_histori) > 0){
                             </table>
 
                         <?php
-                        $harga_fix=$total;
+                        $harga_fix    = $total;
                         }
                         ?>
 
@@ -379,15 +383,23 @@ if(mysqli_num_rows($select_histori) > 0){
 
         
         if(isset($_POST['daftar'])){
-            $fix       = $_POST['harga_fix'];
-            $default   = $_POST['default_em'];
-
+            $fix           = $_POST['harga_fix'];
+            $default       = $_POST['default_em'];
+        
             if($jumlah_email != $jumlah_client){
                 echo "<script>alert('Lengkapi data peserta!');</script>";
             }else{                
+                
                 //insert pendaftaran
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client','D02','$fix', '$tanggal', '0')");
+                if($default == 0){
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon','$fix', '$tanggal', '0')");    
+                }else{
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon', '$default', '$fix', '$tanggal', '0')");        
+                }
+
+
 
                 //ambil id pendaftaran
                 $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");
@@ -402,7 +414,7 @@ if(mysqli_num_rows($select_histori) > 0){
                 for($i = 0; $i < $jumlah_client; $i++){ 
                     $cek_client  = mysqli_query($mysqli,"SELECT c.* FROM client c, user u 
                                                          WHERE c.ID_USER = u.ID_USER
-                                                         AND u.EMAIL = '".$_SESSION['data'][$i]."'");
+                                                         AND u.EMAIL = '".$_SESSION['data'][$i][0]."'");
                     $row_cl      = $cek_client->fetch_assoc();
 
                     $insert_hs   = mysqli_query($mysqli,"INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
@@ -423,7 +435,7 @@ if(mysqli_num_rows($select_histori) > 0){
 
                 echo "<script> 
                     alert('Pendaftaran Berhasil');
-                    document.location.href = '../pendaftaran/pendaftaran.php';
+                    document.location.href = '../transaksi/pendaftaran.php';
                     </script>";
             }          
         }

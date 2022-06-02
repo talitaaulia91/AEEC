@@ -351,7 +351,7 @@ $iddiskon  = $_GET['iddiskon'];
             
             echo "<script> 
                 alert('Pendaftaran Berhasil');
-                document.location.href = '../pendaftaran/pendaftaran.php';
+                document.location.href = '../transaksi/pendaftaran.php';
                 </script>";
             
         }

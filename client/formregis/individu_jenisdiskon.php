@@ -308,16 +308,16 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                     // Ketika semua email benar  
 
                     $_SESSION['data'] = array();
-                    // $result = []; 
-                    // for ($i = 0; $i < count($input); $i++) { 
-                    //     array_push($result, [$input[$i]]);
-                    // }
+                    $result = []; 
+                    for ($i = 0; $i < count($input); $i++) { 
+                        array_push($result, [$input[$i]]);
+                    }
 
-                    // for ($i = 0; $i < count($result); $i++) { 
-                    //     $_SESSION['data'][$i] = $result[$i];
-                    // }
+                    for ($i = 0; $i < count($result); $i++) { 
+                        $_SESSION['data'][$i] = $result[$i];
+                    }
 
-                    $_SESSION['data'] = $simpanemail;
+                    // $_SESSION['data'] = $simpanemail;
 
                     
                     echo "<script> 

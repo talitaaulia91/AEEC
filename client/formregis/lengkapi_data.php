@@ -2,7 +2,7 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-$email = $_SESSION["user"]["EMAIL"];
+$email = $_GET["email"];
 $idprog = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
 $iddiskon  = $_GET['iddiskon'];

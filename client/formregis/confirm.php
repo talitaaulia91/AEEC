@@ -188,7 +188,6 @@ if(mysqli_num_rows($select_histori) > 0){
                         $harga_fix         = 0;
 
                         $harga_awal        = $row_class['INDIVIDU'];
-                        $potongan          = 0;
                         
                         if(mysqli_num_rows($select_cashback)>0){
                         $default_em        = 0;
@@ -206,7 +205,6 @@ if(mysqli_num_rows($select_histori) > 0){
                         <?php
                         if(isset($_POST['gunakan'])){
                         $default_em = $data_em;
-                        $potongan   = $$data_em;
                         $total      = $total-$data_em;
                     
                         ?>
@@ -332,18 +330,18 @@ if(mysqli_num_rows($select_histori) > 0){
         
         if(isset($_POST['daftar'])){
 
-            $fix       = $_POST['harga_fix'];
-            $default   = $_POST['default_em'];
-            $id_client = $ambil_data['ID_CLIENT'];
+            $fix           = $_POST['harga_fix'];
+            $default       = $_POST['default_em'];
+            $id_client     = $ambil_data['ID_CLIENT'];
 
-            if($potongan == 0){
+            if($default == 0){
                //insert pendaftaran
                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, HARGA_AWAL, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
                                                         VALUES ('$idbatch', '$id_client', '$harga_awal', '$fix', '$tanggal', '0')"); 
             }else{
                 //insert pendaftaran
                 $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  HARGA_AWAL, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client', '$harga_awal', '$potongan', '$fix', '$tanggal', '0')"); 
+                                                         VALUES ('$idbatch', '$id_client', '$harga_awal', '$default', '$fix', '$tanggal', '0')"); 
             }
 
            
@@ -366,7 +364,7 @@ if(mysqli_num_rows($select_histori) > 0){
             
             echo "<script> 
                 alert('Pendaftaran Berhasil');
-                document.location.href = '../pendaftaran/pendaftaran.php';
+                document.location.href = '../transaksi/pendaftaran.php';
                 </script>";
             
         }
