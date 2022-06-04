@@ -206,7 +206,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                 <tbody>
                                 <?php
                                 
-                                    $query_client = "SELECT * FROM peserta ORDER BY ID_CLIENT DESC LIMIT $jumlah";
+                                    $query_client = "SELECT * from user
+                                                    join client on user.ID_USER = client.ID_USER ORDER BY client.ID_CLIENT DESC LIMIT $jumlah";
                                     $tabel_client = mysqli_query($mysqli, $query_client);
                                     
                                     $result = []; 
@@ -245,10 +246,19 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                             
                                             ?>
                                         </td>
-                                        <td>
-                                            
-                                            nanti buat fakultas 
-                                        </td>
+                                        <?php
+                                            if($data_client['ALUMNI'] == 1){
+                                                $idfak = $data_client['ID_FAKULTAS'];
+                                                $query_fakultas = "SELECT * FROM aeec.fakultas where ID_FAKULTAS = '$idfak'";
+                                                $tabel_fak   = mysqli_query($mysqli, $query_fakultas);
+                                                $hasilfak       = $tabel_fak->fetch_assoc();
+                                                $nama_fakultas  = $hasilfak['NAMA_FAKULTAS'];
+
+                                                echo '<td>'.$nama_fakultas.'</td>';
+                                            } else{
+                                                echo '<td>-</td>';
+                                            }
+                                            ?>
 
                                         <!-- <td>
                                             <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
@@ -295,7 +305,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
                             ?>
                             <tr>
                                 <th colspan="3" class="text-right">TOTAL</th>
-                                <?php $tagihan =$data['KORPORAT']*($jumlah);  ?>
+                                <?php $tagihan =$data['KORPORAT']*($jumlah);  
+                                $harga_awal = $data['KORPORAT'];?>
                                 <th><?= 'Rp. '.number_format($tagihan) ?></th>
                             </tr>
                         </tbody>
@@ -370,8 +381,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
     if(isset($_POST['daftar'])){
                        
             //insert pendaftaran HRDNYA
-            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN, TAGIHAN, STATUS) 
-                                                        VALUES ('$idbatch', '$id_client', '$tanggal',$tagihan, '0')");
+            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN, HARGA_AWAL, TAGIHAN, STATUS) 
+                                                        VALUES ('$idbatch', '$id_client', '$tanggal',$harga_awal, $tagihan, '0')");
 
             //ambil id pendaftaran
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");
@@ -395,7 +406,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
             }
             echo "<script> 
                 alert('Pendaftaran Berhasil');
-                document.location.href = '../pendaftaran/pendaftaran.php';
+                document.location.href = '../transaksi/pendaftaran.php';
                 </script>";
                   
     }
