@@ -5,13 +5,14 @@ require_once("../../config/database.php");
 
 $iduser = $_SESSION["user"]["ID_USER"];
 
-$pembayaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN, b.NAMA_CLASS, pn.STATUS, pn.ID_PENDAFTARAN, 
-                                    pn.TAGIHAN, c.ID_CLIENT
-                                      FROM program pr, batch_program b, pendaftaran pn, client c
-                                      WHERE pr.ID_PROGRAM = b.ID_PROGRAM
-                                      AND pn.ID_BATCH = b.ID_BATCH
-                                      AND pn.ID_CLIENT = c.ID_CLIENT
-                                      AND c.ID_USER = '$iduser'");
+$pembayaran = mysqli_query($mysqli, "SELECT  pay.*, p.*, b.*,c.*
+                                     FROM pembayaran pay JOIN pendaftaran p
+                                     ON pay.ID_PENDAFTARAN = p.ID_PENDAFTARAN
+                                     JOIN batch_program b
+                                     ON p.ID_BATCH = b.ID_BATCH
+                                     JOIN client c
+                                     ON p.ID_CLIENT = c.ID_CLIENT
+                                     AND c.ID_USER = '$iduser'");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -95,11 +96,11 @@ $pembayaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN,
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
+                            <th>ID Pembayaran</th>
                             <th>ID Pendaftaran</th>
                             <th>Nama Program</th>            
-                            <th>Tanggal Pendaftaran</th>
-                            <th>Tagihan</th>
-                            <th>Bukti Pembayaran</th>
+                            <th>Tanggal Pembayaran</th>
+                            <th>Bukti Bayar</th>
                             <th>Detail</th>
                         </tr>
                     </thead>
@@ -107,15 +108,15 @@ $pembayaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, pn.TGL_PENDAFTARAN,
                     
                     <?php foreach($pembayaran as $hasil): ?>
                         <tr>
+                            <td><?= $hasil['ID_PEMBAYARAN'] ?> </td>  
                             <td><?= $hasil['ID_PENDAFTARAN'] ?> </td>
                             <td><?= $hasil['NAMA_CLASS'] ?></td>
-                            <td><?= $hasil['TGL_PENDAFTARAN'] ?></td>
-                            <td><?= $hasil['TAGIHAN'] ?></td>
+                            <td><?= $hasil['TGL_PEMBAYARAN'] ?></td>
                             <td>
-                                <a href="addbayar.php?id=<?php echo $hasil['ID_PENDAFTARAN']; ?>&tagihan=<?= $hasil['TAGIHAN'] ?>" class="btn btn-success">Add</a>
+                                <a href="../../assets/bukti_bayar/<?php echo $hasil['BUKTI'];?>"><font color="blue"><i><b>Tampilkan</b></i></font></a>
                             </td>   
                             <td>
-                                <a href="detailbayar.php?id=<?php echo $hasil['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                                <a href="nota.php?id=<?php echo $hasil['ID_PEMBAYARAN']; ?>" class="btn btn-primary">Nota</a>
                             </td>    
                         </tr>
                     

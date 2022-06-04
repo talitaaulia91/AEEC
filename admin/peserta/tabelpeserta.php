@@ -13,11 +13,18 @@ foreach($ambilnama as $hasil){
 
 
 // AMBIL DATA PESERTA
-                // Query dibawah masih belum berlaku untuk peserta yang belum membayar 
-$query_client = "SELECT * from peserta join 
-                    pendaftaran join histori
-                    where pendaftaran.ID_BATCH = '$id' and pendaftaran.ID_PENDAFTARAN = histori.ID_PENDAFTARAN; ";
-$tabel_client = mysqli_query($mysqli, $query_client);
+// Query dibawah masih belum berlaku untuk peserta yang belum membayar 
+$select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
+                                        FROM client c JOIN histori h
+                                        ON h.ID_CLIENT = c.ID_CLIENT
+                                        JOIN pendaftaran p
+                                        ON p.ID_PENDAFTARAN = h.ID_PENDAFTARAN
+                                        JOIN batch_program b
+                                        ON p.ID_BATCH = b.ID_BATCH
+                                        JOIN user u
+                                        ON c.ID_USER = u.ID_USER
+                                        AND b.ID_BATCH = '$id'
+                                        AND h.STATUS = '1'");
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +77,7 @@ $tabel_client = mysqli_query($mysqli, $query_client);
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Data Peserta Program <?= $hasil['NAMA_CLASS']?></h3>
+                <h3><?= $hasil['NAMA_CLASS']?></h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -103,10 +110,10 @@ $tabel_client = mysqli_query($mysqli, $query_client);
                     <tbody>
                     <?php
                         $no=1;
-                        foreach ($tabel_client as $data_client) :                            
+                        foreach ($select_client as $data_client) :                            
                         ?>
                         <tr>
-                            <td><?php echo $no; $no++ ?></td>                           
+                            <td><?php echo $no; ?></td>                           
                             <td><?php echo $data_client['NAMA']; ?></td> 
                             <td><?php echo $data_client['EMAIL']; ?></td> 
                             <td><?php
@@ -118,13 +125,14 @@ $tabel_client = mysqli_query($mysqli, $query_client);
                             
                              ?></td> 
                             <td><?php echo $data_client['NO_TELP']; ?></td> 
-                            <td><a href="../../penyimpanan/npwp/<?=$data_client['NPWP']?>" class="btn btn-primary">Lihat</a></td> 
+                            <td><a href="../../assets/NPWP/<?=$data_client['BERKAS_NPWP']?>" class="btn btn-primary">Lihat</a></td> 
                             <td>
                                 <?php echo $data_client['TGL_PENDAFTARAN']; ?>
                             </td>            
                             
                         </tr>
                         <?php
+                            $no++;
                             endforeach
                         ?>
                         </tbody>                   
@@ -138,7 +146,7 @@ $tabel_client = mysqli_query($mysqli, $query_client);
     <!-- Basic Tables end -->
 </div>
 
-            <footer>
+            <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2021 &copy; Mazer</p>
@@ -148,7 +156,7 @@ $tabel_client = mysqli_query($mysqli, $query_client);
                                 href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

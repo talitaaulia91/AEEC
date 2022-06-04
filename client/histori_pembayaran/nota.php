@@ -6,14 +6,16 @@ require '../method.php';
 $iduser = $_SESSION["user"]["ID_USER"];
 $id     = $_GET['id'];
 
-$daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*
+$daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*, pay.*
                                     FROM pendaftaran p JOIN client c
                                     ON p.ID_CLIENT = c.ID_CLIENT
                                     JOIN batch_program b
                                     ON b.ID_BATCH = p.ID_BATCH
                                     JOIN program pr
                                     ON b.ID_PROGRAM = pr.ID_PROGRAM
-                                    AND p.ID_PENDAFTARAN = '$id'
+                                    JOIN pembayaran pay
+                                    ON p.ID_PENDAFTARAN = pay.ID_PENDAFTARAN
+                                    AND pay.ID_PEMBAYARAN = '$id'
 ");
 foreach($daftar as $hasil){
 }
@@ -74,26 +76,31 @@ foreach($daftar as $hasil){
         <div class="card">
             <div class="card-header">
                     <?php
-                    $nota = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='$id' " );
+                    $nota       = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='$id' " );
                     $ambil_data = $nota->fetch_assoc();
 
-                    $cek = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PENDAFTARAN = '$id'");
+                    $cek        = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PEMBAYARAN = '$id'");
+                    $cek_status = $cek->fetch_assoc();
 
                     ?>
 
                         <table class="table table-bordered bg-white ">
                         <thead>
                         <tr>
-                            <th class="col-4">No Pendafatran</th>    
-                            <th><?=$ambil_data['ID_PENDAFTARAN'] ?></th>
+                            <th class="col-4">No Pembayaran</th>    
+                            <th><?=$hasil['ID_PEMBAYARAN'] ?></th>
+                        </tr>
+                        <tr>
+                            <th class="col-4">No Pendaftaran</th>    
+                            <th><?=$hasil['ID_PENDAFTARAN'] ?></th>
                         </tr>
                         <tr>
                             <th>Nama Pendaftar</th>    
                             <th><?= $hasil['NAMA'] ?></th>
                         </tr>
                         <tr>
-                            <th>Tanggal Pendaftaran</th>    
-                            <th><?= $hasil['TGL_PENDAFTARAN'] ?></th>
+                            <th>Tanggal Pembayaran</th>    
+                            <th><?= $hasil['TGL_PEMBAYARAN'] ?></th>
                         </tr>
                         <tr>
                             <th>Virtual Account</th>    
@@ -113,10 +120,19 @@ foreach($daftar as $hasil){
                         </tr>
                         <tr>
                             <th>Status</th>    
-                            <th>
-                            <?php 
-                            if(mysqli_num_rows($cek) < 1){ echo 'BELUM BAYAR'; }else{ echo 'SUDAH BAYAR'; } ?>
-                            </th>
+                            <td>
+                            <?php
+                            if($cek_status['STATUS'] == 1){
+                            ?>
+                            <font color="success"><i><b> Verivied </b></i></font>
+                            <?php
+                            }else{
+                            ?>
+                            <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
+                            <?php
+                            }
+                            ?>     
+                            </td>
                         </tr>
                     </thead>
                     </table>
@@ -174,7 +190,7 @@ foreach($daftar as $hasil){
                             <?php
                             if($hasil['CASHBACK'] != null){
                             ?>
-                            <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($hasil['CASHBACK'])?>; </h6>
+                            <h6>Cashback yang akan didapatkan : Rp. <?= number_format($hasil['CASHBACK'])?>; </h6>
                             <br></br>
                             <?php
                             }
@@ -183,16 +199,6 @@ foreach($daftar as $hasil){
 
                             </div>
 
-                    
-
-                            <form method="post" action="" enctype="multipart/form-data">
-                            <div class="form-group  mb-0">
-                            <label for="exampleInputPassword1">Bukti Bayar</label>
-                            <input type="file" name="bukti"class="form-control">
-                            </div>
-      
-                <button type="submit" name="bayar" value="bayar" class="btn btn-success w-30 mt-4 mb-2">Konfirmasi</button>
-              </form>   
             </div>
         </div>
         

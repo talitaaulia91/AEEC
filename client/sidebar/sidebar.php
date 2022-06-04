@@ -70,8 +70,8 @@
             </li>
 
             <li
-                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'history') ? 'active' : '' ?> ">
-                <a href="../riwayat/pembayaran.php" class='sidebar-link'>
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'pembayaran') ? 'active' : '' ?> ">
+                <a href="../histori_pembayaran/pembayaran.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Riwayat Pembayaran</span>
                 </a>
