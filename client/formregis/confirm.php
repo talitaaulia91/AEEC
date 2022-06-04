@@ -354,10 +354,6 @@ if(mysqli_num_rows($select_histori) > 0){
             $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
                                                      VALUE ('$id_client', '$id_pendaftaran')");
 
-            //delete cashback
-            if($default != 0){
-                $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
-            }
              
 
             

@@ -392,11 +392,11 @@ if(mysqli_num_rows($select_histori) > 0){
                 
                 //insert pendaftaran
                 if($default == 0){
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon','$fix', '$tanggal', '0')");    
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon','$fix', '$cashback', '$tanggal', '0')");    
                 }else{
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon', '$default', '$fix', '$tanggal', '0')");        
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon', '$default', '$fix', '$cashback', '$tanggal', '0')");        
                 }
 
 
@@ -421,18 +421,9 @@ if(mysqli_num_rows($select_histori) > 0){
                                                          VALUES ('".$row_cl['ID_CLIENT']."', '$id_pendaftaran')");
                 }
 
-                //delete cashback
-                if($default != 0){
-                   $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
-                }
+                
 
-                //insert cashback
-                $kadaluarsa      = date('Y-m-d', strtotime('+30 days', strtotime($tanggal)));
-                $insert_cashback = mysqli_query($mysqli,"INSERT INTO cashback (ID_USER, NOMINAL, KADALUWARSA)
-                                                         VALUES ('$iduser', '$cashback','$kadaluarsa')");
-
-               
-
+            
                 echo "<script> 
                     alert('Pendaftaran Berhasil');
                     document.location.href = '../transaksi/pendaftaran.php';

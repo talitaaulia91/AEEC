@@ -180,6 +180,7 @@ $iddiskon  = $_GET['iddiskon'];
      
                         $default_em        = 0;
                         $harga_fix         = 0;
+                        $harga_awal        = $individu;
                         
                         if(mysqli_num_rows($select_cashback)>0){
                         $default_em        = 0;
@@ -329,9 +330,15 @@ $iddiskon  = $_GET['iddiskon'];
             $default   = $_POST['default_em'];
             $id_client = $ambil_data['ID_CLIENT'];
 
-            //insert pendaftaran
-            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                     VALUES ('$idbatch', '$id_client', '$iddiskon', '$fix', '$tanggal', '0')"); 
+            if($default == 0){
+                //insert pendaftaran
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
+                                                         VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$fix', '$cashback', '$tanggal', '0')"); 
+             }else{
+                 //insert pendaftaran
+                 $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
+                                                          VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$default', '$fix', '$cashback','$tanggal', '0')"); 
+             }
 
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
             $row_daftar     = $select_daftar->fetch_assoc();
@@ -341,13 +348,6 @@ $iddiskon  = $_GET['iddiskon'];
             $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
                                                      VALUE ('$id_client', '$id_pendaftaran')");
 
-            //delete cashback
-            if($default != 0){
-                $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
-            }
-             
-
-            
             
             echo "<script> 
                 alert('Pendaftaran Berhasil');

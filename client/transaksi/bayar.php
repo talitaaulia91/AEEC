@@ -61,7 +61,7 @@ foreach($daftar as $hasil){
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Detail Pendaftaran</h3>
+                <h3>Nota Pembayaran</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
@@ -170,8 +170,20 @@ foreach($daftar as $hasil){
                                 </tr>
                             </tbody>
                             </table>
+                            
+                            <?php
+                            if($hasil['CASHBACK'] != null){
+                            ?>
+                            <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($hasil['CASHBACK'])?>; </h6>
+                            <br></br>
+                            <?php
+                            }
+                            ?>
+                          
+
                             </div>
 
+                    
 
                             <form method="post" action="" enctype="multipart/form-data">
                             <div class="form-group  mb-0">
@@ -224,6 +236,8 @@ foreach($daftar as $hasil){
 <?php
                 if(isset($_POST['bayar'])){
                 $tagihan         = $hasil['TAGIHAN'];
+                $potongan        = $hasil['POTONGAN'];
+                $cashback        = $hasil['CASHBACK'];
 
 
                 //NAMA FILE
@@ -249,6 +263,19 @@ foreach($daftar as $hasil){
                 }else{
                 $pembayaran = mysqli_query($mysqli, "INSERT INTO pembayaran (ID_PENDAFTARAN, TGL_PEMBAYARAN, NOMINAL, BUKTI, STATUS) 
                                                     VALUES ('$id','$tanggal', '$tagihan', '$bukti', '0')");
+
+                //delete cashback
+                if($potongan != null){
+                    $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
+                 }
+ 
+                 //insert cashback
+                 if($cashback != null){
+                    $kadaluarsa      = date('Y-m-d', strtotime('+365 days', strtotime($tanggal)));
+                    $insert_cashback = mysqli_query($mysqli,"INSERT INTO cashback (ID_USER, NOMINAL, KADALUWARSA)
+                                                             VALUES ('$iduser', '$cashback','$kadaluarsa')");
+                 }
+
 
                 echo "<script>location='../program_aktif/list.php';</script>";
                 }

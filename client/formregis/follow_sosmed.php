@@ -10,7 +10,7 @@ $email = $_SESSION["user"]["EMAIL"];
 
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
 if(mysqli_num_rows($client) == 0){  
-    echo "<script>location='lengkapi_data.php?idprog=$id&idbatch=$idbatch&iddiskon=D03';</script>";
+    echo "<script>location='lengkapi_data.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D03&email=$email';</script>";
 }
 
 $select_histori = mysqli_query($mysqli,"SELECT h.* 
