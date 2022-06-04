@@ -264,7 +264,7 @@ foreach($program as $hasil){
             $iduser     = $_SESSION["user"]["ID_USER"];
             $fakultas   = $_POST['fakultas'];
 
-
+ 
             // UNTUK BUKTI NPWP
             $npwp           = $_FILES['npwp']['name'];
             $lokasi         = $_FILES['npwp']['tmp_name'];
