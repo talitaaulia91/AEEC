@@ -97,12 +97,12 @@ $select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
                     <thead> 
                         <tr>
                             <th>No</th>
+                            <th>ID Peserta</th>
                             <th>Nama</th>
                             <th>Email</th>
-                            <th>Jenis Kelamin</th>
-                            <th>No Telp</th>
                             <th>NPWP</th>                         
                             <th>Tanggal Pendaftaran</th>
+                            <th>Nilai</th>
                             <!-- <th>Edit</th>
                             <th>Delete</th> -->
                         </tr>
@@ -113,23 +113,14 @@ $select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
                         foreach ($select_client as $data_client) :                            
                         ?>
                         <tr>
-                            <td><?php echo $no; ?></td>                           
+                            <td><?php echo $no; ?></td>  
+                            <td><?php echo $data_client['ID_CLIENT']; ?></td>                         
                             <td><?php echo $data_client['NAMA']; ?></td> 
                             <td><?php echo $data_client['EMAIL']; ?></td> 
-                            <td><?php
-                            if($data_client['JK']==1){
-                                echo 'Perempuan'; 
-                            }else{
-                                echo 'Laki-Laki';
-                            }
-                            
-                             ?></td> 
-                            <td><?php echo $data_client['NO_TELP']; ?></td> 
-                            <td><a href="../../assets/NPWP/<?=$data_client['BERKAS_NPWP']?>" class="btn btn-primary">Lihat</a></td> 
-                            <td>
-                                <?php echo $data_client['TGL_PENDAFTARAN']; ?>
-                            </td>            
-                            
+                            <td><?php echo $data_client['NPWP']; ?></td>
+                            <td> <?php echo $data_client['TGL_PENDAFTARAN']; ?></td>            
+                            <!-- <td><a href="nilai.php?id=<?=$data_client['ID_CLIENT']?>" class="btn btn-primary">Lihat</a></td>  -->
+                            <td><a href="#" class="btn btn-primary">Lihat</a></td> 
                         </tr>
                         <?php
                             $no++;

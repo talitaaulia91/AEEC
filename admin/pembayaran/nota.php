@@ -104,20 +104,17 @@ foreach($daftar as $hasil){
                         </tr>
                         <tr>
                             <th>Virtual Account</th>    
-                            <td>
-                            <?php
-                            if($hasil['VIRTUAL_ACC']!=null){
-                            ?>
-                            <a href=""><font color="success"><i><b><?= $hasil['VIRTUAL_ACC'] ?></b></i></font></a>
-                            <?php
-                            }else{
-                            ?>
-                            <a href=""><font color="grey"><i><b>Menunggu virtual account</b></i></font></a>
-                            <?php
-                            }
-                            ?>     
-                            </td>
+                            <th><?= $hasil['VIRTUAL_ACC'] ?></th>
                         </tr>
+                        <tr>
+                            <th>Bukti Bayar</th>    
+                            <th> 
+                                <a href="../../assets/bukti_bayar/<?php echo $hasil['BUKTI']; ?>"
+                                     class="btn btn-primary">Lihat Berkas
+                                </a>
+                            </th>
+                        </tr>
+                       
                         <tr>
                             <th>Status</th>    
                             <td>

@@ -70,34 +70,30 @@ include_once('../../config/database.php');
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                     <thead> 
                         <tr>
-                            <th>ID</th>
+                            <th>ID Pembayaran</th>
                             <th>ID Pendaftaran</th>
-                            <th>Nominal Bayar</th>                         
-                            <th>Tanggal</th>
-                            <th>Bukti</th>
-                            <th>Confirm Status</th>
+                            <th>Nama Program</th>                        
+                            <th>Tanggal Bayar</th>
+                            <th>Status</th>
+                            <th>Nota</th>
                         </tr>
                     </thead>
 
 
                     <tbody>
                     <?php
-                        $query_bayar = "SELECT p.*, a.ID_PENDAFTARAN
-                                        FROM pembayaran p 
-                                        JOIN pendaftaran a ON p.ID_PENDAFTARAN = a.ID_PENDAFTARAN";                                          
-                        $tabel_bayar = mysqli_query($mysqli, $query_bayar);
-                        foreach ($tabel_bayar as $data_bayar) : 
+                        $pembayaran = mysqli_query($mysqli, "SELECT  pay.*, p.*, b.*
+                                                             FROM pembayaran pay JOIN pendaftaran p
+                                                             ON pay.ID_PENDAFTARAN = p.ID_PENDAFTARAN
+                                                             JOIN batch_program b
+                                                             ON p.ID_BATCH = b.ID_BATCH");
+                        foreach ($pembayaran as $data_bayar) : 
                         ?>
                         <tr>
                             <td><?php echo $data_bayar['ID_PEMBAYARAN'];?></td>
                             <td><?php echo $data_bayar['ID_PENDAFTARAN'];?></td>
-                            <td><?php echo $data_bayar['NOMINAL'];?></td>
-                            <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>
-                            <td> 
-                                <a href="../../assets/bukti_bayar/<?php echo $data_bayar['BUKTI']; ?>"
-                                     class="btn btn-primary">Lihat Berkas
-                                </a>
-                            </td>  
+                            <td><?php echo $data_bayar['NAMA_CLASS'];?></td>
+                            <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>  
                             <td>
                                 <?php
                                 if($data_bayar['STATUS']=='1'){
@@ -110,7 +106,10 @@ include_once('../../config/database.php');
                                     <?php
                                     }
                                     ?>
-                            </td>         
+                            </td>  
+                            <td>
+                                <a href="nota.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>" class="btn btn-primary">Nota</a>
+                            </td>          
                         </tr>   
                         <?php
                         endforeach
@@ -126,7 +125,7 @@ include_once('../../config/database.php');
     <!-- Basic Tables end -->
 </div>
 
-            <footer>
+            <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2021 &copy; Mazer</p>
@@ -136,7 +135,7 @@ include_once('../../config/database.php');
                                 href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

@@ -139,7 +139,7 @@ $pembayaran = mysqli_query($mysqli, "SELECT  pay.*, p.*, b.*,c.*
 
 
 <!-- BAGIAN FOOTER -->
-<footer>
+<!-- <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
             <p>2022 &copy; AEEC</p>
@@ -148,7 +148,7 @@ $pembayaran = mysqli_query($mysqli, "SELECT  pay.*, p.*, b.*,c.*
             <p>AIRLANGGA EXECUTIVE EDUCATION CENTER <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span></p>
         </div>
     </div>
-</footer>
+</footer> -->
         </div>
             <!-- END HALAMAN UTAMA -->
         </div>
