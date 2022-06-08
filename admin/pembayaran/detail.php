@@ -115,15 +115,6 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                             <th><?= $hasil['VIRTUAL_ACC'] ?></th>
                         </tr>
                         <tr>
-                            <th>Bukti Bayar</th>    
-                            <th> 
-                                <a href="../../assets/bukti_bayar/<?php echo $hasil['BUKTI']; ?>"
-                                     class="btn btn-primary">Lihat Berkas
-                                </a>
-                            </th>
-                        </tr>
-                       
-                        <tr>
                             <th>Status</th>    
                             <td>
                             <?php
@@ -139,6 +130,16 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                             ?>     
                             </td>
                         </tr>
+                        <tr>
+                            <th>Bukti Bayar</th>    
+                            <th> 
+                                <a href="../../assets/bukti_bayar/<?php echo $hasil['BUKTI']; ?>"
+                                     class="btn btn-primary">Lihat Berkas
+                                </a>
+                            </th>
+                        </tr>
+                       
+                       
 
                         <!-- Ketika sendiri akan ada menu tambah akun mooc -->
 
@@ -153,7 +154,7 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                                                 class="btn btn-success">Tambah
                                             </a> -->
 
-                                            <a href="addmooc.php?id_pendaftaran=<?= $hasil['ID_PENDAFTARAN']?>&id_client=<?= $hasil['ID_CLIENT']; ?>" type="button" class="btn btn-outline-success block" >
+                                            <a href="addmooc.php?id_pendaftaran=<?= $hasil['ID_PENDAFTARAN']?>&id_client=<?= $hasil['ID_CLIENT']; ?>" type="button" class="btn btn-success" >
                                                 Tambah
                                             </a>
                                         </th>

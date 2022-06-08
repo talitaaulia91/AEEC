@@ -76,18 +76,19 @@ include_once('../../config/database.php');
                             <th>Tanggal Bayar</th>
                             <th>Status</th>
                             <th>Detail</th>
-                            <th>Nota</th>
+                            <!-- <th>Nota</th> -->
                         </tr>
                     </thead>
 
 
                     <tbody>
                     <?php
-                        $pembayaran = mysqli_query($mysqli, "SELECT  pay.*, p.*, b.*
+                        $pembayaran = mysqli_query($mysqli, "SELECT  pay.*, b.*
                                                              FROM pembayaran pay JOIN pendaftaran p
                                                              ON pay.ID_PENDAFTARAN = p.ID_PENDAFTARAN
                                                              JOIN batch_program b
                                                              ON p.ID_BATCH = b.ID_BATCH");
+                        
                         foreach ($pembayaran as $data_bayar) : 
                         ?>
                         <tr>
@@ -97,13 +98,15 @@ include_once('../../config/database.php');
                             <td><?php echo $data_bayar['TGL_PEMBAYARAN'];?></td>  
                             <td>
                                 <?php
-                                if($data_bayar['STATUS']=='1'){
+                                $cek_status = mysqli_query($mysqli,"SELECT * FROM PEMBAYARAN WHERE ID_PEMBAYARAN = '".$data_bayar['ID_PEMBAYARAN']."'");
+                                $cek        = $cek_status->fetch_assoc();
+                                if($cek['STATUS']=='1'){
                                     ?>
-                                    <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $data_bayar['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
+                                    <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $cek['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
                                     <?php
                                     }else{
                                     ?>
-                                     <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $data_bayar['STATUS'] ?>"><font color="grey"><i><b>Unverifed</b></i></font></a>
+                                     <a href="verif.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&status=<?= $cek['STATUS'] ?>"><font color="grey"><i><b>Unverifed</b></i></font></a>
                                     <?php
                                     }
                                     ?>
@@ -111,9 +114,9 @@ include_once('../../config/database.php');
                             <td>
                                 <a href="detail.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&iddaftar=<?= $data_bayar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
                             </td>    
-                            <td>
+                            <!-- <td>
                                 <a href="nota.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>" class="btn btn-primary">Nota</a>
-                            </td>          
+                            </td>           -->
                         </tr>   
                         <?php
                         endforeach

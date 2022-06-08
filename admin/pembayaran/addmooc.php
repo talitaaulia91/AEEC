@@ -44,7 +44,7 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Virtual Account</h3>
+                <h3>MOOC</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
@@ -99,7 +99,7 @@ include_once('../../config/database.php');
     <!-- Basic Tables end -->
 </div>
 
-<footer>
+<!-- <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
             <p>2021 &copy; Mazer</p>
@@ -108,7 +108,7 @@ include_once('../../config/database.php');
             <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
         </div>
     </div>
-</footer>
+</footer> -->
 </div>
 </div>
 <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
