@@ -4,8 +4,8 @@ include_once('../../config/database.php');
 // require '../method.php';
 
 // $iduser = $_SESSION["user"]["ID_USER"];
-$id     = $_GET['id'];
-
+$id             = $_GET['id'];
+$iddaftar     = $_GET['iddaftar'];
 $daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*, pay.*
                                     FROM pendaftaran p JOIN client c
                                     ON p.ID_CLIENT = c.ID_CLIENT
@@ -19,6 +19,14 @@ $daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*, pay.*
 ");
 foreach($daftar as $hasil){
 }
+
+// Query dibawah untuk menentukan jumlah pendaftaran
+// Jika lebih dari satu maka akan dilihkan ke halaman kolektif / korporat
+$query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
+                FROM aeec.histori where ID_PENDAFTARAN = '$iddaftar'";
+$tabel_history   = mysqli_query($mysqli, $query_history);
+$jumlah       = $tabel_history->fetch_assoc();
+$jumlah_pendaftar  = $jumlah['jumlah'];
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +71,7 @@ foreach($daftar as $hasil){
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Nota Pembayaran</h3>
+                <h3>Detail Pembayaran</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
@@ -131,6 +139,31 @@ foreach($daftar as $hasil){
                             ?>     
                             </td>
                         </tr>
+
+                        <!-- Ketika sendiri akan ada menu tambah akun mooc -->
+
+                        <?php
+
+                            if($jumlah_pendaftar == 1){ 
+                                ?>
+                                    <tr>
+                                        <th>Tambah Akun MOOC</th>    
+                                        <th> 
+                                            <!-- <a href="../../assets/bukti_bayar/<?php echo $hasil['ID_CLIENT']; ?>"
+                                                class="btn btn-success">Tambah
+                                            </a> -->
+
+                                            <a href="addmooc.php?id_pendaftaran=<?= $hasil['ID_PENDAFTARAN']?>&id_client=<?= $hasil['ID_CLIENT']; ?>" type="button" class="btn btn-outline-success block" >
+                                                Tambah
+                                            </a>
+                                        </th>
+                                    </tr>
+                                <?php
+                            }
+
+                        ?>
+                        
+                        
                     </thead>
                     </table>
 
@@ -142,20 +175,42 @@ foreach($daftar as $hasil){
                                     <th>ID</th>    
                                     <th>Nama Program</th>
                                     <th>Harga</th>
-                                    <th>Subtotal</th>
+                                    <?php
+                                        if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
+                                            echo '<th>Subtotal</th>';
+                                        }else if($jumlah_pendaftar > 1){
+                                            echo '<th>Jumlah Pendaftar</th>';
+                                        }
+                                    ?>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 <?php
+
+                                if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
                                     foreach ($daftar as $data):
-                                    echo '<tr>
-                                            <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                        </tr>';
-                                    endforeach
+                                        echo '<tr>
+                                                <td>'.$data['ID_BATCH'].'</td>
+                                                <td>'.$data['NAMA_PROGRAM'].'</td>
+                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            </tr>';
+                                    endforeach;
+                                }else if($jumlah_pendaftar > 1){
+                                    foreach ($daftar as $data):
+                                        echo '<tr>
+                                                <td>'.$data['ID_BATCH'].'</td>
+                                                <td>'.$data['NAMA_PROGRAM'].'</td>
+                                                <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
+                                                <td>'.$jumlah_pendaftar.'</td>
+                                            </tr>';
+                                        endforeach;
+                                }
+
+                                    
                                 ?>
+                            
                               
                                 <?php
                                 if($hasil['POTONGAN'] != null){
@@ -181,6 +236,7 @@ foreach($daftar as $hasil){
                                     <th colspan="3" class="text-right">TOTAL</th>
                                     <th><?= 'Rp. '.number_format($hasil['TAGIHAN']) ?></th>
                                 </tr>
+                                
                             </tbody>
                             </table>
                             
@@ -195,6 +251,57 @@ foreach($daftar as $hasil){
                           
 
                             </div>
+
+
+                            <!-- Ketika Jumlah Pendaftaran Banyak maka akan muncul namanya siapa aja  -->
+                            <?php
+                                if($jumlah_pendaftar > 1){
+                                ?>
+
+                        <div class="table-responsive mt-10">
+                            <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                                <thead> 
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Peserta</th>
+                                        <th>Akun MOOC</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <?php
+                                    $no=1;
+                                         $pembayaran = mysqli_query($mysqli, "SELECT * FROM pendaftaran
+                                         join histori 
+                                         on pendaftaran.ID_PENDAFTARAN = histori.ID_PENDAFTARAN
+                                         join client 
+                                         on histori.ID_CLIENT = client.ID_CLIENT
+                                         and pendaftaran.ID_PENDAFTARAN = '$iddaftar'");
+                                    foreach ($pembayaran as $client) : 
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $no; $no++; ?></td>
+                                        <td><?= $client['NAMA']; ?></td>
+                                        <td>
+                                            <a href="addmooc.php?id_pendaftaran=<?= $hasil['ID_PENDAFTARAN']?>&id_client=<?= $hasil['ID_CLIENT']; ?>"
+                                                class="btn btn-success">Tambah
+                                            </a>
+                                        </td>
+                                    </tr>   
+                                    <?php
+                                    endforeach
+                                    ?> 
+                                </tbody>
+                                </div>
+
+                            </table>
+                        </div>
+
+                            <?php
+                                }
+                            ?>
+                            <!-- END Daftar Jamak -->
 
             </div>
         </div>
@@ -218,6 +325,11 @@ foreach($daftar as $hasil){
             </footer> -->
         </div>
     </div>
+
+
+    <!-- MODAL TAMBAH AKUN MOOC -->
+
+
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     

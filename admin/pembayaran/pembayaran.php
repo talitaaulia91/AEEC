@@ -75,6 +75,7 @@ include_once('../../config/database.php');
                             <th>Nama Program</th>                        
                             <th>Tanggal Bayar</th>
                             <th>Status</th>
+                            <th>Detail</th>
                             <th>Nota</th>
                         </tr>
                     </thead>
@@ -106,7 +107,10 @@ include_once('../../config/database.php');
                                     <?php
                                     }
                                     ?>
-                            </td>  
+                            </td>
+                            <td>
+                                <a href="detail.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>&iddaftar=<?= $data_bayar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
+                            </td>    
                             <td>
                                 <a href="nota.php?id=<?php echo $data_bayar['ID_PEMBAYARAN']; ?>" class="btn btn-primary">Nota</a>
                             </td>          

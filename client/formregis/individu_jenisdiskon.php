@@ -291,6 +291,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                     alert('Masukkan Minimal 3 Email Partisipan !');
                     document.location.href = '#?idprog=$id&idbatch=$batch&iddiskon=D02';
                     </script>";
+                exit;
             }
                 // Check Email 
                 foreach ($input as $output) {       
