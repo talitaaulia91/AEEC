@@ -18,13 +18,7 @@ $daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*
 foreach($daftar as $hasil){
 }
 
-// Query dibawah untuk menentukan jumlah pendaftaran
-// Jika lebih dari satu maka akan dilihkan ke halaman kolektif / korporat
-$query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
-                FROM aeec.histori where ID_PENDAFTARAN = '$id'";
-$tabel_history   = mysqli_query($mysqli, $query_history);
-$jumlah       = $tabel_history->fetch_assoc();
-$jumlah_pendaftar  = $jumlah['jumlah'];
+$jumlah_pendaftar = $hasil['TAGIHAN'] / $hasil['HARGA_AWAL'];
 ?>
 
 <!DOCTYPE html>
@@ -137,39 +131,19 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                                     <th>ID</th>    
                                     <th>Nama Program</th>
                                     <th>Harga</th>
-                                    <?php
-                                        if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
-                                            echo '<th>Subtotal</th>';
-                                        }else if($jumlah_pendaftar > 1){
-                                            echo '<th>Jumlah Pendaftar</th>';
-                                        }
-                                    ?>
+                                    <th>Jumlah Pendaftar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-
-                                if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
                                     foreach ($daftar as $data):
-                                        echo '<tr>
-                                                <td>'.$data['ID_BATCH'].'</td>
-                                                <td>'.$data['NAMA_PROGRAM'].'</td>
-                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                            </tr>';
-                                    endforeach;
-                                }else if($jumlah_pendaftar > 1){
-                                    foreach ($daftar as $data):
-                                        echo '<tr>
-                                                <td>'.$data['ID_BATCH'].'</td>
-                                                <td>'.$data['NAMA_PROGRAM'].'</td>
-                                                <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
-                                                <td>'.$jumlah_pendaftar.'</td>
-                                            </tr>';
-                                        endforeach;
-                                }
-
-                                    
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
+                                            <td>'.$jumlah_pendaftar.'</td>
+                                        </tr>';
+                                    endforeach
                                 ?>
                               
                                 <?php
