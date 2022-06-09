@@ -7,13 +7,15 @@ $iduser = $_SESSION["user"]["ID_USER"];
 
 $tgl    = DATE("Y-m-d");
 
-$pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.TGL_MULAI, b.TGL_BERAKHIR, b.WAKTU_MULAI, b.WAKTU_BERAKHIR
-                                      FROM program pr, batch_program b, pendaftaran pn, CLIENT c
-                                      WHERE pr.ID_PROGRAM = b.ID_PROGRAM
-                                      AND pn.ID_BATCH = b.ID_BATCH
-                                      AND pn.ID_CLIENT = c.ID_CLIENT
-                                      AND b.TGL_BERAKHIR > '$tgl'
-                                      AND c.ID_USER = '$iduser'");
+$pendaftaran = mysqli_query($mysqli, "SELECT * From client 
+                                        join histori
+                                        on client.ID_CLIENT = histori.ID_CLIENT
+                                        join pendaftaran
+                                        on client.ID_CLIENT = pendaftaran.ID_CLIENT
+                                        join batch_program
+                                        on pendaftaran.ID_BATCH = batch_program.ID_BATCH
+                                        where histori.STATUS = 1
+                                        and client.ID_USER = '$iduser'");
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -100,19 +102,19 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.NAMA_PROGRAM, b.TGL_MULAI, b.TGL
                             <th>Nama Program</th>            
                             <th>Tanggal Mulai</th>
                             <th>Tanggal Berakhir</th>
-                            <th>Waktu Mulai</th>
-                            <th>Waktu Berakhir</th>
+                            <th>Username MOOC</th>
+                            <th>Password MOOC</th>
                         </tr>
                     </thead>
                     <tbody>
 
                     <?php foreach($pendaftaran as $hasil): ?>
                         <tr>
-                            <td><?= $hasil['NAMA_PROGRAM'] ?> </td>
+                            <td><?= $hasil['NAMA_CLASS'] ?> </td>
                             <td><?= $hasil['TGL_MULAI'] ?></td>
                             <td><?= $hasil['TGL_BERAKHIR'] ?></td> 
-                            <td><?= $hasil['WAKTU_MULAI'] ?></td>
-                            <td><?= $hasil['WAKTU_BERAKHIR'] ?></td>   
+                            <td><?= $hasil['USERNAME_MOOC'] ?></td>
+                            <td><?= $hasil['PASSWORD_MOOC'] ?></td>   
                         </tr>
                     <?php endforeach; ?>                   
                     </tbody>
