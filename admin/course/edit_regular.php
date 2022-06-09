@@ -244,7 +244,7 @@ include_once('../../config/database.php');
                 $data = $old->fetch_assoc();
                 $gambar_lama = $data['IMAGE'];
 
-                 unlink('../../assets/images/program/'.$gambar_lama);
+                //  unlink('../../assets/images/program/'.$gambar_lama);
                  move_uploaded_file($lokasi,  '../../assets/images/program/'.$gambar);
 
 
@@ -254,7 +254,7 @@ include_once('../../config/database.php');
                  $update_program  = mysqli_query($mysqli,"UPDATE program
                                                           SET ID_PROGRAM='$id_program', NAMA_PROGRAM='$nama_program',INDIVIDU='$individu_ppn',
                                                               KOLEKTIF='$kolektif_ppn', KORPORAT='$korporat_ppn',
-                                                              DESKRIPSI='$deskripsi', SESI='$sesi', KUOTA='$kuota', IMAGE='$gambar'
+                                                              DESKRIPSI='$deskripsi', SESI='$sesi', IMAGE='$gambar'
                                                            WHERE ID_PROGRAM='" . $_GET['id'] ."'");
 
     

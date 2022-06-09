@@ -257,6 +257,7 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
                 WHERE  p.ID_PROGRAM = b.ID_PROGRAM
                 AND p.ID_KATEGORI = 'RC'
                 AND b.STATUS = '1';");
+
 ?>
             <!-- HALAMAN UTAMA -->
             <!-- <div id="main-content">
@@ -268,12 +269,16 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
 
     <?php 
 		while($spare = mysqli_fetch_array($reguler)){ ?>
+    <?php
+    $image   = mysqli_query($mysqli, "SELECT IMAGE FROM program WHERE ID_PROGRAM = '".$spare['ID_PROGRAM']."'");
+    $cek     = $image->fetch_assoc();
+    ?>
                 <div class="mb-3 col-md-8 col-lg-3">
                   <div class="border rounded h-100 d-flex flex-column justify-content-between pb-3">
                     <div class="overflow-hidden">
                       <div class="position-relative rounded-top overflow-hidden">
                           <img class="img-fluid rounded-top" style="width:100%; height: 200px; object-fit:cover;" 
-                           src="../../assets/images/program/<?=$spare['IMAGE'] ?>" alt="">
+                           src="../../assets/images/program/<?=$cek['IMAGE'] ?>" alt="">
                           <span class="badge badge-pill badge-success position-absolute r-0 t-0 mt-2 mr-2 z-index-2">New</span>
                         </div> 
 
