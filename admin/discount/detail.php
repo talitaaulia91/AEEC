@@ -92,7 +92,7 @@ include_once('../../config/database.php');
     <!-- Basic Tables end -->
 </div>
 
-            <footer>
+            <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>2021 &copy; Mazer</p>
@@ -102,7 +102,7 @@ include_once('../../config/database.php');
                                 href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
