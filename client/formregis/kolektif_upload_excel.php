@@ -57,7 +57,7 @@ if (isset($_POST["import"])) {
         $sheetCount = count($spreadSheetAry);
         // var_dump($sheetCount);
         // exit;
-        if(count($spreadSheetAry) < 5){
+        if($sheetCount < 5){
             echo "<script> 
             alert('Data Yang Anda Masukkan Dalam Excel Kurang Dari dari 4 Peserta, Mohon Lengkapi Data !');
             document.location.href = 'kolektif_upload_excel.php?idprog=$idprog&idbatch=$idbatch';
