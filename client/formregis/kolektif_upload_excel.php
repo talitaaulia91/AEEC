@@ -322,7 +322,30 @@ if (isset($_POST["import"])) {
                         <div class="card">
                             <div class="card-header">
                         <h4 class="card-title">Mohon Isi File dengan Data yang Sudah Benar</h4>
-                        <p> Template File : <a href="../../assets/template/kolektif.xlsx"><i class="bi bi-file-arrow-down-fill fs-4"></i></a> </p>
+                        <p> Unduh Template File : <a href="../../assets/template/kolektif.xlsx"><i class="bi bi-file-arrow-down-fill fs-4"></i></a> </p>
+                    
+                            <p>
+                                <b>Keterangan : </b>
+                            </p>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Data diri anda akan dihitung sebagai peserta</span>
+                                    <span class="badge bg-primary badge-pill badge-round ml-1">1</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Anda tidak perlu memasukkan data diri anda ke dalam excel</span>
+                                    <span class="badge bg-primary badge-pill badge-round ml-1">2</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Pastikan data diri yang anda masukkan ke excel benar !</span>
+                                    <span class="badge bg-primary badge-pill badge-round ml-1">3</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Pastikan anda mengisikan data sesuai dengan template yang tersedia</span>
+                                    <span class="badge bg-primary badge-pill badge-round ml-1">4</span>
+                                </li>
+                            </ul>
+                    
                     </div>
                     <div class="card-content">
                         <div class="card-body">

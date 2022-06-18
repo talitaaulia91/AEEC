@@ -36,33 +36,26 @@
 					Login AEEC Unair
 				</span>
 				<div class="login100-form validate-form p-b-33 p-t-5 ">
-				<form  action="auth.php" method="POST" enctype="multipart/form-data">
+				<form  action="" method="POST" enctype="multipart/form-data">
 
-					<div class="wrap-input100 validate-input" data-validate = "Masukkan Email">
+					<div class="wrap-input100 validate-input" data-validate = "Masukkan Email Anda">
 						<input class="input100" type="text" name="email" placeholder="email">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Masukkan Password">
+					<!-- <div class="wrap-input100 validate-input" data-validate="Masukkan Password">
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
-					</div>
+					</div> -->
 
 					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn" name="login" type="submit">
-							Login
+						<button class="login100-form-btn" name="submit" type="submit">
+							Ubah
 						</button>
 					</div>
 					
 				</form>
-					<h6 class="mt-3 "><center>Tidak Punya Akun ? 
-						<a href="registrasi.php" >
-							<font color="blue"><b>Registrasi</b></font>
-						</a>
-					</center></h6>
 
-					<h6 class="mt-3 " >
-					<center><a href="forgetpass.php" style="color:blue"><b><i>Lupa Password ?</i></b></a></center></h6>
 
 				</div>
 				
@@ -92,3 +85,32 @@
 
 </body>
 </html>
+
+
+<?php
+
+
+    // session_start();
+    require '../method.php';
+    if(isset($_POST['submit'])){
+        $email              =   strtolower($_POST['email']);
+        $result             =   mysqli_query($koneksi,"SELECT * FROM user where email = '$email'");
+        $row                =   mysqli_fetch_assoc($result);
+        $row_email          =   $row['EMAIL'];
+        $roow_pass          =   $row['PASSWORD'];
+        
+        if($email==$row_email ) {
+            $to = $row_email;
+            $subject = "Password";
+            $txt = "Your password is : $roow_pass   .";
+            // var_dump($to, $subject, $roow_pass);
+            // exit;
+            $headers = "From: password_recover@agernic.com" . "\r\n" .
+            "CC: user_email@example.com";
+            mail($to,$subject,$txt,$headers);
+        }
+        else{
+            echo 'invalid UserName';
+        }
+    }
+?>

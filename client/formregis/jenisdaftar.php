@@ -93,7 +93,8 @@ foreach($program as $hasil){
                                             <div class="card">
                                                 <div class="card-header text-center">
                                                     <h4 class="card-title">Kolektif</h4>
-                                                    <p class="text-center">Min. 4 Orang</p><p><br>    </p>
+                                                    <p class="text-center">Min. 4 Orang</p>
+                                                    <p>Pendaftar harus berasal dari institusi yang sama</p>
                                                 </div>
                                                 <h1 class="price"><i class="bi bi-people"></i></h1>
                                             
@@ -119,7 +120,7 @@ foreach($program as $hasil){
                                             <div class="card">
                                                 <div class="card-header text-center">
                                                     <h4 class="card-title">Korporat</h4>
-                                                    <p class="text-center">Min. 10 orang <br> Dalam Institusi Yang Sama</p>
+                                                    <p class="text-center">Min. 10 orang </p><p> Pendaftar harus berasal dari institusi yang sama</p>
                                                     <!-- <p class="text-center">Dalam Institusi Yang Sama</p> -->
                                                 </div>
                                                 <h1 class="price"><i class="bi bi-person-square"></i></h1>
