@@ -36,37 +36,15 @@
 					Login AEEC Unair
 				</span>
 				<div class="login100-form validate-form p-b-33 p-t-5 ">
-					
-				<form  action="auth.php" method="POST" enctype="multipart/form-data">
 
-					<div class="wrap-input100 validate-input" data-validate = "Masukkan Email">
-						<input class="input100" type="text" name="email" placeholder="email">
-						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
-					</div>
+					<h4 class="mt-3 " >
+					<center><a href="lupapassword.php" style="color:blue"><b>
+                    Link reset password telah dikirim ke email anda, Cek kotak masuk
+                    atau spam email anda untuk melakukan reset
+                    </b></a></center>
+					</h4>
 
-					<div class="wrap-input100 validate-input" data-validate="Masukkan Password">
-						<input class="input100" type="password" name="password" placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
-					</div>
 
-					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn" name="login" type="submit">
-							Login
-						</button>
-					</div>
-					
-				</form>
-					<h6 class="mt-3 " >
-					<center><a href="lupapassword.php" style="color:blue"><b><i>Lupa Password ?</i></b></a></center>
-					</h6>
-
-					<h6 class="mt-3 "><center>Tidak Punya Akun ? 
-						<a href="registrasi.php" >
-							<font color="blue"><b>Registrasi</b></font>
-						</a>
-					</center></h6>
-
-					
 
 				</div>
 				
