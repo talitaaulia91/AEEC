@@ -44,7 +44,11 @@
                     </b></a></center>
 					</h4>
 
-
+					<div class="container-login100-form-btn m-t-32">
+						<a href="login.php"><button class="login100-form-btn">
+							Login
+						</button></a>
+					</div>
 
 				</div>
 				

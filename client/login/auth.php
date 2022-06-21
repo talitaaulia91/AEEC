@@ -72,14 +72,14 @@ if( isset($_POST["login"]) ) {
             exit;
         }else{
             echo "<script> 
-            alert('Login Gagal, Coba Lagi !!');
+            alert('Login Gagal. Password atau Username salah, Silahkan Coba Lagi !!');
             document.location.href = 'login.php';
             </script>";
             
         }
     }else{
         echo "<script> 
-        alert('Login Gagal, Coba Lagi !!');
+        alert('Login Gagal. Password atau Username salah, Coba Lagi !!');
         document.location.href = 'login.php';
         </script>";
     }

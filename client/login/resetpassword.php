@@ -33,28 +33,30 @@
 		<div class="container-login100" style="background-image: url('../../assets/bglogin.jpg');">
 			<div class="wrap-login100 p-t-30 p-b-50">
 				<span class="login100-form-title p-b-41">
-					Login AEEC Unair
+					Reset Password
 				</span>
 				<div class="login100-form validate-form p-b-33 p-t-5 ">
-
-					<h6 class="mt-3 " >
-					<center style="color:blue"><b>Masukkan Email Anda</b></center>
-					</h6>
+					
 				<form  action="" method="POST" enctype="multipart/form-data">
 
-					<div class="wrap-input100 validate-input" data-validate = "Masukkan Email Anda">
-						<input class="input100" type="text" name="email" placeholder="email">
-						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                <div class="wrap-input100 validate-input" data-validate="Masukkan Password">
+						<input class="input100" type="password" name="password1" placeholder="Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Masukkan Password">
+						<input class="input100" type="password" name="password2" placeholder="Konfirmasi Password">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn" name="submit" type="submit">
+						<button class="login100-form-btn" name="cek" type="submit">
 							Ubah
 						</button>
 					</div>
 					
 				</form>
-
+					
 
 				</div>
 				
@@ -85,33 +87,47 @@
 </body>
 </html>
 
-
 <?php
 
+if(isset($_POST['cek'])){
+	require '../method.php';
+    $pass1 = $_POST['password1'];
+    $pass2 = $_POST['password2'];
 
-    // session_start();
-    require '../method.php';
-	if(isset($_POST['submit'])){
-		$email = $_POST['email'];
-
-		$cekemail = mysqli_query($koneksi, "SELECT * from user where `EMAIL` = '$email' ");
-		//cek Cek email
-		if( mysqli_num_rows($cekemail) > 0){
+	$email = $_GET['email'];
+	$id_user = $_GET['id_user'];
 	
-			
-			$user = mysqli_fetch_assoc($cekemail);
-			$email = $user['EMAIL'];
+		if($pass1 != $pass2){
 			echo "<script> 
-			alert('Mengirimkan Pesan Ke Email Anda');
-			document.location.href = 'send_email.php?email=$email';
-			</script>";
-			exit;
-		}else{
-			echo "<script> 
-			alert('Email tidak ditemukan');
+			alert('Password yang anda masukkan berbeda !!');
 			document.location.href = '#';
 			</script>";
+			exit;
+		}else if($pass1 == $pass2){
+			$password = password_hash($pass1, PASSWORD_DEFAULT);
+
+			$update="UPDATE `user` SET `PASSWORD` = '$password' WHERE (`ID_USER` = '$id_user')";
+    		mysqli_query($koneksi, $update); //buat query
+
+			if (mysqli_affected_rows($koneksi) > 0){
+				echo "<script> 
+						alert('Reset Password Berhasil, Silahkan Login !!');
+						document.location.href = 'login.php';
+					</script>";
+			}else{
+				echo "<script> 
+				alert('Reset Password Berhasil, Silahkan Coba Lagi !!');
+				document.location.href = '#?id_user=$id_user&email=$email';
+				</script>";
+			}
+
+			exit;
 		}
-	
-	}
+
+   
+
+}
+
+
+
 ?>
