@@ -78,6 +78,7 @@ include_once('../../config/database.php');
                             <tr>
                                 <th>ID</th>
                                 <th>Diskon</th>
+                                <th>Kode</th>
                                 <th>Presentase</th>
                                 <th>Detail</th>
                                 <th>Edit</th>   
@@ -93,7 +94,16 @@ include_once('../../config/database.php');
                         <tr>
                             <td><?php echo $data_diskon['ID_DISKON']; ?></td>
                             <td><?php echo $data_diskon['NAMA_DISKON']; ?></td> 
-                            <td><?php echo $data_diskon['PERSENTASE']; ?></td> 
+                            <td>
+                                <?php
+                                if($data_diskon['KODE'] != NULL){
+                                    echo $data_diskon['KODE'];
+                                }else{
+                                echo '-'; 
+                                }
+                                ?>
+                            </td> 
+                            <td><?php echo $data_diskon['BENTUK'].' '.$data_diskon['PERSENTASE'].'%'; ?></td> 
                             <td>
                                 <a href="detail.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
                             </td>

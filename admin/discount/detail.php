@@ -69,16 +69,24 @@ include_once('../../config/database.php');
                             <td><?=$ambil_data['ID_DISKON'] ?></td>
                         </tr>
                         <tr>
+                            <th>Kode Voucher</th>    
+                            <td>
+                                <?php
+                                if($ambil_data['KODE']!=NULL){
+                                    echo $ambil_data['KODE'];
+                                }else{
+                                    echo '-';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <th>Nama Diskon</th>    
                             <td><?=$ambil_data['NAMA_DISKON'] ?></td>
                         </tr>
                         <tr>
                             <th>Presentase</th>    
-                            <td><?=$ambil_data['PERSENTASE'] ?></td>
-                        </tr>
-                        <tr>
-                            <th>Bentuk</th>    
-                            <td><?=$ambil_data['BENTUK'] ?></td>
+                            <td><?=$ambil_data['BENTUK'].' '.$ambil_data['PERSENTASE'].'%' ?></td>
                         </tr>
                         <tr>
                             <th width="200px">Deskripsi</th>    

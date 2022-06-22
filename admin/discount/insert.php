@@ -75,8 +75,15 @@ include_once('../../config/database.php');
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
+                                                <label for="first-name-vertical">Kode Voucher</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kode" placeholder="Kode Voucher">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="first-name-vertical">Persentase</label>
-                                                <input type="int" id="first-name-vertical" class="form-control"
+                                                <input type="number" id="first-name-vertical" class="form-control"
                                                     name="persentase" placeholder="Persentase" required>
                                             </div>
                                         </div>
@@ -117,12 +124,19 @@ include_once('../../config/database.php');
         if(isset($_POST['tambah'])){
             $nama_diskon    = $_POST['nama_diskon'];
             $persentase     = $_POST['persentase'];
+            $kode           = $_POST['kode'];
             $bentuk         = $_POST['bentuk'];
             $deskripsi      = $_POST['deskripsi'];
 
             //insert
-            $diskon       = mysqli_query($mysqli,"INSERT INTO diskon (NAMA_DISKON, PERSENTASE, BENTUK, DESKRIPSI)
-                                                   VALUES ('$nama_diskon','$persentase','$bentuk','$deskripsi')");
+            if($kode != NULL){
+                $diskon       = mysqli_query($mysqli,"INSERT INTO diskon (NAMA_DISKON, KODE, PERSENTASE, BENTUK, DESKRIPSI)
+                                                      VALUES ('$nama_diskon','$kode', '$persentase','$bentuk','$deskripsi')");
+            }else{
+                $diskon       = mysqli_query($mysqli,"INSERT INTO diskon (NAMA_DISKON, PERSENTASE, BENTUK, DESKRIPSI)
+                                                      VALUES ('$nama_diskon', '$persentase','$bentuk','$deskripsi')");
+            }
+           
 
 
         if ($diskon) {

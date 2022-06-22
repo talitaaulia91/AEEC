@@ -73,6 +73,11 @@ include_once('../../config/database.php');
                                                 name="id_diskon" readonly value="<?php echo $data_diskon['ID_DISKON'];?>" required>
                                             </div>
                                             <div class="form-group">
+                                                <label for="first-name-vertical">Kode Voucher</label>
+                                                <input type="text" id="first-name-vertical" class="form-control" 
+                                                name="kode" value="<?php echo $data_diskon['KODE'];?>">
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="first-name-vertical">Nama Diskon</label>
                                                 <input type="text" id="first-name-vertical" class="form-control" 
                                                 name="nama_diskon" value="<?php echo $data_diskon['NAMA_DISKON'];?>" required>
@@ -114,13 +119,14 @@ include_once('../../config/database.php');
     <?php
         if(isset($_POST['edit'])){
             $id_diskon      = $_POST['id_diskon'];
+            $kode           = $_POST['nama_diskon'];
             $nama_diskon    = $_POST['nama_diskon'];
             $persentase     = $_POST['persentase'];
             $bentuk         = $_POST['bentuk'];
             $deskripsi      = $_POST['deskripsi']; 
             
             $update_diskon  = mysqli_query($mysqli,"UPDATE diskon
-                                                SET NAMA_DISKON='$nama_diskon', PERSENTASE='$persentase', BENTUK='$bentuk', DESKRIPSI='$deskripsi'
+                                                SET NAMA_DISKON='$nama_diskon',KODE ='$kode',  PERSENTASE='$persentase', BENTUK='$bentuk', DESKRIPSI='$deskripsi'
                                                 WHERE ID_DISKON='".$_GET['id']."'");
             
             if($update_diskon){

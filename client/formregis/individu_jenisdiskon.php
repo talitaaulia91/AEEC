@@ -101,8 +101,8 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                                         <div class="col-xs-12 col-sm-4">
                                             <div class="card card-highlighted">
                                                 <div class="card-header text-center">
-                                                    <h6 class="card-title">Daftar Tanpa</h6>
-                                                    <h6 class="card-title">Diskon</h6>
+                                                    <h6 class="card-title">Pendaftaran</h6>
+                                                    <h6 class="card-title">Umum </h6>                                               
                                                     <p> Daftar dengan harga asli</p>
                                                     <p></p>
                                                 </div>
@@ -122,6 +122,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                                                 <div class="card-header text-center">
                                                     <h6 class="card-title">Mengajak 3 Partisipan</h6>
                                                     <p> Dapatkan Cashback 10%</p>
+                                                   
                                                 </div>
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
                                                 
@@ -208,6 +209,9 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                     </button>
                 </div>
                 <div class="modal-body">
+                    <h6>*Pastikan partisipan sudah memiliki akun AEEC</h6>
+                    <h6>*Partisipan diperbolehkan berasal dari institusi yang berbeda</h6>
+                    <br>
                         <form action="#" method="POST">
                         <div class="input-group control-group after-add-more">
                         <input type="text" name="addmore[]" class="form-control" placeholder="Masukkan Email : ">
