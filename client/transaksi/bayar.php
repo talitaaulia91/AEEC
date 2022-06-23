@@ -20,10 +20,10 @@ foreach($daftar as $hasil){
 
 // Query dibawah untuk menentukan jumlah pendaftaran
 // Jika lebih dari satu maka akan dilihkan ke halaman kolektif / korporat
-$query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
-                FROM aeec.histori where ID_PENDAFTARAN = '$id'";
-$tabel_history   = mysqli_query($mysqli, $query_history);
-$jumlah       = $tabel_history->fetch_assoc();
+$query_history     = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
+                      FROM aeec.histori where ID_PENDAFTARAN = '$id'";
+$tabel_history     = mysqli_query($mysqli, $query_history);
+$jumlah            = $tabel_history->fetch_assoc();
 $jumlah_pendaftar  = $jumlah['jumlah'];
 ?>
 
@@ -82,10 +82,9 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
         <div class="card">
             <div class="card-header">
                     <?php
-                    $nota = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='$id' " );
+                    $nota       = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='$id' " );
                     $ambil_data = $nota->fetch_assoc();
-
-                    $cek = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PENDAFTARAN = '$id'");
+                    $cek        = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PENDAFTARAN = '$id'");
 
                     ?>
 
@@ -128,52 +127,32 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                         </tr>
                     </thead>
                     </table>
-
-
-                    <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                    
+                    <?php
+                        if($jumlah_pendaftar > 1){
+                    ?>
+                            <div class="table-responsive">
+                            <table class="table table-bordered bg-white">
                             <thead>
                                 <tr>
                                     <th>ID</th>    
                                     <th>Nama Program</th>
-                                    <th>Harga</th>
-                                    <?php
-                                        if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
-                                            echo '<th>Subtotal</th>';
-                                        }else if($jumlah_pendaftar > 1){
-                                            echo '<th>Jumlah Pendaftar</th>';
-                                        }
-                                    ?>
+                                    <th>Jumlah</th>
+                                    <th>Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-
-                                if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
                                     foreach ($daftar as $data):
-                                        echo '<tr>
-                                                <td>'.$data['ID_BATCH'].'</td>
-                                                <td>'.$data['NAMA_PROGRAM'].'</td>
-                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                            </tr>';
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.$jumlah_pendaftar.'</td>
+                                            <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
+                                        </tr>';
                                     endforeach;
-                                }else if($jumlah_pendaftar > 1){
-                                    foreach ($daftar as $data):
-                                        echo '<tr>
-                                                <td>'.$data['ID_BATCH'].'</td>
-                                                <td>'.$data['NAMA_PROGRAM'].'</td>
-                                                <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
-                                                <td>'.$jumlah_pendaftar.'</td>
-                                            </tr>';
-                                        endforeach;
-                                }
 
-                                    
-                                ?>
-                              
-                                <?php
-                                if($hasil['POTONGAN'] != null){
+                                if($data['POTONGAN'] != null){
                                 ?>
                                   <tr>
                                     <td colspan="3" class="text-right">Potongan E-money AEEC</td>
@@ -207,11 +186,69 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                             <?php
                             }
                             ?>
-                          
-
                             </div>
+                    <?php    
+                        }else{
+                    ?>
+                    <div class="table-responsive">
+                    <table class="table table-bordered bg-white">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>    
+                                    <th>Nama Program</th>
+                                    <th>Harga</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach ($daftar as $data):
+                                    echo '<tr>
+                                            <td>'.$data['ID_BATCH'].'</td>
+                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                        </tr>';
+                                    endforeach;
 
-                    
+                                if($data['POTONGAN'] != null){
+                                ?>
+                                  <tr>
+                                    <td colspan="3" class="text-right">Potongan E-money AEEC</td>
+                                    <td><?= 'Rp. '.number_format($hasil['POTONGAN']) ?></td>                                        
+                                </tr>
+                                <?php
+                                }
+                                ?>
+                                <?php
+                                if($hasil['DISKON'] != null){
+                                ?>
+                                  <tr>
+                                    <td colspan="3" class="text-right">Diskon yang didapatkan</td>
+                                    <td><?= 'Rp. '.number_format($hasil['DISKON']) ?></td>                                        
+                                </tr>
+                                <?php
+                                }
+                                ?>
+                                <tr>
+                                    <th colspan="3" class="text-right">TOTAL</th>
+                                    <th><?= 'Rp. '.number_format($hasil['TAGIHAN']) ?></th>
+                                </tr>
+                            </tbody>
+                            </table>
+                            
+                            <?php
+                            if($hasil['CASHBACK'] != null){
+                            ?>
+                            <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($hasil['CASHBACK'])?>; </h6>
+                            <br></br>
+                            <?php
+                            }
+                            ?>
+                            </div>
+                    <?php
+                        }
+                    ?>
 
                             <form method="post" action="" enctype="multipart/form-data">
                             <div class="form-group  mb-0">

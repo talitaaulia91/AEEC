@@ -135,6 +135,22 @@ foreach($daftar as $hasil){
                             ?>     
                             </td>
                         </tr>
+                        <tr>
+                            <th>Invoice</th>    
+                            <td>
+                            <?php
+                            if($hasil['INVOICE']!=null){
+                            ?>
+                             <a href="../../assets/invoice/<?=$hasil['INVOICE'];?>" class="btn btn-primary"><i class="bi bi-download"></i><span> Invoice</span></a>
+                            <?php
+                            }else{
+                            ?>
+                            <a href=""><font color="grey"><i><b>Menunggu invoice</b></i></font></a>
+                            <?php
+                            }
+                            ?>     
+                            </td>
+                        </tr>
                         
                     </thead>
                 </table>   

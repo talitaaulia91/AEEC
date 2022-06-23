@@ -2,10 +2,10 @@
 require_once("../auth/auth.php"); 
 require_once("../../config/database.php");
 
-$idprog = $_GET['idprog'];
+$idprog  = $_GET['idprog'];
 $idbatch = $_GET['idbatch'];
-$iduser = $_SESSION["user"]["ID_USER"];
-$email = $_SESSION["user"]["EMAIL"];
+$iduser  = $_SESSION["user"]["ID_USER"];
+$email   = $_SESSION["user"]["EMAIL"];
 
 
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");

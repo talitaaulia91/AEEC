@@ -11,7 +11,7 @@ $email = $_SESSION["user"]["EMAIL"];
 // Cek apakah dia udah pernah daftar belum
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
 if(mysqli_num_rows($client) > 0){  
-    echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch';</script>";
+    echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch&iddiskon=0';</script>";
 }
 
 
@@ -293,7 +293,7 @@ foreach($program as $hasil){
             
       
             
-            echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch';</script>";
+            echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch&iddiskon=0';</script>";
             
         }
 

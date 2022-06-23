@@ -4,9 +4,10 @@ require_once("../auth/auth.php");
 require_once("../../config/database.php"); 
 
 // Tangkap Data
-$idprog = $_GET['idprog'];
-$idbatch = $_GET['idbatch'];
-$iduser = $_SESSION["user"]["ID_USER"];
+$idprog   = $_GET['idprog'];
+$idbatch  = $_GET['idbatch'];
+$iddiskon = $_GET['iddiskon'];
+$iduser   = $_SESSION["user"]["ID_USER"];
 
 $select_histori = mysqli_query($mysqli,"SELECT h.* 
                                         FROM histori h, client c, pendaftaran p
@@ -162,6 +163,7 @@ if(mysqli_num_rows($select_histori) > 0){
                         <?php
                         date_default_timezone_set("Asia/Jakarta");
                         $tanggal           = date("Y-m-d");
+                        $id_diskon = 0;
 
                         $select_cashback   = mysqli_query($mysqli,"SELECT u.*, c.* FROM user u, cashback c
                                                                    WHERE u.ID_USER = c.ID_USER
@@ -182,33 +184,67 @@ if(mysqli_num_rows($select_histori) > 0){
                         $row_class         = $class->fetch_assoc();
                         $individu          = $row_class['INDIVIDU'];
 
+                        $batas             = 50/100*$individu;
+                        if($data_em >= $batas){
+                            $data_em = $batas;
+                        }
+
                         $total             = $individu;
      
                         $default_em        = 0;
                         $harga_fix         = 0;
+                        $cashback          = 0;
 
                         $harga_awal        = $row_class['INDIVIDU'];
-                        
+
+                        ?>
+                        <h6>Punya kode voucher?</h6>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#kode"> 
+                                Masukkan Kode
+                        </button>                      
+                        <br>
+                        <br>
+                        <br>
+
+                        <?php 
+                        // MODAL ACTION KODE VOUCHER
+                        if(isset($_POST['cekkode'])){
+                            $kode = $_POST['kode'];
+
+                            $select_kode = mysqli_query($mysqli, "SELECT * FROM diskon WHERE KODE='$kode'");
+                            $row_kode    = $select_kode->fetch_assoc();
+                            if(mysqli_num_rows($select_kode) > 0){                        
+                                $id_diskon = $row_kode['ID_DISKON'];
+                                echo "<script>alert('Kode voucher berhasil ditemukan!');</script>";
+                                echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch&iddiskon=$id_diskon';</script>";
+                            }else{
+                                $id_diskon = 0;
+                                echo "<script>alert('Kode voucher tidak ditemukan!');</script>";
+                                echo "<script>location='confirm.php?idprog=$id&idbatch=$idbatch&iddiskon=$id_diskon';</script>";
+                            }
+                        }
+                        // END ACTION KODE VOUCHER
+
+                      
+
                         if(mysqli_num_rows($select_cashback)>0){
                         $default_em        = 0;
                         ?>
-                              <h6 >E-money AEEC yang Anda miliki : Rp. <?= number_format($data_em); ?>; </h6>
+                              <h6 >E-money AEEC yang dapat Anda gunakan : Rp. <?php echo number_format($data_em); ?>; </h6>
+                              <p>*Maksimal penggunaan E-money adalah 50% dari harga program</p>
+                      
                               <h6 >Gunakan sekarang?</h6>
                               <form method="post" action="">
                               <button type="submit" class="btn btn-secondary" name="lain_kali">Lain kali</button>
-                              <button type="submit" class="btn btn-warning" name="gunakan">Gunakan</button>
+                              <button type="submit" class="btn btn-warning" name="gunakan">Gunakan</button>                            
                               </form>
+                              <br>
                         <?php
                         }
                         ?>
-                        <br>                 
-                        <?php
-                        if(isset($_POST['gunakan'])){
-                        $default_em = $data_em;
-                        $total      = $total-$data_em;
-                    
-                        ?>
-                            <table class="table table-bordered bg-white">
+                        <br>         
+                        <table class="table table-bordered bg-white">
                             <thead>
                                 <tr>
                                     <th>ID</th>    
@@ -224,52 +260,59 @@ if(mysqli_num_rows($select_histori) > 0){
                                             <td>'.$data['NAMA_PROGRAM'].'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
                                         </tr>';
-                                    endforeach
+                                    endforeach;
+                                    if($iddiskon != 0 ){
+                                        $select_diskon    = mysqli_query($mysqli, "SELECT * FROM diskon WHERE ID_DISKON = '$iddiskon'");
+                                        $row_diskon       = $select_diskon->fetch_assoc();
+                                        if($row_diskon['BENTUK'] == 'VOUCHER'){
+                                            $diskon        = $row_diskon['PERSENTASE']/100*$individu;
+                                            $total         = $total-$diskon;                                     
+                                        ?>
+                                        <tr>
+                                            <td colspan="2" class="text-right"><?= $row_diskon['NAMA_DISKON']; ?></td>
+                                            <td><?= 'Rp. '.number_format($diskon) ?></td>
+                                        </tr>
+                                        <?php
+                                         }else{
+                                            $cashback     = $row_diskon['PERSENTASE']/100*$individu;
+                                         }
+                                        }
+                                if(isset($_POST['gunakan'])){
+                                $default_em = $data_em;
+                                $total      = $total-$data_em;
                                 ?>
                                 <tr>
                                     <td colspan="2" class="text-right">Potongan E-money AEEC</td>
                                     <td><?= 'Rp. '.number_format($data_em) ?></td>
                                 </tr>
-                                <tr>
-                                    <th colspan="2" class="text-right">TOTAL</th>
-                                    <th><?= 'Rp. '.number_format($total) ?></th>
-                                </tr>
-                            </tbody>
-                            </table>
-                        <?php
-                        $harga_fix=$total;
-                        }else{
-                            $default_em = 0;
-                        ?>
-                            <table class="table table-bordered bg-white">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>    
-                                    <th>Nama Program</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 <?php
-                                    foreach ($class as $data):
-                                    echo '<tr>
-                                            <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                        </tr>';
-                                    endforeach
+                                 }else{
+                                 $default_em = 0; 
+                                 }
+                                 
                                 ?>
+                                
                                 <tr>
                                     <th colspan="2" class="text-right">TOTAL</th>
                                     <th><?= 'Rp. '.number_format($total) ?></th>
                                 </tr>
+                                <?php
+                                $harga_fix=$total;
+                                ?>
                             </tbody>
                             </table>
 
                         <?php
-                        $harga_fix=$total;
+                        if($cashback != 0){
+                        ?>
+                            <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($cashback)?>; </h6>
+                            <br></br>
+                        <?php
                         }
                         ?>
+                        
+                        
+
 
                         <form method="post" action="">
                         <div class="form-group">
@@ -288,6 +331,37 @@ if(mysqli_num_rows($select_histori) > 0){
                     <!-- END CARD -->
                     <!-- Basic Tables end -->
                 </div>
+
+<div class="modal fade text-left" id="kode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title white" id="myModalLabel160">Masukkan Kode Voucher</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <br>
+                        <form action="#" method="POST">
+                        <div class="col">
+                        <div class="form-group">
+                            <label for="first-name-vertical">Kode Voucher</label>
+                            <input type="text" id="first-name-vertical" class="form-control"
+                                   name="kode" placeholder="Kode Voucher" required>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-warning " name="cekkode">Terapkan</button>
+                        </form>
+                        <!-- Copy Fields -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- BAGIAN FOOTER -->
@@ -327,6 +401,8 @@ if(mysqli_num_rows($select_histori) > 0){
 
 
 <?php
+
+
         
         if(isset($_POST['daftar'])){
 
@@ -335,28 +411,52 @@ if(mysqli_num_rows($select_histori) > 0){
             $id_client     = $ambil_data['ID_CLIENT'];
 
             if($default == 0){
-               //insert pendaftaran
-               $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, HARGA_AWAL, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                        VALUES ('$idbatch', '$id_client', '$harga_awal', '$fix', '$tanggal', '0')"); 
+                if($iddiskon != 0){
+                    if($cashback != 0){
+                        //insert pendaftaran with kode voucher, but without e-money
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, CASHBACK, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                                 VALUES ('$idbatch', '$id_client','$iddiskon',  '$harga_awal', '$cashback', '$fix', '$tanggal', '0')");    
+                    }else{
+                        //insert pendaftaran with kode cashback, but without e-money
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                                 VALUES ('$idbatch', '$id_client','$iddiskon',  '$harga_awal', '$diskon', '$fix', '$tanggal', '0')");    
+                    }                 
+                }else{
+                  //insert pendaftaran without kode and e-money
+                  $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, HARGA_AWAL, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                           VALUES ('$idbatch', '$id_client', '$harga_awal', '$fix', '$tanggal', '0')"); 
+                }
+              
             }else{
-                //insert pendaftaran
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  HARGA_AWAL, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client', '$harga_awal', '$default', '$fix', '$tanggal', '0')"); 
+                if($iddiskon != 0){
+                    if($cashback != 0){
+                        //insert pendaftaran with kode cashback and e-money
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, CASHBACK, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                                 VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$cashback', '$default', '$fix', '$tanggal', '0')");
+                    }else{
+                        //insert pendaftaran with kode voucher and e-money
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                                 VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$diskon', '$default', '$fix', '$tanggal', '0')"); 
+                    }                 
+                }else{
+                  //insert pendaftaran without kode, but with e-money
+                  $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  HARGA_AWAL, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
+                                                           VALUES ('$idbatch', '$id_client', '$harga_awal', '$default', '$fix', '$tanggal', '0')"); 
+                }
+               
             }
 
            
 
-            $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
-            $row_daftar     = $select_daftar->fetch_assoc();
-            $id_pendaftaran = $row_daftar['ID_PENDAFTARAN'];
+            $select_daftar   = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
+            $row_daftar      = $select_daftar->fetch_assoc();
+            $id_pendaftaran  = $row_daftar['ID_PENDAFTARAN'];
 
             //insert histori 
-            $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
+            $insert_histori  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
                                                      VALUE ('$id_client', '$id_pendaftaran')");
 
-             
-
-            
+                      
             
             echo "<script> 
                 alert('Pendaftaran Berhasil');

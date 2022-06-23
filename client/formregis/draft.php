@@ -6,28 +6,24 @@ require '../method.php';
 $iduser = $_SESSION["user"]["ID_USER"];
 $id     = $_GET['id'];
 
-$daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*, pay.*
+$daftar = mysqli_query($mysqli, "SELECT p.*, c.*, b.BATCH, pr.*
                                     FROM pendaftaran p JOIN client c
                                     ON p.ID_CLIENT = c.ID_CLIENT
                                     JOIN batch_program b
                                     ON b.ID_BATCH = p.ID_BATCH
                                     JOIN program pr
                                     ON b.ID_PROGRAM = pr.ID_PROGRAM
-                                    JOIN pembayaran pay
-                                    ON p.ID_PENDAFTARAN = pay.ID_PENDAFTARAN
-                                    AND pay.ID_PEMBAYARAN = '$id'
+                                    AND p.ID_PENDAFTARAN = '$id'
 ");
 foreach($daftar as $hasil){
 }
 
 // Query dibawah untuk menentukan jumlah pendaftaran
 // Jika lebih dari satu maka akan dilihkan ke halaman kolektif / korporat
-$query_history = "SELECT count(ID_HISTORI) as 'jumlah' from pembayaran join
-                    pendaftaran on pendaftaran.ID_PENDAFTARAN = pembayaran.ID_PENDAFTARAN
-                    join histori on pendaftaran.ID_PENDAFTARAN = histori.ID_PENDAFTARAN
-                    and pembayaran.ID_PEMBAYARAN = '$id'";
-$tabel_history   = mysqli_query($mysqli, $query_history);
-$jumlah       = $tabel_history->fetch_assoc();
+$query_history     = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
+                      FROM aeec.histori where ID_PENDAFTARAN = '$id'";
+$tabel_history     = mysqli_query($mysqli, $query_history);
+$jumlah            = $tabel_history->fetch_assoc();
 $jumlah_pendaftar  = $jumlah['jumlah'];
 ?>
 
@@ -88,29 +84,23 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                     <?php
                     $nota       = mysqli_query($mysqli, "SELECT * FROM pendaftaran WHERE ID_PENDAFTARAN ='$id' " );
                     $ambil_data = $nota->fetch_assoc();
-
-                    $cek        = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PEMBAYARAN = '$id'");
-                    $cek_status = $cek->fetch_assoc();
+                    $cek        = mysqli_query($mysqli, "SELECT * FROM pembayaran WHERE ID_PENDAFTARAN = '$id'");
 
                     ?>
 
                         <table class="table table-bordered bg-white ">
                         <thead>
                         <tr>
-                            <th class="col-4">No Pembayaran</th>    
-                            <th><?=$hasil['ID_PEMBAYARAN'] ?></th>
-                        </tr>
-                        <tr>
-                            <th class="col-4">No Pendaftaran</th>    
-                            <th><?=$hasil['ID_PENDAFTARAN'] ?></th>
+                            <th class="col-4">No Pendafatran</th>    
+                            <th><?=$ambil_data['ID_PENDAFTARAN'] ?></th>
                         </tr>
                         <tr>
                             <th>Nama Pendaftar</th>    
                             <th><?= $hasil['NAMA'] ?></th>
                         </tr>
                         <tr>
-                            <th>Tanggal Pembayaran</th>    
-                            <th><?= $hasil['TGL_PEMBAYARAN'] ?></th>
+                            <th>Tanggal Pendaftaran</th>    
+                            <th><?= $hasil['TGL_PENDAFTARAN'] ?></th>
                         </tr>
                         <tr>
                             <th>Virtual Account</th>    
@@ -130,108 +120,59 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                         </tr>
                         <tr>
                             <th>Status</th>    
-                            <td>
-                            <?php
-                            if($cek_status['STATUS'] == 1){
-                            ?>
-                            <font color="success"><i><b> Verivied </b></i></font>
-                            <?php
-                            }else{
-                            ?>
-                            <a href=""><font color="grey"><i><b>Unverivied</b></i></font></a>
-                            <?php
-                            }
-                            ?>     
-                            </td>
+                            <th>
+                            <?php 
+                            if(mysqli_num_rows($cek) < 1){ echo 'BELUM BAYAR'; }else{ echo 'SUDAH BAYAR'; } ?>
+                            </th>
                         </tr>
                     </thead>
                     </table>
 
 
-                    <?php
-                        if($jumlah_pendaftar > 1){
-                    ?>
-                            <div class="table-responsive">
-                            <table class="table table-bordered bg-white">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>    
-                                    <th>Nama Program</th>
-                                    <th>Jumlah</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    foreach ($daftar as $data):
-                                    echo '<tr>
-                                            <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
-                                            <td>'.$jumlah_pendaftar.'</td>
-                                            <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
-                                        </tr>';
-                                    endforeach;
-
-                                if($data['POTONGAN'] != null){
-                                ?>
-                                  <tr>
-                                    <td colspan="3" class="text-right">Potongan E-money AEEC</td>
-                                    <td><?= 'Rp. '.number_format($hasil['POTONGAN']) ?></td>                                        
-                                </tr>
-                                <?php
-                                }
-                                ?>
-                                <?php
-                                if($hasil['DISKON'] != null){
-                                ?>
-                                  <tr>
-                                    <td colspan="3" class="text-right">Diskon yang didapatkan</td>
-                                    <td><?= 'Rp. '.number_format($hasil['DISKON']) ?></td>                                        
-                                </tr>
-                                <?php
-                                }
-                                ?>
-                                <tr>
-                                    <th colspan="3" class="text-right">TOTAL</th>
-                                    <th><?= 'Rp. '.number_format($hasil['TAGIHAN']) ?></th>
-                                </tr>
-                            </tbody>
-                            </table>
-                            
-                            <?php
-                            if($hasil['CASHBACK'] != null){
-                            ?>
-                            <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($hasil['CASHBACK'])?>; </h6>
-                            <br></br>
-                            <?php
-                            }
-                            ?>
-                            </div>
-                    <?php    
-                        }else{
-                    ?>
                     <div class="table-responsive">
-                    <table class="table table-bordered bg-white">
+                   <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>ID</th>    
                                     <th>Nama Program</th>
                                     <th>Harga</th>
-                                    <th>Subtotal</th>
+                                    <?php
+                                        if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
+                                            echo '<th>Subtotal</th>';
+                                        }else if($jumlah_pendaftar > 1){
+                                            echo '<th>Jumlah Pendaftar</th>';
+                                        }
+                                    ?>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    foreach ($daftar as $data):
-                                    echo '<tr>
-                                            <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                        </tr>';
-                                    endforeach;
 
-                                if($data['POTONGAN'] != null){
+                                if($jumlah_pendaftar == 1){ //Kalau pendaftarnya lebih dari 1 maka masuk di kolektif/korporat
+                                    foreach ($daftar as $data):
+                                        echo '<tr>
+                                                <td>'.$data['ID_BATCH'].'</td>
+                                                <td>'.$data['NAMA_PROGRAM'].'</td>
+                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                                <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            </tr>';
+                                    endforeach;
+                                }else if($jumlah_pendaftar > 1){
+                                    foreach ($daftar as $data):
+                                        echo '<tr>
+                                                <td>'.$data['ID_BATCH'].'</td>
+                                                <td>'.$data['NAMA_PROGRAM'].'</td>
+                                                <td>'.'Rp. '.number_format($data['HARGA_AWAL']).'</td>
+                                                <td>'.$jumlah_pendaftar.'</td>
+                                            </tr>';
+                                        endforeach;
+                                }
+
+                                    
+                                ?>
+                              
+                                <?php
+                                if($hasil['POTONGAN'] != null){
                                 ?>
                                   <tr>
                                     <td colspan="3" class="text-right">Potongan E-money AEEC</td>
@@ -265,14 +206,20 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                             <?php
                             }
                             ?>
-                            </div>
-                    <?php
-                        }
-                    ?>
                           
 
-                   
-                        </div>
+                            </div>
+
+                    
+
+                            <form method="post" action="" enctype="multipart/form-data">
+                            <div class="form-group  mb-0">
+                            <label for="exampleInputPassword1">Bukti Bayar</label>
+                            <input type="file" name="bukti"class="form-control">
+                            </div>
+      
+                <button type="submit" name="bayar" value="bayar" class="btn btn-success w-30 mt-4 mb-2">Konfirmasi</button>
+              </form>   
             </div>
         </div>
         
@@ -311,3 +258,53 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
 </body>
 
 </html>
+
+
+<?php
+                if(isset($_POST['bayar'])){
+                $tagihan         = $hasil['TAGIHAN'];
+                $potongan        = $hasil['POTONGAN'];
+                $cashback        = $hasil['CASHBACK'];
+
+
+                //NAMA FILE
+                $namafile         = $_FILES['bukti']['name'];
+                $tempat           = $_FILES['bukti']['tmp_name'];
+                $ekstensiupload   = explode('.', $namafile);
+                $ekstensiupload   = strtolower (end($ekstensiupload));    
+                //Ganti Nama
+                $bukti  = uniqid();
+                $bukti .= ".";
+                $bukti .= $ekstensiupload;   
+                // move_uploaded_file
+                $targetPath = '../../assets/bukti_bayar/' . $bukti;
+                move_uploaded_file($tempat, $targetPath);
+
+
+                date_default_timezone_set("Asia/jakarta");
+                $tanggal        = date("Y-m-d"); 
+
+
+                if($namafile == null){
+                  echo "<script> alert('Lampirkan bukti pembayaran!'); </script>";
+                }else{
+                $pembayaran = mysqli_query($mysqli, "INSERT INTO pembayaran (ID_PENDAFTARAN, TGL_PEMBAYARAN, NOMINAL, BUKTI, STATUS) 
+                                                    VALUES ('$id','$tanggal', '$tagihan', '$bukti', '0')");
+
+                //delete cashback
+                if($potongan != null){
+                    $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
+                 }
+ 
+                 //insert cashback
+                 if($cashback != null){
+                    $kadaluarsa      = date('Y-m-d', strtotime('+365 days', strtotime($tanggal)));
+                    $insert_cashback = mysqli_query($mysqli,"INSERT INTO cashback (ID_USER, NOMINAL, KADALUWARSA)
+                                                             VALUES ('$iduser', '$cashback','$kadaluarsa')");
+                 }
+
+
+                echo "<script>location='../histori_pembayaran/pembayaran.php';</script>";
+                }
+              }
+           ?>

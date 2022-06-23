@@ -12,7 +12,7 @@ $iddiskon = $_GET['iddiskon'];
 
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
 if(mysqli_num_rows($client) > 0){  
-    echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon=D02';</script>";
+    echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon1=D01&iddiskon2=D02';</script>";
 }
 
  ?>
@@ -280,7 +280,7 @@ if(mysqli_num_rows($client) > 0){
             $row       = $idterbaru->fetch_assoc();
             $id_client = $row['ID_CLIENT']; 
                
-            echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon=D02';</script>";
+            echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon1=D01&iddiskon2=D02';</script>";
             
         }
 

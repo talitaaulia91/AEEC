@@ -156,6 +156,12 @@ $iddiskon  = $_GET['iddiskon'];
                                                                    WHERE u.ID_USER = c.ID_USER
                                                                    AND u.ID_USER = '$iduser'
                                                                    AND c.KADALUWARSA > '$tanggal'");
+                        $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
+                                                                    FROM program p, batch_program b
+                                                                    WHERE p.ID_PROGRAM = b.ID_PROGRAM
+                                                                    AND ID_BATCH = '$idbatch'");
+                        $row_class         = $class->fetch_assoc();
+                        $individu          = $row_class['INDIVIDU'];
 
                         $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
                                                                    WHERE u.ID_USER = c.ID_USER
@@ -164,17 +170,11 @@ $iddiskon  = $_GET['iddiskon'];
                         $row_emoney        = $emoney->fetch_assoc();
                         $data_em           = $row_emoney['EMONEY'];
 
-                        $persentase1       = mysqli_query($mysqli, "SELECT cashback5 ('$idprog') AS CASHBACK");
-                        $row_p1            = $persentase1->fetch_assoc();
-                        $cashback          = $row_p1['CASHBACK'];
+                        $select_diskon     = mysqli_query($mysqli,"SELECT * FROM DISKON WHERE ID_DISKON = '$iddiskon'");
+                        $row_diskon        = $select_diskon->fetch_assoc();
 
+                        $cashback          = $row_diskon['PERSENTASE']/100*$individu;
 
-                        $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
-                                                        FROM program p, batch_program b
-                                                        WHERE p.ID_PROGRAM = b.ID_PROGRAM
-                                                        AND ID_BATCH = '$idbatch'");
-                        $row_class         = $class->fetch_assoc();
-                        $individu          = $row_class['INDIVIDU'];
 
                         $total             = $individu;
      
@@ -186,6 +186,7 @@ $iddiskon  = $_GET['iddiskon'];
                         $default_em        = 0;
                         ?>
                               <h6 >E-money AEEC yang Anda miliki : Rp. <?= number_format($data_em); ?>; </h6>
+                              <p>*Maksimal penggunaan E-money adalah 50% dari harga program</p>
                               <h6 >Gunakan sekarang?</h6>
                               <form method="post" action="">
                               <button type="submit" class="btn btn-secondary" name="lain_kali">Lain kali</button>
@@ -194,18 +195,14 @@ $iddiskon  = $_GET['iddiskon'];
                         <?php
                         }
                         ?>
-                        <br>                 
-                        <?php
-                        if(isset($_POST['gunakan'])){
-                        $default_em = $data_em;
-                        $total      = $total-$data_em;
-                    
-                        ?>
-                            <table class="table table-bordered bg-white">
+                        <br>   
+
+                        <table class="table table-bordered bg-white">
                             <thead>
                                 <tr>
                                     <th>ID</th>    
                                     <th>Nama Program</th>
+                                    <th>Harga</th>
                                     <th>Subtotal</th>
                                 </tr>
                             </thead>
@@ -216,52 +213,31 @@ $iddiskon  = $_GET['iddiskon'];
                                             <td>'.$data['ID_BATCH'].'</td>
                                             <td>'.$data['NAMA_PROGRAM'].'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
                                         </tr>';
-                                    endforeach
-                                ?>
+                                    endforeach;
+
+                                    if(isset($_POST['gunakan'])){
+                                    $default_em = $data_em;
+                                    $total      = $total-$data_em;                             
+                                    ?>
                                 <tr>
-                                    <td colspan="2" class="text-right">Potongan E-money AEEC</td>
+                                    <td colspan="3" class="text-right">Potongan E-money AEEC</td>
                                     <td><?= 'Rp. '.number_format($data_em) ?></td>
                                 </tr>
-                                <tr>
-                                    <th colspan="2" class="text-right">TOTAL</th>
-                                    <th><?= 'Rp. '.number_format($total) ?></th>
-                                </tr>
-                            </tbody>
-                            </table>
-                        <?php
-                        $harga_fix=$total;
-                        }else{
-                            $default_em = 0;
-                        ?>
-                            <table class="table table-bordered bg-white">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>    
-                                    <th>Nama Program</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 <?php
-                                    foreach ($class as $data):
-                                    echo '<tr>
-                                            <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                        </tr>';
-                                    endforeach
+                                }else{
+                                    $default_em = 0;
+                                }
                                 ?>
                                 <tr>
-                                    <th colspan="2" class="text-right">TOTAL</th>
+                                    <th colspan="3" class="text-right">TOTAL</th>
                                     <th><?= 'Rp. '.number_format($total) ?></th>
                                 </tr>
                             </tbody>
                             </table>
-
                         <?php
-                        $harga_fix=$total;
-                        }
+                        $harga_fix    = $total;                     
                         ?>
 
                         <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($cashback)?>; </h6>

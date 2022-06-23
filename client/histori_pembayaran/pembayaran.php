@@ -72,7 +72,7 @@ $pembayaran = mysqli_query($mysqli, "SELECT  pay.*, p.*, b.*,c.*
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
                                 <h3>Pembayaran</h3>
-                                <p class="text-subtitle text-muted">Histori pembayaran yang Anda lakukan</p>
+                                <p class="text-subtitle text-muted">Verifikasi oleh admin akan dilakukan dengan estimasi 2x24 jam</p>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">

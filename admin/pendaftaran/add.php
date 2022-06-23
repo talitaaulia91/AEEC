@@ -84,6 +84,12 @@ include_once('../../config/database.php');
                                                 <input type="int" id="first-name-vertical" class="form-control" 
                                                 name="virtual_acc" value="<?php echo $data_daftar['VIRTUAL_ACC'];?>" required>
                                             </div>
+
+                                        <div class="form-group ">
+                                            <label for="exampleInputPassword1">Invoice</label>
+                                            <input type="file" name="invoice"class="form-control" required >
+                                        </div>
+
                                         <div class="col-12 d-flex justify-content-end ">
                                             <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
                                             <button type="reset"
@@ -130,10 +136,23 @@ include_once('../../config/database.php');
 <?php
         if(isset($_POST['tambah'])){
             $id             = $_GET['id'];
-            $virtual_acc    = $_POST['virtual_acc'];     
+            $virtual_acc    = $_POST['virtual_acc'];   
+            
+            //Invoice
+            $namafile1        = $_FILES['invoice']['name'];
+            $tempat1          = $_FILES['invoice']['tmp_name'];
+            $ekstensiupload1  = explode('.', $namafile1);
+            $ekstensiupload1  = strtolower (end($ekstensiupload1));    
+            //Ganti Nama
+            $invoice       = uniqid();
+            $invoice      .= ".";
+            $invoice      .=$ekstensiupload1;   
+            // move_uploaded_file($tempat, '../../assets/invoice/'.$namafotobaru);
+            $targetPath1 = '../../assets/invoice/' . $invoice;
+            move_uploaded_file($tempat1, $targetPath1);
 
             //insert
-            $update         = mysqli_query($mysqli,"UPDATE pendaftaran SET VIRTUAL_ACC = '$virtual_acc'
+            $update         = mysqli_query($mysqli,"UPDATE pendaftaran SET VIRTUAL_ACC = '$virtual_acc', INVOICE = '$invoice'
                                                     WHERE ID_PENDAFTARAN='".$_GET['id']."'");
                                         
         if ($update) {

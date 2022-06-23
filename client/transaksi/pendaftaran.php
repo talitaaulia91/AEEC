@@ -70,7 +70,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT pr.ID_PROGRAM, pr.NAMA_PROGRAM, pn.
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
                                 <h3>Pendaftaran Anda</h3>
-                                <p class="text-subtitle text-muted">Program Yang Sedang Berada Dalam Proses Pendaftaran</p>
+                                <p class="text-subtitle text-muted">Verifikasi oleh admin akan dilakukan dengan estimasi 2x24 jam</p>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">

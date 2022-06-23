@@ -109,7 +109,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                                                 <h1 class="price text-white"><i class="bi bi-person-x-fill"></i></h1>
                                                
                                                 <div class="card-footer">
-                                                    <a href="belumpernah_form.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch']?>" class="btn btn-outline-white btn-block" >Daftar</a>
+                                                    <a href="daftar_umum.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch']?>" class="btn btn-outline-white btn-block" >Daftar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,14 +157,6 @@ $nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
                                     </div>
                                     
                                 </div>
-
-
-                        
-
-
-
-
-
                         </div>
                     </section>               
                             </div>

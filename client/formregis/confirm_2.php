@@ -4,10 +4,11 @@ require_once("../auth/auth.php");
 require_once("../../config/database.php"); 
 
 // Tangkap Data
-$idprog    = $_GET['idprog'];
-$idbatch   = $_GET['idbatch'];
-$iduser    = $_SESSION["user"]["ID_USER"];
-$iddiskon  = $_GET['iddiskon'];
+$idprog     = $_GET['idprog'];
+$idbatch    = $_GET['idbatch'];
+$iduser     = $_SESSION["user"]["ID_USER"];
+$iddiskon1  = $_GET['iddiskon1'];
+$iddiskon2  = $_GET['iddiskon2'];
 
 $select_histori = mysqli_query($mysqli,"SELECT h.* 
                                         FROM histori h, client c, pendaftaran p
@@ -169,26 +170,6 @@ if(mysqli_num_rows($select_histori) > 0){
                                                                        AND u.ID_USER = '$iduser'
                                                                        AND c.KADALUWARSA > '$tanggal'");
 
-                        $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
-                                                                                WHERE u.ID_USER = c.ID_USER
-                                                                                AND u.ID_USER = '$iduser'
-                                                                                AND c.KADALUWARSA > '$tanggal'");
-                        $row_emoney        = $emoney->fetch_assoc();
-                        $data_em           = $row_emoney['EMONEY'];
-
-                        $jumlah_email      = count($_SESSION['data']);
-                        $jumlah_client     = count($id_user);  
-
-                        $select_diskon     = mysqli_query($mysqli,"SELECT * FROM DISKON WHERE ID_DISKON = '$iddiskon'");
-                        $row_diskon        = $select_diskon->fetch_assoc();
-
-                        $persentase1       = mysqli_query($mysqli, "SELECT cashback10 ('$idprog') AS CASHBACK");
-                        $row_p1            = $persentase1->fetch_assoc();
-                        $cs10              = $row_p1['CASHBACK'];
-
-                        $cashback          = (($jumlah_email - ( $jumlah_email % 3))/3)*$cs10;
-
-
                         $class             = mysqli_query($mysqli, "SELECT p.*, b.* 
                                                                     FROM program p, batch_program b
                                                                     WHERE p.ID_PROGRAM = b.ID_PROGRAM
@@ -196,27 +177,54 @@ if(mysqli_num_rows($select_histori) > 0){
                         $row_class         = $class->fetch_assoc();
                         $individu          = $row_class['INDIVIDU'];
 
+                        $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
+                                                                                WHERE u.ID_USER = c.ID_USER
+                                                                                AND u.ID_USER = '$iduser'
+                                                                                AND c.KADALUWARSA > '$tanggal'");
+                        $row_emoney        = $emoney->fetch_assoc();
+                        $data_em           = $row_emoney['EMONEY'];
+
+
+
+                        $batas             = 50/100*$individu;
+                        if($data_em >= $batas){
+                            $data_em = $batas;
+                        }
+
+                        $jumlah_email      = count($_SESSION['data']);
+                        $jumlah_client     = count($id_user);  
+
+                        $select_diskon1    = mysqli_query($mysqli,"SELECT * FROM DISKON WHERE ID_DISKON = '$iddiskon1'");
+                        $row_diskon1      = $select_diskon1->fetch_assoc();
+
                         $total             = $individu;
 
-                        $persentase2       = mysqli_query($mysqli, "SELECT voucher5 ('$idprog') AS VOUCHER");
-                        $row_p2            = $persentase2->fetch_assoc();
-                        $vo5               = $row_p2['VOUCHER'];
+                        $persentase1       = $row_diskon1['PERSENTASE']/100*$individu;
+                        $voucher           = $individu-$persentase1;
 
                         for($i=0; $i<($jumlah_email - ($jumlah_email% 3)); $i++){
-                            $total         = $total + $vo5;
+                            $total         = $total + $voucher;
                         } 
 
-                        $total             = $total + ($individu * ($jumlah_email% 3));
+
+
+                        $select_diskon2    = mysqli_query($mysqli,"SELECT * FROM DISKON WHERE ID_DISKON = '$iddiskon2'");
+                        $row_diskon2       = $select_diskon2->fetch_assoc();
+
+                        $persentase2       = $row_diskon2['PERSENTASE']/100*$individu;
+                        $cashback          = (($jumlah_email - ( $jumlah_email % 3))/3)*$persentase2;
+
 
                         $harga_fix   = 0;
                         $harga_awal  = $row_class['INDIVIDU']*($jumlah_email+1);
-                        $diskon      = ($jumlah_email - ($jumlah_email% 3))*(5/100*$row_class['INDIVIDU']);
+                        $diskon      = ($jumlah_email - ($jumlah_email% 3))*$persentase1;
                                                 
 
                         if(mysqli_num_rows($select_cashback)>0){
                         $default_em        = 0;
                         ?>
                           <h6 >E-money AEEC yang Anda miliki : Rp. <?= number_format($data_em); ?>; </h6>
+                          <p>*Maksimal penggunaan E-money adalah 50% dari harga program</p>
                           <h6 >Gunakan sekarang?</h6>
                           <form method="post" action="">
                           <button type="submit" class="btn btn-secondary" name="lain_kali">Lain kali</button>
@@ -229,13 +237,7 @@ if(mysqli_num_rows($select_histori) > 0){
                          <br>
 
 
-                        <?php
-                        if(isset($_POST['gunakan'])){
-                        $default_em = $data_em;
-                        $total      = $total-$data_em;
-                    
-                       
-                        ?>
+            
                             <table class="table table-bordered bg-white">
                             <thead>
                                 <tr>
@@ -258,61 +260,32 @@ if(mysqli_num_rows($select_histori) > 0){
                                         </tr>';
                                     endforeach
                                 ?>
-                                <tr>
-                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
-                                    <td><?= 'Rp. '.number_format($diskon) ?></td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-right"> <?='Diskon '.$row_diskon1['PERSENTASE'].'% untuk '.($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
+                                        <td><?= 'Rp. '.number_format($diskon) ?></td>
+                                    </tr>
+                                <?php
+                                    if(isset($_POST['gunakan'])){
+                                    $default_em = $data_em;
+                                    $total      = $total-$data_em;                             
+                                    ?>
                                 <tr>
                                     <td colspan="4" class="text-right">Potongan E-money AEEC</td>
                                     <td><?= 'Rp. '.number_format($data_em) ?></td>
                                 </tr>
-                                <tr>
-                                    <th colspan="4" class="text-right">TOTAL</th>
-                                    <th><?= 'Rp. '.number_format($total) ?></th>
-                                </tr>
-                            </tbody>
-                            </table>
-                        <?php
-                        $harga_fix=$total;
-                        }else{
-                        $default_em = 0;
-                        ?>
-                            <table class="table table-bordered bg-white">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>    
-                                    <th>Nama Program</th>
-                                    <th>Harga</th>
-                                    <th>Jumlah</th>
-                                    <th>Subtotal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 <?php
-                                    foreach ($class as $data):
-                                    echo '<tr>
-                                            <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                            <td>'.($jumlah_email+1).'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']*($jumlah_email+1)).'</td>
-                                        </tr>';
-                                    endforeach
+                                }else{
+                                    $default_em = 0;
+                                }
                                 ?>
                                 <tr>
-                                    <td colspan="4" class="text-right">Diskon 5% untuk <?=($jumlah_email - ($jumlah_email% 3))?> peserta yang diajak</td>
-                                    <td><?= 'Rp. '.number_format($diskon) ?></td>
-                                </tr>
-                                <tr>
                                     <th colspan="4" class="text-right">TOTAL</th>
                                     <th><?= 'Rp. '.number_format($total) ?></th>
                                 </tr>
                             </tbody>
                             </table>
-
                         <?php
-                        $harga_fix    = $total;
-                        }
+                        $harga_fix    = $total;                     
                         ?>
 
                         <h6>Cashback yang akan Anda dapatkan : Rp. <?= number_format($cashback)?>; </h6>
