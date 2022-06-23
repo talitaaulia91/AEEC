@@ -16,13 +16,13 @@
         <ul class="menu">
             <li class="sidebar-title">Menu</li>
             
-            <!-- <li
-                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'dashboard') ? 'active' : '' ?> ">
-                <a href="../dashboard/dashboard.php" class='sidebar-link'>
+            <li
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'profile') ? 'active' : '' ?> ">
+                <a href="../profile/profile.php" class='sidebar-link'>
                     <i class="bi bi-person-badge-fill"></i>
-                    <span>Program</span>
+                    <span>Profile</span>
                 </a>
-            </li> -->
+            </li>
 
             <li
                 class="sidebar-item  has-sub ">
