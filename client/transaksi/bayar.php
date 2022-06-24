@@ -329,11 +329,26 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                 $pembayaran = mysqli_query($mysqli, "INSERT INTO pembayaran (ID_PENDAFTARAN, TGL_PEMBAYARAN, NOMINAL, BUKTI, STATUS) 
                                                     VALUES ('$id','$tanggal', '$tagihan', '$bukti', '0')");
 
+                $select_cashback = mysqli_query($mysqli, "SELECT * FROM cashback WHERE ID_USER = '$iduser' AND KADALUWARSA >= '$tanggal'");
+                $row             = $select_cashback->fetch_assoc();
+                $count           = mysqli_num_rows($select_cashback);
+
                 //delete cashback
+                $temp = $potongan;
                 if($potongan != null){
-                    $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_USER = '$iduser'");
+                  foreach($select_cashback as $row):
+                    if($row['NOMINAL']<=$temp && $temp>0){
+                        $temp = $temp - $row['NOMINAL'];
+                        $delete_cashback  = mysqli_query($mysqli, "DELETE FROM cashback WHERE ID_CASHBACK='".$row['ID_CASHBACK']."'");
+                    }else if ($row['NOMINAL']>$temp && $temp>=0){
+                        $nominal = $row['NOMINAL'] - $temp;
+                        $temp    = 0;
+                        $update  = mysqli_query($mysqli, "UPDATE cashback SET NOMINAL = '$nominal' WHERE ID_CASHBACK='".$row['ID_CASHBACK']."'");
+                    }
+                  endforeach;
                  }
  
+
                  //insert cashback
                  if($cashback != null){
                     $kadaluarsa      = date('Y-m-d', strtotime('+365 days', strtotime($tanggal)));
