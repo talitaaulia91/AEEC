@@ -1,5 +1,74 @@
 <?php
 include_once('../../config/database.php');
+include_once('../../config/database.php');
+    // CARI VENDOR PHPOFFICE
+    require "../../vendor/autoload.php";
+    use PhpOffice\PhpSpreadsheet\Spreadsheet;
+    use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+    if(isset($_POST['cetak'])){
+        // BUAT EXCEL
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle("Peserta");
+        
+        // AMBIL DATA
+        $peserta = "SELECT * FROM `peserta`";
+        $data_peserta = mysqli_query($mysqli, $peserta);
+        $i = 2;
+        $sheet->setCellValue("A1", "ID Client");
+        $sheet->setCellValue("B1", "NAMA");
+        $sheet->setCellValue("C1", "jenis Kelamin");
+        $sheet->setCellValue("D1", "No Telp");
+        $sheet->setCellValue("E1", "NPWP");
+        $sheet->setCellValue("F1", "Alamat NPWP");
+        $sheet->setCellValue("G1", "Alamat Rumah");
+        $sheet->setCellValue("H1", "Instansi");
+        $sheet->setCellValue("I1", "Jabatan");
+        $sheet->setCellValue("J1", "Alumni");
+        
+
+        foreach($data_peserta as $hasil){
+            $jk = '';
+            if($hasil['JK'] == 1){
+                $jk = 'Perempuan';
+            }else{
+                $jk = 'Laki - Laki';
+            }
+
+            $alumni = '';
+            if($hasil['ALUMNI'] == 1){
+                $alumni = 'Iya';
+            }else{
+                $alumni = 'Bukan';
+            }
+            $sheet->setCellValue("A".$i, $hasil["ID_CLIENT"]);
+            $sheet->setCellValue("B".$i, $hasil["NAMA"]);
+            $sheet->setCellValue("C".$i, $jk);
+            $sheet->setCellValue("D".$i, $hasil["NO_TELP"]);
+            $sheet->setCellValue("E".$i, $hasil["NPWP"]);
+            $sheet->setCellValue("F".$i, $hasil["ALAMAT_NPWP"]);
+            $sheet->setCellValue("G".$i, $hasil["ALAMAT_RUMAH"]);
+            $sheet->setCellValue("H".$i, $hasil["INSTANSI"]);
+            $sheet->setCellValue("I".$i, $hasil["JABATAN"]);
+            $sheet->setCellValue("J".$i, $alumni);
+            $i++;
+        }
+
+        // Download
+            $writer = new Xlsx($spreadsheet);
+            
+
+            header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            header("Content-Disposition: attachment;filename=\"peserta.xlsx\"");
+            header("Cache-Control: max-age=0");
+            header("Expires: Fri, 11 Nov 2011 11:11:11 GMT");
+            header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+            header("Cache-Control: cache, must-revalidate");
+            header("Pragma: public");
+            $writer->save("php://output");
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +126,7 @@ include_once('../../config/database.php');
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                 </nav>
+
             </div>
         </div>
     </div>
@@ -65,12 +135,22 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
+            `       <form method="post" action="">
+                        <button class="btn btn-success me-1 mb-1" type="submit" name="cetak">Cetak</button>
+                    </form>
             </div>
+            
             <div class="card-body">
+           
             <div class="table-responsive">
+            
                 <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                   
+                
                     <thead> 
+                    
                         <tr>
+                        
                             <th>ID Client</th>
                             <th>Nama</th>
                             <th>Email</th>
@@ -117,7 +197,7 @@ include_once('../../config/database.php');
                         ?>
                         </tbody>                   
                     </div>
-
+         
                 </table>
             </div>
         </div>

@@ -221,7 +221,8 @@ $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'")
                                                 <label for="first-name-vertical">E - Money AEEC</label>
                                                 <input type="text" id="first-name-vertical" class="form-control me-1 mb-3"
                                                     name="cashback"  readonly value="<?= $data_cashback['JUMLAH']?>">
-                                                <div class="alert alert-danger"><i class="bi bi-file-excel"></i>E - money tidak berlaku untuk pendaftaran kolektif dan korporat </div>
+                                                <p style="color:red"><i>E - money tidak berlaku untuk pendaftaran kolektif dan korporat</i></p>
+                                                
                                                 
                                             </div>
                                         </div>
