@@ -13,6 +13,8 @@ foreach($program as $hasil){
 }
 
 
+
+
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -127,7 +129,8 @@ foreach($program as $hasil){
                                             <div class="form-group">
                                                 <label for="first-name-vertical">NPWP</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="npwp" placeholder="NPWP" required>
+                                                    name="no_npwp" placeholder="NPWP" required>
+                                                <p style="color:red"><i>Pastikan NPWP yang anda masukkan adalan npwp perusahaan anda</i></p>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -142,6 +145,7 @@ foreach($program as $hasil){
                                                 <label for="first-name-vertical">Alamat NPWP</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
                                                     name="alamat_npwp" placeholder="Alamat NPWP" required>
+                                                <p style="color:red"><i>Pastikan NPWP yang anda masukkan adalan npwp perusahaan anda</i></p>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -192,6 +196,7 @@ foreach($program as $hasil){
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Berkas NPWP</label>
                                         <input type="file" name="npwp"class="form-control" required >
+                                        <p style="color:red"><i>Pastikan NPWP yang anda masukkan adalan npwp perusahaan anda</i></p>
                                         </div>
 
                                         
@@ -255,7 +260,7 @@ foreach($program as $hasil){
             $nama       = $_POST['nama'];
             $jk         = $_POST['jk'];
             $notelp     = $_POST['no_telp'];
-            $npwp       = $_POST['npwp'];
+            $no_npwp       = $_POST['no_npwp'];
             $alamatnpwp = $_POST['alamat_npwp'];
             $alamat     = $_POST['alamat_rumah'];
             $instansi   = $_POST['instansi'];
@@ -268,10 +273,22 @@ foreach($program as $hasil){
             // UNTUK BUKTI NPWP
             $npwp           = $_FILES['npwp']['name'];
             $lokasi         = $_FILES['npwp']['tmp_name'];
-            move_uploaded_file($lokasi, '../../assets/NPWP/'.$npwp);
+
+            //hanya boleh up Exce;
+            $ekstensiupload = explode('.', $npwp);
+            $ekstensiupload = strtolower (end($ekstensiupload));
+
+            //upload
+            //Ganti Nama
+            $namafotobaru= uniqid();
+            $namafotobaru.= ".";
+            $namafotobaru.=$ekstensiupload;
+
+
+            move_uploaded_file($lokasi, '../../assets/NPWP/'.$namafotobaru);
 
             $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN, ID_FAKULTAS) 
-                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$npwp', $alumni, '$jabatan', '$fakultas')");
+                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', $alumni, '$jabatan', '$fakultas')");
 
 
             //Mengambil id CLIENT

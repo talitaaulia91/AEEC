@@ -1,6 +1,5 @@
 <?php
 include_once('../../config/database.php');
-include_once('../../config/database.php');
     // CARI VENDOR PHPOFFICE
     require "../../vendor/autoload.php";
     use PhpOffice\PhpSpreadsheet\Spreadsheet;

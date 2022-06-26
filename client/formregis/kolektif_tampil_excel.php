@@ -318,6 +318,21 @@ $iduser = $_SESSION["user"]["ID_USER"];
                     </table>
                         <!-- END HARGA -->
 
+                        <p>Catatan :</p>
+                            <ul class="list-group mb-2">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Pastikan semua data yang anda submit sudah benar</span>
+                                    <span class="badge bg-success badge-pill badge-round ml-1">1</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Silahkan klik <b>daftar</b> setelah memastikan kebenaran data,
+                                            Silahkan klik <b>cancel</b> jika terdapat data yang salah dan
+                                            silahkan <b>ulangi</b> proses upload excel dengan data yang benar
+                                    </span>
+                                    <span class="badge bg-success badge-pill badge-round ml-1">2</span>
+                                </li>
+                            </ul>
+
                         <form method="post" action="">
                             <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
                             <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>

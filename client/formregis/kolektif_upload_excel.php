@@ -4,9 +4,16 @@ require '../method.php';
 
 $idprog    = $_GET['idprog'];
 $idbatch   = $_GET['idbatch'];
+$iduser = $_SESSION["user"]["ID_USER"];
+
 $program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$idprog'");
 foreach($program as $hasil){
 }
+
+// AMBIL NPWP
+$cek = mysqli_query($koneksi, "SELECT BERKAS_NPWP FROM client where ID_USER='$iduser'");
+$berkas_npwp  = $cek->fetch_assoc();
+$path_npwp = $berkas_npwp['BERKAS_NPWP'];
 
 // untuk EXCEL
 use Phppot\DataSource;
@@ -38,13 +45,10 @@ if (isset($_POST["import"])) {
         $ekstensiupload = strtolower (end($ekstensiupload));
 
          //upload
-        //Ganti NamaMh
+        //Ganti Nama
         $namafotobaru= uniqid();
         $namafotobaru.= ".";
         $namafotobaru.=$ekstensiupload;
-
-        // move_uploaded_file($tempat, '../../assets/excel/'.$namafotobaru);
-
 
         $targetPath = '../../assets/excel/' . $namafotobaru;
         move_uploaded_file($tempat, $targetPath);
@@ -345,6 +349,9 @@ if (isset($_POST["import"])) {
                                     <span class="badge bg-primary badge-pill badge-round ml-1">4</span>
                                 </li>
                             </ul>
+
+                            <p class="me-1 mt-3">Pastikan NPWP anda adalah NPWP perusahaan !</p>
+                            <a href="../../assets/NPWP/<?=$path_npwp?>" class="btn btn-primary"><i class="bi bi-download"></i><span> NPWP Anda</span></a>
                     
                     </div>
                     <div class="card-content">

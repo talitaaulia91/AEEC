@@ -25,6 +25,59 @@ $select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
                                         ON c.ID_USER = u.ID_USER
                                         AND b.ID_BATCH = '$id'
                                         AND h.STATUS = '1'");
+
+// PRINT Data
+    // CARI VENDOR PHPOFFICE
+    require "../../vendor/autoload.php";
+    use PhpOffice\PhpSpreadsheet\Spreadsheet;
+    use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+    if(isset($_POST['cetak'])){
+        // BUAT EXCEL
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle("Peserta");
+        
+        // AMBIL DATA
+        $peserta = "SELECT * FROM `peserta`";
+        $data_peserta = mysqli_query($mysqli, $peserta);
+        $i = 2;
+        $sheet->setCellValue("A1", "No");
+        $sheet->setCellValue("B1", "ID Peserta");
+        $sheet->setCellValue("C1", "Nama");
+        $sheet->setCellValue("D1", "Email");
+        $sheet->setCellValue("E1", "NPWP");
+        $sheet->setCellValue("F1", "Tanggal Pendaftaran");
+
+        
+        $no = 1;
+        foreach($select_client as $hasil){
+
+            $sheet->setCellValue("A".$i, $no);
+            $sheet->setCellValue("B".$i, $hasil["ID_CLIENT"]);
+            $sheet->setCellValue("C".$i, $hasil["NAMA"]);
+            $sheet->setCellValue("D".$i, $hasil["EMAIL"]);
+            $sheet->setCellValue("E".$i, $hasil["NPWP"]);
+            $sheet->setCellValue("F".$i, $hasil["TGL_PENDAFTARAN"]);
+
+            $i++;
+            $no++;
+        }
+
+        // Download
+            $writer = new Xlsx($spreadsheet);
+            
+
+            header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            header("Content-Disposition: attachment;filename=\"peserta.xlsx\"");
+            header("Cache-Control: max-age=0");
+            header("Expires: Fri, 11 Nov 2011 11:11:11 GMT");
+            header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+            header("Cache-Control: cache, must-revalidate");
+            header("Pragma: public");
+            $writer->save("php://output");
+
+    }
 ?>
 
 <!DOCTYPE html>
@@ -90,6 +143,9 @@ $select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
     <section class="section">
         <div class="card" >
             <div class="card-header">
+                <form method="post" action="">
+                    <button class="btn btn-success me-1 mb-1" type="submit" name="cetak">Cetak</button>
+                </form>
             </div>
             <div class="card-body">
             <div class="table-responsive">
