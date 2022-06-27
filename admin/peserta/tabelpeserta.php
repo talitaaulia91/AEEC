@@ -5,7 +5,7 @@ include_once('../../config/database.php');
 $id     = $_GET['idbatch'];
 
 // AMBIL NAMA PROGRAM
-$program = "SELECT * FROM aeec.batch_program where ID_BATCH = '$id'";
+$program = "SELECT * FROM batch_program where ID_BATCH = '$id'";
 $ambilnama = mysqli_query($mysqli, $program);
 foreach($ambilnama as $hasil){
 }
@@ -14,7 +14,7 @@ foreach($ambilnama as $hasil){
 
 // AMBIL DATA PESERTA
 // Query dibawah masih belum berlaku untuk peserta yang belum membayar 
-$select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
+$select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*, h.ID_HISTORI
                                         FROM client c JOIN histori h
                                         ON h.ID_CLIENT = c.ID_CLIENT
                                         JOIN pendaftaran p
@@ -176,7 +176,7 @@ $select_client = mysqli_query($mysqli, "SELECT c.*, u.*, p.*
                             <td><?php echo $data_client['NPWP']; ?></td>
                             <td> <?php echo $data_client['TGL_PENDAFTARAN']; ?></td>            
                             <!-- <td><a href="nilai.php?id=<?=$data_client['ID_CLIENT']?>" class="btn btn-primary">Lihat</a></td>  -->
-                            <td><a href="#" class="btn btn-primary">Lihat</a></td> 
+                            <td><a href="../nilai/nilai.php?id_history=<?= $data_client['ID_HISTORI']; ?>&idbatch=<?=$id?>" class="btn btn-primary">Lihat</a></td> 
                         </tr>
                         <?php
                             $no++;

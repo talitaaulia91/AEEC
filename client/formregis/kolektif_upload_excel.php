@@ -15,6 +15,44 @@ $cek = mysqli_query($koneksi, "SELECT BERKAS_NPWP FROM client where ID_USER='$id
 $berkas_npwp  = $cek->fetch_assoc();
 $path_npwp = $berkas_npwp['BERKAS_NPWP'];
 
+
+// Untuk Ganti NPWP
+if (isset($_POST["ganti"])) {
+    unlink('../../assets/NPWP/'.$path_npwp);
+
+    // UNTUK BUKTI NPWP
+    $npwp           = $_FILES['update']['name'];
+    $lokasi         = $_FILES['update']['tmp_name'];
+
+    //hanya boleh up Exce;
+    $ekstensiupload = explode('.', $npwp);
+    $ekstensiupload = strtolower (end($ekstensiupload));
+
+    //upload
+    //Ganti Nama
+    $namafotobaru= uniqid();
+    $namafotobaru.= ".";
+    $namafotobaru.=$ekstensiupload;
+
+
+    move_uploaded_file($lokasi, '../../assets/NPWP/'.$namafotobaru);
+
+    $update_npwp         = mysqli_query($koneksi, "UPDATE `aeec`.`client` SET `BERKAS_NPWP` = '$namafotobaru' 
+                        WHERE (`ID_USER` = '$iduser')");
+
+    if (mysqli_affected_rows($koneksi) > 0){
+        echo "<script> 
+                alert('NPWP berhasil diperbarui');
+                document.location.href = 'kolektif_upload_excel.php?idprog=$idprog&idbatch=$idbatch';
+            </script>";
+    }else{
+        echo "<script> 
+        alert('NPWP gagal diperbarui');
+        document.location.href = 'kolektif_upload_excel.php?idprog=$idprog&idbatch=$idbatch';
+        </script>";
+    }
+}
+
 // untuk EXCEL
 use Phppot\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -350,9 +388,13 @@ if (isset($_POST["import"])) {
                                 </li>
                             </ul>
 
-                            <p class="me-1 mt-3">Pastikan NPWP anda adalah NPWP perusahaan !</p>
-                            <a href="../../assets/NPWP/<?=$path_npwp?>" class="btn btn-primary"><i class="bi bi-download"></i><span> NPWP Anda</span></a>
-                    
+                            <p class="me-1 mt-3 mb-0">Pastikan NPWP anda adalah NPWP perusahaan !</p>
+                            <a href="../../assets/NPWP/<?=$path_npwp?>" class="btn btn-primary me-1 mt-0" target="_blank" rel="noopener noreferrer"><i class="bi bi-download"></i><span> NPWP Anda</span></a>
+                            
+                            <p class="me-1 mt-3 mb-0">Silahkan upload ulang NPWP anda jika tidak sesuai</p>
+                            <button class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalCenter"><i class="bi bi-arrow-counterclockwise"></i>Ganti NPWP Anda</button>
+                            
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -406,7 +448,58 @@ if (isset($_POST["import"])) {
         </div>
     </div>
 
-
+    <!-- Modal Ganti NPWP -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+            role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Masukkan NPWP perusahaan anda
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Berkas NPWP Perusahaan</label>
+                                        <input class="form-control"  required  type="file" name="update" id="update" >
+                                    </div>
+                                </div>
+                                                                        
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button class="btn btn-primary me-1 mb-1" type="submit" id="submit" name="ganti">Ganti</button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                    <button type="button" class="btn btn-light-secondary me-1 mb-1"
+                                        data-bs-dismiss="modal">
+                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Tutup</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-light-secondary"
+                        data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Close</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-1" data-bs-dismiss="modal">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Accept</span>
+                    </button>
+                </div> -->
+            </div>
+        </div>
+    </div>
 
 
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

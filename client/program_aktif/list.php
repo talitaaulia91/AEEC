@@ -104,6 +104,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT * From client
                             <th>Tanggal Berakhir</th>
                             <th>Username MOOC</th>
                             <th>Password MOOC</th>
+                            <th>Nilai</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,7 +115,8 @@ $pendaftaran = mysqli_query($mysqli, "SELECT * From client
                             <td><?= $hasil['TGL_MULAI'] ?></td>
                             <td><?= $hasil['TGL_BERAKHIR'] ?></td> 
                             <td><?= $hasil['USERNAME_MOOC'] ?></td>
-                            <td><?= $hasil['PASSWORD_MOOC'] ?></td>   
+                            <td><?= $hasil['PASSWORD_MOOC'] ?></td> 
+                            <td><a href="nilai.php?id_history=<?= $hasil['ID_HISTORI']; ?>&idbatch=<?=$hasil['ID_BATCH']?>" class="btn btn-primary">Lihat</a></td>
                         </tr>
                     <?php endforeach; ?>                   
                     </tbody>
