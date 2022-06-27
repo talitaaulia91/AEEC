@@ -1,7 +1,7 @@
 
   <!-- Sidebar -->
     <!-- Sidebar Menu -->
-    <nav class="mt-2">
+    <nav class="mt-1">
     </nav>
     <div id="app">
         <div id="sidebar" class="active">
@@ -84,11 +84,19 @@
                     <span>Pembayaran</span>
                 </a>
             </li>
+
+            <li
+                class="sidebar-item <?= !!strpos($_SERVER['REQUEST_URI'], 'statistik') ? 'active' : '' ?>">
+                <a href="../statistik/statistik.php" class='sidebar-link  '>
+                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <span>Statistik</span>
+                </a>
+            </li>
             <br></br>
             <br></br>
             <br></br>
             <br></br>
-            <br></br>
+         
 
 
             <li  class="sidebar-item mt-3">

@@ -44,7 +44,7 @@ include_once('../../config/database.php');
             </header>
             
 <div class="page-heading">
-    <h3>Profile Statistics</h3>
+    <h3>Dashboard</h3>
 </div>
 <div class="page-content">
     <section class="row">
@@ -60,8 +60,13 @@ include_once('../../config/database.php');
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold-s">Profile Views</h6>
-                                    <h6 class="font-extrabold mb-0">112.000</h6>
+                                    <h6 class="text-muted font-semibold-s">Akun pengguna</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        <?php
+                                        $select_user = mysqli_query($mysqli, "SELECT * FROM user");
+                                        echo mysqli_num_rows($select_user).' akun';
+                                        ?>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -77,8 +82,13 @@ include_once('../../config/database.php');
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Followers</h6>
-                                    <h6 class="font-extrabold mb-0">183.000</h6>
+                                    <h6 class="text-muted font-semibold">Peserta terdaftar</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        <?php
+                                        $select_client = mysqli_query($mysqli, "SELECT * FROM client");
+                                        echo mysqli_num_rows($select_client).' peserta';
+                                        ?>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -90,12 +100,17 @@ include_once('../../config/database.php');
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="stats-icon green">
-                                        <i class="iconly-boldAdd-User"></i>
+                                        <i class="iconly-boldBookmark"></i>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Following</h6>
-                                    <h6 class="font-extrabold mb-0">80.000</h6>
+                                    <h6 class="text-muted font-semibold">Pelatihan</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        <?php
+                                        $select_program = mysqli_query($mysqli, "SELECT * FROM program WHERE ID_KATEGORI != 'NRC'");
+                                        echo mysqli_num_rows($select_program).' pelatihan';
+                                        ?>
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -111,8 +126,14 @@ include_once('../../config/database.php');
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Saved Post</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
+                                    <h6 class="text-muted font-semibold">Pendapatan</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                        <?php
+                                        $select_pendapatan = mysqli_query($mysqli, "SELECT SUM(NOMINAL) AS OMZET FROM pembayaran ");
+                                        $row_pendapatan    = $select_pendapatan->fetch_assoc();
+                                        echo 'Rp '.number_format($row_pendapatan['OMZET']);
+                                        ?> 
+                                    </h6>
                                 </div>
                             </div>
                         </div>

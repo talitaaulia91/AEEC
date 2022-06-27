@@ -137,19 +137,12 @@ include_once('../../config/database.php');
             `       <form method="post" action="">
                         <button class="btn btn-success me-1 mb-1" type="submit" name="cetak">Cetak</button>
                     </form>
-            </div>
-            
-            <div class="card-body">
-           
-            <div class="table-responsive">
-            
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                   
-                
-                    <thead> 
-                    
-                        <tr>
-                        
+            </div>           
+            <div class="card-body">           
+            <div class="table-responsive">            
+                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">           
+                    <thead>    
+                        <tr> 
                             <th>ID Client</th>
                             <th>Nama</th>
                             <th>Email</th>
@@ -196,7 +189,6 @@ include_once('../../config/database.php');
                         ?>
                         </tbody>                   
                     </div>
-         
                 </table>
             </div>
         </div>
