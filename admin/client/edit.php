@@ -195,31 +195,29 @@ include_once('../../config/database.php');
                         $data = $old->fetch_assoc();
                         $gambar_lama = $data['BERKAS_NPWP'];
 
-                         unlink('../../assets/images/NPWP/'.$gambar_lama);
-                         move_uploaded_file($lokasi,  '../../assets/images/NPWP/'.$berkas);
+                         unlink('../../assets/NPWP/'.$gambar_lama);
+                         move_uploaded_file($lokasi,  '../../assets/NPWP/'.$berkas);
 
                          $update_peserta    = mysqli_query($mysqli,"UPDATE client
-                                                                    SET JK='$jk', NO_TELP='$no_telp',
+                                                                    SET NAMA='$nama', JK='$jk', NO_TELP='$no_telp',
                                                                         NPWP='$npwp', ALAMAT_NPWP='$alamat_npwp',
                                                                         ALAMAT_RUMAH='$alamat_rumah', INSTANSI='$instansi',
                                                                         JABATAN='$jabatan', BERKAS_NPWP='$berkas'
                                                                     WHERE ID_CLIENT='" . $_GET['id'] ."'");
 
-                         $update_user       = mysqli_query($mysqli,"UPDATE user SET NAMA='$nama'
-                                                                    WHERE ID_USER='$id_user'");
+                    
 
                         
 
                      } else {
                         $update_peserta     = mysqli_query($mysqli,"UPDATE client
-                                                                    SET JK='$jk', NO_TELP='$no_telp',
+                                                                    SET NAMA='$nama',JK='$jk', NO_TELP='$no_telp',
                                                                         NPWP='$npwp', ALAMAT_NPWP='$alamat_npwp',
                                                                         ALAMAT_RUMAH='$alamat_rumah', INSTANSI='$instansi',
                                                                         JABATAN='$jabatan', BERKAS_NPWP='$berkas'
                                                                     WHERE ID_CLIENT='" . $_GET['id'] ."'");
 
-                        $update_user        = mysqli_query($mysqli,"UPDATE user SET NAMA='$nama'
-                                                                    WHERE ID_USER='$id_user'");
+                
                      }
 
               

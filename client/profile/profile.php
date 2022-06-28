@@ -8,10 +8,14 @@ $email    = $_SESSION["user"]["EMAIL"];
 
 
 
-$client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
-// if(mysqli_num_rows($client) > 0){  
-//     echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon1=D01&iddiskon2=D02';</script>";
-// }
+$client     = mysqli_query($mysqli,"SELECT * FROM peserta where ID_USER = '$iduser'");
+$row_client = $client->fetch_assoc();
+
+$emoney    = mysqli_query($mysqli, "SELECT SUM(NOMINAL) AS 'EMONEY' FROM cashback
+                                    WHERE ID_USER = '$iduser'
+                                    AND KADALUWARSA >= NOW()");
+$row_em    = $emoney->fetch_assoc();
+$em        = $row_em['EMONEY'];
 
  ?>
 
@@ -71,7 +75,7 @@ $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'")
                     <div class="page-title">
                         <div class="row">
                             <div class="col-12 col-md-6 order-md-1 order-last">
-                                <h3>Pendaftaran</h3>
+                                <h3>Profile</h3>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -82,167 +86,116 @@ $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'")
 
                     <!-- CARD UNTUK FORM -->
                     <section class="section">
-        <div class="card" >
-            <div class="card-header mb-0">
-            </div>
-            <div class="card-body">             
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Email</label>
-                                                <input type="text" id="first-name-vertical" readonly value="<?= "$email"?>" 
-                                                       class="form-control" required>
-                                            </div>
-                                        </div>
-                                <?php if(mysqli_num_rows($client) > 0){   
-                                        $data_client        = $client->fetch_assoc();    
-                                ?>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Nama Lengkap</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama" placeholder="Nama Lengkap" readonly value="<?= $data_client['NAMA']?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">No. Telepon</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="no_telp" placeholder="No. Telepon" readonly value="<?= $data_client['NO_TELP']?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                        <div class="form-group">
-                                                <label for="first-name-vertical">Jenis Kelamin</label>
-                                                    <select class="form-select" name="jk" readonly>
-                                                        <?php if($data_client['JK'] == 0) { ?>
-	                                                    <option value="0" readonly>Laki-Laki</option>
-                                                        <?php }else { ?>
-	                                                    <option value="1">Perempuan</option>
-                                                        <?php } ?>
-                                                    </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">NPWP</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="npwp" placeholder="NPWP" readonly value="<?= $data_client['NPWP']?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Alamat Rumah</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="alamat_rumah" placeholder="Alamat Rumah" readonly value="<?= $data_client['ALAMAT_RUMAH']?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Alamat NPWP</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="alamat_npwp" placeholder="Alamat NPWP" readonly value="<?= $data_client['ALAMAT_NPWP']?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Instansi</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="instansi" placeholder="Asal Instansi" readonly value="<?= $data_client['INSTANSI']?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">Jabatan</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="jabatan" placeholder="Jabatan di Instansi" readonly value="<?= $data_client['JABATAN']?>">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                        <div class="form-group">
-                                                <label for="first-name-vertical">Alumni Universitas Airlangga</label>
-                                                    <select class="form-select" name="alumni" required>
-                                                        <!-- <option >Apakah Anda alumni? </option> -->
-                                                        <?php if($data_client['ALUMNI'] == 0) { ?>
-	                                                    <option value="0">Bukan</option>
-                                                        <?php }else { ?>
-	                                                    <option value="1">Iya</option>
-                                                        <?php } ?>
-                                                    </select>
-                                            </div>
-                                        </div>
-                                        <?php if($data_client['ALUMNI'] == 1) { ?>
-                                        <div class="col-12">
-                                        <div class="form-group">
-                                                <label for="first-name-vertical">Fakultas</label>
-                                                <select class="form-select" name="fakultas">
-                                                        <?php
-                                                        $idfak = $data_client['ID_FAKULTAS'];
-                                                        $fakultas = $mysqli->query("SELECT * FROM fakultas where ID_FAKULTAS = '$idfak'");
-                                                        while ( $fak = $fakultas->fetch_assoc()){
-                                                        ?>
-                                                        <option value="<?php echo $fak['ID_FAKULTAS'] ?>">
-                                                        <?php 
-                                                        echo $fak['NAMA_FAKULTAS'];
-                                                        ?>
-                                                        </option>
-                                                        <?php } ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <?php };?>
-
-                                        <div class="form-group ">
-                                        <label for="exampleInputPassword1">Berkas NPWP</label>
-                                        <br>
-                                        <a href="../../assets/NPWP/<?php echo $data_client['BERKAS_NPWP'] ?>" class="btn btn-primary me-1 mb-1 mt-6"><i class="bi bi-archive"></i>Lihat Berkas</a>
-                                        </div>   
-
-                                        <?php 
-                                        // AMBIL DATA CASHBACK
-                                        $cashback = $mysqli->query("SELECT sum(cashback.NOMINAL) as JUMLAH from cashback
-                                                                    join user
-                                                                    on (cashback.ID_USER = user.ID_USER)
-                                                                    where user.ID_USER = '$iduser'");
-                                        $data_cashback = $cashback->fetch_assoc();
-                                        
-                                        if(is_null($data_cashback['JUMLAH'])){
-                                            $data_cashback['JUMLAH'] = 0;
-                                        }
-                                        
-                                        ?>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">E - Money AEEC</label>
-                                                <input type="text" id="first-name-vertical" class="form-control me-1 mb-3"
-                                                    name="cashback"  readonly value="<?= $data_cashback['JUMLAH']?>">
-                                                <p style="color:red"><i>E - money tidak berlaku untuk pendaftaran kolektif dan korporat</i></p>
-                                                
-                                                
-                                            </div>
-                                        </div>
-                                        
-
-                                        <!-- END DATA CLIENT -->
-                                        <?php }; ?>
-
-
-                                        <!-- <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Edit</button>
-                                        </div> -->
-                                </div>
-                            </form>
-                        </div>
+                    <div class="card" >
+                    <div class="card-body">
+                    <div class="row "> 
+                    <div class="col-9">
+                    <h5 class="mb-3">Halo, <?php
+                         if(mysqli_num_rows($client)>0){
+                            echo $row_client['NAMA'];
+                         }else{
+                            echo  $email; 
+                         }                       
+                         ?></h5> 
+                         <!-- <d6>ID :  <?php
+                         if(mysqli_num_rows($client)>0){
+                            echo $row_client['ID_CLIENT'];
+                         }else{
+                            echo  $iduser; 
+                         }                       
+                         ?></d6><br>
+                         <d6>
+                            <?php
+                            echo 'Email : '.$email;
+                            ?>
+                         </d6> -->
+                    <br>
+                    <h6>E-money AEEC</h6>
+                    <d6><?php echo 'Rp. '.number_format($em);?></d6> 
+                    <br>
+                    <d6 style="color:red"><i>E - money tidak berlaku untuk pendaftaran kolektif dan korporat</i></d6>
+                    </div>                    
+                    <div class="col">
+                    <br>
+                    <a href="edit_profile.php" class="btn btn-primary"><i class="bi bi-pencil-square"></i><span>&nbsp &nbsp Edit Profile</span></a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    </div>
+                    </div>
+                    </section>
+
+                    <section class="section">
+                    <div class="card" >
+                    <div class="card-header">
+                        <h5>Data Pribadi</h5>
+                    </div>
+                    <div class="card-body">
+                    <?php
+                    if(mysqli_num_rows($client)>0){
+                    ?>
+                      <div class="row g-3 mt-0 mb-3 ">                  
+                                        <div class="col-6">
+                                        <h6 class="mb-1">ID Peserta</h6>
+                                        <d6><?=$row_client['ID_CLIENT'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Nama Lengkap</h6>
+                                        <d6><?=$row_client['NAMA'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Email</h6>
+                                        <d6><?=$row_client['EMAIL'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">No. Telepon</h6>
+                                        <d6><?=$row_client['NO_TELP'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Jenis Kelamin</h6>
+                                        <d6><?php 
+                                             if($row_client['JK'] == 1){
+                                                echo 'Perempuan';
+                                             }else{
+                                                echo 'Laki-laki';
+                                             }
+                                        ?></d6>
+
+                                        <h6 class=" mt-4 mb-1">NPWP</h6>
+                                        <d6><?=$row_client['NPWP'];?></d6>
+                                        </div>
+
+                                        <div class="col-6">
+                                        <h6 class="mb-1">Alamat Rumah</h6>
+                                        <d6><?=$row_client['ALAMAT_RUMAH'];?></d6> 
+
+                                        <h6 class=" mt-4 mb-1">Alamat NPWP</h6>
+                                        <d6><?=$row_client['ALAMAT_NPWP'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Instansi</h6>
+                                        <d6><?=$row_client['INSTANSI'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Jabatan</h6>
+                                        <d6><?=$row_client['JABATAN'];?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Alumni UNAIR</h6>
+                                        <d6><?php 
+                                             if($row_client['ALUMNI'] == 1){
+                                                echo $row_client['NAMA_FAKULTAS'];
+                                             }else{
+                                                echo 'Bukan Alumni';
+                                             }
+                                        ?></d6>
+
+                                        <h6 class=" mt-4 mb-1">Berkas NPWP</h6>
+                                        <a href="../../assets/NPWP/<?=$row_client['BERKAS_NPWP'];?>" class="btn btn-primary"><i class="bi bi-download"></i><span> download NPWP</span></a>
+                                        </div>
+                        </div>
+                    <?php   
+                    }else{
+                    ?>
+                    <d6><?= 'Anda belum terdaftar sebagai peserta'; ?></d6>
+                    <?php
+                    }
+                    ?>
+                    </div>
+                    </div>
+                    </section>
+
                     <!-- END CARD -->
                     <!-- Basic Tables end -->
                 </div>

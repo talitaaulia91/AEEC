@@ -2,11 +2,9 @@
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
-    <div class="sidebar-header">
+            <div class="sidebar-header ">
         <div class="d-flex justify-content-between">
-            <!-- <div class="logo">
-                <a href="index.html"><img src="../../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
-            </div> -->
+               <img src="../../assets/images/logo/aeec.png" style="width: 200px; height: 60px;"  alt="Logo" srcset="">       
             <div class="toggler">
                 <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
             </div>
@@ -80,8 +78,7 @@
             <br></br>   
             <br></br>  
             <br></br>  
-            <br></br>  
-            <br></br>  
+            
    
 
 

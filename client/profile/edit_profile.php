@@ -5,15 +5,13 @@ require_once("../../config/database.php");
 
 $iduser   = $_SESSION["user"]["ID_USER"];
 $email    = $_SESSION["user"]["EMAIL"];
-$id       = $_GET['idprog'];
-$idbatch  = $_GET['idbatch'];
-$iddiskon = $_GET['iddiskon'];
+
 
 
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
-if(mysqli_num_rows($client) > 0){  
-    echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon1=D01&iddiskon2=D02';</script>";
-}
+// if(mysqli_num_rows($client) > 0){  
+//     echo "<script>location='confirm_2.php?idprog=$id&idbatch=$idbatch&iddiskon1=D01&iddiskon2=D02';</script>";
+// }
 
  ?>
 
@@ -83,120 +81,113 @@ if(mysqli_num_rows($client) > 0){
                     </div>
 
                     <!-- CARD UNTUK FORM -->
-                    <section class="section">
-        <div class="card" >
-            <div class="card-header mb-0">
-            </div>
-            <div class="card-body">             
-                    <div class="card-content">
+                    <?php
+    $query_peserta = "SELECT * FROM PESERTA WHERE ID_USER = '$iduser' ";
+    $tabel_peserta = mysqli_query($mysqli, $query_peserta);    
+    $data_peserta  = $tabel_peserta->fetch_assoc();  
+    ?>
+     <section id="basic-vertical-layouts">
+        <div class="row match-height">
+            <div class="col-md-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title" >Edit  Data Peserta</h4>
+                    </div>
+                    <!-- <div class="card-content"> -->
                         <div class="card-body">
-                            <form class="form form-vertical " method="post" action=""  enctype="multipart/form-data">
+                            <form class="form form-vertical" method="post" action=""  enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
                                     <div class="col-12">
                                             <div class="form-group">
+                                                <label for="first-name-vertical">ID Peserta</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="id_client"  readonly value="<?php echo $data_peserta['ID_CLIENT'];?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">ID User</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="id_user" readonly value="<?php echo $data_peserta['ID_USER'];?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Nama Peserta</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="nama" value="<?php echo $data_peserta['NAMA'];?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
                                                 <label for="first-name-vertical">Email</label>
-                                                <input type="text" id="first-name-vertical" readonly value="<?= "$email"?>" 
-                                                       class="form-control" required>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="email" value="<?php echo $data_peserta['EMAIL'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="first-name-vertical">Nama Lengkap</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="nama" placeholder="Nama Lengkap" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="first-name-vertical">No. Telepon</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="no_telp" placeholder="No. Telepon" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                        <div class="form-group">
                                                 <label for="first-name-vertical">Jenis Kelamin</label>
                                                     <select class="form-select" name="jk" required>
                                                         <option >Pilih </option>
-	                                                    <option value="0">Laki-Laki</option>
 	                                                    <option value="1">Perempuan</option>
+	                                                    <option value="0">Laki-Laki</option>
                                                     </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">No Telepon</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="no_telp"  value="<?php echo $data_peserta['NO_TELP'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">NPWP</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="npwp" placeholder="NPWP" required>
+                                                    name="npwp"  value="<?php echo $data_peserta['NPWP'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Alamat Rumah</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="alamat_rumah" placeholder="Alamat Rumah" required>
+                                                    name="alamat_rumah"  value="<?php echo $data_peserta['ALAMAT_RUMAH'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Alamat NPWP</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="alamat_npwp" placeholder="Alamat NPWP" required>
+                                                    name="alamat_npwp"  value="<?php echo $data_peserta['ALAMAT_NPWP'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Instansi</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="instansi" placeholder="Asal Instansi">
+                                                    name="instansi"  value="<?php echo $data_peserta['INSTANSI'];?>" required>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="first-name-vertical">Jabatan</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="jabatan" placeholder="Jabatan di Instansi">
+                                                    name="jabatan"  value="<?php echo $data_peserta['JABATAN'];?>" required>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                        <div class="form-group">
-                                                <label for="first-name-vertical">Alumni Universitas Airlangga</label>
-                                                    <select class="form-select" name="alumni" required>
-                                                        <option >Apakah Anda alumni? </option>
-	                                                    <option value="0">Bukan</option>
-	                                                    <option value="1">Iya</option>
-                                                    </select>
-                                            </div>
+                                        <div class="form-group  mb-0">
+                                            <label for="exampleInputPassword1">Berkas NPWP</label>
+                                            <input type="file" name="berkas"class="form-control">
                                         </div>
-                                        <div class="col-12">
-                                        <div class="form-group">
-                                                <label for="first-name-vertical">Fakultas</label>
-                                                <select class="form-select" name="fakultas">
-                                                    <option value="">Pilih fakultas jika Anda alumni</option>
-                                                        <?php
-                                                        $fakultas = $mysqli->query("SELECT * FROM fakultas");
-                                                        while ( $fak = $fakultas->fetch_assoc()){
-                                                        ?>
-                                                        <option value="<?php echo $fak['ID_FAKULTAS'] ?>">
-                                                        <?php 
-                                                        echo $fak['NAMA_FAKULTAS'];
-                                                        ?>
-                                                        </option>
-                                                        <?php } ?>
-                                                </select>
-                                            </div>
+                                       <br></br>
+                                       <br></br>
+                                
+                                        <div class="col-12 d-flex justify-content-end ">
+                                            <button type="submit" name="edit" value="edit" class="btn btn-primary me-1 mb-1">UPDATE</button>
                                         </div>
-
-                                        <div class="form-group ">
-                                        <label for="exampleInputPassword1">Berkas NPWP</label>
-                                        <input type="file" name="berkas_npwp"class="form-control" required >
-                                        </div>                                     
-                                        
-                                        <div class="col-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1" type="submit" name="tambah">Submit</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>                                    
                                     </div>
                                 </div>
                             </form>
@@ -204,8 +195,66 @@ if(mysqli_num_rows($client) > 0){
                     </div>
                 </div>
             </div>
-        </div>
     </section>
+
+    <?php
+                  if(isset($_POST['edit'])){
+                    $id_client    = $_POST['id_client'];
+                    $id_user      = $_POST['id_user'];
+                    $nama         = $_POST['nama'];
+                    $email        = $_POST['email'];
+                    $jk           = $_POST['jk'];
+                    $no_telp      = $_POST['no_telp'];
+                    $npwp         = $_POST['npwp'];
+                    $alamat_rumah = $_POST['alamat_rumah'];
+                    $alamat_npwp  = $_POST['alamat_npwp'];
+                    $instansi     = $_POST['instansi'];
+                    $jabatan      = $_POST['jabatan'];
+                  
+
+                    $berkas         = $_FILES['berkas']['name'];
+                    $lokasi         = $_FILES['berkas']['tmp_name'];
+
+
+
+                    if(!empty($lokasi)){
+                        $old = mysqli_query($mysqli,"SELECT BERKAS_NPWP FROM client WHERE ID_USER='$iduser'");
+                        $data = $old->fetch_assoc();
+                        $gambar_lama = $data['BERKAS_NPWP'];
+
+                         unlink('../../assets/NPWP/'.$gambar_lama);
+                         move_uploaded_file($lokasi,  '../../assets/NPWP/'.$berkas);
+
+                         $update_peserta    = mysqli_query($mysqli,"UPDATE client
+                                                                    SET NAMA = '$nama', JK='$jk', NO_TELP='$no_telp',
+                                                                        NPWP='$npwp', ALAMAT_NPWP='$alamat_npwp',
+                                                                        ALAMAT_RUMAH='$alamat_rumah', INSTANSI='$instansi',
+                                                                        JABATAN='$jabatan', BERKAS_NPWP='$berkas'
+                                                                    WHERE ID_USER='$iduser'");
+
+                         $update_user       = mysqli_query($mysqli,"UPDATE user SET EMAIL='$email'
+                                                                    WHERE ID_USER='$id_user'");
+
+                        
+
+                     } else {
+                        $update_peserta     = mysqli_query($mysqli,"UPDATE client
+                                                                    SET NAMA='$nama', JK='$jk', NO_TELP='$no_telp',
+                                                                        NPWP='$npwp', ALAMAT_NPWP='$alamat_npwp',
+                                                                        ALAMAT_RUMAH='$alamat_rumah', INSTANSI='$instansi',
+                                                                        JABATAN='$jabatan', BERKAS_NPWP='$berkas'
+                                                                    WHERE ID_USER='$iduser'");
+
+                        $update_user        = mysqli_query($mysqli,"UPDATE user SET EMAIL='$email'
+                                                                    WHERE ID_USER='$id_user'");
+                     }
+
+              
+                    echo "<script>location='profile.php';</script>";
+      
+                  }
+              ?>
+
                     <!-- END CARD -->
                     <!-- Basic Tables end -->
                 </div>
