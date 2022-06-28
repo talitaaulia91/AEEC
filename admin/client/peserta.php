@@ -135,7 +135,7 @@ include_once('../../config/database.php');
         <div class="card" >
             <div class="card-header">
             `       <form method="post" action="">
-                        <button class="btn btn-success me-1 mb-1" type="submit" name="cetak">Cetak</button>
+                        <button class="btn btn-success me-1 mb-1" type="submit" name="cetak"><i class="bi bi-download"></i>&nbsp download Excel</button>
                     </form>
             </div>           
             <div class="card-body">           

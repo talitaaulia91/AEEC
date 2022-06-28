@@ -159,10 +159,18 @@ foreach($program as $hasil){
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <div class="form-group">
+                                        <div class="form-group">
                                                 <label for="first-name-vertical">Jabatan</label>
-                                                <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="jabatan" placeholder="Jabatan di Instansi">
+                                                    <select class="form-select" name="jabatan" required>
+                                                        <option >Pilih </option>
+	                                                    <option value="Komisaris">Komisaris</option>
+	                                                    <option value="Direksi">Direksi</option>
+                                                        <option value="Manager">Manager</option>
+                                                        <option value="Supervisor">Supervisor</option>
+                                                        <option value="Staff">Staff</option>
+                                                        <option value="Entry level">Entry level</option>
+                                                        <option value="Profesional">Profesional</option>
+                                                    </select>
                                             </div>
                                         </div>
                                         <div class="col-12">
