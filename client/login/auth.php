@@ -5,6 +5,19 @@ require '../method.php';
 //Registrasi User
 if( isset ($_POST["regis"])){
 
+$cek_email  = 0;
+$cek_news   = 0;
+
+if(isset($_POST["check_email"])){
+    $cek_email = 1;
+}
+
+if(isset($_POST["check_news"])){
+    $cek_news = 1;
+}
+
+
+
     if($_POST["password"] != $_POST["password2"]){
         echo "<script> 
         alert('Password Yang Anda Masukkan Berbeda !!');
@@ -26,7 +39,7 @@ if( isset ($_POST["regis"])){
         exit;
     }
 
-    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$email',  '$password', 'user')";
+    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER` ) VALUES ('$email',  '$password', 'user', '$cek_email', '$cek_news')";
     mysqli_query($koneksi, $masukan); //buat query
 
     // Cek Data

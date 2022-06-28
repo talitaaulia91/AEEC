@@ -206,6 +206,19 @@ h1.heading {
   text-transform: uppercase
 }
 
+.daftar{
+  position: Relative;
+  float: inherit;
+  /* border:1px solid #F74B4B;
+  padding:20px;
+  left:200px */
+  /* margin-top : 10px; */
+  margin-bottom : 0px;
+  /* btn btn-primary w-100 me-1 mb-0 */
+  /* background-color : blue; */
+  width : 100px;
+  z-index:0;
+}
 </style>
 
 <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -282,7 +295,7 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
                           <span class="badge badge-pill badge-success position-absolute r-0 t-0 mt-2 mr-2 z-index-2">New</span>
                         </div> 
 
-                        <div class="p-3">
+                        <div class="p-3 pe-1 pb-0">
                         <h5 class="fs-0"><a class="text-dark" href="">
                         <?= $spare['NAMA_PROGRAM']  ?>
                         </a></h5>
@@ -291,22 +304,10 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
                         <?php echo 'Kuota : '.$spare['KUOTA'] ?>
                         </h5>
 
-                         <!-- <p class="fs--1 mb-1">
-                         Stock: <?= (($spare['stok'] >= 1) ? 
-                        '<strong class="text-success">Available</strong>' : '<strong class="text-danger">Unvailable</strong>') ?>
-                        </p> -->
-                        <!-- <?php
-                        if($spare['stok']>0){
-                        ?>
-                        <a href="beli.php?id=<?php echo $spare['ID_Suku_Cadang']; ?>"
-                        class="btn bg-gradient-info w-100 mt-4 mb-0">Masukkan keranjang</a>
-                        <?php
-                        }else{
-                       ?> -->
-                       <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary w-100 mt-4 mb-0">DAFTAR</a>
-                       <!-- <?php
-                        }
-                        ?> -->
+                         
+                       <!-- <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary w-100 me-1 mb-0">DAFTAR</a> -->
+                       <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary daftar">DAFTAR</a>
+                      
                         
                                       
                       </div>

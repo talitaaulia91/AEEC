@@ -27,6 +27,10 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/csslogin/css/util.css">
 	<link rel="stylesheet" type="text/css" href="../../assets/csslogin/css/main.css">
 <!--===============================================================================================-->
+
+<!-- CSS MODAL -->
+<link rel="stylesheet" href="../../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../../assets/css/app.css">
 </head>
 <body>
 	
@@ -54,12 +58,18 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-32">
-						<button class="login100-form-btn" name="regis" type="submit">
+						<!-- <button class="login100-form-btn" name="regis" type="submit">
+							Daftar
+						</button> -->
+						<button type="button" class="login100-form-btn" data-bs-toggle="modal"
+							data-bs-target="#primary">
 							Daftar
 						</button>
 					</div>
+
 					
-				</form>
+					
+				
 					<!-- Sudah Punya Akun ? <a href="login.php" >Login</a> -->
 					<h6 class="mt-3 "><center>Sudah Punya Akun ? 
 						<a href="login.php" >
@@ -74,7 +84,64 @@
 	
 
 	<div id="dropDownSelect1"></div>
-	
+
+	<!-- MODAL CHECKLIST -->
+				<!--primary theme Modal -->
+				<div class="modal text-left" id="primary" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel160" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+						role="document">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<h5 class="modal-title white" id="myModalLabel160">Konfirmasi Registrasi
+								</h5>
+								<button type="button" class="close" data-bs-dismiss="modal"
+									aria-label="Close">
+									<i data-feather="x"></i>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>Pilih jika berkenan
+								</p>
+								<ul class="list-group">
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										<span> Saya bersedia menerima email dari Airlangga Executive Education Center mengenai 
+											berbagai pembaruan dan penawaran khusus AEEC UNAIR.</span>
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox"
+													class="form-check-input form-check-primary form-check-glow" 
+													name="check_email" id="customColorCheck1">
+                                        	</div>
+									</li>
+
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										<span> Saya bersedia berlangganan newsletter dari Airlangga Executive Education Center</span>
+											<div class="custom-control custom-checkbox">
+											<input type="checkbox"
+													class="form-check-input form-check-primary form-check-glow" 
+													name="check_news" id="customColorCheck1">
+                                        	</div>
+									</li>
+									
+								</ul>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-light-secondary"
+									data-bs-dismiss="modal">
+									<i class="bx bx-x d-block d-sm-none"></i>
+									<span class="d-none d-sm-block">Tutup</span>
+								</button>
+								<button  name="regis" type="submit" class="btn btn-primary ml-1">
+									<i class="bx bx-check d-block d-sm-none"></i>
+									<span class="d-none d-sm-block">Daftar</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+					<!-- END MODAL -->
+			</form>
 <!--===============================================================================================-->
 	<script src="../../assets/csslogin/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -91,6 +158,11 @@
 	<script src="../../assets/csslogin/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="../../assets/csslogin/js/main.js"></script>
+
+	<!-- JS MODAL -->
+	<script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../../assets/js/mazer.js"></script>
 
 </body>
 </html>

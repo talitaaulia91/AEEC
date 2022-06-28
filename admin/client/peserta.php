@@ -134,8 +134,13 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
+<<<<<<< Updated upstream
             `       <form method="post" action="">
                         <button class="btn btn-success me-1 mb-1" type="submit" name="cetak"><i class="bi bi-download"></i>&nbsp download Excel</button>
+=======
+                    <form method="post" action="">
+                        <button class="btn btn-success me-1 mb-1" type="submit" name="cetak">Cetak</button>
+>>>>>>> Stashed changes
                     </form>
             </div>           
             <div class="card-body">           
@@ -148,7 +153,9 @@ include_once('../../config/database.php');
                             <th>Email</th>
                             <th>Jenis Kelamin</th>
                             <th>No Telp</th>
-                            <th>NPWP</th>                         
+                            <th>NPWP</th>
+                            <th>Notifikasi Email</th>
+                            <th>Notifikasi Newslatter</th>                         
                             <th>Detail</th>
                             <th>Edit</th>
                             <th>Delete</th>
@@ -174,6 +181,22 @@ include_once('../../config/database.php');
                              ?></td> 
                             <td><?php echo $data_client['NO_TELP']; ?></td> 
                             <td><?php echo $data_client['NPWP']; ?></td> 
+                            <td><?php 
+                                    if($data_client['AEEC_EMAIL'] == 0){
+                                        echo 'Tidak';
+                                    }else{
+                                        echo 'Iya';
+                                    }
+                                ?>
+                            </td> 
+                            <td><?php 
+                                    if($data_client['AEEC_NEWSLETTER'] == 0){
+                                        echo 'Tidak';
+                                    }else{
+                                        echo 'Iya';
+                                    }
+                                ?>
+                            </td> 
                             <td>
                                 <a href="detail.php?id=<?php echo $data_client['ID_CLIENT']; ?>" class="btn btn-primary">Detail</a>
                             </td>            
