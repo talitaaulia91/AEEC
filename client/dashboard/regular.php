@@ -207,17 +207,22 @@ h1.heading {
 }
 
 .daftar{
-  position: Relative;
-  float: inherit;
+  /* position: Relative;
+  float: inherit; */
   /* border:1px solid #F74B4B;
   padding:20px;
   left:200px */
   /* margin-top : 10px; */
-  margin-bottom : 0px;
+
   /* btn btn-primary w-100 me-1 mb-0 */
   /* background-color : blue; */
+  position: relative;
+  margin-bottom : 0px;
+  margin-left : 20px;
   width : 100px;
-  z-index:0;
+  z-index:1;
+  flex-wrap: wrap;
+  align-content: flex-end;
 }
 </style>
 
@@ -306,12 +311,10 @@ $reguler = mysqli_query($mysqli,"SELECT p.*, b.*
 
                          
                        <!-- <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary w-100 me-1 mb-0">DAFTAR</a> -->
-                       <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary daftar">DAFTAR</a>
                       
-                        
-                                      
                       </div>
                     </div> 
+                    <a href="../formregis/jenisdaftar.php?idprog=<?=$spare['ID_PROGRAM'] ?>&idbatch=<?=$spare['ID_BATCH'] ?>" class="btn btn-primary daftar">DAFTAR</a>
                   </div>
                 </div>
       <?php }?>

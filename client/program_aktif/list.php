@@ -16,6 +16,20 @@ $pendaftaran = mysqli_query($mysqli, "SELECT * From client
                                         on pendaftaran.ID_BATCH = batch_program.ID_BATCH
                                         where histori.STATUS = 1
                                         and client.ID_USER = '$iduser'");
+$data_daftar = $pendaftaran->fetch_assoc();
+
+// AMBIL NPWP CLIENT
+$npwp    = mysqli_query($mysqli, "SELECT BERKAS_NPWP FROM client 
+                                            where ID_USER = '$iduser'" );
+$ambil_data = $npwp->fetch_assoc();
+$nama_npwp    = $ambil_data['BERKAS_NPWP'];
+
+if($data_daftar != null){
+    if(empty($nama_npwp)){
+        $alert = 'kosong';
+        echo " <script>alert('Mohon Upload berkas NPWP jika ingin mengakses akun MOOC!');</script>";
+    }
+}
 ?>
 
 <!-- BAGIAN HEADER -->
@@ -108,14 +122,28 @@ $pendaftaran = mysqli_query($mysqli, "SELECT * From client
                         </tr>
                     </thead>
                     <tbody>
-
+                    
                     <?php foreach($pendaftaran as $hasil): ?>
                         <tr>
                             <td><?= $hasil['NAMA_CLASS'] ?> </td>
                             <td><?= $hasil['TGL_MULAI'] ?></td>
-                            <td><?= $hasil['TGL_BERAKHIR'] ?></td> 
-                            <td><?= $hasil['USERNAME_MOOC'] ?></td>
-                            <td><?= $hasil['PASSWORD_MOOC'] ?></td> 
+                            <td><?= $hasil['TGL_BERAKHIR'] ?></td>
+                            <?php 
+                                if(isset($alert)){
+                                    ?>
+                                    <td colspan="2"> 
+                                    <a href="#" class="btn btn-warning" style="align:center">Upload NPWP</a>
+                                    </td>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <td><?= $hasil['USERNAME_MOOC'] ?></td>
+                                    <td><?= $hasil['PASSWORD_MOOC'] ?></td> 
+
+                                    <?php
+                                }
+                            ?>
+
                             <td><a href="nilai.php?id_history=<?= $hasil['ID_HISTORI']; ?>&idbatch=<?=$hasil['ID_BATCH']?>" class="btn btn-primary">Lihat</a></td>
                         </tr>
                     <?php endforeach; ?>                   
