@@ -11,7 +11,7 @@ $pendaftaran = mysqli_query($mysqli, "SELECT * From client
                                         join histori
                                         on client.ID_CLIENT = histori.ID_CLIENT
                                         join pendaftaran
-                                        on client.ID_CLIENT = pendaftaran.ID_CLIENT
+                                        on histori.ID_PENDAFTARAN = pendaftaran.ID_PENDAFTARAN
                                         join batch_program
                                         on pendaftaran.ID_BATCH = batch_program.ID_BATCH
                                         where histori.STATUS = 1
