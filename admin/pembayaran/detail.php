@@ -21,7 +21,7 @@ foreach($daftar as $hasil){
 }
 
 // Query dibawah untuk menentukan jumlah pendaftaran
-// Jika lebih dari satu maka akan dilihkan ke halaman kolektif / korporat
+// Jika lebih dari satu maka akan ditambahkan section kolektif / korporat
 $query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
                 FROM aeec.histori where ID_PENDAFTARAN = '$iddaftar'";
 $tabel_history   = mysqli_query($mysqli, $query_history);
@@ -328,7 +328,6 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
     </div>
 
 
-    <!-- MODAL TAMBAH AKUN MOOC -->
 
 
     <script src="../../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

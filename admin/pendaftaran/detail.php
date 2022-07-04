@@ -64,8 +64,13 @@ include_once('../../config/database.php');
         $ambil_data = $regular->fetch_assoc();
         $id_cli    = $ambil_data['ID_PENDAFTARAN'];
 
-        // AMBIL ID CLIENT
-        $idclient = $_GET['idclient'];
+// Query dibawah untuk menentukan jumlah pendaftaran
+// Jika lebih dari satu maka akan ditambahkan section kolektif / korporat
+$query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
+                FROM aeec.histori where ID_PENDAFTARAN = '$iddaftar'";
+$tabel_history   = mysqli_query($mysqli, $query_history);
+$jumlah       = $tabel_history->fetch_assoc();
+$jumlah_pendaftar  = $jumlah['jumlah'];
     ?>
  
     <section class="section">
@@ -101,7 +106,7 @@ include_once('../../config/database.php');
                         </tr>
                         <tr>
                             <th>Tagihan</th>    
-                            <td><?=$ambil_data['TAGIHAN'] ?></td>
+                            <td><?= number_format($ambil_data['TAGIHAN']) ?></td>
                         </tr>
                         <tr>
                             <th>Alamat NPWP</th>    
@@ -113,74 +118,63 @@ include_once('../../config/database.php');
                         </tr>
                     </thead>
                 </table>   
-                <a href="pendaftaran.php" class="btn btn-primary">Kembali</a>
-            </div>
+
+<!-- Ketika Jumlah Pendaftaran Banyak maka akan muncul namanya siapa aja  -->
+<?php
+        if($jumlah_pendaftar > 1){
+        ?>
+
+<div class="table-responsive mt-10">
+    <table class="table table-bordered"  width="100%" cellspacing="0">
+        <thead> 
+            <tr>
+                <th>No</th>
+                <th>Nama Peserta</th>
+                
+            </tr>
+        </thead>
+
+
+        <tbody>
+            <?php
+            $no=1;
+                    $pembayaran = mysqli_query($mysqli, "SELECT * FROM pendaftaran
+                    join histori 
+                    on pendaftaran.ID_PENDAFTARAN = histori.ID_PENDAFTARAN
+                    join client 
+                    on histori.ID_CLIENT = client.ID_CLIENT
+                    and pendaftaran.ID_PENDAFTARAN = '$iddaftar'");
+            foreach ($pembayaran as $client) : 
+            ?>
+            <tr>
+                <td><?php echo $no; $no++; ?></td>
+                <td><?= $client['NAMA']; ?></td>
+                
+            </tr>
+            
+            <?php
+            endforeach
+            ?>
+            <tr>
+                <th colspan="1" class="text-right">Jumlah Peserta</th>
+                <th><?= $jumlah_pendaftar ?></th>
+            </tr>    
+        </tbody>
         </div>
 
-        <!-- <div class="card" >
-            <div class="card-header">
-            </div>
-            <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
-                <thead> 
-                        <tr>
-                            <th class="col-1">ID</th>
-                            <th class="col-2">Nama Peserta</th>
-                            <th class="col-2">Program</th>
-                            <th>Tanggal</th>   
-                            <th>Status</th>
-                            <th>Detail</th>                      
-                            <th>VA</th>
-                    </tr>                    
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query_daftar = "SELECT p.ID_PENDAFTARAN, p.TGL_PENDAFTARAN, p.STATUS, b.NAMA_CLASS, c.NAMA 
-                                            FROM pendaftaran p, batch_program b, client c
-                                            WHERE p.ID_BATCH = b.ID_BATCH
-                                            AND p.ID_CLIENT = c.ID_CLIENT";
-                        $tabel_daftar= mysqli_query($mysqli, $query_daftar);
-                        foreach ($tabel_daftar as $data_daftar) : 
-                        ?>
-                        <tr>
-                            <td><?php echo $data_daftar['ID_PENDAFTARAN'];?></td>
-                            <td><?php echo $data_daftar['NAMA'];?></td>
-                            <td><?php echo $data_daftar['NAMA_CLASS'];?></td>
-                            <td><?php echo $data_daftar['TGL_PENDAFTARAN'];?></td>
-                            <td>
-                                <?php
-                                if($data_daftar['STATUS']=='1'){
-                                ?>
-                                <a href="verif.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&status=<?= $data_daftar['STATUS'] ?>"><font color="success"><i><b>Verifed</b></i></font></a>
-                                <?php
-                                }else{
-                                ?>
-                                 <a href="verif.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>&status=<?= $data_daftar['STATUS'] ?>"><font color="grey"><i><b>Unverified</b></i></font></a>
-                                <?php
-                                }
-                                ?>
-                            </td>            
-                            <td>
-                                <a href="detail.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-primary">Detail</a>
-                            </td>                     
-                            <td>
-                                <a href="add.php?id=<?php echo $data_daftar['ID_PENDAFTARAN']; ?>" class="btn btn-success">Add</a>                            
-                            </td>         
-                        </tr>   
-                        <?php
-                        endforeach
-                        ?>                   
-                    </tbody>
-                    </div>
-
-                </table>
-            </div>
-        </div> -->
-
-
-    <!-- Basic Tables end -->
+    </table>
 </div>
+
+    <?php
+        }
+    ?>
+    <!-- END Daftar Jamak -->
+
+    <a href="pendaftaran.php" class="btn btn-primary">Kembali</a>
+            </div>
+        </div>
+</div>
+
 
             <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
