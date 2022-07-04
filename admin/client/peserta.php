@@ -134,13 +134,9 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
-<<<<<<< Updated upstream
-            `       <form method="post" action="">
+
+                  <form method="post" action="">
                         <button class="btn btn-success me-1 mb-1" type="submit" name="cetak"><i class="bi bi-download"></i>&nbsp download Excel</button>
-=======
-                    <form method="post" action="">
-                        <button class="btn btn-success me-1 mb-1" type="submit" name="cetak">Cetak</button>
->>>>>>> Stashed changes
                     </form>
             </div>           
             <div class="card-body">           
