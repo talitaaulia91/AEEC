@@ -23,12 +23,12 @@ if(isset($_GET['email'])){
                 $mail->isSMTP();                                                                                                                         
                 $mail->Host        = 'smtp.gmail.com;';                                                        
                 $mail->SMTPAuth = true;                                                                           
-                $mail->Username = 'hiedescom2k21@gmail.com';                                     
-                $mail->Password = 'hiedescomhimasi2k21';                                                              
+                $mail->Username = 'andika.surya.rahmad-2020@vokasi.unair.ac.id';                                     
+                $mail->Password = 'surabaya2001';                                                              
                 $mail->SMTPSecure = 'tls';                                                                         
                 $mail->Port         = 587; 
       
-                $mail->setFrom('hiedescom2k21@gmail.com', 'AEEC Unair');             
+                $mail->setFrom('andika.surya.rahmad-2020@vokasi.unair.ac.id', 'AEEC Unair');             
                 $mail->addAddress($email); // where you want to send mail 
                 
                 

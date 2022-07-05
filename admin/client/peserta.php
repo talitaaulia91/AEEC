@@ -134,12 +134,8 @@ include_once('../../config/database.php');
     <section class="section">
         <div class="card" >
             <div class="card-header">
-<<<<<<< HEAD
 
                   <form method="post" action="">
-=======
-                    <form method="post" action="">
->>>>>>> 8ae83c2640d60208aa405911611bfa65abc1eb99
                         <button class="btn btn-success me-1 mb-1" type="submit" name="cetak"><i class="bi bi-download"></i>&nbsp download Excel</button>
                     </form>
             </div>           
