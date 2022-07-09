@@ -264,7 +264,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                     if($iddiskon != 0 ){
                                         $select_diskon    = mysqli_query($mysqli, "SELECT * FROM diskon WHERE ID_DISKON = '$iddiskon'");
                                         $row_diskon       = $select_diskon->fetch_assoc();
-                                        if($row_diskon['BENTUK'] == 'VOUCHER'){
+                                        if($row_diskon['BENTUK'] == 'Voucher'){
                                             $diskon        = $row_diskon['PERSENTASE']/100*$individu;
                                             $total         = $total-$diskon;                                     
                                         ?>
