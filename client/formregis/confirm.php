@@ -414,34 +414,34 @@ if(mysqli_num_rows($select_histori) > 0){
                 if($iddiskon != 0){
                     if($cashback != 0){
                         //insert pendaftaran with kode voucher, but without e-money
-                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, CASHBACK, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                                 VALUES ('$idbatch', '$id_client','$iddiskon',  '$harga_awal', '$cashback', '$fix', '$tanggal', '0')");    
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, CASHBACK, TAGIHAN, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                                 VALUES ('$idbatch', '$id_client','$iddiskon',  '$harga_awal', '$cashback', '$fix', '$tanggal', '0', 'Individu : pendaftaran umum')");    
                     }else{
                         //insert pendaftaran with kode cashback, but without e-money
-                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                                 VALUES ('$idbatch', '$id_client','$iddiskon',  '$harga_awal', '$diskon', '$fix', '$tanggal', '0')");    
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                                 VALUES ('$idbatch', '$id_client','$iddiskon',  '$harga_awal', '$diskon', '$fix', '$tanggal', '0', 'Individu : pendaftaran umum')");    
                     }                 
                 }else{
                   //insert pendaftaran without kode and e-money
-                  $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, HARGA_AWAL, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                           VALUES ('$idbatch', '$id_client', '$harga_awal', '$fix', '$tanggal', '0')"); 
+                  $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, HARGA_AWAL, TAGIHAN, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                           VALUES ('$idbatch', '$id_client', '$harga_awal', '$fix', '$tanggal', '0', 'Individu : pendaftaran umum')"); 
                 }
               
             }else{
                 if($iddiskon != 0){
                     if($cashback != 0){
                         //insert pendaftaran with kode cashback and e-money
-                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, CASHBACK, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                                 VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$cashback', '$default', '$fix', '$tanggal', '0')");
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, CASHBACK, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                                 VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$cashback', '$default', '$fix', '$tanggal', '0', 'Individu : pendaftaran umum')");
                     }else{
                         //insert pendaftaran with kode voucher and e-money
-                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                                 VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$diskon', '$default', '$fix', '$tanggal', '0')"); 
+                        $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                                 VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$diskon', '$default', '$fix', '$tanggal', '0', 'Individu : pendaftaran umum')"); 
                     }                 
                 }else{
                   //insert pendaftaran without kode, but with e-money
-                  $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  HARGA_AWAL, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS) 
-                                                           VALUES ('$idbatch', '$id_client', '$harga_awal', '$default', '$fix', '$tanggal', '0')"); 
+                  $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  HARGA_AWAL, POTONGAN, TAGIHAN, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                           VALUES ('$idbatch', '$id_client', '$harga_awal', '$default', '$fix', '$tanggal', '0', 'Individu : pendaftaran umum')"); 
                 }
                
             }

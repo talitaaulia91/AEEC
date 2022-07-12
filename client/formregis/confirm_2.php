@@ -365,11 +365,11 @@ if(mysqli_num_rows($select_histori) > 0){
                 
                 //insert pendaftaran
                 if($default == 0){
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon','$fix', '$cashback', '$tanggal', '0')");    
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon','$fix', '$cashback', '$tanggal', '0', 'Individu : mengajak 3 partisipan')");    
                 }else{
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon', '$default', '$fix', '$cashback', '$tanggal', '0')");        
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon', '$default', '$fix', '$cashback', '$tanggal', '0', 'Individu : mengajak 3 partisipan')");        
                 }
 
 

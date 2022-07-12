@@ -107,6 +107,19 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
                             <td><?=$ambil_data['TGL_PENDAFTARAN'] ?></td>
                         </tr>
                         <tr>
+                            <th>Jenis  Pendaftaran</th>    
+                            <td><?=$ambil_data['JENIS_PENDAFTARAN'] ?></td>
+                        </tr>
+                        <?php
+                            if($ambil_data['JENIS_PENDAFTARAN'] == 'Individu : follow sosmed'){
+
+                                echo    "<tr>
+                                            <th>Periksa Bukti Follow</th>    
+                                            <td><a href='cek_bukti.php' target='_blank' class='btn btn-success'>Lihat</a>  </td>
+                                        </tr>";
+                            }
+                        ?>
+                        <tr>
                             <th>Tagihan</th>    
                             <td><?= number_format($ambil_data['TAGIHAN']) ?></td>
                         </tr>

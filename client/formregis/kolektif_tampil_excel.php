@@ -397,8 +397,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
     if(isset($_POST['daftar'])){
             
             //insert pendaftaran
-            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN,HARGA_AWAL, TAGIHAN, STATUS) 
-                                                        VALUES ('$idbatch', '$id_client', '$tanggal',$harga_awal, $tagihan, '0')");
+            $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT,  TGL_PENDAFTARAN,HARGA_AWAL, TAGIHAN, STATUS, JENIS_PENDAFTARAN) 
+                                                        VALUES ('$idbatch', '$id_client', '$tanggal',$harga_awal, $tagihan, '0', 'Kolektif')");
 
             //ambil id pendaftaran
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");

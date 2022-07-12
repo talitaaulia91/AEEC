@@ -308,12 +308,12 @@ $iddiskon  = $_GET['iddiskon'];
 
             if($default == 0){
                 //insert pendaftaran
-                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
-                                                         VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$fix', '$cashback', '$tanggal', '0')"); 
+                $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                         VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$fix', '$cashback', '$tanggal', '0', 'Individu : follow sosmed')"); 
              }else{
                  //insert pendaftaran
-                 $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS) 
-                                                          VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$default', '$fix', '$cashback','$tanggal', '0')"); 
+                 $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON,  HARGA_AWAL, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
+                                                          VALUES ('$idbatch', '$id_client', '$iddiskon', '$harga_awal', '$default', '$fix', '$cashback','$tanggal', '0', 'Individu : follow sosmed')"); 
              }
 
             $select_daftar  = mysqli_query($mysqli,"SELECT ID_PENDAFTARAN FROM pendaftaran ORDER BY ID_PENDAFTARAN DESC LIMIT 1");          
