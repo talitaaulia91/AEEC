@@ -1,4 +1,6 @@
 <?php
+//Cek session
+require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
 
         $cek = mysqli_query($mysqli, "SELECT ID_PROGRAM from batch_program WHERE ID_BATCH = '".$_GET['id']."'");

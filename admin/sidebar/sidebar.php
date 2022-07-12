@@ -100,7 +100,7 @@
 
             <li  class="sidebar-item mt-3">
                 <center>                
-                <a href="#" class="btn btn-danger" style="width: 200px; height: 40px;">LOGOUT</a>
+                <a href="../auth/logout.php" class="btn btn-danger" style="width: 200px; height: 40px;">LOGOUT</a>
             </center>
 
             </li>

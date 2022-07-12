@@ -202,6 +202,26 @@ if (isset($_POST["import"])) {
                     $idfak = 'F16';
                 }
             }
+
+            $notif_email = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $em = strtolower (mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]));
+                if($em == 'tidak'){
+                    $notif_email = 0;
+                }else if($em == 'ya'){
+                    $notif_email = 1;
+                }
+            }
+
+            $notif_news = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $news = strtolower (mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]));
+                if($news == 'tidak'){
+                    $notif_news = 0;
+                }else if($news == 'ya'){
+                    $notif_news = 1;
+                }
+            }
             
 
             
@@ -210,7 +230,7 @@ if (isset($_POST["import"])) {
                 
                 // input user
                 $password = password_hash($pass, PASSWORD_DEFAULT);
-                $queri = "INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`) VALUES ('$email', '$password', 'user')";
+                $queri = "INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER`) VALUES ('$email', '$password', 'user', '$notif_email', '$notif_news')";
                 $hasil = mysqli_query($conn, $queri);
 
                 //ambil id_user

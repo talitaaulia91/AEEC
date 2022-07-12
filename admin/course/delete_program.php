@@ -1,4 +1,6 @@
 <?php
+//Cek session
+require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
 if(isset($_GET['id'])){
     $cek = mysqli_query($mysqli, "SELECT ID_KATEGORI from program WHERE ID_PROGRAM = '".$_GET['id']."'");

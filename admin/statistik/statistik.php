@@ -1,5 +1,6 @@
 <?php
-session_start();
+//Cek session
+require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
 ?>
 

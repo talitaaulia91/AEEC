@@ -1,7 +1,7 @@
 <?php
+//Cek session
+require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
-// // require_once("../auth/auth.php"); 
-// require '../method.php';
 
 // $iduser = $_SESSION["user"]["ID_USER"];
 $id             = $_GET['id'];
