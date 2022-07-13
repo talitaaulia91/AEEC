@@ -68,11 +68,11 @@ include_once('../../config/database.php');
 
 // Query dibawah untuk menentukan jumlah pendaftaran
 // Jika lebih dari satu maka akan ditambahkan section kolektif / korporat
-$query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
-                FROM aeec.histori where ID_PENDAFTARAN = '$iddaftar'";
-$tabel_history   = mysqli_query($mysqli, $query_history);
-$jumlah       = $tabel_history->fetch_assoc();
-$jumlah_pendaftar  = $jumlah['jumlah'];
+$query_history      = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
+                        FROM aeec.histori where ID_PENDAFTARAN = '$iddaftar'";
+$tabel_history      = mysqli_query($mysqli, $query_history);
+$jumlah             = $tabel_history->fetch_assoc();
+$jumlah_pendaftar   = $jumlah['jumlah'];
     ?>
  
     <section class="section">
@@ -115,7 +115,7 @@ $jumlah_pendaftar  = $jumlah['jumlah'];
 
                                 echo    "<tr>
                                             <th>Periksa Bukti Follow</th>    
-                                            <td><a href='cek_bukti.php' target='_blank' class='btn btn-success'>Lihat</a>  </td>
+                                            <td><a href='cek_bukti.php?idclient=$idclient' target='_blank' class='btn btn-success'>Lihat</a>  </td>
                                         </tr>";
                             }
                         ?>
