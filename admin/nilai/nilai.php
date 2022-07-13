@@ -108,7 +108,7 @@ foreach($select_client as $data_client){
 
                     
                     <?php
-                        $select_nilai = mysqli_query($mysqli, "SELECT * FROM aeec.penilaian where ID_HISTORI='$id_history'");
+                        $select_nilai = mysqli_query($mysqli, "SELECT * FROM penilaian where ID_HISTORI='$id_history'");
                     ?>
                     <div class="card-body">
                     <div class="table-responsive">

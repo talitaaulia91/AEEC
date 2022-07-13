@@ -136,7 +136,7 @@ $id_client     = $_GET['id_client'];
             $pass                   = $_POST['pass'];     
 
             //insert
-            $update         = mysqli_query($mysqli,"UPDATE `aeec`.`histori` SET `USERNAME_MOOC` = '$username', 
+            $update         = mysqli_query($mysqli,"UPDATE `histori` SET `USERNAME_MOOC` = '$username', 
             `PASSWORD_MOOC` = '$pass' 
             WHERE `ID_CLIENT` = '$id_client ' and `ID_PENDAFTARAN` = '$id_pendaftaran'");
                                         

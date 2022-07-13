@@ -6,7 +6,7 @@ require_once("../auth/auth.php");
 require '../method.php';
 
 $id = $_GET['idprog'];
-$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$program = query("SELECT * FROM program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 ?>

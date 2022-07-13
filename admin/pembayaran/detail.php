@@ -23,7 +23,7 @@ foreach($daftar as $hasil){
 // Query dibawah untuk menentukan jumlah pendaftaran
 // Jika lebih dari satu maka akan ditambahkan section kolektif / korporat
 $query_history = "SELECT count(ID_PENDAFTARAN) as 'jumlah' 
-                FROM aeec.histori where ID_PENDAFTARAN = '$iddaftar'";
+                FROM histori where ID_PENDAFTARAN = '$iddaftar'";
 $tabel_history   = mysqli_query($mysqli, $query_history);
 $jumlah       = $tabel_history->fetch_assoc();
 $jumlah_pendaftar  = $jumlah['jumlah'];

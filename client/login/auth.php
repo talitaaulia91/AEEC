@@ -30,7 +30,7 @@ if(isset($_POST["check_news"])){
     $pass= htmlspecialchars($_POST["password"]);
     $password = password_hash($pass, PASSWORD_DEFAULT);
     
-    $cekemail=query("SELECT * FROM aeec.user where email = '$email'");
+    $cekemail=query("SELECT * FROM user where email = '$email'");
     if($cekemail != null){ //Cek email bila sudah pernah digunakan
         echo "<script> 
         alert('Registrasi Gagal, Email sudah Pernah Digunakan !!');

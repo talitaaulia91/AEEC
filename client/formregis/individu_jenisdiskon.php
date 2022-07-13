@@ -4,14 +4,14 @@ require_once("../../config/database.php");
 
 $id = $_GET['idprog'];
 $batch = $_GET['idbatch'];
-$program = mysqli_query($mysqli,"SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$program = mysqli_query($mysqli,"SELECT * FROM program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 // Ambil ID USER
 $iduser = $_SESSION["user"]["ID_USER"];
 
-$program = mysqli_query($mysqli,"SELECT * FROM aeec.kategori_program");
-$nama = mysqli_query($mysqli,"SELECT * FROM aeec.batch_program join program");
+$program = mysqli_query($mysqli,"SELECT * FROM kategori_program");
+$nama = mysqli_query($mysqli,"SELECT * FROM batch_program join program");
 ?>
 
 <!-- BAGIAN HEADER -->

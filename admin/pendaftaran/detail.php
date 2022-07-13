@@ -59,7 +59,7 @@ include_once('../../config/database.php');
     // AMBIL ID CLIENT
     $idclient = $_GET['idclient'];
     $iddaftar = $_GET['id'];
-        $regular    = mysqli_query($mysqli, "SELECT * FROM aeec.pendaftaran join client 
+        $regular    = mysqli_query($mysqli, "SELECT * FROM pendaftaran join client 
         where pendaftaran.ID_CLIENT = client.ID_CLIENT
         and pendaftaran.ID_PENDAFTARAN = '$iddaftar'
         and client.ID_CLIENT = '$idclient'; " );

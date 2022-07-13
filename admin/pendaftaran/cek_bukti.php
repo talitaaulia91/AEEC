@@ -5,7 +5,7 @@ include_once('../../config/database.php');
 $idclient = $_GET['idclient'];
 
 // AMbil Data Sosmed
-$bukti    = mysqli_query($mysqli, "SELECT * FROM aeec.penyimpanan where ID_CLIENT = '$idclient'" );
+$bukti    = mysqli_query($mysqli, "SELECT * FROM penyimpanan where ID_CLIENT = '$idclient'" );
 $ambil_data = $bukti->fetch_assoc();
 ?>
 

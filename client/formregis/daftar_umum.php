@@ -15,7 +15,7 @@ if(mysqli_num_rows($client) > 0){
 }
 
 
-$program = mysqli_query($mysqli,"SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$program = mysqli_query($mysqli,"SELECT * FROM program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 

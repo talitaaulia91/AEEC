@@ -8,7 +8,7 @@ $idbatch = $_GET['idbatch'];
 $iduser = $_SESSION["user"]["ID_USER"];
 $email = $_SESSION["user"]["EMAIL"];
 
-$program = mysqli_query($mysqli,"SELECT * FROM aeec.program where ID_PROGRAM = '$id'");
+$program = mysqli_query($mysqli,"SELECT * FROM program where ID_PROGRAM = '$id'");
 foreach($program as $hasil){
 }
 

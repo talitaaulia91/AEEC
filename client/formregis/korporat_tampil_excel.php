@@ -249,7 +249,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
                                         <?php
                                             if($data_client['ALUMNI'] == 1){
                                                 $idfak = $data_client['ID_FAKULTAS'];
-                                                $query_fakultas = "SELECT * FROM aeec.fakultas where ID_FAKULTAS = '$idfak'";
+                                                $query_fakultas = "SELECT * FROM fakultas where ID_FAKULTAS = '$idfak'";
                                                 $tabel_fak   = mysqli_query($mysqli, $query_fakultas);
                                                 $hasilfak       = $tabel_fak->fetch_assoc();
                                                 $nama_fakultas  = $hasilfak['NAMA_FAKULTAS'];
@@ -450,7 +450,7 @@ $iduser = $_SESSION["user"]["ID_USER"];
             // $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM histori 
             //                                         WHERE ID_CLIENT = '".$row_cl2['ID_CLIENT']."'");
 
-            $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM aeec.histori join client 
+            $cek_cl3      = mysqli_query($mysqli,"SELECT * FROM histori join client 
                                                     WHERE histori.ID_CLIENT = client.ID_CLIENT
                                                     AND client.ID_CLIENT = '".$row_cl2['ID_CLIENT']."'");
 

@@ -6,7 +6,7 @@ $idprog    = $_GET['idprog'];
 $idbatch   = $_GET['idbatch'];
 $iduser = $_SESSION["user"]["ID_USER"];
 
-$program = query("SELECT * FROM aeec.program where ID_PROGRAM = '$idprog'");
+$program = query("SELECT * FROM program where ID_PROGRAM = '$idprog'");
 foreach($program as $hasil){
 }
 
