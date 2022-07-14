@@ -39,7 +39,7 @@ if(isset($_POST["check_news"])){
         exit;
     }
 
-    $masukan="INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER` ) VALUES ('$email',  '$password', 'user', '$cek_email', '$cek_news')";
+    $masukan="INSERT INTO user (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER` ) VALUES ('$email',  '$password', 'user', '$cek_email', '$cek_news')";
     mysqli_query($koneksi, $masukan); //buat query
 
     // Cek Data

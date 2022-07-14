@@ -160,7 +160,7 @@ h1.heading {
   }
 } 
 .card {
-  display: block; 
+    display: block; 
     margin-bottom: 20px;
     line-height: 1.42857143;
     background-color: #fff;
@@ -207,15 +207,6 @@ h1.heading {
 }
 
 .daftar{
-  /* position: Relative;
-  float: inherit; */
-  /* border:1px solid #F74B4B;
-  padding:20px;
-  left:200px */
-  /* margin-top : 10px; */
-
-  /* btn btn-primary w-100 me-1 mb-0 */
-  /* background-color : blue; */
   position: relative;
   margin-bottom : 0px;
   margin-left : 20px;
