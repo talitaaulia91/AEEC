@@ -127,7 +127,7 @@ foreach($program as $hasil){
                                             <div class="form-group">
                                                 <label for="first-name-vertical">NPWP</label>
                                                 <input type="text" id="first-name-vertical" class="form-control"
-                                                    name="npwp" placeholder="NPWP" required>
+                                                    name="no_npwp" placeholder="NPWP" required>
                                                 <p style="color:red"><i>Pastikan NPWP yang anda masukkan adalan npwp perusahaan anda</i></p>
                                             </div>
                                         </div>
@@ -266,7 +266,7 @@ foreach($program as $hasil){
             $nama       = $_POST['nama'];
             $jk         = $_POST['jk'];
             $notelp     = $_POST['no_telp'];
-            $npwp       = $_POST['npwp'];
+            $no_npwp       = $_POST['no_npwp'];
             $alamatnpwp = $_POST['alamat_npwp'];
             $alamat     = $_POST['alamat_rumah'];
             $instansi   = $_POST['instansi'];
@@ -281,10 +281,16 @@ foreach($program as $hasil){
             $lokasi         = $_FILES['npwp']['tmp_name'];
             move_uploaded_file($lokasi, '../../assets/NPWP/'.$npwp);
 
-            $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN, ID_FAKULTAS) 
-                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$npwp', $alumni, '$jabatan', '$fakultas')");
+            // $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN, ID_FAKULTAS) 
+            //                                          VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$npwp', $alumni, '$jabatan', '$fakultas')");
 
-
+            if($fakultas != null){
+                $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, ID_FAKULTAS, JABATAN) 
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', '$alumni','$fakultas', '$jabatan')");
+            }else{
+                $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', '$alumni', '$jabatan')");
+            }
             //Mengambil id CLIENT
             $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");
             $row       = $idterbaru->fetch_assoc();

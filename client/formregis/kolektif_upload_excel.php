@@ -97,8 +97,7 @@ if (isset($_POST["import"])) {
         $excelSheet = $spreadSheet->getActiveSheet();
         $spreadSheetAry = $excelSheet->toArray();
         $sheetCount = count($spreadSheetAry);
-        // var_dump($sheetCount);
-        // exit;
+
         if($sheetCount < 5){
             echo "<script> 
             alert('Data Yang Anda Masukkan Dalam Excel Kurang Dari dari 4 Peserta, Mohon Lengkapi Data !');
@@ -165,6 +164,7 @@ if (isset($_POST["import"])) {
                 }
             }
             $fakultas = "";
+            $idfak = "";
             if (isset($spreadSheetAry[$i][11])) {
                 $fakultas = strtolower (mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]));
                 //ambil Fakultas
@@ -226,11 +226,11 @@ if (isset($_POST["import"])) {
 
             
             
-            if (!empty($name)) {
+            if ($name!=null & $email!=null) {
                 
                 // input user
                 $password = password_hash($pass, PASSWORD_DEFAULT);
-                $queri = "INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER`) VALUES ('$email', '$password', 'user', '$notif_email', '$notif_news')";
+                $queri = "INSERT INTO `user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER`) VALUES ('$email', '$password', 'user', '$notif_email', '$notif_news')";
                 $hasil = mysqli_query($conn, $queri);
 
                 //ambil id_user
@@ -239,8 +239,17 @@ if (isset($_POST["import"])) {
                 $id_user = $row_id['ID_USER'];
 
                 // input client
-                $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`, `ID_FAKULTAS`) 
-                VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni', '$idfak')";
+                // $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`, `ID_FAKULTAS`) 
+                // VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni', '$idfak')";
+                
+                if($fakultas != null){
+                    $client         = mysqli_query($conn, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, ID_FAKULTAS, JABATAN) 
+                                                             VALUES ('$id_user','$name', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamatrumah', '$instansi', '$namafotobaru', '$alumni','$idfak', '$jabatan')");
+                }else{
+                    $client         = mysqli_query($conn, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                             VALUES ('$id_user','$name', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamatrumah', '$instansi', '$namafotobaru', '$alumni', '$jabatan')");
+                }
+                
                 $paramType = "ssssssssss";
                 $jumlahInput = $sheetCount -2;
 
@@ -255,9 +264,8 @@ if (isset($_POST["import"])) {
                     $jabatan,
                     $alumni
                 );
-                // $insertId = $db->insert($query, $paramType, $paramArray);
-                // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
-                $result = mysqli_query($conn, $query);
+
+                // $result = mysqli_query($conn, $query);
 
                 // if (! empty($insertId)) {
                     

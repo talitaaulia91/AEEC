@@ -406,8 +406,8 @@ $iduser = $_SESSION["user"]["ID_USER"];
             $id_pendaftaran = $row_daftar['ID_PENDAFTARAN'];
 
             //insert histori HRDNYA
-            $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
-                                                        VALUE ('$id_client', '$id_pendaftaran')");
+            // $insert_leader  = mysqli_query($mysqli, "INSERT INTO histori (ID_CLIENT, ID_PENDAFTARAN)
+            //                                             VALUE ('$id_client', '$id_pendaftaran')");
 
             //insert histori Pegawai
             for($i = 0; $i < $jumlah; $i++){ 

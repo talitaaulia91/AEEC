@@ -297,9 +297,13 @@ foreach($program as $hasil){
 
             move_uploaded_file($lokasi, '../../assets/NPWP/'.$namafotobaru);
 
-            $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN, ID_FAKULTAS) 
-                                                     VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', $alumni, '$jabatan', '$fakultas')");
-
+            if($fakultas != null){
+                $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, ID_FAKULTAS, JABATAN) 
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', '$alumni','$fakultas', '$jabatan')");
+            }else{
+                $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$no_npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', '$alumni', '$jabatan')");
+            }
 
             //Mengambil id CLIENT
             $idterbaru = mysqli_query($mysqli,"SELECT ID_CLIENT FROM client ORDER BY ID_CLIENT DESC LIMIT 1");

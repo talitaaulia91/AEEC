@@ -2,6 +2,8 @@
 //Cek session
 require_once("../auth/auth.php"); 
 include_once('../../config/database.php');
+$id_pendaftaran     = $_GET['id_pendaftaran'];
+$id_client     = $_GET['id_client'];
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +70,19 @@ include_once('../../config/database.php');
                         </div>
                         
                         <div class="card-body">
+                            <?php
+                            $query_mooc = "SELECT USERNAME_MOOC, PASSWORD_MOOC FROM histori 
+                                            where ID_CLIENT='$id_client' and ID_PENDAFTARAN='$id_pendaftaran'";
+                            $cek_mooc   = mysqli_query($mysqli, $query_mooc);
+                            $akun       = $cek_mooc->fetch_assoc();
+                            $user = '';
+                            $pass = '';
+                            if(isset($akun['USERNAME_MOOC']) and isset($akun['PASSWORD_MOOC'])){
+                                $user = $akun['USERNAME_MOOC'];
+                                $pass = $akun['PASSWORD_MOOC'];
+                            }
+
+                            ?>
                             <form class="form form-vertical" method="post" action="" enctype="multipart/form-data">
                                 <div class="form-body">
                                     <div class="row">
@@ -76,13 +91,13 @@ include_once('../../config/database.php');
                                         <div class="form-group">
                                                 <label for="first-name-vertical">Username </label>
                                                 <input type="text" id="first-name-vertical" class="form-control" 
-                                                name="username"  required>
+                                                name="username"  required value="<?= $user;?>">
                                         </div>
 
                                         <div class="form-group">
                                                 <label for="first-name-vertical">Password</label>
                                                 <input type="text" id="first-name-vertical" class="form-control" 
-                                                name="pass"  required>
+                                                name="pass"  required value="<?= $pass;?>">
                                         </div>
                                         <div class="col-12 d-flex justify-content-end ">
                                             <button type="submit" name="tambah" value="tambah" class="btn btn-success me-1 mb-1">Add +</button>
@@ -92,6 +107,7 @@ include_once('../../config/database.php');
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -128,8 +144,7 @@ include_once('../../config/database.php');
 </html>
 
 <?php
-$id_pendaftaran     = $_GET['id_pendaftaran'];
-$id_client     = $_GET['id_client'];
+
 
         if(isset($_POST['tambah'])){
             $username             = $_POST['username'];

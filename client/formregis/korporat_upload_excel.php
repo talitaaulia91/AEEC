@@ -37,7 +37,7 @@ if (isset($_POST["ganti"])) {
 
     move_uploaded_file($lokasi, '../../assets/NPWP/'.$namafotobaru);
 
-    $update_npwp         = mysqli_query($koneksi, "UPDATE `aeec`.`client` SET `BERKAS_NPWP` = '$namafotobaru' 
+    $update_npwp         = mysqli_query($koneksi, "UPDATE `client` SET `BERKAS_NPWP` = '$namafotobaru' 
                         WHERE (`ID_USER` = '$iduser')");
 
     if (mysqli_affected_rows($koneksi) > 0){
@@ -169,6 +169,7 @@ if (isset($_POST["import"])) {
             }
             
             $fakultas = "";
+            $idfak = "";
             if (isset($spreadSheetAry[$i][11])) {
                 $fakultas = strtolower (mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]));
                 //ambil Fakultas
@@ -231,7 +232,7 @@ if (isset($_POST["import"])) {
             if (!empty($name)) {
                 // Memasukkan Ke Usser
                 $password = password_hash($pass, PASSWORD_DEFAULT);
-                $queri = "INSERT INTO `aeec`.`user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER`) VALUES ('$email', '$password', 'user', '$notif_email', '$notif_news')";
+                $queri = "INSERT INTO `user` (`EMAIL`, `PASSWORD`, `ROLE`, `AEEC_EMAIL`, `AEEC_NEWSLETTER`) VALUES ('$email', '$password', 'user', '$notif_email', '$notif_news')";
                 $hasil = mysqli_query($conn, $queri);
 
                 //ambil id_user
@@ -240,8 +241,15 @@ if (isset($_POST["import"])) {
                 $id_user = $row_id['ID_USER'];
 
                 // Memasukkan ke Client
-                $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`, `ID_FAKULTAS`) 
-                VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni', '$idfak')";
+                // $query = "INSERT INTO client (`ID_USER`, `NAMA`, `JK`, `NO_TELP`, `NPWP`, `ALAMAT_NPWP`, `ALAMAT_RUMAH`, `INSTANSI`,`JABATAN`, `ALUMNI`, `ID_FAKULTAS`) 
+                // VALUES('$id_user','$name','$jk','$notelp','$npwp','$alamatnpwp','$alamatrumah','$instansi','$jabatan', '$alumni', '$idfak')";
+                if($fakultas != null){
+                    $client         = mysqli_query($conn, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, ID_FAKULTAS, JABATAN) 
+                                                             VALUES ('$id_user','$name', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamatrumah', '$instansi', '$namafotobaru', '$alumni','$idfak', '$jabatan')");
+                }else{
+                    $client         = mysqli_query($conn, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
+                                                             VALUES ('$id_user','$name', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamatrumah', '$instansi', '$namafotobaru', '$alumni', '$jabatan')");
+                }
                 $paramType = "ssssssssss";
                 $jumlahInput = $sheetCount -2;
 
@@ -258,7 +266,7 @@ if (isset($_POST["import"])) {
                 );
                 // $insertId = $db->insert($query, $paramType, $paramArray);
                 // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
-                $result = mysqli_query($conn, $query);
+                // $result = mysqli_query($conn, $query);
 
                 // if (! empty($insertId)) {
                     

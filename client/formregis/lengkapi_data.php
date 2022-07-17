@@ -266,16 +266,24 @@ $iddiskon  = $_GET['iddiskon'];
             $iduser     = $row['ID_USER'];
 
             // UNTUK BUKTI NPWP
-            $berkas_npwp    = $_FILES['berkas_npwp']['name'];
-            $lokasi         = $_FILES['berkas_npwp']['tmp_name'];
-            move_uploaded_file($lokasi, '../../assets/NPWP/'.$berkas_npwp);
+            $nama_npwp           = $_FILES['berkas_npwp']['name'];
+            $lokasi                 = $_FILES['berkas_npwp']['tmp_name'];
+
+            $ekstensiupload = explode('.', $nama_npwp);
+            $ekstensiupload = strtolower (end($ekstensiupload));
+            //Ganti Nama
+            $namafotobaru= uniqid();
+            $namafotobaru.= ".";
+            $namafotobaru.= $ekstensiupload;
+
+            move_uploaded_file($lokasi, '../../assets/NPWP/'.$namafotobaru);
 
             if($fakultas != null){
                 $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, ID_FAKULTAS, JABATAN) 
-                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$berkas_npwp', '$alumni','$fakultas', '$jabatan')");
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', '$alumni','$fakultas', '$jabatan')");
             }else{
                 $client         = mysqli_query($mysqli, "INSERT INTO client (ID_USER, NAMA, JK, NO_TELP, NPWP, ALAMAT_NPWP, ALAMAT_RUMAH, INSTANSI, BERKAS_NPWP, ALUMNI, JABATAN) 
-                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$berkas_npwp', '$alumni', '$jabatan')");
+                                                         VALUES ('$iduser','$nama', '$jk', '$notelp', '$npwp', '$alamatnpwp', '$alamat', '$instansi', '$namafotobaru', '$alumni', '$jabatan')");
             }
 
             //Mengambil id CLIENT
