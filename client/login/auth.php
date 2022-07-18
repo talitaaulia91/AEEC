@@ -2,8 +2,10 @@
 
 require '../method.php';
 
+
 //Registrasi User
 if( isset ($_POST["regis"])){
+
 
 $cek_email  = 0;
 $cek_news   = 0;
