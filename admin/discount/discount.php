@@ -54,7 +54,7 @@ include_once('../../config/database.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Data Diskon</h3>
+                <h3>Diskon Utama</h3>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -69,6 +69,57 @@ include_once('../../config/database.php');
 
     <!-- Basic Tables start -->
     <section class="section">
+        <div class="card" >
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="table1" width="100%" cellspacing="0">
+                        <thead> 
+                            <tr>
+                                <th>ID</th>
+                                <th>Diskon</th>
+                                <th>Presentase</th>
+                                <th>Deskripsi</th>
+                                <th>Detail</th>
+                                <th>Edit</th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $query_diskon = "SELECT * FROM diskon WHERE ID_DISKON IN ('D01','D02', 'D03') ";
+                        $tabel_diskon = mysqli_query($mysqli, $query_diskon);
+                        foreach ($tabel_diskon as $data_diskon) :                            
+                        ?>
+                        <tr>
+                            <td><?php echo $data_diskon['ID_DISKON']; ?></td>
+                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td> 
+                            <td><?php echo $data_diskon['BENTUK'].' '.$data_diskon['PERSENTASE'].'%'; ?></td> 
+                            <td><?php echo $data_diskon['DESKRIPSI']; ?></td> 
+                            <td>
+                                <a href="detail.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
+                            </td>
+                            <td>
+                                <a href="edit.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-warning">Edit</a>
+                            </td>
+                              
+                        </tr>
+                        <?php
+                            endforeach
+                        ?>
+                        </tbody>                     
+                        </div>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+
+
+        <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Kode Voucher</h3>
+        </div>
+        <section class="section">
         <div class="card" >
             <div class="card-header">
                 <a href="insert.php" class="btn btn-success">Add +</a>
@@ -89,31 +140,31 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                         <?php
-                        $query_diskon = "SELECT * FROM diskon ";
-                        $tabel_diskon = mysqli_query($mysqli, $query_diskon);
-                        foreach ($tabel_diskon as $data_diskon) :                            
+                        $query_voucher = "SELECT * FROM diskon WHERE ID_DISKON NOT IN ('D01', 'D02', 'D03')";
+                        $tabel_voucher = mysqli_query($mysqli, $query_voucher);
+                        foreach ($tabel_voucher as $data_voucher) :                            
                         ?>
                         <tr>
-                            <td><?php echo $data_diskon['ID_DISKON']; ?></td>
-                            <td><?php echo $data_diskon['NAMA_DISKON']; ?></td> 
+                            <td><?php echo $data_voucher['ID_DISKON']; ?></td>
+                            <td><?php echo $data_voucher['NAMA_DISKON']; ?></td> 
                             <td>
                                 <?php
-                                if($data_diskon['KODE'] != NULL){
-                                    echo $data_diskon['KODE'];
+                                if($data_voucher['KODE'] != NULL){
+                                    echo $data_voucher['KODE'];
                                 }else{
                                 echo '-'; 
                                 }
                                 ?>
                             </td> 
-                            <td><?php echo $data_diskon['BENTUK'].' '.$data_diskon['PERSENTASE'].'%'; ?></td> 
+                            <td><?php echo $data_voucher['BENTUK'].' '.$data_voucher['PERSENTASE'].'%'; ?></td> 
                             <td>
-                                <a href="detail.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
+                                <a href="detail.php?id=<?php echo $data_voucher['ID_DISKON']; ?>" class="btn btn-primary">Detail</a>
                             </td>
                             <td>
-                                <a href="edit.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-warning">Edit</a>
+                                <a href="edit.php?id=<?php echo $data_voucher['ID_DISKON']; ?>" class="btn btn-warning">Edit</a>
                             </td>
                             <td>
-                                <a href="delete.php?id=<?php echo $data_diskon['ID_DISKON']; ?>" class="btn btn-danger">Delete</a>
+                                <a href="delete.php?id=<?php echo $data_voucher['ID_DISKON']; ?>" class="btn btn-danger">Delete</a>
                             </td>              
                         </tr>
                         <?php
@@ -125,6 +176,25 @@ include_once('../../config/database.php');
                 </div>
             </div>
         </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Basic Tables end -->
 </div>
 

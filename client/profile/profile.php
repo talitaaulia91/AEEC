@@ -117,7 +117,14 @@ $em        = $row_em['EMONEY'];
                     </div>                    
                     <div class="col">
                     <br>
-                    <a href="edit_profile.php" class="btn btn-primary"><i class="bi bi-pencil-square"></i><span>&nbsp &nbsp Edit Profile</span></a>
+                    <?php
+                    if(mysqli_num_rows($client) > 0){
+                    ?>
+                     <a href="edit_profile.php" class="btn btn-primary"><i class="bi bi-pencil-square"></i><span>&nbsp &nbsp Edit Profile</span></a>
+                    <?php
+                    }
+                    ?>
+                  
                     </div>
                     </div>
                     </div>

@@ -91,7 +91,7 @@ include_once('../../config/database.php');
                                             </div>
                                             <div class="form-group">
                                                 <label for="first-name-vertical">BENTUK</label>
-                                                    <select class="form-select" name="jk" required>
+                                                    <select class="form-select" name="bentuk" required>
                                                         <option>Pilih</option>
 	                                                    <option value="Cashback">Cashback</option>
 	                                                    <option value="Voucher">Voucher</option>
@@ -121,7 +121,7 @@ include_once('../../config/database.php');
     <?php
         if(isset($_POST['edit'])){
             $id_diskon      = $_POST['id_diskon'];
-            $kode           = $_POST['nama_diskon'];
+            $kode           = $_POST['kode'];
             $nama_diskon    = $_POST['nama_diskon'];
             $persentase     = $_POST['persentase'];
             $bentuk         = $_POST['bentuk'];

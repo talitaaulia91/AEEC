@@ -322,7 +322,8 @@ if(mysqli_num_rows($select_histori) > 0){
                         <button type="submit" class="btn btn-danger" name="cancel">Cancel</button>
                         <button type="submit" class="btn btn-primary" name="daftar">Daftar</button>
                         </form>
-                      
+                     
+                        
                     </div>
                 </div>
             </div>
