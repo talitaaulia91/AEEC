@@ -291,10 +291,10 @@ $iddiskon  = $_GET['iddiskon'];
             $row       = $idterbaru->fetch_assoc();
             $id_client = $row['ID_CLIENT']; 
             
-            if($iddiskon == 'D03'){
-            echo "<script>location='follow_sosmed.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D03';</script>";   
-            }else if($iddiskon == 'D02'){
-            echo "<script>location='confirm_2.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D02';</script>";
+            if($iddiskon == '3'){
+            echo "<script>location='follow_sosmed.php?idprog=$idprog&idbatch=$idbatch&iddiskon=3';</script>";   
+            }else if($iddiskon == '2'){
+            echo "<script>location='confirm_2.php?idprog=$idprog&idbatch=$idbatch&iddiskon=2';</script>";
             }
            
             

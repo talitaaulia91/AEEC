@@ -127,7 +127,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM batch_program join program");
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
                                                 
                                                 <div class="card-footer">
-                                                    <!-- <a href="individu/diskon.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=D03"><button class="btn btn-outline-white btn-block">Daftar</button></a> -->
+                                              
                                                 
                                                     <button type="button" class="btn btn-outline-white btn-block" data-bs-toggle="modal"
                                                         data-bs-target="#ajak">
@@ -146,7 +146,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM batch_program join program");
                                                 <h1 class="price text-white"><i class="bi bi-people-fill"></i></h1>
                                                 
                                                 <div class="card-footer">
-                                                    <a href="follow_sosmed.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=D03">
+                                                    <a href="follow_sosmed.php?idprog=<?=$hasil['ID_PROGRAM']?>&idbatch=<?=$_GET['idbatch'] ?>&iddiskon=3">
                                                     <button class="btn btn-outline-white btn-block">Daftar</button></a>
 
                                                 </div>
@@ -319,7 +319,7 @@ $nama = mysqli_query($mysqli,"SELECT * FROM batch_program join program");
                     
                     echo "<script> 
                     alert('Email Partisipan Ditemukan');
-                    document.location.href = 'cek_client.php?idprog=$id&idbatch=$batch&iddiskon=D02';
+                    document.location.href = 'cek_client.php?idprog=$id&idbatch=$batch&iddiskon=2';
                     </script>";
                 }else{
                     // Ketika ada email yang salah

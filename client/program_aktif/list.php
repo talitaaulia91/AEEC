@@ -22,8 +22,11 @@ $data_daftar = $pendaftaran->fetch_assoc();
 // AMBIL NPWP CLIENT
 $npwp    = mysqli_query($mysqli, "SELECT BERKAS_NPWP FROM client 
                                             where ID_USER = '$iduser'" );
-$ambil_data = $npwp->fetch_assoc();
-$nama_npwp    = $ambil_data['BERKAS_NPWP'];
+if(mysqli_num_rows($npwp) > 0){
+    $ambil_data = $npwp->fetch_assoc();
+    $nama_npwp    = $ambil_data['BERKAS_NPWP'];
+}
+
 
 if($data_daftar != null){
     if(empty($nama_npwp)){
@@ -93,12 +96,12 @@ if($data_daftar != null){
                                 <p class="text-subtitle text-muted">Program Aktif yang Anda Ikuti</p>
                             </div>
                             <div class="col-12 col-md-6 order-md-2 order-first">
-                                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <!-- <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="../dashboard/dashboard.php">Dashboard</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Program Aktif</li>
                                     </ol>
-                                </nav>
+                                </nav> -->
                             </div>
                         </div>
                     </div>

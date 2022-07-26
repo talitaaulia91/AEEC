@@ -128,6 +128,43 @@ include_once('../../config/database.php');
                                                     name="waktu_berakhir" placeholder="Tanggal Mulai Batch" required>
                                             </div>
                                         </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Harga Individu</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="individu" placeholder="Harga Individu (sebelum PPN)" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Harga Kolektif</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kolektif" placeholder="Harga Kolektif (sebelum PPN)" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Harga Korporat</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="korporat" placeholder="Harga Korporat (sebelum PPN)" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">PPN</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="ppn" placeholder="Besar persentase PPN" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="first-name-vertical">Kuota</label>
+                                                <input type="text" id="first-name-vertical" class="form-control"
+                                                    name="kuota" placeholder="Kuota Peserta" required>
+                                            </div>
+                                        </div>
                                         <div class="form-group ">
                                         <label for="exampleInputPassword1">Gambar</label>
                                         <input type="file" name="gambar"class="form-control" required>
@@ -159,6 +196,15 @@ include_once('../../config/database.php');
                 $tgl_mulai      = $_POST['tgl_mulai'];
                 $waktu_mulai    = $_POST['waktu_mulai'];
                 $waktu_berakhir = $_POST['waktu_berakhir'];
+                $individu        = $_POST['individu'];
+                $kolektif        = $_POST['kolektif'];
+                $korporat        = $_POST['korporat'];
+                $ppn             = $_POST['ppn'];
+                $kuota           = $_POST['kuota'];
+
+                $individu_ppn = $individu + ($individu * $ppn/100);
+                $kolektif_ppn = $kolektif + ($kolektif  * $ppn/100);
+                $korporat_ppn = $korporat + ($korporat * $ppn/100);
 
                 $gambar         = $_FILES['gambar']['name'];
                 $lokasi         = $_FILES['gambar']['tmp_name'];
@@ -167,8 +213,8 @@ include_once('../../config/database.php');
 
                 //insert batch_program
                 
-                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, NAMA_CLASS, TGL_MULAI, WAKTU_MULAI, WAKTU_BERAKHIR,  IMAGE)
-                                                       VALUES ('$id_batch', '$id_program', '$nama_class','$tgl_mulai', '$waktu_mulai','$waktu_berakhir', '$gambar')");
+                $program       = mysqli_query($mysqli,"INSERT INTO batch_program (ID_BATCH, ID_PROGRAM, NAMA_CLASS, TGL_MULAI, WAKTU_MULAI, WAKTU_BERAKHIR, INDIVIDU, KOLEKTIF, KORPORAT,PPN, KUOTA IMAGE)
+                                                       VALUES ('$id_batch', '$id_program', '$nama_class','$tgl_mulai', '$waktu_mulai','$waktu_berakhir', '$individu_ppn', '$kolektif_ppn', '$korporat_ppn', '$ppn','$kuota'.'$gambar')");
 
 
                 

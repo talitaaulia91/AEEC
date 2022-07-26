@@ -108,33 +108,6 @@ include_once('../../config/database.php');
             <td><?= 'Rp. '. number_format($ambil_data['KORPORAT']) ?></td>
         </tr>
         <tr>
-            <th>Voucher 5%</th>    
-            <td><?php
-               $voucher5     = mysqli_query($mysqli, "SELECT voucher5('$id_prog') AS 'voucher5'");
-               $row_voucher5 = $voucher5->fetch_assoc();
-               $v5           = $row_voucher5['voucher5'];
-               echo 'Rp. '.number_format($v5);
-            ?></td>
-        </tr>
-        <tr>
-            <th>Cashback 10%</th>    
-            <td><?php
-               $cashback10   = mysqli_query($mysqli, "SELECT cashback10('$id_prog') AS 'cashback10'");
-               $row_cs10     = $cashback10->fetch_assoc();
-               $cs10         = $row_cs10['cashback10'];
-               echo 'Rp. '.number_format($cs10);
-            ?></td>
-        </tr>
-        <tr>
-            <th>Cashback 5%</th>    
-            <td><?php
-               $cashback5   = mysqli_query($mysqli, "SELECT cashback5('$id_prog') AS 'cashback5'");
-               $row_cs5     = $cashback5->fetch_assoc();
-               $cs5         = $row_cs5['cashback5'];
-               echo 'Rp. '.number_format($cs5);
-            ?></td>
-        </tr>
-        <tr>
             <th width="200px">Jadwal</th>    
             <td><?php
             $jadwal = mysqli_query($mysqli, "SELECT d.*, j.*, h.*, w.*

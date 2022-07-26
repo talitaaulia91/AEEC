@@ -211,7 +211,7 @@ $iddiskon  = $_GET['iddiskon'];
                                     foreach ($class as $data):
                                     echo '<tr>
                                             <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.$data['NAMA_CLASS'].'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
                                         </tr>';

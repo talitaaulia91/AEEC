@@ -83,7 +83,11 @@ include_once('../../config/database.php');
                     <div class="form-group  mb-3">
                     <label for="exampleInputPassword1">Nama Program</label>
                     <input type="text" name="nama_program"class="form-control" value="<?php echo  $ambil_data['NAMA_PROGRAM']; ?>"  required autofocus autocomplete="off">
-                    </div>                  
+                    </div>      
+                    <div class="form-group ">
+                    <label for="exampleInputPassword1">Gambar</label>
+                    <input type="file" name="gambar" class="form-control" required>
+                    </div>            
                 <button type="submit" name="edit" value="edit" class="btn btn-primary w-30 mt-4 mb-2">UPDATE</button>
               </form>
               </div>
@@ -98,10 +102,22 @@ include_once('../../config/database.php');
                   if(isset($_POST['edit'])){
                       $id_program      = $_POST['id_program'];
                       $nama_program    = $_POST['nama_program'];
+
+                      $gambar         = $_FILES['gambar']['name'];
+                      $lokasi         = $_FILES['gambar']['tmp_name'];
+                      move_uploaded_file($lokasi, '../../assets/images/program/'.$gambar);
+    
+                
+                      $old = mysqli_query($mysqli,"SELECT IMAGE from program WHERE ID_PROGRAM='".$_GET['id']."'");
+                      $data = $old->fetch_assoc();
+                      $gambar_lama = $data['IMAGE'];
+
+                      //  unlink('../../assets/images/program/'.$gambar_lama);
+                      move_uploaded_file($lokasi,  '../../assets/images/program/'.$gambar);
                  
                      
                       $update_program  = mysqli_query($mysqli,"UPDATE program
-                                                               SET ID_PROGRAM='$id_program', NAMA_PROGRAM='$nama_program'
+                                                               SET ID_PROGRAM='$id_program', NAMA_PROGRAM='$nama_program', IMAGE='$gambar'
                                                                WHERE ID_PROGRAM='" . $_GET['id'] ."'");
 
                     

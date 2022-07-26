@@ -87,7 +87,7 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                         <?php
-                        $query_diskon = "SELECT * FROM diskon WHERE ID_DISKON IN ('D01','D02', 'D03') ";
+                        $query_diskon = "SELECT * FROM diskon WHERE ID_DISKON IN ('1','2', '3') ";
                         $tabel_diskon = mysqli_query($mysqli, $query_diskon);
                         foreach ($tabel_diskon as $data_diskon) :                            
                         ?>
@@ -140,7 +140,7 @@ include_once('../../config/database.php');
                     </thead>
                     <tbody>
                         <?php
-                        $query_voucher = "SELECT * FROM diskon WHERE ID_DISKON NOT IN ('D01', 'D02', 'D03')";
+                        $query_voucher = "SELECT * FROM diskon WHERE ID_DISKON NOT IN ('1', '2', '3')";
                         $tabel_voucher = mysqli_query($mysqli, $query_voucher);
                         foreach ($tabel_voucher as $data_voucher) :                            
                         ?>

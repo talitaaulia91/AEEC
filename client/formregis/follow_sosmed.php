@@ -10,7 +10,7 @@ $email   = $_SESSION["user"]["EMAIL"];
 
 $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
 if(mysqli_num_rows($client) == 0){  
-    echo "<script>location='lengkapi_data.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D03&email=$email';</script>";
+    echo "<script>location='lengkapi_data.php?idprog=$idprog&idbatch=$idbatch&iddiskon=3&email=$email';</script>";
 }
 
 $select_histori = mysqli_query($mysqli,"SELECT h.* 
@@ -324,7 +324,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                                   VALUES  ('$idclient', '$follow_ig', '$like_ig', '$follow_linkedin', '$like_linkedin', '$subs_yt', '$like_yt', '$follow_twitter', '$follow_fb')");
 
                
-            echo "<script>location='confirm_3.php?idprog=$idprog&idbatch=$idbatch&iddiskon=D03';</script>";
+            echo "<script>location='confirm_3.php?idprog=$idprog&idbatch=$idbatch&iddiskon=3';</script>";
             
         }
 

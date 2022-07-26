@@ -94,6 +94,11 @@ include_once('../../config/database.php');
                                                     name="nama_program" placeholder="Nama Program" required>
                                             </div>
                                         </div>
+                                       
+                                        <div class="form-group ">
+                                        <label for="exampleInputPassword1">Gambar</label>
+                                        <input type="file" name="gambar"class="form-control" required >
+                                        </div>
                                        <br></br>
                                        <br></br>
                                 
@@ -117,11 +122,16 @@ include_once('../../config/database.php');
                 if(isset($_POST['tambah'])){
                 $id_program      = $_POST['id_program'];
                 $nama_program    = $_POST['nama_program'];
+               
+
+                $gambar         = $_FILES['gambar']['name'];
+                $lokasi         = $_FILES['gambar']['tmp_name'];
+                move_uploaded_file($lokasi, '../../assets/images/program/'.$gambar);
 
 
                 //insert program
-                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM)
-                                                       VALUES ('$id_program', 'NRC', '$nama_program')");
+                $program        = mysqli_query($mysqli,"INSERT INTO program (ID_PROGRAM, ID_KATEGORI, NAMA_PROGRAM, IMAGE)
+                                                       VALUES ('$id_program', 'NRC', '$nama_program', '$gambar')");
 
      
                 echo "<script>location='non-reg.php';</script>";

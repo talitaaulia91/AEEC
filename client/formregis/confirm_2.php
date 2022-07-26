@@ -145,7 +145,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                             <?php
                                             }else{
                                             ?>
-                                            <a href="lengkapi_data.php?email=<?php echo $user['EMAIL']; ?>&idprog=<?=$idprog?>&idbatch=<?=$idbatch?>&iddiskon=D02" class="btn btn-primary">Lengkapi data</a>
+                                            <a href="lengkapi_data.php?email=<?php echo $user['EMAIL']; ?>&idprog=<?=$idprog?>&idbatch=<?=$idbatch?>&iddiskon=2" class="btn btn-primary">Lengkapi data</a>
                                             <?php
                                             }
                                             ?>
@@ -253,7 +253,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                     foreach ($class as $data):
                                     echo '<tr>
                                             <td>'.$data['ID_BATCH'].'</td>
-                                            <td>'.$data['NAMA_PROGRAM'].'</td>
+                                            <td>'.$data['NAMA_CLASS'].'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
                                             <td>'.($jumlah_email+1).'</td>
                                             <td>'.'Rp. '.number_format($data['INDIVIDU']*($jumlah_email+1)).'</td>
@@ -366,10 +366,10 @@ if(mysqli_num_rows($select_histori) > 0){
                 //insert pendaftaran
                 if($default == 0){
                 $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon','$fix', '$cashback', '$tanggal', '0', 'Individu : mengajak 3 partisipan')");    
+                                                         VALUES ('$idbatch', '$id_client','2', '$harga_awal','$diskon','$fix', '$cashback', '$tanggal', '0', 'Individu : mengajak 3 partisipan')");    
                 }else{
                 $pendaftaran    = mysqli_query($mysqli, "INSERT INTO pendaftaran (ID_BATCH, ID_CLIENT, ID_DISKON, HARGA_AWAL, DISKON, POTONGAN, TAGIHAN, CASHBACK, TGL_PENDAFTARAN, STATUS, JENIS_PENDAFTARAN) 
-                                                         VALUES ('$idbatch', '$id_client','D02', '$harga_awal','$diskon', '$default', '$fix', '$cashback', '$tanggal', '0', 'Individu : mengajak 3 partisipan')");        
+                                                         VALUES ('$idbatch', '$id_client','2', '$harga_awal','$diskon', '$default', '$fix', '$cashback', '$tanggal', '0', 'Individu : mengajak 3 partisipan')");        
                 }
 
 
