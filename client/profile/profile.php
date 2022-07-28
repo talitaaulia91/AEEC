@@ -8,7 +8,9 @@ $email    = $_SESSION["user"]["EMAIL"];
 
 
 
-$client     = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'");
+$client     = mysqli_query($mysqli,"SELECT c.*, u.* FROM client c, user u 
+                                    where c.ID_USER = U.ID_USER 
+                                    AND u.ID_USER = '$iduser'");
 $row_client = $client->fetch_assoc();
 
 $emoney    = mysqli_query($mysqli, "SELECT SUM(NOMINAL) AS 'EMONEY' FROM cashback
