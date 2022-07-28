@@ -175,7 +175,15 @@ if(mysqli_num_rows($select_histori) > 0){
                                                                     WHERE p.ID_PROGRAM = b.ID_PROGRAM
                                                                     AND ID_BATCH = '$idbatch'");
                         $row_class         = $class->fetch_assoc();
-                        $individu          = $row_class['INDIVIDU'];
+
+                        if($row_class['INDIVIDU'] != null){
+                            $individu          = $row_class['INDIVIDU'];
+                            $ppn               = $row_class['PPN'];
+                        }else{
+                            $individu          = $row_class['B_INDIVIDU'];
+                            $ppn               = $row_class['B_PPN'];
+                        }
+
 
                         $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
                                                                                 WHERE u.ID_USER = c.ID_USER
@@ -216,7 +224,7 @@ if(mysqli_num_rows($select_histori) > 0){
 
 
                         $harga_fix   = 0;
-                        $harga_awal  = $row_class['INDIVIDU']*($jumlah_email+1);
+                        $harga_awal  = $individu*($jumlah_email+1);
                         $diskon      = ($jumlah_email - ($jumlah_email% 3))*$persentase1;
                                                 
 
@@ -254,9 +262,9 @@ if(mysqli_num_rows($select_histori) > 0){
                                     echo '<tr>
                                             <td>'.$data['ID_BATCH'].'</td>
                                             <td>'.$data['NAMA_CLASS'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.'Rp. '.number_format($individu).'</td>
                                             <td>'.($jumlah_email+1).'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']*($jumlah_email+1)).'</td>
+                                            <td>'.'Rp. '.number_format($individu*($jumlah_email+1)).'</td>
                                         </tr>';
                                     endforeach
                                 ?>

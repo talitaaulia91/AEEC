@@ -181,8 +181,21 @@ if(mysqli_num_rows($select_histori) > 0){
                                                         FROM program p, batch_program b
                                                         WHERE p.ID_PROGRAM = b.ID_PROGRAM
                                                         AND ID_BATCH = '$idbatch'");
+                        
                         $row_class         = $class->fetch_assoc();
-                        $individu          = $row_class['INDIVIDU'];
+
+                        if($row_class['INDIVIDU'] != null){
+                            $individu          = $row_class['INDIVIDU'];
+                            $ppn               = $row_class['PPN'];
+                        }else{
+                            $individu          = $row_class['B_INDIVIDU'];
+                            $ppn               = $row_class['B_PPN'];
+                        }
+
+
+
+                        
+                        
 
                         $batas             = 50/100*$individu;
                         if($data_em >= $batas){
@@ -258,7 +271,7 @@ if(mysqli_num_rows($select_histori) > 0){
                                     echo '<tr>
                                             <td>'.$data['ID_BATCH'].'</td>
                                             <td>'.$data['NAMA_CLASS'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.'Rp. '.number_format($individu).'</td>
                                         </tr>';
                                     endforeach;
                                     if($iddiskon != 0 ){

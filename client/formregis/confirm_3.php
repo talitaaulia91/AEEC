@@ -160,8 +160,17 @@ $iddiskon  = $_GET['iddiskon'];
                                                                     FROM program p, batch_program b
                                                                     WHERE p.ID_PROGRAM = b.ID_PROGRAM
                                                                     AND ID_BATCH = '$idbatch'");
+                       
                         $row_class         = $class->fetch_assoc();
-                        $individu          = $row_class['INDIVIDU'];
+
+                        if($row_class['INDIVIDU'] != null){
+                            $individu          = $row_class['INDIVIDU'];
+                            $ppn               = $row_class['PPN'];
+                        }else{
+                            $individu          = $row_class['B_INDIVIDU'];
+                            $ppn               = $row_class['B_PPN'];
+                        }
+
 
                         $emoney            = mysqli_query($mysqli,"SELECT SUM(c.NOMINAL) AS EMONEY FROM user u, cashback c
                                                                    WHERE u.ID_USER = c.ID_USER
@@ -212,8 +221,8 @@ $iddiskon  = $_GET['iddiskon'];
                                     echo '<tr>
                                             <td>'.$data['ID_BATCH'].'</td>
                                             <td>'.$data['NAMA_CLASS'].'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
-                                            <td>'.'Rp. '.number_format($data['INDIVIDU']).'</td>
+                                            <td>'.'Rp. '.number_format($individu).'</td>
+                                            <td>'.'Rp. '.number_format($individu).'</td>
                                         </tr>';
                                     endforeach;
 
