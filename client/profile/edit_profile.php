@@ -82,9 +82,10 @@ $client = mysqli_query($mysqli,"SELECT * FROM client where ID_USER = '$iduser'")
 
                     <!-- CARD UNTUK FORM -->
                     <?php
-    $query_peserta = "SELECT * FROM PESERTA WHERE ID_USER = '$iduser' ";
-    $tabel_peserta = mysqli_query($mysqli, $query_peserta);    
-    $data_peserta  = $tabel_peserta->fetch_assoc();  
+    $client     = mysqli_query($mysqli,"SELECT c.*, u.* FROM client c, user u 
+                                        where c.ID_USER = U.ID_USER 
+                                        AND u.ID_USER = '$iduser'");   
+    $data_peserta  = $client->fetch_assoc();  
     ?>
      <section id="basic-vertical-layouts">
         <div class="row match-height">
