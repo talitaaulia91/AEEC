@@ -294,7 +294,7 @@ $iddiskon  = $_GET['iddiskon'];
             if($iddiskon == '3'){
             echo "<script>location='follow_sosmed.php?idprog=$idprog&idbatch=$idbatch&iddiskon=3';</script>";   
             }else if($iddiskon == '2'){
-            echo "<script>location='confirm_2.php?idprog=$idprog&idbatch=$idbatch&iddiskon=2';</script>";
+            echo "<script>location='confirm_2.php?idprog=$idprog&idbatch=$idbatch&iddiskon1=1&iddiskon2=2';</script>";
             }
            
             
